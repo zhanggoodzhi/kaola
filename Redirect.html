@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+
+    <script type="text/javascript">
+
+        var redirectFlag = true;
+        var authorizationDataKey = 'ls.kaola_authorizationData'; // [ls.] 是 angular-local-storage 默认给key加的前缀
+        var validateDataKey = 'ls.kaola_validateData';
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(decodeURI(r[2]));
+            } else {
+                return null;
+            }
+        }
+        function WriteLocalStorage(key, dataObj) {
+            var localStorage = window.localStorage;
+
+            //localStorage.getItem(key):获取指定key本地存储的值
+            //localStorage.setItem(key,value)：将value存储到key字段
+            //localStorage.removeItem(key):删除指定key本地存储的值
+
+            // [ls.] 是 angular-local-storage 默认给key加的前缀
+            localStorage.removeItem(key);
+
+
+            //JSON.stringify()函数就是把一个对象转化为字符串,将objStr按正常的方式存入localStorage中
+            var dataObjStr = JSON.stringify(dataObj);
+
+            localStorage.setItem(key, dataObjStr);
+        }
+        function RemoveLocalStorage(key) {
+            var localStorage = window.localStorage;
+            localStorage.removeItem(key);
+        }
+
+        function WriteCookies(key, dataObj) {
+            clearCookie(key);
+
+            var dataObjStr = JSON.stringify(dataObj);
+
+            setCookie(key, dataObjStr, 30);
+        }
+
+        //设置cookie
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            var path = "path=/";
+            document.cookie = cname + "=" + cvalue + "; " + expires + "; " + path;
+        }
+        //获取cookie
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+        //清除cookie
+        function clearCookie(name) {
+            setCookie(name, "", -1);
+        }
+
+        function RemoveCookies(key) {
+            setCookie(key, "", -1);
+        }
+
+        function redirect() {
+
+            var directUrl = GetQueryString("directUrl");
+            var tokenData = GetQueryString("token");
+            var username = GetQueryString("username");
+            var nickname = GetQueryString("nickname");
+            var usertype = GetQueryString("usertype");
+            var pic = GetQueryString("pic");
+            var validateCodeData = GetQueryString("validateCode");
+            var apiServiceBaseUri = GetQueryString("apiServiceBaseUri");
+            if (apiServiceBaseUri == undefined || apiServiceBaseUri == null) {
+                apiServiceBaseUri = "/";
+            }
+            var authServiceBaseUri = GetQueryString("authServiceBaseUri");
+            if (authServiceBaseUri == undefined || authServiceBaseUri == null) {
+                authServiceBaseUri = "/";
+            }
+            var answerBaseUrl = GetQueryString("answerBaseUrl");
+            if (answerBaseUrl == undefined || answerBaseUrl == null) {
+                answerBaseUrl = "/";
+            }
+            var paperResourceBaseUrl = GetQueryString("paperResourceBaseUrl");
+            if (paperResourceBaseUrl == undefined || paperResourceBaseUrl == null) {
+                paperResourceBaseUrl = "/";
+            }
+            //console.log(directUrl);
+            //console.log(tokenData);
+            //console.log(username);
+            //console.log(nickname);
+            //console.log(pic);
+            //console.log(validateCodeData);
+
+            //清理数据
+            RemoveLocalStorage(authorizationDataKey);
+            RemoveCookies(authorizationDataKey);
+            RemoveLocalStorage(validateDataKey);
+            RemoveCookies(validateDataKey);
+
+            if (tokenData != null && tokenData.toString().length > 0) {
+
+                var tokenObj = {
+                    token: tokenData,
+                    userName: username,
+                    nickName: nickname,
+                    refreshToken: "",
+                    userType: usertype,
+                    headPic: pic,
+                    useRefreshTokens: false,
+                    directUrl: directUrl,
+
+                    apiServiceBaseUri: apiServiceBaseUri,
+                    authServiceBaseUri: authServiceBaseUri,
+                    answerBaseUrl: answerBaseUrl,
+                    paperResourceBaseUrl: paperResourceBaseUrl,
+                };
+
+                WriteLocalStorage(authorizationDataKey, tokenObj);
+                WriteCookies(authorizationDataKey, tokenObj); // for low version browser: IE8
+            }
+
+            if (validateCodeData != null && validateCodeData.toString().length > 0) {
+
+                var validateCodeObj = {
+                    validateCode: validateCodeData
+                };
+
+                WriteLocalStorage(validateDataKey, validateCodeObj);
+                WriteCookies(validateDataKey, validateCodeObj); // for low version browser: IE8
+            }
+
+            if (directUrl != null && directUrl.toString().length > 0) {
+                if (redirectFlag) {
+                    window.location.href = directUrl;
+                }
+            }
+
+
+        }
+
+    </script>
+</head>
+<body onload="redirect()">
+
+</body>
+</html>

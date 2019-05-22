@@ -1,0 +1,172 @@
+﻿<link rel="stylesheet" href="/web/business/DBReport/DBReport.css">
+<div class="row MainTabSet">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">服务器监控->{{ReportName}}</a>
+    </div>
+    <!-- <div style="padding-left:0px;" class="btn-group btn_container">
+        <div class="btn-group btn_container">
+            时间
+        </div>
+        <div class="btn-group btn_container">
+            <input type="text" id="dtFrom" value="{{DateFrom}}" style="width:220px" readonly class="form-control calendar ">
+        </div>
+        <div class="btn-group btn_container">
+            ~
+        </div>
+        <div class="btn-group btn_container">
+            <input type="text" id="dtTo" value="{{DateTo}}" style="width:220px" readonly class="form-control calendar">
+        </div>
+    </div> -->
+    <div class="search-wrap">
+        <span>服务器：</span>
+        <select id="server" class="form-control select" ng-modal="selectServer">
+                <option ng-repeat="item in servers" ng-value="item.value">{{item.name}}</option>
+            </select>  
+        <span>时间：</span>
+        <input class="form-control datepicker" type="text" id="date-range-picker" ng-modal="dateString" />
+    </div>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active " id="DBReprot_Manage">
+        <div class="content-main">
+            <div class="table-container">
+                <div class="operate_container">
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchHighCPUSQL()">
+                            <span aria-hidden="true">最耗CPU的SQL</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchHighIOSQL()">
+                            <span aria-hidden="true">最耗IO的SQL</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchCPUMonitor()">
+                            <span aria-hidden="true">CPU使用情况</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchMemoryMonitor()">
+                            <span aria-hidden="true">内存使用情况</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchSQLServerHitRatio()">
+                            <span aria-hidden="true">数据库缓存命中率</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchFragmentIndex()">
+                            <span aria-hidden="true">查询需要重组的索引</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchMissingIndex()">
+                            <span aria-hidden="true">查询缺失的索引</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchUnusedIndex()">
+                            <span aria-hidden="true">查询未使用的索引</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchTableInfo()">
+                            <span aria-hidden="true">查询表信息</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="divHighCPU" style="display:none">
+                    <table id="tbHighCPU" ng-table="HighCPUSQLData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'平均使用时间'" style="text-align:left;width:100px;">{{ data.AverageCPUused }}</td>
+                                <td data-title="'共使用时间'" style="padding-left: 20px;width:100px;">{{ data.TotalCPUused}}</td>
+                                <td data-title="'SQL执行次数'" style="padding-left: 20px;width:100px;">{{ data.Executioncount}}</td>
+                                <td data-title="'SQL'" style="padding-left: 20px;">{{ data.IndividualQuery}}</td>
+                                <td data-title="'上一级SQL'" style="padding-left: 20px;">{{ data.ParentQuery}}</td>
+                                <td data-title="'数据库'" style="padding-left: 20px;width:100px;">{{ data.DatabaseName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="divHighIO" style="display:none">
+                    <table id="tbHighIO" ng-table="HighIOSQLData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'平均操作时间'" style="text-align:left;width:100px;" sortable="'ContentProviderName'">{{ data.AverageIO }}</td>
+                                <td data-title="'总操作时间'" style="padding-left: 20px;width:100px;">{{ data.TotalIO}}</td>
+                                <td data-title="'SQL执行次数'" style="padding-left: 20px;width:100px;">{{ data.Executioncount}}</td>
+                                <td data-title="'SQL'" style="padding-left: 20px;">{{ data.IndividualQuery}}</td>
+                                <td data-title="'上一级SQL'" style="padding-left: 20px;">{{ data.ParentQuery}}</td>
+                                <td data-title="'数据库'" style="padding-left: 20px;width:100px;">{{ data.DatabaseName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="divCPUMonitor" style="display:none">
+                    <div class="row" id="chartCpuMonitor" style="height:450px;width:80%; background-color:#E9F0F2;margin:30px auto !important;"></div>
+                </div>
+                <div id="divMemoryMonitor" style="display:none">
+                    <div class="row" id="chartMemoryMonitor" style="height:450px;width:80%; background-color:#E9F0F2;margin:30px auto !important;"></div>
+                </div>
+                <div id="divSQLCacheHitRatioMonitor" style="display:none">
+                    <div class="row" id="chartSQLCacheHitRatioMonitor" style="height:450px;width:80%; background-color:#E9F0F2;margin:30px auto !important;"></div>
+                </div>
+
+                <div id="divFragmentIndex" style="display:none">
+                    <table id="tbFragmentIndex" ng-table="FragmentIndexData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'数据库'" style="text-align:left;">{{ data.DatbaseName }}</td>
+                                <td data-title="'表名'" style="padding-left: 20px;">{{ data.TableName}}</td>
+                                <td data-title="'索引名'" style="padding-left: 20px;">{{ data.IndexName}}</td>
+                                <td data-title="'碎片比例'" style="padding-left: 20px;">{{ data.Fragmentation}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="divMissingIndex" style="display:none">
+                    <table id="tbMissingIndex" ng-table="MissingIndexData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'优化后减少成本(毫秒)'" style="text-align:left;">{{ data.TotalCost }}</td>
+                                <td data-title="'优化后提升比率'" style="padding-left: 20px;">{{ data.avg_user_impact}}</td>
+                                <td data-title="'表名'" style="padding-left: 20px;">{{ data.TableName}}</td>
+                                <td data-title="'缺失索引的字段'" style="padding-left: 20px;">{{ data.EqualityUsage}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="divUnusedIndex" style="display:none">
+                    <table id="tbUnusedIndex" ng-table="UnusedIndexData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'数据库'" style="text-align:left;">{{ data.DatbaseName }}</td>
+                                <td data-title="'表名'" style="padding-left: 20px;">{{ data.TableName}}</td>
+                                <td data-title="'索引名'" style="padding-left: 20px;">{{ data.IndexName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="divTableInfo" style="display:none">
+                    <table id="tbTableInfo" ng-table="TableInfoData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'表名'" style="text-align:left;">{{ data.nameinfo }}</td>
+                                <td data-title="'行数'" style="padding-left: 20px;">{{ data.rowsinfo}}</td>
+                                <td data-title="'申请空间'" style="padding-left: 20px;">{{ data.reserved}}</td>
+                                <td data-title="'使用空间'" style="padding-left: 20px;">{{ data.datainfo}}</td>
+                                <td data-title="'索引空间'" style="padding-left: 20px;">{{ data.index_size}}</td>
+                                <td data-title="'每行占用空间'" style="padding-left: 20px;">{{ data.rowsize}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

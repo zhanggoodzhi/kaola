@@ -1,0 +1,98 @@
+.vm-ib {
+    vertical-align: middle;
+    display: inline-block;
+    margin-bottom: 0px!important;
+}
+
+.lb {
+    text-align: right;
+    width: 100px;
+}
+
+.h-lb {
+    margin-left: 10px;
+}
+
+.h-lb::after {
+    content: ':'
+}
+
+.h-item .margin-left-right-none {
+    margin-left: 0px!important;
+    padding-left: 0px!important;
+}
+
+.lb-inner {
+    width: 50px;
+}
+
+.lb::after {
+    content: ':'
+}
+
+.form-item {
+    margin-bottom: 10px;
+}
+
+.edit-group {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+    max-width: 900px;
+}
+
+.show-detail {
+    margin-left: 15px;
+}
+
+.vm-ib .refrenceText {
+    max-width: 900px;
+    height: auto;
+    overflow-x: hidden;
+}
+
+.active {}
+
+.inactive {
+    border: 0!important;
+}
+
+.content-btn {
+    margin-left: -10px;
+}
+
+.no-mb {
+    margin-bottom: 0!important;
+}
+
+.black {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.h-item {
+    display: inline-block;
+}
+
+.img {
+    width: 500px;
+    height: 300px;
+}
+
+.modal-dialog {
+    margin-top: 5%!important;
+}
+
+@media screen and (min-width: 1400px) {
+    #machine-detail .modal-body {
+        max-height: 850px;
+        overflow: auto;
+    }
+}
+@media screen and (max-width: 1400px) {
+    #machine-detail .modal-body {
+        max-height: 600px;
+        overflow: auto;
+    }
+}

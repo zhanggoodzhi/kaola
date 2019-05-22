@@ -1,0 +1,171 @@
+﻿ 
+<link rel="stylesheet" type="text/css" href="/web/kaola/report/teacherPaperAnalysis.css" />
+<link rel="stylesheet" type="text/css" href="/web/kaola/report/teacherreport.css" />
+
+<div class="row">
+    <div class="content-container">
+        <div class="content-header">
+            <span class="view-header-text" style="float: left; margin-top: 20px;"><i class="glyphicon view-header-icon">&#xe60b;</i>&nbsp;&nbsp;任务明细</span>
+            <div class="input-group col-sm-3 pull-right" style="margin-top: 10px;">
+                <button class="btn btn-info" type="button" ng-click="ReturnTaskListReport()" style="margin-left:5px;float: right;">
+                    <span class="xsmallicon icon-liebiao" style=""></span>返回列表
+                </button><button class="btn btn-warning" type="button" ng-click="ExportTaskReport()" style="float: right;">
+                    <span class="xsmallicon icon-daochu" style=""></span>导出本次报告
+                </button>
+                <a id="a_downloadReportLink" href="/api/report/download/{{ReportDownloadKey}}" style="color:#337ab7;text-decoration:underline;display:none;">下载报告</a>
+            </div>
+        </div>
+        <div class="content-main" style="padding:0px;">
+            <div class="row" style="width:100%;padding:32px 21px;">
+                <div style="float:left;" ng-if="TaskData.ClassID!=undefined&&TaskData.ClassID!=''"><label class="label tasklabel-desc" >班级名称:</label><label class="tasklabel-data">{{TaskData.ClassName}}</label></div>
+                <div style="float:left;"><label class="label tasklabel-desc">任务名称:</label><label class="tasklabel-data">{{TaskData.TaskName}}</label></div>
+                <div style="width:150px;float:left;"><label class="label tasklabel-desc">日期:</label><label class="tasklabel-data">{{TaskData.TaskFinishTime|fixedTimeFilter}}</label></div>
+                <div style="float:left;width:120px" ng-if="TaskData.ClassCount!=undefined&&TaskData.ClassCount>0"><label class="label tasklabel-desc" >班级数量:</label><label class="tasklabel-data">{{TaskData.ClassCount}}</label></div>
+                <div style="width:120px;float:left;"><label class="label tasklabel-desc">试卷数量:</label><label class="tasklabel-data">{{TaskData.PaperCount}}</label></div>
+                <div style="width:120px;float:left;"><label class="label tasklabel-desc">卷面分数:</label><label class="tasklabel-data">{{TaskData.PaperScore}}</label></div>
+                <div style="width:120px;float:left;"><label class="label tasklabel-desc">应考人数:</label><label class="tasklabel-data">{{TaskData.TotalStudentCount}}</label></div>
+                <div style="width:120px;float:left;"><label class="label tasklabel-desc">实考人数:</label><label class="tasklabel-data">{{TaskData.ExamStudentCount}}</label></div>
+            </div>
+            <div style="height:1px;background-color:#e3eaeb; margin:0px 21px;"></div>
+            <div class="row" style="width:100%;padding:0px 21px;">
+
+                <ul class="nav nav-tabs">
+                    <li id="li_simple_report_teacher" class="reportContentTabHeader active"><a href="#simple_report_teacher" data-toggle="tab">简报</a></li>
+                    <li id="li_summary_report_teacher" class="reportContentTabHeader"><a href="#summary_report_teacher" data-toggle="tab">统计分析</a></li>
+                    <li style="display:none;" id="li_analysis_report_teacher" class="reportContentTabHeader"><a href="#analysis_report_teacher" data-toggle="tab">卷面分析</a></li>
+
+                    <li style="display:none;" id="li_testCanvasTab" class="reportContentTabHeader"><a href="#testCanvasTab" data-toggle="tab">testCanvasTab</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="simple_report_teacher">
+                        <div class="input-group col-sm-3 pull-right" style="margin-top: -40px;">
+                            <input style="height:30px;" type="text" class="form-control" placeholder="根据学生学号或姓名过滤" ng-model="QueryParam.StudentFilter">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info button-onlyIcon" type="button" ng-click="QuerySearchStudent()" style="border-top-right-radius:3px;border-bottom-right-radius:3px;border-top-left-radius:0px;border-bottom-left-radius:0px;">
+                                    <span class="xsmallicon icon-sousuo" style=""></span>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="table-container" style="padding:0px 0px 10px 0px;">
+                            <table ng-table="TaskStudentReportList" class="table table-condensed table-bordered table-hover table-center-align" style="border: 1px solid #ddd;margin: 0px 5px;">
+                                <tbody>
+                                    <tr ng-repeat="stu in $data">
+                                        <td data-title="'学号'" width="10%" sortable="'StudentNumber'" style=""><a href="javascript:void(0)" class="color-blue" style="text-decoration:none;" target="_blank" ui-sref="studentreportdetail({studentNumber:'{{stu.StudentNumber}}',taskID:'{{stu.TaskID}}',from:'teacherreportdetail'})">{{ stu.StudentNumber }}</a>  </td>
+                                        <td data-title="'姓名'" width="10%" sortable="'StudentName'">{{ stu.StudentName }}</td>
+                                        <td data-title="'性别'" width="8%" sortable="'StudentSex'">{{ stu.StudentSex | sexFilter }}</td>
+                                        <td data-title="'班级'" width="15%" sortable="'ClassName'">{{ stu.ClassName }}</td>
+                                        <td data-title="'试卷名称'" sortable="'PaperName'">{{ stu.PaperName}}</td>
+                                        <td data-title="'平均值'" width="9%" sortable="'CompareWithAvgScore'">
+                                            <img style="" ng-if="stu.CompareWithAvgScore=='1'" src="/web/img/upArrow.png" />
+                                            <img style="" ng-if="stu.CompareWithAvgScore=='0'" src="/web/img/equalArrow.png" />
+                                            <img style="" ng-if="stu.CompareWithAvgScore=='-1'" src="/web/img/downArrow.png" />
+                                        </td>
+                                        <td data-title="'得分'" width="8%" sortable="'Score'">{{ stu.Score }}</td>
+                                        <td data-title="'听力'" width="8%" sortable="'ListeningScore'">{{ stu.ListeningScore}}</td>
+                                        <td data-title="'口语'" width="8%" sortable="'SpeakingScore'">{{ stu.SpeakingScore}}</td>
+                                        <td data-title="'操作'">
+  
+                                            <a href="javascript:void(0)" target="_blank" ui-sref="studentreportdetail({studentNumber:'{{stu.StudentNumber}}',taskID:'{{stu.TaskID}}',paperID:'{{stu.PaperID}}',classID:'{{stu.ClassID}}',from:'teacherreportdetail'})" style="display:block;" tooltip="查看学生报告" tooltip-placement="bottom">
+                                                <span class="smallicon icon-chakan" aria-hidden="true">
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="summary_report_teacher">
+                        <div class="row" style="width:100%;float:left;margin-top:35px;">
+                            <div style="width:12%;float:left;"><label class="label tasksummarylabel-desc">平均分:</label><label class="tasksummarylabel-data">{{TaskData.AvgScore}}</label></div>
+                            <div style="width:12%;float:left;"><label class="label tasksummarylabel-desc">最高分:</label><label class="tasksummarylabel-data">{{TaskData.MaxScore}}</label></div>
+                            <div style="width:12%;float:left;"><label class="label tasksummarylabel-desc">最低分:</label><label class="tasksummarylabel-data">{{TaskData.MinScore}}</label></div>
+                            <div style="width:12%;float:left;"><label class="label tasksummarylabel-desc">听力最高分:</label><label class="tasksummarylabel-data">{{TaskData.ListeningMaxScore}}</label></div>
+                            <div style="width:12%;float:left;"><label class="label tasksummarylabel-desc">听力最低分:</label><label class="tasksummarylabel-data">{{TaskData.ListeningMinScore}}</label></div>
+                            <div style="width:12%;float:left;"><label class="label tasksummarylabel-desc">口语最高分:</label><label class="tasksummarylabel-data">{{TaskData.SpeakingMaxScore}}</label></div>
+                            <div style="width:12%;float:left;"><label class="label tasksummarylabel-desc">口语最低分:</label><label class="tasksummarylabel-data">{{TaskData.SpeakingMinScore}}</label></div>
+                            <div style="width:12%;float:left;"><label class="label tasksummarylabel-desc">最短用时:</label><label class="tasksummarylabel-data">{{TaskData.MinExamTotalTime}}</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="row" id="allChart" style="height:370px;width:650px; float:left;background-color:#E9F0F2;margin:30px 5% !important;"></div>
+                        </div>
+                        <div class="row">
+                            <div class="row" id="listeningChart" style="height:370px;width:650px; float:left;background-color:#E9F0F2;margin:30px 5% !important;"></div>
+                        </div>
+                        <div class="row">
+                            <div class="row" id="speakingChart" style="height:370px;width:650px; float:left;background-color:#E9F0F2;margin:30px 5% !important;"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="analysis_report_teacher">
+                        <div id="analysis_header">
+                            <div class="row" style="height: 50px;padding: 10px 0px 10px 0px;background-color:#e8ebef;">
+                                <div class="col-md-12" style="">
+                                    <label style="color:#383838;margin-top:4px;">总体评价</label>
+                                    <div class="btn-group dropdown" style="min-width:200px;float:right;">
+                                        <a class="btn btn-block btn-default" href="#" id="dp_taskPaper" data-toggle="dropdown" style="color:#7a7a7a;">
+                                            {{ ChoosedCurrentTaskPaper.PaperName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dp_taskPaper" role="menu" style="min-width:250px;">
+                                            <li ng-repeat="p in TaskPapers"><a href="javascript:void(0);" ng-click="ChangePaperAnalysisData(p.PaperID)">{{p.PaperName}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row" style="height: 50px;padding: 10px 0px 10px 0px;">
+
+                                <div class="col-md-12" style="">
+                                    <a style="font-weight:bold;color:#383838;text-decoration:none;">本次试卷的整体情况为:</a>
+                                    <a style="text-decoration:none;">{{ChoosedCurrentTaskPaper.PaperDesc}}</a>
+                                </div>
+
+
+                            </div>
+                            <div class="row" style="height: 320px;padding: 10px 0px 10px 0px;margin-top:20px;">
+
+                                <div class="col-md-6" style="">
+                                    <div class="row" id="analysis_barChart" style="height:300px;width:400px;  float:left;background-color:#E9F0F2;"></div>
+                                </div>
+                                <div class="col-md-6" style="">
+                                    <div class="row" id="analysis_radarChart" style="height:300px;width:400px; float:left;background-color:#E9F0F2;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <teacher-paper-analysis padata="CurrentPaperAnalysisData"></teacher-paper-analysis>
+                    </div>
+
+                    <div class="tab-pane" id="testCanvasTab">
+
+                        <div id="canvas-div" style="">
+                            Canvas
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ExportingDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px; margin: auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="">导出报告</h5>
+            </div>
+
+            <div class="modal-body">
+                <div style="" ng-if="ByArea==true&&ReportDownloadKey==''">正在导出报告(<a>{{ExportAreaPercent}}</a>%)...</div>
+                <div style="" ng-if="ByArea==false&&ReportDownloadKey==''">正在导出报告...</div>
+                <div style="" ng-if="ReportDownloadKey!=''"><a id="a_downloadReportLink" href="/api/report/download/{{ReportDownloadKey}}" style="color:#337ab7;text-decoration:underline;">下载报告</a></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" style="width: 169px">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

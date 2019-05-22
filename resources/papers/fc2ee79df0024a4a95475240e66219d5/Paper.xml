@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<paper guid="fc2ee79df0024a4a95475240e66219d5" type="1" name="组卷_口语_转述类型" title="" backgroundaudio="" backgroudaudioseconds="0" times="0" image="" content="" waitseconds="0" listeningscore="0" speakingscore="35" papertemplateid="" papertemplatename="" totalexamtime="917" totalscore="35" IsCustomPaper="True">
+  <areas>
+    <area type="19" title="一、信息转述" prompt="听短文，请根据所听到的内容，记录思维导图提示的信息，请在规定时间完成转述。" promptaudio="area_19_audio.mp3" promptaudioseconds="0" index="1" guid="36c303a7383c48d3946524379c572153" times="1" presubmitmaxseconds="0" backgroundaudio="area_19_audio.mp3" backgroundaudioseconds="12">
+      <questions>
+        <question guid="9871478046854eebb8cd9274b4c8bbfe" title="" prompt="你将听到一篇关于作者家最近变化的记述，录音播放两遍。请根据所听到的内容，记录思维导图提示的信息，在50秒钟内说一段话转述故事内容，包含五个要点的内容。&#xD;&#xA;现在你有15秒钟的时间阅读思维导图。" promptaudio="9871478046854eebb8cd9274b4c8bbfe_PromptAudio.mp3" promptaudioseconds="34" text="" image="9871478046854eebb8cd9274b4c8bbfe_Image.jpg" audio="9871478046854eebb8cd9274b4c8bbfe_Audio.mp3" audioseconds="25" video="" videoseconds="25" times="2" prepareseconds="15" tips="下面请听录音两遍。" tipsaudio="9871478046854eebb8cd9274b4c8bbfe_TipsAudio.mp3" tipsaudioseconds="2" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="My children are growing up fast. My daughter is 16 and my boy is already in junior high school. As they get bigger, our house seems to get smaller. So we want to sell some of our things in a yard sale and give the money to a children's home." answerseconds="50" waitseconds="0" score="5">
+          <contents>
+            <content guid="cbb5860542be42dba3227faffa01a9b0" text="" image="" audio="cbb5860542be42dba3227faffa01a9b0_Audio.mp3" audioseconds="6" video="" videoseconds="6" times="2" prepareseconds="50" answerseconds="50" tips="下面你有50秒钟的时间准备。你的介绍可以这样开始：Her children are..." tipsaudio="" tipsaudioSeconds="0" audiotext="" index="1" choosetype="1" layout="1" resourcetype="1" score="5" presubmitmaxseconds="0">
+              <score content="5" />
+              <refrencetexts>
+                <refrencetext index="1" guid="d469a0e5c12f445184b8f238e331fdc1" content="Her children are growing up fast. Her daughter is sixteen years old and her boy is already in junior high school. As they get older, their house seems to be smaller. So they want to sell some of their things in a yard and give the money to transform a children's home. " />
+                <refrencetext index="2" guid="b4ebdedbfced4fff90bb691b5c170d5a" content="Her children are growing up fast. Her daughter is sixteen years old and her son is already in junior high school. As they get older, their house seems to be smaller. So they want to sell some of their things in a yard and give the money to have a children's home. " />
+                <refrencetext index="3" guid="48728904a6e54e1f9563743e92afebde" content="Her children are growing up fast. Her daughter is sixteen years old and her son is already in junior high school. As they get older, their house seems to be smaller. So they want to sell some of their things in a yard and give the money to a children's home. " />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="6df41450e7de4ba1b8b5962ee8d5fb8f" content="Her children are growing up fast. Her daughter is 16 and her son is already in junior high school. As they get older, their house seems to get smaller. So they want to sell some of their things in a yard and give the money to a children's home. " audio="" audioseconds="0" />
+                <answer index="1" guid="b3087cf049ea407f8e904d9abc7d91f3" content="Her children are growing up fast. Her daughter is 16 and her son is already in junior high school. As they get older, their house seems to be smaller. So they want to sell some of their things in a yard and give the money to a children's home. &#xD;&#xA;" audio="" audioseconds="0" />
+                <answer index="2" guid="8ef79a2788e9423f9497fec80b389f4a" content="Her children are growing up fast. Her daughter is 16 and her boy is already in junior high school. As they get older, their house seems to get smaller. So they want to sell some of their things in a yard and give the money to transform a children's home. &#xD;&#xA;" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="25" title="二、听后记录并转述信息" prompt="听后记录并转述信息。" promptaudio="area_25_audio.mp3" promptaudioseconds="0" index="2" guid="fe77edd02060428f8e4cf617089141d4" times="1" presubmitmaxseconds="0" backgroundaudio="area_25_audio.mp3" backgroundaudioseconds="3">
+      <questions>
+        <question guid="3ff20c8832df4aac894051894f295c06" title="" prompt="第一节 每小题仅填写一个词。录音播放前，你将有20秒钟的时间阅读试题，听完后你将有60秒钟的作答时间。这段短文你将听两遍。" promptaudio="3ff20c8832df4aac894051894f295c06_PromptAudio.mp3" promptaudioseconds="16" text="" image="3ff20c8832df4aac894051894f295c06_Image.jpg" audio="3ff20c8832df4aac894051894f295c06_Audio.mp3" audioseconds="35" video="" videoseconds="35" times="0" prepareseconds="0" tips="第二节 请再听一遍短文，在50秒钟内完成转述。" tipsaudio="3ff20c8832df4aac894051894f295c06_TipsAudio.mp3" tipsaudioseconds="4" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="My name is Tom. I have a robot. Its name is Blue. My father bought it two years ago. Blue has two eyes, one mouth and no ears. Blue is good at cooking. It can cook noodles and rice. Blue can dance too. We often dance together. Blue is my friend. I like it very much." answerseconds="0" waitseconds="0" score="10">
+          <contents>
+            <content guid="80e0529bd8e5444ab3d5de9c809cc56a" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="1" choosetype="3" layout="1" resourcetype="0" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="6f6c9676a9514ed0988f6a48a2747bb4" content="blue" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="21f2a9fcb88c48c5a5235d7e974e84b9" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="2" choosetype="3" layout="1" resourcetype="0" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="76bb3b0c9811459bb624402095bcf666" content="father" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="4261518cd1e84a77aee44785d24821e1" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="3" choosetype="3" layout="1" resourcetype="0" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="b71d35939a324ea49a2be5efdecf7d5d" content="no" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="d97a3c1e74514e51aaf212660c87bfe2" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="4" choosetype="3" layout="1" resourcetype="0" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="9bf3857370b8443088f91eb011b2648a" content="dance" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="da2fab9205df4adc9638c92675f396e8" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="5" choosetype="3" layout="1" resourcetype="0" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="64de87427c9f49e591609b5d01c4a96a" content="friend" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="63e6387e20274af78374d3ab595d17be" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="15" answerseconds="50" tips="Tom has a robot…" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="6" choosetype="0" layout="0" resourcetype="0" score="5" presubmitmaxseconds="0">
+              <score content="5" />
+              <refrencetexts>
+                <refrencetext index="1" guid="c9aeb90c607446d29388c603b1d99acd" content="Tom has a robot. Its name is Blue. Tom's father bought it for him two years ago. Blue has two eyes, one mouth and no ears. Blue is good at cooking. It can cook noodles and rice. Blue can dance too. It often dances with Tom. Blue is Tom's friend. Tom likes it very much." />
+                <refrencetext index="2" guid="8e1d7b6693a7425a99ceb4860b3bfcc5" content="Tom has a robot. Its name is Blue. Tom's father bought it for him two years ago. Blue has two eyes, one mouth and no ears. Blue is good at cooking. It can cook noodles and rice. Blue can also dance. It often dances with Tom. Blue is Tom's friend. Tom likes it very much." />
+                <refrencetext index="3" guid="691304eb6f4d4979b32198d28906e19b" content="Tom has a robot. Its name is Blue. Tom's father bought it for him two years ago. Blue has two eyes, one mouth. But he doesn't have ears. Blue likes cooking. It can cook noodles and rice. Blue can also dance. It often dances with Tom. Blue is Tom's friend. Tom likes it very much." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="1" guid="e7f57ab06aac42ff9e54febcba9d86c5" content="Tom has a robot. Its name is Blue. Tom's father bought it for him two years ago. Blue has two eyes, one mouth and no ears. Blue is good at cooking. It can cook noodles and rice. Blue can dance too. It often dances with Tom. Blue is Tom's friend. Tom likes it very much." audio="" audioseconds="0" />
+                <answer index="2" guid="255234ec73ad4d0d85574811875d31df" content="Tom has a robot. Its name is Blue. Tom's father bought it for him two years ago. Blue has two eyes, one mouth and no ears. Blue is good at cooking. It can cook noodles and rice. Blue can also dance. It often dances with Tom. Blue is Tom's friend. Tom likes it very much." audio="" audioseconds="0" />
+                <answer index="3" guid="43a4d8e33451431db1eb665198261477" content="Tom has a robot. Its name is Blue. Tom's father bought it for him two years ago. Blue has two eyes, one mouth. But he doesn't have ears. Blue likes cooking. It can cook noodles and rice. Blue can also dance. It often dances with Tom. Blue is Tom's friend. Tom likes it very much." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="26" title="三、信息转述与询问" prompt="信息转述及询问" promptaudio="area_26_audio.mp3" promptaudioseconds="0" index="3" guid="6bb89b8197dc4920b2a6710a877b8b04" times="1" presubmitmaxseconds="0" backgroundaudio="area_26_audio.mp3" backgroundaudioseconds="3">
+      <questions>
+        <question guid="4173a28526d8441fabf99e0ed2c88663" title="" prompt="这边是第一部分的提示语" promptaudio="4173a28526d8441fabf99e0ed2c88663_PromptAudio.mp3" promptaudioseconds="6" text="又是答题指导.听完转述" image="4173a28526d8441fabf99e0ed2c88663_Image.jpg" audio="4173a28526d8441fabf99e0ed2c88663_Audio.mp3" audioseconds="6" video="" videoseconds="6" times="2" prepareseconds="5" tips="这边是指导文本，我放了一段的短文.&#xD;&#xA;My name is Tom. I'm a student in Green Middle School. There are five people in my family. My father is a doctor. He is very busy. My mother is a teacher. Her school is not far from our home, so she usually goes to work on foot. My grandf" tipsaudio="4173a28526d8441fabf99e0ed2c88663_TipsAudio.mp3" tipsaudioseconds="6" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="My name is Tom. I'm a student in Green Middle School. There are five people in my family. My father is a doctor. He is very busy. My mother is a teacher. Her school is not far from our home, so she usually goes to work on foot. My grandfather likes dancing. He often dances in the park. My grandmother likes cooking. She often cooks delicious food for us." answerseconds="0" waitseconds="0" score="20">
+          <contents>
+            <content guid="7e18c82abf894f219f576bbd552a3837" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" answerseconds="5" tips="这边是答案提示部分.&#xD;&#xA;下面你有50秒钟的时间准备。你的介绍可以这样开始: Tom is a student… &#xD;&#xA;Tom is a student in Green Middle School. There are five people in Tom's family. His father is a doctor. He is very busy. Tom's mother is a teacher. She usually walks to the school. Tom's grandfather likes dancing. He often dances in the park. Tom's grandmother likes cooking. She often cooks delicious food for the family." tipsaudio="7e18c82abf894f219f576bbd552a3837_TipAudio.mp3" tipsaudioSeconds="6" audiotext="" index="0" choosetype="0" layout="0" resourcetype="0" score="10" presubmitmaxseconds="0">
+              <score content="10" />
+              <refrencetexts>
+                <refrencetext index="0" guid="7672ce09d7e7448ca26ac250c723e6de" content="Tom is a student in Green Middle School. There are five people in Tom's family. His father is a doctor. He is very busy. Tom's mother is a teacher. She usually walks to the school. Tom's grandfather likes dancing. He often dances in the park. Tom's grandmother likes cooking. She often cooks delicious food for the family." />
+                <refrencetext index="1" guid="fb5039f70d4047419c26659074ff82b1" content="Tom is a student. He studies in Green Middle School. There are five people in Tom's family. His father is a doctor. Tom's mother is a teacher. She works in a school. The school is near their home, so she usually goes to work on foot. Tom's grandfather likes dancing in the park. Tom's grandmother likes cooking. She often cooks delicious food." />
+                <refrencetext index="2" guid="842be75c84524c4f88379a40be40a0be" content="Tom is a student in Green Middle School. There are five people in Tom's family. Tom's father is a doctor. He is very busy. Tom's mother is a teacher. She usually goes to work on foot. Tom's grandfather likes dancing in the park. Tom's grandmother likes cooking. She likes cooking food for the family." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="8c45e2c32c6646e5b71ad4cac7af7dfd" content="Tom is a student in Green Middle School. There are five people in Tom's family. His father is a doctor. He is very busy. Tom's mother is a teacher. She usually walks to the school. Tom's grandfather likes dancing. He often dances in the park. Tom's grandmother likes cooking. She often cooks delicious food for the family." audio="" audioseconds="0" />
+                <answer index="1" guid="cc0a422029774aa6bcd9bfb81608adc6" content="Tom is a student. He studies in Green Middle School. There are five people in Tom's family. His father is a doctor. Tom's mother is a teacher. She works in a school. The school is near their home, so she usually goes to work on foot. Tom's grandfather likes dancing in the park. Tom's grandmother likes cooking. She often cooks delicious food." audio="" audioseconds="0" />
+                <answer index="2" guid="894e00fd381b4c67b19b15aa9ea1a00e" content="Tom is a student in Green Middle School. There are five people in Tom's family. Tom's father is a doctor. He is very busy. Tom's mother is a teacher. She usually goes to work on foot. Tom's grandfather likes dancing in the park. Tom's grandmother likes cooking. She likes cooking food for the family." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+        <question guid="8e699659a4384b2a9c03eb776442c00f" title="" prompt="这边是第二部分的提示语" promptaudio="" promptaudioseconds="0" text="第二部分的答题指导" image="" audio="8e699659a4384b2a9c03eb776442c00f_Audio.mp3" audioseconds="6" video="" videoseconds="6" times="1" prepareseconds="0" tips="" tipsaudio="" tipsaudioseconds="0" index="2" presubmitmaxseconds="0" newscreen="True" audiotext="" answerseconds="0" waitseconds="0" score="0">
+          <contents>
+            <content guid="762ae94e13af4b71aab6fb5359cc6246" text="Tom is a student in Green Middle School. There are five people in Tom's family. His father is a doctor. He is very busy. Tom's mother is a teacher. She usually walks to the school. Tom's grandfather likes dancing. " image="" audio="" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="1" choosetype="0" layout="0" resourcetype="0" score="5" presubmitmaxseconds="0">
+              <score content="5" />
+              <refrencetexts>
+                <refrencetext index="0" guid="608343bb735c4169acfc6546ea38a0d6" content="Middle School" />
+                <refrencetext index="1" guid="44839c8483d6447384b18c7af121def7" content="His father" />
+                <refrencetext index="2" guid="1861a505bdd142c28a062de9670adc6a" content="very busy." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="60328c64f79346afb93688e61be188c0" content="Middle School" audio="" audioseconds="0" />
+                <answer index="1" guid="79b5979dcfb44943937e3eda66171f9e" content="His father" audio="" audioseconds="0" />
+                <answer index="2" guid="eada5c1fb3644e8fa29305b86eb736f2" content="very busy." audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="984e2561f6264d818cbe2ca5696986c5" text="My name is Tom. I'm a student in Green Middle School. There are five people in my family. My father is a doctor. He is very busy. My mother is a teacher. Her school is not far from our home, " image="" audio="" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="2" choosetype="0" layout="0" resourcetype="0" score="5" presubmitmaxseconds="0">
+              <score content="5" />
+              <refrencetexts>
+                <refrencetext index="0" guid="e275d7f19fe24413b6a1c0c1d5201895" content="To China." />
+                <refrencetext index="1" guid="1a33759a7e7747c383740ebb3792bee8" content="To the UK. " />
+                <refrencetext index="2" guid="cd7ac8a34cf543e3a8e8460f58f55a28" content="To Australia." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="327d19988c6f4157bd57095f8ce29291" content="To China." audio="" audioseconds="0" />
+                <answer index="1" guid="c1a0cfd0261b4221b2187687f89bed3b" content="To the UK. " audio="" audioseconds="0" />
+                <answer index="2" guid="5380a97a0443488eb1e44cbe2a24f935" content="To Australia." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+  </areas>
+  <sections />
+</paper>

@@ -1,0 +1,98 @@
+﻿
+
+<div class="row MainTabSet">
+
+    <ul class="nav nav-tabs">
+        <li class="signup-tab-header  active"><a href="#user_Add" data-toggle="tab">添加用户</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active " id="user_Add">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+            <form class="form-horizontal" id="addUserForm" autocomplete="off" style="margin-left: 20px; margin-top: 30px;">
+
+                <div class="form-group">
+                    <label for="userName" class="col-sm-3   col-xs-3 control-label ">姓名：</label>
+                    <div class="col-sm-5  col-xs-5" style="max-width: 300px;">
+                        <input type="text" class="form-control" id="userName" placeholder="请输入姓名" ng-model="AddBusinessUser.UserName">
+
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user_phoneNum" class="col-sm-3  col-xs-3 control-label ">登录手机号：</label>
+                    <div class="col-sm-5  col-xs-5" style="max-width: 300px;">
+                        <input type="text" class="form-control" id="user_phoneNum" placeholder="请输入登录手机号" ng-model="AddBusinessUser.PhoneNumber">
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user_password" class="col-sm-3  col-xs-3 control-label">登录密码：</label>
+                    <div class="col-sm-5 col-xs-5" style="max-width: 300px;">
+                        <input type="password" class="form-control" id="user_password" placeholder="新密码" maxlength="20" ng-model="AddBusinessUser.Password">
+
+                    </div>
+                    <input type="password" style="width: 0; height: 0; float: left; visibility: hidden" />
+                </div>
+
+                <div class="form-group">
+                    <label for="id_userrole" class="col-sm-3  col-xs-3 control-label">权限：</label>
+                    <div class="col-sm-8 col-xs-8" style="">
+                        <div class="row" ng-repeat="role in BusniessRoles" style="height: 40px; line-height: 40px;">
+                            <div class="checkbox col-sm-3 col-xs-3 ">
+                                <label>
+                                    <input style="margin-top: 14px;" type="checkbox" id="role_{{role.RoleID}}" value="{{role.RoleID}}" ng-checked="isSelected(role.RoleID)" ng-click="updateSelection($event,role.RoleID,role.RoleName)"> {{role.RoleName}}
+                                </label>
+                            </div>
+
+                            <div class="col-sm-9 col-xs-9">
+                                <div class="row" ng-if="role.RoleID==3&&ShowContentFlag==true">
+                                    <div class="" style="width:120px;float:left;">所属内容商：</div>
+                                    <div class="" style="float:left;">
+                                        <div class="dropdown" style="min-width: 160px; float: left;">
+                                            <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;min-width:160px;">
+                                                {{Choosed.ContentProvider.ContentProviderName== "" ? "请选择" : Choosed.ContentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;">
+                                                <li ng-repeat="content in ContentProvider"><a href="javascript:void(0);" ng-click="ContentChange(content)">{{content.ContentProviderName}}</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-if="role.RoleID==2">
+                                    <div class="col-sm-4 col-xs-4">
+                                        所属渠道商：
+                                    </div>
+                                    <div class="col-sm-8 col-xs-8">
+                                        <div class="dropdown" style="width: 120px; float: left;">
+                                            <a class="btn btn-default" href="#" id="paper_area" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;">
+                                                {{Choosed.ChannelBusiness.BusinessName== "" ? "请选择" : Choosed.ChannelBusiness.BusinessName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;">
+                                                <li ng-repeat="chanel in ChannelBusiness"><a href="javascript:void(0);" ng-click="ChannelChange(chanel)">{{chanel.BusinessName}}</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="id_busniessAdd" class="col-sm-3 col-xs-3  control-label"></label>
+                    <div class="col-sm-7 col-xs-7">
+                        <button type="button" class="btn btn-primary button-simpleText" style="width: 120px; margin-bottom: 50px; margin-left: 20px;" id="id_busniessAdd" ng-click="BusinessUserAdd()">保存</button>
+                        <button type="button" class="btn btn-primary button-simpleText" style="width: 120px; margin-bottom: 50px; margin-left: 20px;" ng-click="GoToList()">取消</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

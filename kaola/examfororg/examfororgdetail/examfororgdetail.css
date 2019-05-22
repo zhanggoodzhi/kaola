@@ -1,0 +1,478 @@
+﻿
+
+
+
+.card {
+    clear: both;
+    border: solid 1px #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+    margin: 10px 0px;
+}
+
+.card-header {
+    background-color: #F4F5F9;
+    padding: 12px 15px 10px;
+    height: 45px;
+}
+
+    .card-header .status {
+        float: left;
+        padding: 2px 15px;
+        color: #fff;
+        border-radius: 30px;
+    }
+
+.status.notstart {
+    background-color: #FA8714;
+}
+
+.status.examing {
+    background-color: #00BB03;
+}
+
+.status.marking {
+    background-color: #00BB03;
+}
+
+.status.markfinished {
+    background-color: #00BB03;
+}
+
+.status.over {
+    background-color: #999999;
+}
+
+.status.countdown {
+    background-color: #FA8714;
+}
+
+.status.finished {
+    background-color: #319AD0;
+}
+
+
+
+.card-header .examplan-name {
+    float: left;
+    line-height: 24px;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #3A3A3A;
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-header .examplan-time {
+    float: left;
+    color: #7E7E7F;
+    line-height: 22px;
+    margin-left: 20px;
+}
+
+.card-header .examplan-operation {
+    float: right;
+    margin-right: 10px;
+}
+
+    .card-header .examplan-operation .update-examplan {
+        float: left;
+        background-image: url(/web/img/examForOrg/edit.png);
+        background-repeat: no-repeat;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+        .card-header .examplan-operation .update-examplan:hover {
+            background-image: url(/web/img/examForOrg/edit_active.png);
+        }
+
+    .card-header .examplan-operation .delete-examplan {
+        float: left;
+        background-image: url(/web/img/examForOrg/delete.png);
+        background-repeat: no-repeat;
+        width: 18px;
+        height: 18px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+        .card-header .examplan-operation .delete-examplan:hover {
+            background-image: url(/web/img/examForOrg/delete_active.png);
+        }
+
+.load-more {
+    text-align: center;
+    cursor: pointer;
+}
+
+.card-content {
+    height: 110px;
+    border-top: solid 1px #ddd;
+}
+
+    .card-content .paper {
+        float: left;
+        width: 16.6%;
+        text-align: center;
+        margin: 30px 0px 0px;
+        border-right: dashed 1px #ddd;
+    }
+
+    .card-content .school {
+        float: left;
+        width: 16.6%;
+        text-align: center;
+        margin: 30px 0px 0px;
+        border-right: dashed 1px #ddd;
+    }
+
+    .card-content .student-count {
+        float: left;
+        width: 16.6%;
+        text-align: center;
+        margin: 30px 0px 0px;
+        border-right: dashed 1px #ddd;
+    }
+
+    .card-content .success-student-count {
+        float: left;
+        width: 16.6%;
+        text-align: center;
+        margin: 30px 0px 0px;
+        border-right: dashed 1px #ddd;
+    }
+
+    .card-content .percent {
+        float: left;
+        width: 16.6%;
+        text-align: center;
+        margin: 30px 0px 0px;
+        border-right: dashed 1px #ddd;
+    }
+
+    .card-content .operation {
+        float: left;
+        width: 20%;
+        padding-left: calc((20% - 130px) / 2);
+        text-align: center;
+        height: 110px;
+        position: relative;
+    }
+
+        .card-content .operation .button-group {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 130px;
+        }
+
+    .card-content .examplan-rule {
+        float: left;
+        width: 30%;
+        text-align: left;
+        margin: 20px 0px 0px;
+        border-right: dashed 1px #ddd;
+        padding-left: calc((30% - 240px) / 2 );
+    }
+
+        .card-content .examplan-rule .examplan-rule-group {
+            width: 240px;
+        }
+
+        .card-content .examplan-rule .rule-text {
+            color: #333333;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card-content .examplan-rule .link-examplan-setting {
+            color: #178ec9;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+    .card-content .desc {
+        margin-top: 20px;
+        color: #666666;
+        font-size: 14px;
+    }
+
+    .card-content .val {
+        color: #666666;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .card-content .text {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .card-content .allow-choose {
+        color: #198DC8;
+        cursor: pointer;
+        pointer-events: all;
+    }
+
+    .card-content .disabled {
+        pointer-events: none;
+    }
+
+
+
+
+
+
+
+.v-middle {
+    position: relative;
+}
+
+    .v-middle button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) translateX(50%);
+    }
+
+
+.btn-generate-task {
+    margin-bottom: 5px;
+    width: 130px !important;
+    background-color: #FA8714 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+}
+
+.btn-view-task-progress {
+    margin-bottom: 5px;
+    width: 130px !important;
+    background-color: #178ec9 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+}
+
+.btn-view-report {
+    margin-bottom: 5px;
+    width: 130px !important;
+    background-color: #178ec9 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+}
+
+.btn-publish-report {
+    margin-bottom: 5px;
+    width: 130px !important;
+    background-color: #FA8714 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+}
+
+.confirm-img {
+    width: 40px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.confirm-text {
+    margin-left: 70px;
+    margin-top: -40px;
+    margin-bottom: 20px;
+    line-height: 22px;
+}
+
+.yellow-text {
+    color: #FA8714;
+}
+
+
+
+
+.area-wrap {
+    float: left;
+}
+
+    .area-wrap ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0 10px;
+    }
+
+    .area-wrap li {
+        font-size: 14px;
+        float: left;
+        margin: 11px 5px;
+        border-radius: 3px;
+        color: #333;
+        padding: 4px 10px;
+        cursor: pointer;
+        border: solid 1px #ffffff;
+    }
+
+        .area-wrap li:hover {
+            border: solid 1px #198dc8;
+        }
+
+        .area-wrap li.active {
+            background-color: #198dc8;
+            color: white;
+        }
+
+
+.paperdesign-search-filter-scroll {
+    float: right;
+    margin-top: 10px;
+}
+
+    .paperdesign-search-filter-scroll .paperdesign-search-input-scroll {
+        float: left;
+    }
+
+        .paperdesign-search-filter-scroll .paperdesign-search-input-scroll input[type=text] {
+            background-color: #ffffff;
+            border: solid 1px #dcdcdc;
+            border-right: none;
+            border-radius: 3px 0 0 3px;
+            padding-left: 8px;
+            width: 220px;
+            height: 32px;
+            line-height: 32px;
+            color: #333333;
+        }
+
+    .paperdesign-search-filter-scroll .paperdesign-search-button-scroll {
+        float: left;
+        cursor: pointer;
+    }
+
+        .paperdesign-search-filter-scroll .paperdesign-search-button-scroll img {
+            height: 32px;
+        }
+
+
+.school-filter {
+    background-color: #F4F5F9;
+    border-left: solid 1px #E5E5E5;
+    border-right: solid 1px #E5E5E5;
+    border-top: solid 1px #E5E5E5;
+    padding: 10px 20px;
+    height: 50px;
+}
+
+    .school-filter .filter-item {
+        float: left;
+        padding: 5px 10px;
+        background-color: #ffffff;
+        border: solid 1px #E5E5E5;
+        border-radius: 3px;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+
+        .school-filter .filter-item img {
+            margin-right: 5px;
+            margin-top: -3px;
+            width: 14px;
+        }
+
+        .school-filter .filter-item.active {
+            border: solid 1px #178DCA;
+        }
+
+
+.td-img {
+    width: 14px;
+    margin-top: -4px;
+    margin-right: 5px;
+}
+
+
+.expand-tr {
+    background-color: #F0F0F0;
+    display: none;
+}
+
+
+.frag-task-name {
+    float: left;
+    padding: 10px 10px;
+}
+
+.frag-operation {
+    float: right;
+    padding: 10px 10px;
+    text-align: center;
+}
+
+    .frag-operation a {
+        margin-right: 20px;
+    }
+
+        .frag-operation a:last-child {
+            margin-right: 0px;
+        }
+
+.expand-tr-td-div {
+    clear: both;
+    height: 40px;
+    border-bottom: solid 1px #E5E5E5;
+}
+
+    .expand-tr-td-div:last-child {
+        border-bottom: solid 0px #E5E5E5;
+    }
+
+
+
+.examsetting-modal {
+    width: 430px;
+    margin: 0 auto;
+}
+
+.examsetting-radtitle {
+    float: left;
+    width: 110px;
+    text-align: right;
+    height: 12px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #333333;
+}
+
+.examsetting-controlcontainer {
+    margin-left: 21px;
+    clear: both;
+    height: 30px;
+    margin: 10px 0px 10px 20px;
+}
+
+    .examsetting-controlcontainer .radio-item {
+        width: 120px;
+        float: left;
+        margin-left: 10px;
+        font-family: MicrosoftYaHei;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #333333;
+    }
+
+    .examsetting-controlcontainer .checkbox-item {
+        width: 110px;
+        float: left;
+        margin-left: 10px;
+        font-family: MicrosoftYaHei;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #333333;
+    }

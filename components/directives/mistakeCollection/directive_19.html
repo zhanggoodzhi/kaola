@@ -1,0 +1,37 @@
+﻿
+<div style="background-color:#ffffff;padding-left:14px;padding-right:14px;">
+    <!--信息转述-->
+    <div class="question-prompt highlight-no" ng-if="data.QuestionModel.Prompt!=undefined && data.QuestionModel.Prompt.length>0">
+        {{data.QuestionModel.Prompt}}
+    </div>
+    <div style="clear:both;"></div>
+    <div class="question-text highlight-no" ng-if="data.QuestionModel.Text!=undefined && data.QuestionModel.Text.length>0" ng-bind-html="data.QuestionModel.Text|trustHtml">
+    </div>
+    <div style="clear:both;"></div>
+    <div class="question-image" style="">
+        <img ng-src="{{data.ResourcePath+data.QuestionModel.Image}}" />
+    </div>
+    <div style="clear:both;"></div>
+    <div class="question-tips highlight-no" ng-if="data.QuestionModel.Tips!=undefined && data.QuestionModel.Tips.length>0">
+        {{data.QuestionModel.Tips}}
+    </div>
+    <div class="question-tips highlight-no" ng-if="data.QuestionModel.AudioText!=undefined && data.QuestionModel.AudioText.length>0">
+        {{data.QuestionModel.AudioText}}
+    </div>
+    <div style="clear:both;"></div>
+    <div ng-repeat="content in data.QuestionModel.Contents">
+        <div class="div-content">
+            <div>
+                <div class="content-text highlight-no" style="" ng-bind-html="content.Text|trustHtml">
+                </div>
+                <div class="content-text highlight-no" style="" ng-bind-html="content.Tips|trustHtml">
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+
+    </div>
+
+</div>
+<question-operation data="data" show-answer="true"></question-operation>
+

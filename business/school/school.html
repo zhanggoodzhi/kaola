@@ -1,0 +1,752 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/business/school/school.css">
+
+<div class="row MainTabSet">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">学校管理</a>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active " id="school_Manage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog1'}"></toaster-container>
+            <div class="content-main">
+                <div class="row">
+                    <div class="btn-group">地区：</div>
+                    <div class="dropdown  btn-group" style="">
+                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                            {{ CurrentRegion.Province.ProvinceName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                            <li ng-repeat="province in RegionNow.ProvinceList">
+                                <a href="javascript:void(0);" ng-click="ProvinceChange(province)">{{province.ProvinceName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown btn-group" style="margin-left: 15px;">
+                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                            {{ CurrentRegion.City.CityName== "" ? "市" : CurrentRegion.City.CityName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                            <li ng-repeat="city in RegionNow.CityList">
+                                <a href="javascript:void(0);" ng-click="CityChange(city)">{{city.CityName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group" style="margin-left: 15px;">
+                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                            {{ CurrentRegion.Area.AreaName== "" ? "区" :CurrentRegion.Area.AreaName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                            <li ng-repeat="area in RegionNow.AreaList">
+                                <a href="javascript:void(0);" ng-click="AreaChange(area)">{{area.AreaName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="margin-left: 15px;">
+                        <input type="text" class="search-textbox" style="width: 180px;display: inline-block;" placeholder="请输入学校名称" id="channelB_Name"
+                               ng-keyup="KeyupSearch($event)" ng-model="QueryParams.SchoolName">
+                        <button type="button" class="search-button button button-blue" style="" ng-click="SearchSchool()">
+                            <span class="smallicon btn-icon icon-sousuo" style="font-size: 1.2em;"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="clearfix table-container scroll-wrap" ng-class="{true:'small-screen',false:'big-screen'}[IsSmallScreen==true]">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow" ng-click="OpenBatchUpdateSchoolRangeZoneDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/refresh.png">
+                                <span aria-hidden="true">批量更新排名</span>
+                            </button>
+                            <button type="button" class="btn-yellow" ng-click="OpenAddSchoolDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">新增学校</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="pull-left table-left">
+                        <div class="equal">
+                            <div class="equal-head">
+                                <div>学校名称</div>
+                                <div>省</div>
+                                <div>市</div>
+                                <div>区</div>
+                                <div>区域排名</div>
+                                <div>管理员账号</div>
+                            </div>
+                            <div class="equal-row" ng-repeat="school in SchoolDataList">
+                                <div ng-attr-title="{{school.SchoolName}}" class="{{school-name ellipsis" style="max-width:136px;text-align:left;padding-left:4px">{{ school.SchoolName }}</div>
+                                <div ng-attr-title="{{school.ProvinceName}}" class="province ellipsis" style="max-width:44px;">{{ school.ProvinceName }}</div>
+                                <div ng-attr-title="{{school.CityName}}" class="city ellipsis" style="max-width:44px;">{{ school.CityName }}</div>
+                                <div ng-attr-title="{{school.AreaName}}" class="area ellipsis" style="max-width:66px;">{{ school.AreaName }}</div>
+                                <div ng-attr-title="{{school.RangeInZone}}" class="area ellipsis" style="max-width:66px;">{{ school.RangeInZone|EmptyFilter }}</div>
+                                <div style="max-width:136px;" class="ellipsis" style="max-width:122px;" ng-if="school.Name==null||school.Name==''">
+                                    <a href="javascript:void(0)" class="f12 href" ng-click="OpenManagerAddDialog(school)">设置管理员</a>
+                                </div>
+                                <div style="max-width:136px;" class="ellipsis" style="max-width:122px;" ng-if="!(school.Name==null||school.Name=='')">
+                                    <a href="javascript:void(0)" class="f12 href" ng-click="OpenManagerDialog(school)">{{ school.Email}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="custom-scrollbar pull-left" id="scrollblock">
+                        <div class="equal" style="border-left:0px;" id="containerblock">
+                            <div class="equal-head">
+                                <div class="ellipsis" style="max-width:82px;" id="dogHead">加密狗数量</div>
+                                <div class="ellipsis" style="max-width:82px;" id="packageHead">内容包数量</div>
+                                <div class="ellipsis" style="max-width:62px;" id="paperHead">试卷数量</div>
+                                <!--<div class="ellipsis" style="max-width:62px;" id="versionHead">使用版本</div>-->
+                            </div>
+                            <div class="equal-row" ng-repeat="school in SchoolDataList">
+                                <div id="dogRow">{{ school.DogCount|EmptyFilter }}</div>
+                                <div id="packageRow">{{ school.PackageCount|EmptyFilter }}</div>
+                                <div id="paperRow">{{ school.PaperCount|EmptyFilter }}</div>
+                                <!--<div id="versionRow">{{ school.UsedVervion | EmptyFilter}}</div>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-left:-1px;" class="pull-left table-right">
+                        <table ng-table="SchoolList" class="table table-condensed table-bordered table-hover table-center-align" style="border: 1px solid #E8ECEE;border-left:0px;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div style="padding:0px 4px;">操作</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="school in $data" id="{{school.SchoolID}}">
+
+                                    <td data-title="'操作'" style="text-align:left;min-width:106px;padding:0px 6px 0px 10px;">
+                                        <a class="f12 href" ng-class="'href'" ng-click="OpenSchoolDetailDialog(school)">查看</a>
+                                        <a class="f12 href" ng-class="'href'" ng-click="OpenUpdateSchoolDialog(school)">修改</a>
+                                        <a class="f12 href" ng-class="'href'" ng-click="OpeDeleteSchoolDialog(school)">删除</a>
+                                        <a class="f12 href" ng-class="'href'" ng-click="OpenDataTransferDialog(school)">数据转移</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="UpdateSchoolDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 382px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel" >修改学校</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog2'}"
+                                   style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" style="padding-top:30px !important;padding-left:50px !important;padding-right:50px !important;padding-bottom:10px !important;">
+                <div class="form-horizontal form-group-multiple" style="padding:0px !important;">
+                    <div id="labelDIVUpdateSchool" class="div-multiple-lable">
+                        <div class="margin-left-right-none form-label" style="height:42px;">
+                            <label for="updateSchoolRegionProvince">
+                                省：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="height:42px;">
+                            <label for="updateSchoolRegionCity">
+                                市：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="height:42px;">
+                            <label for="updateSchoolRegionArea">
+                                区：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="height:42px;">
+                            <label for="updateSchoolSchoolName">
+                                学校：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="height:42px;">
+                            <label for="addSchoolRangeInZone">
+                                区域排名：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="padding-top:0px;">
+                            <label for="updateSchoolPrecision">
+                                评分精度：
+                            </label>
+                        </div>
+                    </div>
+                    <div id="controlDIVUpdateSchool" class="control-div-multiple">
+                        <div class="form-group form-group-control">
+                            <div class="dropdown" style="float: left;">
+                                <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 212px;font-size: 12px; color: #7a7a7a;">
+                                    {{ CurrentRegionAdd.Province.ProvinceName== "" ? "请选择" : CurrentRegionAdd.Province.ProvinceName }}&nbsp;&nbsp;
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 212px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                                    <li ng-repeat="province in RegionNow.ProvinceList">
+                                        <a href="javascript:void(0);" ng-click="ProvinceChangeAdd(province)">{{province.ProvinceName}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-control">
+                            <div class="dropdown" style="float: left;">
+                                <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 212px;font-size: 12px; color: #7a7a7a;">
+                                    {{ CurrentRegionAdd.City.CityName== "" ? "请选择" : CurrentRegionAdd.City.CityName }}&nbsp;&nbsp;
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 212px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                                    <li ng-repeat="city in RegionNow.CityList">
+                                        <a href="javascript:void(0);" ng-click="CityChangeAdd(city)">{{city.CityName}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-control">
+                            <div class="dropdown" style="float: left;">
+                                <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 212px;font-size: 12px; color: #7a7a7a;">
+                                    {{ CurrentRegionAdd.Area.AreaName== "" ? "请选择" :CurrentRegionAdd.Area.AreaName }}&nbsp;&nbsp;
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width:212px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                                    <li ng-repeat="area in RegionNow.AreaList">
+                                        <a href="javascript:void(0);" ng-click="AreaChangeAdd(area)">{{area.AreaName}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <angucomplete id="ex1_Update" placeholder="" pause="100" selectedobject="SchoolAddChoose" localdata="RegionNow.SchoolList" searchfields="SchoolName"
+                                          searchstr="SchoolParam.SchoolName" titlefield="SchoolName" minlength="1" inputclass="form-control form-control-small"
+                                          matchclass="highlight" />
+
+                        </div>
+                        <div class="form-group form-group-control">
+                            <input type="text" class="form-control" id="addSchoolRangeInZone" style="font-size: 13px;" placeholder="区域排名必须是1~999之间的数字" ng-model="SchoolParam.RangeInZone"  maxlength="3" />
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <label for="rad01update" style="margin-right:20px;margin-bottom:0px;color:#444444;">
+                                0.1
+                                <input type="radio" name="precisionupdate" id="rad01update" value="0.1" ng-click="SchoolParam.MarkPrecision=0.1" ng-model="SchoolParam.MarkPrecision" />
+                            </label>
+                            <label for="rad05update" style="margin-right:20px;margin-bottom:0px;color:#444444;">
+                                0.5
+                                <input type="radio" name="precisionupdate" id="rad05update" value="0.5" ng-click="SchoolParam.MarkPrecision=0.5" ng-model="SchoolParam.MarkPrecision" />
+                            </label>
+                            <label for="rad1update" style="margin-bottom:0px;color:#444444;">
+                                1
+                                <input type="radio" name="precisionupdate" id="rad1update" value="1" ng-click="SchoolParam.MarkPrecision=1" ng-model="SchoolParam.MarkPrecision" />
+                            </label>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="SchoolUpdate()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="AddSchoolDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:382px;margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">新增学校</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog3'}"
+                                   style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" style="padding-top:30px !important;padding-left:50px !important;padding-right:50px !important;padding-bottom:10px !important;">
+                <div class="form-horizontal form-group-multiple" style="padding:0px !important;">
+                    <div id="labelDIVAddSchool" class="div-multiple-lable">
+                        <div class="margin-left-right-none form-label" style="height:42px;">
+                            <label for="addSchoolRegionProvince">
+                                省：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="height:42px;">
+                            <label for="addSchoolRegionCity">
+                                市：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="height:42px;">
+                            <label for="addSchoolRegionArea">
+                                区：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="height:42px;">
+                            <label for="addSchoolSchoolName">
+                                学校：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="height:42px;">
+                            <label for="addSchoolRangeInZone">
+                                区域排名：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="padding-top:0px;">
+                            <label for="addSchoolPrecision">
+                                评分精度：
+                            </label>
+                        </div>
+                    </div>
+                    <div id="controlDIVAddSchool" class="control-div-multiple">
+                        <div class="form-group form-group-control">
+                            <div class="dropdown" style="float: left;">
+                                <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width:212px;font-size: 12px; color: #7a7a7a;">
+                                    {{ CurrentRegionAdd.Province.ProvinceName== "" ? "请选择" : CurrentRegionAdd.Province.ProvinceName }}&nbsp;&nbsp;
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 212px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                                    <li ng-repeat="province in RegionNow.ProvinceList">
+                                        <a href="javascript:void(0);" ng-click="ProvinceChangeAdd(province)">{{province.ProvinceName}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-control">
+                            <div class="dropdown" style="float: left;">
+                                <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 212px;font-size: 12px; color: #7a7a7a;">
+                                    {{ CurrentRegionAdd.City.CityName== "" ? "请选择" : CurrentRegionAdd.City.CityName }}&nbsp;&nbsp;
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 212px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                                    <li ng-repeat="city in RegionNow.CityList">
+                                        <a href="javascript:void(0);" ng-click="CityChangeAdd(city)">{{city.CityName}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-control">
+                            <div class="dropdown" style="float: left;">
+                                <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 212px;font-size: 12px; color: #7a7a7a;">
+                                    {{ CurrentRegionAdd.Area.AreaName== "" ? "请选择" :CurrentRegionAdd.Area.AreaName }}&nbsp;&nbsp;
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 212px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                                    <li ng-repeat="area in RegionNow.AreaList">
+                                        <a href="javascript:void(0);" ng-click="AreaChangeAdd(area)">{{area.AreaName}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <angucomplete id="ex1_Add" placeholder="" pause="100" selectedobject="SchoolAddChoose" localdata="RegionNow.SchoolList" searchfields="SchoolName"
+                                          searchstr="SchoolAddChoose.title" titlefield="SchoolName" minlength="1" inputclass="form-control form-control-small"
+                                          matchclass="highlight" />
+
+                        </div>
+                        <div class="form-group form-group-control">
+                            <input type="number" class="form-control" id="addSchoolRangeInZone" style="" placeholder="区域排名必须是1~999之间的数字" ng-model="SchoolParam.RangeInZone" maxlength="3" />
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <label for="rad01add" style="margin-right:20px;margin-bottom:0px;">
+                                0.1
+                                <input type="radio" name="precisionadd" id="rad01add" value="0.1" ng-click="SchoolParam.MarkPrecision=0.1" ng-model="SchoolParam.MarkPrecision" />
+                            </label>
+                            <label for="rad05add" style="margin-right:20px;margin-bottom:0px;">
+                                0.5
+                                <input type="radio" name="precisionadd" id="rad05add" value="0.5" ng-click="SchoolParam.MarkPrecision=0.5" ng-model="SchoolParam.MarkPrecision" />
+                            </label>
+                            <label for="rad1add" style="margin-bottom:0px;">
+                                1
+                                <input type="radio" name="precisionadd" id="rad1add" value="1" ng-click="SchoolParam.MarkPrecision=1" ng-model="SchoolParam.MarkPrecision" />
+                            </label>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="SchoolAdd()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="DataTransferDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 650px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">数据转移</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog4'}"
+                                   style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group" style="color:red;padding-left:3.8em;padding-right:3.8em">
+                        本功能会将
+                        <span style="color:forestgreen">{{DataTransfer.FromSchool.SchoolName}}</span>下的所有人员、加密狗、内容序列号等数据转移到新学校，当前学校将注销，请谨慎操作！
+                    </div>
+                    <div class="form-group">
+                        <label for="area" class="control-label col-sm-3  col-xs-3">地区：</label>
+                        <div class="dropdown" style="float: left;">
+                            <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 130px;font-size: 12px; color: #7a7a7a;">
+                                {{ DataTransfer.Province.ProvinceName== "" ? "省" : DataTransfer.Province.ProvinceName }}&nbsp;&nbsp;
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 130px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                                <li ng-repeat="province in RegionNow.ProvinceList">
+                                    <a href="javascript:void(0);" ng-click="ProvinceChangeTransfer(province)">{{province.ProvinceName}}</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="dropdown" style="float: left; margin-left: 10px; margin-bottom: 10px;">
+                            <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 130px;font-size: 12px; color: #7a7a7a;">
+                                {{ DataTransfer.City.CityName== "" ? "市" : DataTransfer.City.CityName }}&nbsp;&nbsp;
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 130px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                                <li ng-repeat="city in RegionNow.CityList">
+                                    <a href="javascript:void(0);" ng-click="CityChangeTransfer(city)">{{city.CityName}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="dropdown" style="float: left; margin-left: 10px;">
+                            <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 130px;font-size: 12px; color: #7a7a7a;">
+                                {{ DataTransfer.Area.AreaName== "" ? "区" :DataTransfer.Area.AreaName }}&nbsp;&nbsp;
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 130px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                                <li ng-repeat="area in RegionNow.AreaList">
+                                    <a href="javascript:void(0);" ng-click="AreaChangeTransfer(area)">{{area.AreaName}}</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="form-group" style="margin-top: 12px; margin-bottom: 34px;">
+                        <label for="schoolName" class="control-label col-sm-3  col-xs-3">学校：</label>
+                        <div class="dropdown" style="float: left; ">
+                            <angucomplete id="ex1_DataTransfer" placeholder="" pause="100" selectedobject="DataTransfer.School" localdata="RegionNow.SchoolList" searchfields="SchoolName"
+                                          searchstr="DataTransfer.School.title" titlefield="SchoolName" minlength="1" inputclass="form-control form-control-small"
+                                          matchclass="highlight" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="DoDataTransfer()">转移</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="ManagerSetDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">设置管理员</h5>
+                <toaster-container  toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog5'}"
+                                   style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="ma_Email" class="control-label col-sm-4  col-xs-4" style="padding-right:0px;">登录邮箱：</label>
+                        <div class="col-sm-6  col-xs-6" style="padding-left:0px;">
+                            <input type="email" class="form-control" id="ma_Email_ManagerSet" placeholder="" style="width: 210px !important;" ng-model="ManagerParam.Email"
+                                   ng-blur="CheckEmail()" ng-class="{true:'input_border_error'}[ErrorFor.EmailError==1]">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="ma_Pwd" class="control-label col-sm-4  col-xs-4" style="padding-right:0px;">登录密码：</label>
+                        <div class="col-sm-6  col-xs-6" style="padding-left:0px;">
+                            <input type="password" class="form-control" id="ma_Pwd" style="" name="ma_Pwd" placeholder="(6~20个字符)" ng-model="ManagerParam.PassWord"
+                                   ng-class="{true:'input_border_error'}[ErrorFor.PwdError==1]">
+                            <input type="text" class="form-control" id="ma_PwdShow" style="display:none" name="ma_PwdShow" placeholder="(6~20个字符)" ng-class="{true:'input_border_error'}[ErrorFor.PwdError==1]" />
+                            <img class="eye-icon" id="showpwd_ma_Pwd" for="ma_Pwd" src="http://cdn.uukaola.com/web/img/login/eyeunselect.png" checked=false />
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;" ng-show="ManagerParam.IsReset == false">
+                        <label for="ma_PackageCode" class="control-label col-sm-4  col-xs-4" style="padding-right:0px;">内容序列号：</label>
+                        <div class="col-sm-6  col-xs-6" style="padding-left:0px;">
+                            <input type="text" class="form-control" id="ma_PackageCode" style="" placeholder="" ng-model="ManagerParam.PackageCode" ng-blur="ValidPackageCode()"
+                                   ng-class="{true:'input_border_error'}[ErrorFor.ContentSNum==1]">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="SchoolManagerAdd()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="ManagerReSetDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">学校管理员信息</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog6'}"
+                                   style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group" style="margin-top: 10px;">
+                        <div class="pull-right" style="margin-right:1.8em;">
+                            <a class="href" style="color:black;" ng-click="ResetManage()">
+                                <img src="http://cdn.uukaola.com/web/img/business/set.png" />&nbsp;重新设置管理员
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ma_Name" class="control-label col-sm-4  col-xs-4" style="padding-right:0px;">姓名：</label>
+                        <div class="col-sm-6  col-xs-6" style="padding-left:0px;">
+                            <input type="text" class="form-control" id="ma_Name" placeholder="姓名" ng-model="ChoosedSchool.NickName" ng-disabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group" style="">
+                        <label for="ma_Email" class="control-label col-sm-4  col-xs-4" style="padding-right:0px;">邮箱：</label>
+                        <div class="col-sm-6  col-xs-6" style="padding-left:0px;">
+                            <input type="text" class="form-control" id="ma_Email_ManagerReset" placeholder="邮箱" ng-model="ChoosedSchool.Email" ng-disabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group" style="">
+                        <label for="ma_PhoneNumber" class="control-label col-sm-4  col-xs-4" style="padding-right:0px;">手机号：</label>
+                        <div class="col-sm-6  col-xs-6" style="padding-left:0px;">
+                            <input type="text" class="form-control" id="ma_PhoneNumber" placeholder="手机号" ng-model="ChoosedSchool.PhoneNumber" ng-disabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ma_Pwd" class="control-label col-sm-4  col-xs-4" style="padding-right:0px;">密码：</label>
+                        <div class="col-sm-6  col-xs-6" style="padding-left:0px;" ng-if="!IsShowPwd">
+                            <button type="button" class="btn btn-warning" ng-click="ShowPwd()" style="width: 80px ; height: 32px;border-radius:2px;margin-bottom:24px;">重置</button>
+                            <span style="color: #80C898; font-family: '微软雅黑';" ng-hide="PwdMsg==''">{{PwdMsg}}</span>
+                        </div>
+                        <div class="col-sm-8  col-xs-8" style="margin-bottom:24px;padding-left:0px;" ng-if="IsShowPwd">
+                            <div class="input-group" style="float: left;">
+                                <input type="password" class="form-control" id="user_Pwd" placeholder="密码" ng-model="ManagerResetParam.PassWord" maxlength="20"
+                                       style="-webkit-box-shadow: 0 0 0px 1000px white inset !important;width: 120px !important; background-color:white;border-right: 0px;">
+                                <div type="button" class="search-button button " style="background-color: white;width: 30px;height: 30px;margin: 0px 0px 0px -1px;line-height: 30px;    border-bottom: 1px solid #cecece;border-top: 1px solid #cecece;"
+                                     ng-click="ResetPwd()">
+                                    <img src="http://cdn.uukaola.com/web/img/business/right_password.png" style="width:19px;height:13px;margin-top: -4px;" />
+
+                                </div>
+                                <div type="button" class="search-button button " style="background-color: white;width: 30px;height: 30px;margin: 0px 0px 0px -3px;line-height: 30px;    border-bottom: 1px solid #cecece;border-top: 1px solid #cecece;border-right: 1px solid #cecece;border-radius:3px;"
+                                     ng-click="NotUpdaePwd()">
+                                    <img src="http://cdn.uukaola.com/web/img/business/wrong_password.png" style="width:19px;height:13px;margin-top: -4px;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="SchoolDetailDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-height: 500px;width: 820px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">学校详情</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog7'}"
+                                   style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+
+            <div class="modal-body">
+                <div class="row" style="">
+                    <div style="display:inline-block;margin-left:10px;">
+                        <span style="margin-right: 16px; font-size: 16px; color: #444444;font-weight:bold;">{{ChoosedSchool.SchoolName}}</span>
+                        <span class="detail-font">{{ChoosedSchool.ProvinceName+ChoosedSchool.CityName+ChoosedSchool.AreaName}}</span>
+                    </div>
+                    <div class="detail-font" style="display:inline-block;margin-left:80px;">
+                        激活渠道商：
+                        <span style="font-size: 16px; color: #444444;font-weight:bold;">{{ActiveChannelName}}</span>
+                    </div>
+                    <div class="detail-font" style="display:inline-block;margin-left:80px;">使用版本：{{ChoosedSchool.UsedVervion}}</div>
+                </div>
+                <div class="row SubTabSet">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="tab-item" ng-class="{true:'active'}[CurrentTabIndex==1]" ng-click="TabChange(1)">
+                            <a href="#school_packageList" data-toggle="tab">内容序列号</a>
+                        </li>
+                        <li class="tab-item" ng-class="{true:'active'}[CurrentTabIndex==2]" ng-click="TabChange(2)">
+                            <a href="#school_dogList" data-toggle="tab">加密狗</a>
+                        </li>
+                        <li class="tab-item" ng-class="{true:'active'}[CurrentTabIndex==3]" ng-click="TabChange(3)">
+                            <a href="#school_paperList" data-toggle="tab">试卷库</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==1]" id="school_packageList">
+                            <div class="table-container" style="padding-top: 0; ">
+                                <table ng-table="ContentPackageList" class="table table-bordered table-hover" style="border: 1px solid #ddd; width: 100%;">
+                                    <tbody>
+                                        <tr ng-repeat="package in $data" ng-show="$data.length>0">
+                                            <td data-title="'内容序列号'" sortable="'PackageCode'">{{ package.PackageCode }}</td>
+                                            <td data-title="'试卷包名称'" sortable="'PaperPackageName'" style="">{{ package.PaperPackageName }}</td>
+                                            <td data-title="'渠道商'" sortable="'BusinessName'" style="">{{ package.BusinessName }}</td>
+                                            <td data-title="'内容商'" sortable="'ContentProviderName'" style="">{{ package.ContentProviderName }}</td>
+                                            <td data-title="'激活时间'" sortable="'ActivateTime'" style="">{{ package.ActivateTimeFormat|EmptyFilter }}</td>
+                                            <td data-title="'状态'" sortable="'Status'" style="">{{ package.Status | PackageStatusFilter }}</td>
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="6">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==2]" id="school_dogList">
+                            <div class="table-container" style="padding-top: 0; ">
+                                <table ng-table="SchoolDogList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                    <tbody>
+                                        <tr ng-repeat="dog in $data" ng-show="$data.length>0">
+                                            <td data-title="'硬件序列号'" sortable="'DogCode'">{{ dog.DogCode }}</td>
+                                            <td data-title="'安装序列号'" sortable="'InstallCode'" style="">{{ dog.InstallCode }}</td>
+                                            <td data-title="'所属渠道商'" sortable="'BusinessName'" style="">{{ dog.BusinessName }}</td>
+                                            <td data-title="'激活设备数/可激活数'" sortable="'SchoolDeviceID'" style="">{{dog.ActivedDeviceCount|EmptyFilter}}/{{ dog.MaxAllowActiveDeviceCount|EmptyFilter}}</td>
+                                            <td data-title="'激活时间'" sortable="'ActiviteTime'" style="">{{ dog.ActiviteTimeFormat }}</td>
+                                            <td data-title="'状态'" sortable="'Status'" style="">{{ dog.Status | PackageStatusFilter }}</td>
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="6">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==3]" id="school_paperList">
+                            <div class="table-container" style="padding-top: 0; ">
+                                <table ng-table="SchoolPaperList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                    <tbody>
+                                        <tr ng-repeat="paper in $data" ng-show="$data.length>0">
+                                            <td data-title="'试卷名称'" sortable="'PaperName'">{{ paper.PaperName }}</td>
+                                            <td data-title="'试卷包名称'" sortable="'PaperPackageName'" style="padding-left: 20px;">{{ paper.PaperPackageName }}</td>
+                                            <!--<td data-title="'试卷模板'" sortable="'PaperTemplateName'" style="padding-left: 20px;">{{ paper.PaperTemplateName }}</td>-->
+                                            <td data-title="'内容商'" sortable="'ContentProviderName'" style="padding-left: 20px;">{{ paper.ContentProviderName}}</td>
+
+
+
+
+                                            <!--<td data-title="'激活时间'" sortable="'ActivateTime'" style="padding-left: 20px;">{{ paper.ActivateTime }}</td>-->
+
+                                            <td data-title="'状态'" sortable="'Status'" style="padding-left: 20px;">{{ paper.ActiveFlag | SchoolPaperStatusFilter }}</td>
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="4">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="modal" id="BatchUpdateSchoolRangeZoneDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 450px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">批量更新排名</h5>
+            </div>
+            <form id="BatchUpdateSchoolRangeZone_form" name="BatchUpdateSchoolRangeZone_form" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row" style="padding: 10px 0px 0px 10px;">
+                        <div >
+                            导入排名数据：
+                            <a href="tools/SchoolRangeModify.xlsx" style="text-decoration: underline;color: #337ab7;">
+                                下载导入模板
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row"style="padding: 10px 0px 0px 10px;">
+                        <div class="btn-group file-uploader-wrap">
+                            <input type="file" class="file-uploader" style="width: 360px;" accept=".xlsx" ngf-select ng-model="files" name="uploadDataField" id="inputFile" />
+                            <div class="file-uploader-wrap-fake">
+                                <input type="text" id="PathDisplayer" class="search-textbox" style="width: 300px !important;" readonly="readonly" ng-model="files.name" />
+                                <button href="javascript:void(0)" style="background-color: #eff2f7;border:1px solid #d2d5d8;height: 30px;width: 50px;">浏览</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div ng-if="CurrentPercent>0 && ImportErrorFile==''&&ErrorMessage==''" style="padding: 1px;border: solid 1px #24a3e6; height: 23px; margin-left: 0px; margin-bottom: 15px;margin-top: 15px">
+                        <div class="progress" style="margin-bottom: 1px;margin-top: 1px;height: 18px;border-radius: 0px;background-color: #ffffff;box-shadow: none;">
+                            <div id="importProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="width:{{CurrentPercent}}%;background-color:#178ec9;">
+                            </div>
+                        </div>
+                        <div style="margin-top: -20px;margin-left: 180px;" ng-style="{'color':CurrentPercent>50?'#ffffff':'#178ec9'}">{{CurrentPercent+'%'}}</div>
+                    </div>
+                    <div id="erroMessageReset" class="erro-message" style="padding: 10px 0px 0px 10px;">
+                        <div ng-show="ImportErrorFile!=''||ErrorMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" style="margin-top:-3px;" />
+                            <span style="color:red;" ng-show="ImportErrorFile!=''">
+                                导入数据有误, 请下载&nbsp;<a href="/api/Business/download/{{ImportErrorFile}}"  style="text-decoration: underline;color: red;">错误文件.xlsx</a>&nbsp;修改后,重新导入!
+                            </span>
+                            <span style="color:red;" ng-show="ErrorMessage!=''">
+                               {{ErrorMessage}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-normal btn-primary" ng-click="UploadFiles(files)">导入</button>
+                    <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" style="margin-left:20px;">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

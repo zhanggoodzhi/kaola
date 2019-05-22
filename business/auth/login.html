@@ -1,0 +1,54 @@
+﻿<link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/business/auth/login.css" />
+
+<script type="text/javascript">
+    function keyLogin() {
+        if (event.keyCode == 13)  //回车键的键值为13
+            document.getElementById("btnLogin").click(); //调用登录按钮的登录事件
+    }
+    function onEnter(obj) {
+        $(obj).parent().css("border", "1px solid #35adfa");
+    }
+    function onLeave(obj) {
+        $(obj).parent().css("border", "1px solid #3074c1");
+    }
+</script>
+
+<div class="business_login">
+
+    <div class="login_container">
+        <div class="row">
+            <img src="http://cdn.uukaola.com/web/img/business/logo_login.png" />
+        </div>
+        <div class="row" onkeydown="keyLogin();">
+            <div class="row login_content">
+                <div class="input-group input_box fl">
+                    <input type="text" id="id_username" onfocus="onEnter(this)" onblur="onLeave(this)" name="id_username" class="form-control" placeholder="手机号码" maxlength="50" ng-model="loginData.userName" autofocus style="height: 40px !important; width: 100%; border:none;box-shadow: none; color:#333333; font-family: '微软雅黑';">
+                    <div class="input-group-addon">
+                        <div class="pic"></div>
+                    </div>
+                </div>
+                <div class="input-group input_box fl" style="margin: 0 10px;">
+                    <input type="password" id="id_password" onfocus="onEnter(this)" onblur="onLeave(this)" name="id_password" ng-model="loginData.password" class="form-control" maxlength="20" placeholder="密码" style="height: 40px !important; width: 100%;font-size:14px;border:none;box-shadow: none;color:#999999; font-family: '微软雅黑';">
+                    <div class="input-group-addon">
+                        <div class="pic2"></div>
+                    </div>
+                </div>
+                <div class="fl">
+                    <div class="btn-group">
+                        <button style="height: 40px; width: 88px; color:#FFFFFF; font-size:14px;" type="button" id="btnLogin" class="btn btn-warning" ng-click="doLogin()">登录</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div style="height: 24px; line-height: 24px; width: 270px;" class="fl">
+                    <span class="span-error-msg" ng-hide="usernameValidateMsg==''"><img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" style="width: 13px; height: 13px; margin-left: 10px; margin-right: 5px;margin-top:1px;"><span class="tip" style="font-size:13px;color:#ffffff;">{{usernameValidateMsg}}</span></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

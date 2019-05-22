@@ -1,0 +1,587 @@
+﻿<script type="text/ng-template" id="header_Checkbox.html">
+    <input type="checkbox" ng-click="SelectAllItem($event)" id="selectAllChk" ng-true-value="true" ng-false-value="false" ng-checked="SelectAllTag" class="chk" />
+    <label for="selectAllChk" style="font-weight: normal;"></label>
+</script>
+
+
+<script type="text/ng-template" id="header_SendCheckbox.html">
+    <input type="checkbox" class="chk" ng-click="SelectAllPackage($event)" id="selectAllPackageTag" ng-true-value="true" ng-false-value="false" ng-checked="SelectAllPackageTag" />
+    <label for="selectAllPackageTag" style="font-weight: normal;"></label>
+</script>
+
+<script type="text/ng-template" id="header_AllotCheckbox.html">
+    <input type="checkbox" class="chk" ng-click="SelectAllotAllPackage($event)" id="selectAllotAllTag" ng-true-value="true" ng-false-value="false" ng-checked="SelectAllotAllTag" />
+    <label for="selectAllotAllTag" style="font-weight: normal;"></label>
+</script>
+<script type="text/ng-template" id="header_AssignToExamOrgCheckbox.html">
+    <input type="checkbox" class="chk" ng-click="SelectAllPackageToExamOrg($event)" id="SelectAllToExamOrgTag" ng-true-value="true" ng-false-value="false" ng-checked="SelectAllToExamOrgTag" />
+    <label for="SelectAllToExamOrgTag" style="font-weight: normal;"></label>
+</script>
+
+
+<div class="row MainTabSet">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">内容序列号管理</a>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active " id="channelB_Manage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog0'}"></toaster-container>
+            <div class="content-main">
+                <div class="row">
+                    <div class="btn-group" style="line-height: 30px; ">状态：</div>
+                    <div class="btn-group dropdown" style="min-width: 120px;">
+                        <a class="btn btn-block btn-default" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;">
+                            {{ Choosed.SchoolPackageStatus.Text == "" ? "请选择" : Choosed.SchoolPackageStatus.Text}}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                            <li ng-repeat="packageStatus in SchoolPackageStatusList">
+                                <a href="javascript:void(0);" ng-click="PackageStatusChange(packageStatus);">{{packageStatus.Text}}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group" style="line-height: 30px;margin-left:4px;" ng-show="IsAdmin">渠道商：</div>
+                    <div class="btn-group dropdown" style="min-width: 120px;" ng-show="IsAdmin">
+                        <a class="btn btn-block btn-default" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;">
+                            {{ Choosed.ChannelBusiness.BusinessName ==""?"请选择": Choosed.ChannelBusiness.BusinessName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height: 200px; overflow-y: auto;">
+                            <li ng-repeat="chanel in ChannelBusinessList">
+                                <a href="javascript:void(0);" ng-click="ChannelChange(chanel)">{{chanel.BusinessName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="line-height: 30px;margin-left:4px;">内容商：</div>
+                    <div class="btn-group dropdown" style="min-width: 120px;">
+                        <a class="btn btn-block btn-default" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;">
+                            {{ Choosed.ContentProvider.ContentProviderName ==""?"请选择": Choosed.ContentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height: 200px; overflow-y: auto;">
+                            <li ng-repeat="contentProvider in ContentProvider">
+                                <a href="javascript:void(0);" ng-click="ContentProviderChange(contentProvider)">{{contentProvider.ContentProviderName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="margin-left:4px;">
+                        <input type="text" class="search-textbox" ng-keyup="KeyupSearchSerialNum($event)" style="width: 180px;display: inline-block;"
+                               placeholder="输入内容序列号" id="channelB_Name" ng-model="QueryParams.PackageCode">
+                        <button type="button" class="search-button button button-blue" style="" ng-click="SearchSerialNum()">
+                            <span class="smallicon btn-icon icon-sousuo" style="font-size: 1.2em;"></span>
+                        </button>
+                    </div>
+                    <!--<div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-block query-height button-simpleText" style="padding: 0 20px; border: 0;" ng-click="OpenApplyDialog()">申请</button>
+                    </div>-->
+                </div>
+
+                <div class="table-container">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button ng-show="IsAdmin" type="button" class="btn-yellow" style="margin-right:5px;" ng-click="OpenGenerateDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">生成内容序列号</span>
+                            </button>
+                            <button ng-show="IsAdmin" type="button" class="btn-yellow" style="margin-right:5px;" ng-click="OpenSendDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">发货给渠道商</span>
+                            </button>
+                            <button type="button" class="btn-yellow" style="margin-right:0px;" ng-click="OpenAllotDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">分配到学校</span>
+                            </button>
+                            <button type="button" class="btn-yellow" style="margin-right:0px;" ng-click="OpenAssignToExamOrgDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">分配到考试机构</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-table="ContentSerialNumList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="serial in $data" ng-show="$data.length>0" id="{{serial.PackageCode}}">
+                                <td data-title="'内容序列号'" sortable="'PackageCode'" style="width:14%;min-width:160px; text-align:left">{{ serial.PackageCode }}</td>
+                                <td data-title="'试卷包名称'" sortable="'PaperPackageName'" style="width:10%;text-align:left;" ng-attr-title="{{serial.PaperPackageName}}">{{serial.PaperPackageName|Long6Filter}}</td>
+                                <td data-title="'单位'" sortable="'OrgName'" style="width:10%;">{{ serial.OrgName|EmptyFilter}}</td>
+                                <td data-title="'渠道商'" ng-if="IsAdmin" sortable="'BusinessName'" style="width:9%;">{{ serial.BusinessName|EmptyFilter}}</td>
+                                <td data-title="'内容商'" sortable="'ContentProviderName'" style="width:9%;">{{ serial.ContentProviderName }}</td>
+                                <td data-title="'生成时间'" sortable="'CreatedTime'" style="width:10%;">{{ serial.CreatedTime|EmptyFilter}}</td>
+                                <td data-title="'发货时间'" sortable="'SendTime'" style="width:10%;">{{ serial.SendTime|EmptyFilter}}</td>
+                                <td data-title="'激活时间'" sortable="'ActivateTime'" style="width:10%;">{{ serial.ActivateTime|EmptyFilter}}</td>
+                                <td data-title="'状态'" sortable="'Status'" style="width:8%;">{{ serial.Status|PackageStatusFilter }}</td>
+
+                                <td data-title="'操作'" style="min-width:60px;width:10%;">
+                                    <a class="f12 href" ng-class="'href'" ng-if="serial.Status == 1" ng-click="OpenDeleteDialog(serial)">删除</a>
+                                    <a class="f12 href" ng-class="'href'" ng-if="serial.Status == 1" ng-click="OpenSendDialog(serial)">发货</a>
+                                    <a class="f12 href" ng-class="'href'" ng-if="serial.Status == 2 || serial.Status == 3" ng-click="OpenStopPackageDialog(serial)">停用</a>
+                                    <a class="f12 href" ng-class="'href'" ng-if="serial.Status == 4" ng-click="OpenStartPackageDialog(serial)">启用</a>
+                                    <a class="f12 href" ng-class="'href'" ng-if="serial.Status == 5" ng-click="OpenAllotDialog(serial)">分配</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="modal" id="GenerateDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 640px; margin: auto;padding-bottom: 13px;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">生成内容序列号</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog1'}"
+                                   style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+
+            <div class="modal-body" style="padding-left:20px !important;padding-bottom:20px !important;">
+                <div class="row btn-toolbar">
+                    <div class="btn-group" style="line-height: 30px;">内容商：</div>
+                    <div class="dropdown" style="min-width: 92px; float: left; margin-right: 10px;height:32px;">
+                        <a class="btn btn-default" href="#" id="paper_area" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;height:32px;">
+                            {{CurrentProvider.ContentProviderName== "" ? "请选择" : CurrentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;">
+                            <li ng-repeat="provider in ContentProvider">
+                                <a href="javascript:void(0);" ng-click="ProviderChange(provider)">{{provider.ContentProviderName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="text" class="search-textbox" style="width: 180px;display: inline-block;height:32px !important" placeholder="输入试卷包名称"
+                           id="channelB_Name" ng-model="ProviderPaperPackageQuery.PaperPackageName">
+                    <button type="button" class="search-button button button-blue" style="" ng-click="SearchProviderPaperPackage()">
+                        <span class="smallicon btn-icon icon-sousuo" style="font-size: 1.2em;color:#fff;"></span>
+                    </button>
+                </div>
+
+                <div class="table-container" style="padding-top: 0;margin-top: 10px;">
+                    <div class="operate_container" style="height:39px !important;">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow" ng-click="GeneratePackageCode()" style="height:30px !important;width:159px;">
+                                <img src="http://cdn.uukaola.com/web/img/business/piliangshengcheng.png">
+                                <span aria-hidden="true" style="color: #ff8a00 !important;font-size:13px;">批量生成内容序列号</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-table="ProviderPaperPackageList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="paperPackage in $data" ng-show="$data.length>0">
+                                <td style="width: 8%;" header="'header_Checkbox.html'">
+                                    <input type="checkbox" ng-true-value="1" id="chk_{{$index}}" class="chk" ng-false-value="0" ng-click="SelectAllTagChange(paperPackage)"
+                                           ng-model="paperPackage.Selected" />
+                                    <label for="chk_{{$index}}"></label>
+                                </td>
+                                <td data-title="'试卷包名称'" style="text-align:center;">{{ paperPackage.PaperPackageName }}</td>
+                                <td data-title="'试卷套数'" style="text-align:center;">{{ paperPackage.PaperCount }}</td>
+                                <td data-title="'内容商'" style="text-align:center;">{{ paperPackage.ContentProviderName }}</td>
+                                <td data-title="'操作'" style="text-align:center;">
+                                    <a href="javascript:void(0)" class="href" ng-click="GenerateSinglePackageCode(paperPackage)">生成内容序列号</a>
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length==0">
+                                <td colspan="6">
+                                    <div class="table-data-empty">
+                                        <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        已选
+                        <a style="color:#328CE3;margin:0px 4px 0px 4px;font-weight:bold;">{{SelectCount}}</a>个
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="SendDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="margin-top:80px !important;">
+        <div class="modal-content" style="width: 840px; margin: auto;">
+            <div class="modal-header" style="position:relative;z-index:999999;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" style="font-weight: bold;margin-bottom:20px;">发货给渠道商</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'applyDialog1'}"
+                                   style="width:60%;margin:0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" style="padding-left:20px !important;padding-top:26px !important;">
+                <div class="form-group" style="margin-bottom:10px !important;">
+                    <div class="btn-group" style="margin-right:2px;line-height:30px;padding:0 5px;">内容商：</div>
+                    <div class="btn-group dropdown" style="min-width: 150px;">
+                        <a class="btn btn-default" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;">
+                            {{Send.CurrentProvider.ContentProviderName== "" ? "请选择" : Send.CurrentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;">
+                            <li ng-repeat="provider in ContentProvider">
+                                <a href="javascript:void(0);" ng-click="SendProviderChange(provider)">{{provider.ContentProviderName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:0px !important;">
+                    <div id="scrollable-area" class="table-container" style="height:430px;overflow:auto;">
+
+                        <table ng-table="Send.PackageList" class="table table-bordered table-hover" style="border: 1px solid #ddd;" fixed-table-headers="scrollable-area">
+                            <tbody>
+                                <tr ng-repeat="package in $data" ng-show="$data.length>0">
+                                    <td style="width: 8%;" header="'header_SendCheckbox.html'">
+                                        <input type="checkbox" class="chk" id="send_chk_{{$index}}" ng-click="SelectPackage(package)" ng-true-value="1" ng-false-value="0"
+                                               ng-model="package.Selected" ng-checked="package.Selected==1" />
+                                        <label for="send_chk_{{$index}}"></label>
+                                    </td>
+                                    <td sortable="'PackageCode'" data-title="'内容序列号'" style="width: 27%;text-align:center;text-align:left;padding-left:35px;">{{ package.PackageCode }}</td>
+                                    <td sortable="'PaperPackageName'" data-title="'试卷包名称'" style="width: 18%;word-break:break-all;text-align:left;" title="{{ package.PaperPackageName}}">{{ package.PaperPackageName|Long6Filter }}</td>
+                                    <td sortable="'ContentProviderName'" data-title="'内容商'" style="width: 15%;text-align:center;" title="{{ package.ContentProviderName}}">{{ package.ContentProviderName|Long6Filter }}</td>
+                                    <td sortable="'PaperCount'" data-title="'试卷套数'" style="width: 17%;text-align:center;">{{ package.PaperCount }}</td>
+                                    <td sortable="'CreatedTime'" data-title="'生成日期'" style="width: 18%;text-align:center;">{{ package.CreatedTimeFormat }}</td>
+                                </tr>
+                                <tr ng-show="$data.length==0">
+                                    <td colspan="6">
+                                        <div class="table-data-empty">
+                                            <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:0px;margin-top:5px;">
+                    已选
+                    <span style="color: #328CE3">{{SelectAllPackageListCount}}</span>个
+                </div>
+                <div class="form-group" style="text-align:center;height:50px;line-height:50px;margin-top:20px; background-color:#f5f7fa;border:1px solid #E8ECF0;">
+                    <div class="btn-group " style="line-height:30px; text-align: right;">发货给渠道商：</div>
+                    <div class="btn-group dropdown ">
+                        <a class="btn btn-default" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;">
+                            {{Send.CurrentChannelBusiness.BusinessName== "" ? "请选择" : Send.CurrentChannelBusiness.BusinessName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 300px; overflow-y: auto;min-width: 150px;">
+                            <li ng-repeat="chanel in ChannelBusinessList">
+                                <a href="javascript:void(0);" ng-click="Send.CurrentChannelBusiness = chanel;">{{chanel.BusinessName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="SendToBusiness()">确定</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="AllotDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="margin-top:80px !important;">
+        <div class="modal-content" style="width: 840px; margin: auto;">
+            <div class="modal-header" style="position:relative;z-index:999999;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" style="font-weight: bold;margin-bottom:20px;">分配到学校</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'applyDialog'}"
+                                   style="width:60%;margin:0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" ng-show="AllotStep==1" style="padding-left:20px !important;padding-top:26px !important;">
+                <a>
+                    <div class="circle">1</div>
+                    <div style="margin-left: 4px;display: inline-block;color:#9e9e9e;">选择内容序列号</div>
+                </a>
+                <a style="color:#9e9e9e;margin-left:4px;">></a>
+                <a style="margin-left:4px;">
+                    <div class="circle_disabled">2</div>
+                    <div style="margin-left: 4px;display: inline-block;">选择学校</div>
+                </a>
+                <div class="table-container custom-scrollbar" style="height:400px;margin-top:12px;">
+                    <table ng-table="Allot.PackageList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="package in $data" ng-show="$data.length>0">
+                                <td style="width: 8%;" header="'header_AllotCheckbox.html'">
+                                    <input type="checkbox" class="chk" id="allot_chk_{{$index}}" ng-click="SelectAllotPackage(package)" ng-true-value="1" ng-false-value="0"
+                                           ng-model="package.Selected" ng-checked="package.Selected==1" />
+                                    <label for="allot_chk_{{$index}}"></label>
+                                </td>
+                                <td sortable="'PackageCode'" data-title="'内容序列号'" style="width: 18%;text-align:center;">{{ package.PackageCode }}</td>
+                                <td sortable="'PaperPackageName'" data-title="'试卷包名称'" style="width: 30%;word-break:break-all;text-align:center;">{{ package.PaperPackageName }}</td>
+                                <td sortable="'ContentProviderName'" data-title="'内容商'" style="width: 12%;text-align:center;">{{ package.ContentProviderName }}</td>
+                                <td sortable="'PaperCount'" data-title="'试卷套数'" style="width: 14%;text-align:center;">{{ package.PaperCount }}</td>
+                                <td sortable="'SendTime'" data-title="'发货日期'" style="width: 21%;text-align:center;">{{ package.SendTime|Time16Filter }}</td>
+                            </tr>
+                            <tr ng-show="$data.length==0">
+                                <td colspan="6">
+                                    <div class="table-data-empty">
+                                        <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group" style="margin-top:12px;">
+                    已选
+                    <span style="color: #328CE3">{{SelectAllotPackageCount}}</span>个
+                </div>
+                <div class="form-group" style="margin-top:12px;">
+                    <div style="color:red" ng-show="AllotErrorMsg">{{AllotErrorMsg}}</div>
+                </div>
+
+            </div>
+            <div class="modal-body" ng-show="AllotStep==2" style="margin:10px 0px 0px 20px;">
+                <a>
+                    <div class="circle_disabled">1</div>
+                    <div style="margin-left: 4px;display: inline-block;color:#9e9e9e;">选择内容序列号</div>
+                </a>
+                <a style="color:#9e9e9e;margin-left:4px;">></a>
+                <a style="margin-left:4px;">
+                    <div class="circle">2</div>
+                    <div style="margin-left: 4px;display: inline-block;">选择学校</div>
+                </a>
+                <div class="form-group" style="margin-top:12px;">
+                    <div class="btn-group " style="line-height:30px;text-align: right;">&nbsp;&nbsp;&nbsp;地区：</div>
+                    <div class="btn-group dropdown" style="min-width: 75px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;padding-left:5px; ">
+                            {{ Allot.Province.ProvinceName== "" ? "省份" : Allot.Province.ProvinceName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height:200px; overflow-y: scroll;min-width: 150px;">
+                            <li ng-repeat="province in ProvinceList">
+                                <a href="javascript:void(0);" ng-click="ProvinceChange(province)">{{province.ProvinceName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" style="min-width: 75px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;padding-left:5px;">
+                            {{ Allot.City.CityName== "" ? "地市" : Allot.City.CityName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height:200px; overflow-y: scroll;min-width: 180px;">
+                            <li ng-repeat="city in CityList">
+                                <a href="javascript:void(0);" ng-click="CityChange(city)">{{city.CityName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" style="min-width: 75px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;padding-left:5px;">
+                            {{ Allot.Area.AreaName== "" ? "区" :Allot.Area.AreaName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height:200px; overflow-y: scroll;min-width: 180px;">
+                            <li ng-repeat="area in AreaList">
+                                <a href="javascript:void(0);" ng-click="AreaChange(area)">{{area.AreaName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="btn-group " style="line-height:30px;text-align: right;">&nbsp;&nbsp;&nbsp;学校：</div>
+                    <div class="btn-group">
+                        <input type="text" class="search-textbox" style="width: 180px;display: inline-block;height:32px !important;width: 234px !IMPORTANT;"
+                               placeholder="输入学校名称" id="channelB_Name" ng-model="SchoolQuery.SchoolName">
+                        <span class="smallicon btn-icon icon-sousuo" ng-click="SearchSchoolList()" style="font-size: 1.2em;margin-left:-28px;cursor:pointer;margin-top:6px;"></span>
+                    </div>
+                </div>
+                <div class="form-group custom-scrollbar" style="height:400px;background-color:#eef3f7;margin-left: 54px !important;">
+                    <div style="padding:15px 10px 15px 10px;">
+                        <div style="width:33%;float:left;text-align:left;height:25px;line-height:25px;" ng-repeat="school in SchoolList" ng-click="SelectSchool(school)">
+                            <div ng-attr-title="{{school.SchoolName}}" class="ellipsis" style="cursor:pointer;width:80%;max-width:100%;padding-left:4px;" ng-style="school.Selected==true?{'background-color':'#3075c3','color':'white'}:{'background-color':'#eef3f7;','color':'black;'}">{{school.SchoolName}}</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group" style="margin-top:12px;height:24px;">
+                    <span style="color:red" ng-show="AllotErrorMsg">{{AllotErrorMsg}}</span>
+                </div>
+            </div>
+            <div class="modal-footer" ng-if="AllotStep==1">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="NextStep()">下一步</button>
+            </div>
+            <div class="modal-footer" ng-if="AllotStep==2">
+                <button type="button" class="btn btn-cancel btn-normal" ng-click="PreStep()">上一步</button>
+                <button type="button" class="btn btn-primary btn-normal" ng-click="AllotToSchool()" style="margin-left:20px;">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="AssignToExamOrgDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="margin-top:80px !important;">
+        <div class="modal-content" style="width: 840px; margin: auto;">
+            <div class="modal-header" style="position:relative;z-index:999999;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" style="font-weight: bold;margin-bottom:20px;">分配到考试机构</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'applyDialog'}"
+                                   style="width:60%;margin:0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" ng-show="AssignToExamOrgStep==1" style="padding-left:20px !important;padding-top:26px !important;">
+                <div>
+                    <div class="circle">1</div>
+                    <div style="margin-left: 4px;display: inline-block;color:#9e9e9e;">选择内容序列号</div>
+
+                    <a style="color:#9e9e9e;margin-left:4px;">></a>
+
+                    <div class="circle_disabled" style="margin-left:4px;">2</div>
+                    <div style="margin-left: 4px;display: inline-block;">选择考试机构</div>
+                    <div style="float:right;">
+                        <div class="btn-group" style="line-height: 30px;margin-left:4px;">渠道商：</div>
+                        <div class="btn-group dropdown" style="min-width: 120px;">
+                            <a class="btn btn-block btn-default" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;">
+                                {{  AssignToExamOrgQuery.ChannelBusinessName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="task_Status" role="menu" style="max-height: 200px; overflow-y: auto;">
+                                <li ng-repeat="chanel in ChannelBusinessList">
+                                    <a href="javascript:void(0);" ng-click="ChannelChangeForExamOrg(chanel)">{{chanel.BusinessName}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container  custom-scrollbar" style="height:400px;margin-top:12px;">
+                    <table ng-table="AssignToExamOrg.PackageList" class="table table-bordered table-hover ">
+                        <tbody>
+                            <tr ng-repeat="package in $data" ng-show="$data.length>0">
+                                <td style="width: 60px;" header="'header_AssignToExamOrgCheckbox.html'">
+                                    <input type="checkbox" class="chk" id="allot_chk_{{$index}}" ng-click="SelectPackageToExamOrg(package)" ng-true-value="1" ng-false-value="0"
+                                           ng-model="package.Selected" ng-checked="package.Selected==1" />
+                                    <label for="allot_chk_{{$index}}"></label>
+                                </td>
+
+                                <td sortable="'PackageCode'" data-title="'内容序列号'" style="width: 200px;text-align:center;">{{ package.PackageCode }}</td>
+                                <td sortable="'PaperPackageName'" data-title="'试卷包名称'" style="width: 150px;word-break:break-all;text-align:center;">{{ package.PaperPackageName }}</td>
+                                <td sortable="'ContentProviderName'" data-title="'内容商'" style="width: 100px;text-align:center;">{{ package.ContentProviderName }}</td>
+                                <td sortable="'BusinessName'" data-title="'渠道商'" style="width: 100px;text-align:center;">{{ package.BusinessName }}</td>
+                                <td sortable="'PaperCount'" data-title="'试卷套数'" style="width: 80px;text-align:center;">{{ package.PaperCount }}</td>
+                                <td sortable="'SendTime'" data-title="'发货时间'" style="width: 140px;text-align:center;">{{ package.SendTime|Time16Filter }}</td>
+                            </tr>
+                            <tr ng-show="$data.length==0">
+                                <td colspan="7" style="width: 803px;">
+                                    <div class="table-data-empty">
+                                        <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group" style="margin-top:12px;">
+                    已选
+                    <span style="color: #328CE3">{{SelectAssignToExamOrgPackageCount}}</span>个
+                </div>
+                <div class="form-group" style="margin-top:12px;">
+                    <div style="color:red" ng-show="AssignToExamOrgErrorMsg">{{AssignToExamOrgErrorMsg}}</div>
+                </div>
+
+            </div>
+            <div class="modal-body" ng-show="AssignToExamOrgStep==2" style="margin:10px 0px 0px 20px;">
+                <div>
+                    <div class="circle_disabled">1</div>
+                    <div style="margin-left: 4px;display: inline-block;color:#9e9e9e;">选择内容序列号</div>
+
+                    <a style="color:#9e9e9e;margin-left:4px;">></a>
+
+                    <div class="circle" style="margin-left:4px;">2</div>
+                    <div style="margin-left: 4px;display: inline-block;">选择考试机构</div>
+                </div>
+                <div style="margin-top:10px;">
+                    <div class="btn-group " style="line-height:30px;text-align: right;">地区：</div>
+                    <div class="btn-group dropdown" style="min-width: 75px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;padding-left:5px; ">
+                            {{ AssignToExamOrg.Province.ProvinceName== "" ? "省份" : AssignToExamOrg.Province.ProvinceName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height:200px; overflow-y: scroll;min-width: 150px;">
+                            <li ng-repeat="province in ProvinceListForExamOrg">
+                                <a href="javascript:void(0);" ng-click="ProvinceChangeForExamOrg(province)">{{province.ProvinceName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" style="min-width: 75px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;padding-left:5px;">
+                            {{ AssignToExamOrg.City.CityName== "" ? "地市" : AssignToExamOrg.City.CityName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height:200px; overflow-y: scroll;min-width: 180px;">
+                            <li ng-repeat="city in CityListForExamOrg">
+                                <a href="javascript:void(0);" ng-click="CityChangeForExamOrg(city)">{{city.CityName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" style="min-width: 75px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;padding-left:5px;">
+                            {{ AssignToExamOrg.Area.AreaName== "" ? "区" :AssignToExamOrg.Area.AreaName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height:200px; overflow-y: scroll;min-width: 180px;">
+                            <li ng-repeat="area in AreaListForExamOrg">
+                                <a href="javascript:void(0);" ng-click="AreaChangeForExamOrg(area)">{{area.AreaName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top:10px;">
+                    <div class="btn-group " style="line-height:30px;text-align: right;">机构：</div>
+                    <div class="btn-group">
+                        <input type="text" class="search-textbox" style="width: 180px;display: inline-block;height:32px !important;width: 234px !IMPORTANT;" onkeydown="searchEnter()"
+                               placeholder="输入考试机构名称" id="channelB_Name" ng-model="ExamOrgQuery.ExamOrgName">
+                        <span id="iconexamorgsearchicon" class="smallicon btn-icon icon-sousuo" ng-click="SearchExamOrgList()" style="font-size: 1.2em;margin-left:-21px;cursor:pointer;margin-top:6px;"></span>
+                    </div>
+                </div>
+                <div class="form-group custom-scrollbar" style="height:400px;background-color:#eef3f7;margin: 10px 0px 10px 40px;">
+                    <div style="padding:15px 10px 15px 10px;">
+                        <div style="max-width: 33%;float:left;text-align: left;height:25px;line-height:25px;" ng-repeat="og in ExamOrgList" ng-click="SelectExamOrg(og)">
+                            <div ng-attr-title="{{og.ExamOrgName}}" class="ellipsis" style="cursor:pointer;max-width:100%;padding:0px 10px;" ng-style="og.Selected==true?{'background-color':'#3075c3','color':'white'}:{'background-color':'#eef3f7;','color':'black;'}">{{og.ExamOrgName}}</div>
+                        </div>
+                        <div style="width: 100%;padding-top: 120px;text-align: center;" ng-if="ExamOrgList.length==0">
+                            <img src="httP://cdn.uukaola.com/web/img/package/no_result.png" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group" style="margin-top:12px;height:24px;">
+                    <span style="color:red" ng-show="AssignToExamOrgErrorMsg">{{AssignToExamOrgErrorMsg}}</span>
+                </div>
+            </div>
+            <div class="modal-footer" ng-if="AssignToExamOrgStep==1">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="NextStepForExamOrg()">下一步</button>
+            </div>
+            <div class="modal-footer" ng-if="AssignToExamOrgStep==2">
+                <button type="button" class="btn btn-cancel btn-normal" ng-click="PreStepForExamOrg()">上一步</button>
+                <button type="button" class="btn btn-primary btn-normal" ng-click="AssignPackageToExamOrg()" style="margin-left:20px;">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function searchEnter() {
+        var event = arguments.callee.caller.arguments[0] || window.event;//消除浏览器差异  
+        if (event.keyCode == 13) {
+            document.getElementById("iconexamorgsearchicon").click();
+        }
+    }
+    </script>

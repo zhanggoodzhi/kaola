@@ -1,0 +1,33 @@
+﻿<style>
+    .video-js {
+        width: 485px !important;
+        height: 400px !important;
+    }
+</style>
+
+<div class="markview-area-title" style="">
+    <label class="" style="">{{ answer.AreaTitle }}</label>
+</div>
+
+<div class="row" style="color:#24a3e6;" ng-if="answer.QuestionTitle != null && answer.QuestionTitle.length > 0">
+    <h6>{{ answer.QuestionTitle }}</h6>
+</div>
+<div class="row" style="padding:10px 5px;" ng-if="answer.QuestionPrompt != null && answer.QuestionPrompt.length > 0">
+    {{ answer.QuestionPrompt }}
+</div>
+
+<div class="row" style="font-weight:normal;margin-bottom:30px;">
+    <span class="text-break">{{ answer.ContentText }}</span>
+
+    <div ng-video id="{{'ng-video-directives_'+answer.ContentID}}" data="GetVideoData(answer)"></div>
+</div>
+
+<div class="row" style="margin-bottom: 20px; min-height:90px;max-height:120px; margin-top: 10px;">
+    <ref-text refs="contentAnswers" style="padding-left:0px;"></ref-text> 
+</div>
+<div class="row" style="margin-bottom:5px;margin-top:10px; text-align: center;">
+    <div ng-audiowave audio-option="answer" wave-color="#EE82EE" progress-color="#337ab7" height="120" ng-if="BroswerVerion>11">
+    </div>
+    <div ng-audio audio-option="answer" height="120" ng-if="BroswerVerion>=8 && BroswerVerion<=11">
+    </div>
+</div>

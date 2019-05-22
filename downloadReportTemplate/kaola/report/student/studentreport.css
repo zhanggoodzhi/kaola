@@ -1,0 +1,47 @@
+﻿@media (min-height: 700px) {
+    .area {
+        margin: 150px auto 100px;
+    }
+}
+
+@media (max-height: 700px) {
+    .area {
+        margin: 100px auto;
+    }
+}
+
+.area {
+    width: 500px;
+    height: 300px;
+    border: 2px dashed #e5e5e5;
+    text-align: center;
+}
+
+.area .childarea {
+    width: 300px;
+    height: 100px;
+    margin: 120px auto;
+    display: inline-block;
+}
+
+.area .areacontent {
+    margin-top: 20px;
+}
+
+.taskscore-div {}
+
+.taskscore-div div {
+    padding-left: 0px;
+    padding-right: 0px;
+    color: #9a9a9a;
+}
+
+.taskscore-div div a {
+    text-decoration: none;
+    margin-left: 5px;
+    color: #636363;
+}
+
+.tooltip-inner {
+    color: #ffffff !important;
+}

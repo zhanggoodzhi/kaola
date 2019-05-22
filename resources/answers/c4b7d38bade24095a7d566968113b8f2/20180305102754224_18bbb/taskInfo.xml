@@ -1,0 +1,53 @@
+﻿<?xml version="1.0"?>
+<TaskDetail xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TaskID>c4b7d38bade24095a7d566968113b8f2</TaskID>
+  <TaskName>22222</TaskName>
+  <TeacherID>c301ef3d573b4b17b25a032d3b506d33</TeacherID>
+  <CreatedTime>2018-03-05T09:17:40</CreatedTime>
+  <LastUpdateTime>2018-03-05T09:17:40</LastUpdateTime>
+  <TaskType>Exam</TaskType>
+  <Status>IDLE</Status>
+  <TaskFrom>Kaola</TaskFrom>
+  <TotalPaperCount>1</TotalPaperCount>
+  <TotalClassCount>1</TotalClassCount>
+  <TotalStudentCount>1</TotalStudentCount>
+  <ExamStudentCount>0</ExamStudentCount>
+  <Papers>
+    <TaskPaperInfo>
+      <PaperID>fc2ee79df0024a4a95475240e66219d5</PaperID>
+      <PaperTitle />
+      <PaperName>组卷_口语_转述类型</PaperName>
+      <IsCustomPaper>false</IsCustomPaper>
+      <ShowName>组卷_口语_转述类型</ShowName>
+      <PaperDownloadUrl>/web/resources/paps/fc2ee79df0024a4a95475240e66219d5.pap</PaperDownloadUrl>
+      <TotalMinutes>16</TotalMinutes>
+      <TotalScore>35</TotalScore>
+      <TotalListeningScore>0</TotalListeningScore>
+      <TotalSpeakingScore>35</TotalSpeakingScore>
+    </TaskPaperInfo>
+  </Papers>
+  <Classes>
+    <TaskClassInfo>
+      <TotalStudentCount>1</TotalStudentCount>
+      <ClassID>6ba88e8bae934fe6bc6b8f2869706a0f</ClassID>
+      <SchoolID>290196</SchoolID>
+      <SchoolName>Demo学校</SchoolName>
+      <ClassNumber>BJ2901961113</ClassNumber>
+      <ClassName>高大上的班级</ClassName>
+      <Grade>9</Grade>
+      <Status>0</Status>
+      <Students>
+        <TaskClassStudent>
+          <StudentNumber>1</StudentNumber>
+          <StudentID />
+          <StudentName>张某某</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+      </Students>
+    </TaskClassInfo>
+  </Classes>
+  <AMSPredictFinishTime>0001-01-01T00:00:00</AMSPredictFinishTime>
+  <AMSPredictFinishTimeMillisecond>0</AMSPredictFinishTimeMillisecond>
+  <MarkPrecision>1</MarkPrecision>
+</TaskDetail>

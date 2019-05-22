@@ -1,0 +1,29 @@
+﻿<div style="background-color:#ffffff;padding-left:14px;padding-right:14px;">
+    <!--跟读与模仿16-->
+
+    <div class="div-content">
+
+        <div>
+            <div class="content-idx" style="">{{questionData.Index}}</div>
+
+            <div class="content-text" style="" ng-bind-html="questionData.Text|trustHtml">
+            </div>
+            <div class="content-controlbar" ng-if="questionData.Audio.length>0">
+                <div ng-click="PlayAudio(questionData,questionData.QuestionID,questionData.Audio)">
+                    <img ng-if="IsAudioPlaying(questionData.QuestionID)==false" src="http://cdn.uukaola.com/web/img/report/bofangluyin.png"
+                    />
+                    <img ng-if="IsAudioPlaying(questionData.QuestionID)==true" src="http://cdn.uukaola.com/web/img/report/bofangluyin-2.png"
+                    />
+                    <span>播放录音</span>
+                </div>
+                <!--<div ng-if="questionData.AudioText.length>0" ng-click="ShowAudioRefText(questionData.AudioText)">
+                    <img src="http://cdn.uukaola.com/web/img/report/luyinyuanwen.png" />
+                    <span>录音原文</span>
+                </div>-->
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+
+    </div>
+
+</div>

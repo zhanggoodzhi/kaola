@@ -1,0 +1,191 @@
+﻿/* global */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    color: #636363;
+    background: #f4f5f9;
+    font-family: Microsoft Yahei;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+address, caption, cite, code, dfn, em, th, var {
+    font-weight: normal;
+    font-style: normal;
+}
+
+strong, b {
+    font-weight: bold;
+}
+
+ol, ul, dl {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+caption, th {
+    text-align: left;
+}
+
+a {
+    text-decoration: none;
+    color: #697a96;
+}
+a:hover {
+    color: #c8cfdb;
+}
+
+q:before, q:after {
+    content: '';
+}
+
+.fleft {
+    float: left;
+}
+
+.fright {
+    float: right;
+}
+
+.mar-auto {
+    margin: 0 auto;
+}
+
+.clear {
+    clear: both;
+}
+
+
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+
+
+/*业务支撑后台样式*/
+
+.business_login {
+    width: 100%;
+    height: 100%;
+    background-image: url('');
+}
+
+    .business_login .login_container {
+        height: 100%;
+        width: 680px;
+        background: inherit;
+        padding-top:260px;
+        margin:0 auto;      
+    }
+
+    @media (min-height: 400px) {
+     .business_login .login_container {
+        height: 100%;
+        width: 680px;
+        background: inherit;
+        padding-top:20%;
+        margin:0 auto; 
+    }
+}
+
+    .business_login .login_content {
+        padding: 10px 10px;      
+        border-radius: 4px;
+        margin-top: 24px; 
+        filter: alpha(opacity=50);
+        background-color:rgba(255, 255, 255, 0.2);
+        behavior:url(../../lib/PIE.htc);
+    }
+
+
+
+.input_box {
+    height: 40px;
+    /*padding: 18px 10px 20px;*/
+    border-radius: 4px;
+    margin: 0;
+    /*width: 100%;*/
+    width: 276px;
+    border: 1px solid #3074c1;   
+} 
+
+.input-group-addon {
+    background-color: #FFFFFF;
+    border: initial;
+    padding-right:10px;
+    padding-left:14px;
+}
+
+input, textarea, select {
+    background-color: #FFFFFF !important;
+    background-image: none;
+    color: rgb(0, 0, 0);
+}
+
+
+.pic {
+    height: 22px;
+    width: 29px;
+    display: inline-block;
+    background: url('http://cdn.uukaola.com/web/img/business/name.png') no-repeat #fff 5px;
+    vertical-align: middle;
+}
+
+.pic2 {
+    height: 22px;
+    width: 29px;
+    display: inline-block;
+    background-color: #FFFFFF;
+    background: url("http://cdn.uukaola.com/web/img/business/lock.png") no-repeat #fff 5px;
+    vertical-align: middle;
+}
+
+.separate {
+    border-right: 1px solid #CCCCCC;
+    height: 24px;
+    margin-left: 10px;
+    width: 0;
+    vertical-align: middle;
+}
+
+
+.error-input {
+    border-color: #ff615b;
+	background:#ffeef0;
+}
+ .error-input * {
+    background-color: #ffeef0 !important;
+}
+
+.error-input:hover * {
+    background-color: #ffffff !important;
+}
+
+
+.checkbox input {
+    background: #fff;
+    border: 1px solid #c9d4dc;
+}
+
+
+.form-horizontal .form-group {
+     margin-left: 0; 
+     margin-right: 0; 
+}
+

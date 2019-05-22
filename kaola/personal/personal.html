@@ -1,0 +1,149 @@
+﻿<style type="text/css">
+    .personal_form {
+        margin: 0 auto;
+        color: #808080;
+        font-family: "微软雅黑";
+    }
+
+    #area .choose {
+        /*float: left;*/
+        width: 110px;
+        height: 43px;
+    }
+</style>
+
+<div class="modal fade" id="ImportProgressDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:400px;margin:auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel">上传头像</h5>
+            </div>
+            <div class="modal-body">
+                <div style="padding: 1px;border:solid 1px #24a3e6;height: 23px;">
+                    <div ng-if="ImportPercent>0" class="progress" style="margin-bottom: 1px;margin-top: 1px;height: 18px;border-radius: 0px;background-color: #ffffff;box-shadow: none;">
+                        <div id="importProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="background-color:#178ec9;"
+                             ng-style="{'width':ImportPercent+'%'}">
+                        </div>
+                    </div>
+                    <div style="margin-top: -20px;margin-left: 160px;" ng-style="{'color':ImportPercent>50?'#ffffff':'#178ec9'}">{{ImportPercent+'%'}}</div>
+                </div>
+                <div class="form-group" style="padding-bottom:30px;">
+                    <div class="btn-group" style="color:red;" ng-if="ImportErrorMessage != ''" role="group">
+                        <span class="span-error-msg" ng-if="ImportErrorMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png" style="margin: 1px  5px  0  0;width: 14px;height: 14px;">
+                            <span class="tip1">{{ImportErrorMessage}}</span>
+                        </span>
+                    </div>
+                    <div class="btn-group color-blue" style="" ng-if="ImportMessage != '' &&ImportErrorMessage=='' " role="group">
+                        {{ImportMessage}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row" style="background-color: #e3eaeb; height: 100%;">
+
+    <div class="col-sm-3 col-xs-3" style="border-right:1px solid #e7edf1;background-color: #e3eaeb;">
+        <div style="background-color:#ffffff;height: 100%;padding: 20px 0px 0px 0px;">
+            <div style="width: 130px; height: 130px;margin:0px auto 0px auto;overflow: hidden;border-radius: 500rem;cursor:pointer; border: solid 3px #Fff; box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);-webkit-box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);">
+                <input type="file" ng-if="IEVersion>8" id="inputImage" class="uploadFile" accept="image/jpg,image/jpeg,image/png" ngf-select="" ngf-multiple="true" style="height: 130px;width: 130px;opacity:0;filter: alpha(opacity=0);position: absolute; cursor: pointer;" onchange="angular.element(this).scope().ChangeImage(this.files[0])" multiple="multiple">
+                <input type="file" ng-if="IEVersion==8" id="inputImage" name="btn_file"
+                       style="height: 180px;width: 180px;opacity: 0;position: absolute;cursor: pointer;display: block;filter:
+                              alpha(opacity=1);z-index: 9999;" ngf-select="UploadHeadPic($files)"
+                       ngf-multiple="true" />
+                <img class="largeUserImage" alt="头像" id="userimage" ng-src="{{ AuthService.AuthData().headPic }}" src="http://cdn.uukaola.com/web/img/defaultHeadPic.png" title="" style="cursor: pointer;">
+            </div>
+            <p style="text-align: center;font-size:14px;margin-top:10px; color: #24a3e6;" ng-bind="AuthService.AuthData().nickName"></p>
+            <div style="height: 1px;background-color:#e8edf1;margin:10px;"></div>
+            <div class="menuSidebar" style="padding:0px 10px;">
+                <ul class="nav nav-stacked" ng-repeat="item in personalMenuItems">
+                    <li ui-sref-active="active">
+                        <a ui-sref="{{ item.state }}" style="padding:15px 22px">
+                            <table>
+                                <tr>
+                                    <td style="vertical-align: top;">
+                                        <span class="smallicon icon-{{item.icon}}" style="height: 16px; margin: 1px;"></span>
+                                    </td>
+                                    <td><span ng-bind="item.title" style="height: 16px;margin-left:8px;"></span></td>
+                                </tr>
+                            </table>
+                            <span class="rightAngle"></span>
+                            <span class="rightBar"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-9 col-xs-9" style="height:100%;background-color:#ffffff;">
+        <div class="" ui-view="personalChildView" style=""></div>
+    </div>
+
+</div>
+
+<div class="modal" id="EditHeadPicDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 482px; margin: 0 auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel" style="">修改头像</h5>
+            </div>
+
+            <div class="modal-body">
+                <!--<div class="form-group" style="margin-top: -40px;height: 30px;">
+
+                </div>-->
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 1}"></toaster-container>
+
+                <div class="form-group" style="height: 40px;">
+
+                    <a href="javascript:;" name="file" class="btn btn-warning" style="height:34px;width:82px; background-color: #E2E7EA; color: #636363; font-size: 12px;">
+                        <input type="file" id="inputImage" class="uploadFile" accept="image/jpeg, image/png" ngf-select ngf-multiple="true" style="filter: alpha(opacity=0);opacity:0;left:0;right:0;position: absolute" onchange="angular.element(this).scope().ChangeImage(this.files[0])" />
+                        重新上传
+                    </a>
+                    <label for="inputFile" style="font-size: 12px;">&nbsp;&nbsp;支持jpg、png格式图片</label><br />
+
+                </div>
+                <div class="form-group" style="border: solid 1px #ddd;padding: 1px; position: relative; margin-bottom: 12px;">
+                    <div class="img-container" style="" ng-show="ImageShowed==true">
+                        <img id="HeadPicImg" class="cropper-hidden HeadPicImg" />
+
+                    </div>
+                    <div class="img-container" style="" ng-show="ImageShowed==false">
+                        <img id="defaultHeadPicImg" class="" src="http://cdn.uukaola.com/web/img/defaultHeadPic.png" style="width: 290px; height: 286px; margin-top: 100px;" />
+
+                    </div>
+                    <label class="preview-label">头像预览</label>
+
+                    <div ng-show="ImageShowed==true" style="top: 90px; left: 310px; position: absolute; width: 110px; height: 110px; margin: 0 auto; border: solid 3px #Fff; border-radius: 500rem; overflow: hidden; box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);-webkit-box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);">
+                        <div class="img-preview" style="position: absolute; top: 0px; width: 110px; height: 166px;">
+                            <img src="" style="">
+                        </div>
+
+                    </div>
+                    <div class="" ng-show="ImageShowed==false">
+
+                        <div class="img-preview" style="top: 200px; left: 530px; position: absolute; width: 224px; height: 224px; margin: 0 auto; border: solid 1px #E0DEDE; border-radius: 500rem; overflow: hidden;">
+                            <img src="http://cdn.uukaola.com/web/img/defaultHeadPic.png" style="position: absolute; top: 40px; left: 54px;">
+                        </div>
+                    </div>
+
+
+                </div>
+                <label class="img-desc-label">滚动鼠标可缩放图片, 拖拽鼠标可移动图片</label>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn query-height" ng-disabled="ImageShowed==false" ng-click="SaveHeadPic()" style="width: 110px;margin-right:10px; background-color: #24a3e6; color: #fff;">确定</button>
+                <button type="button" class="btn query-height" ng-click="CancelHeadPic()" style="width: 120px;background-color: #e2e7ea;margin-left:40px;color: #7a7a7a;">取消</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+

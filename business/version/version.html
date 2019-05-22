@@ -1,0 +1,259 @@
+﻿<style>
+    .group_lable {
+        width: 28% !important;
+        padding-right: 0px !important;
+    }
+
+    .fullline {
+        width: 70% !important;
+        margin-bottom: 5px;
+        padding-left: 5px;
+    }
+
+    .infop {
+        text-align: left;
+        padding-left: 139px;
+        font-size: 12px;
+        color: red;
+        margin-top: -14px;
+    }
+
+    .limit-length-div {
+         overflow: hidden;
+        white-space: nowrap;
+        -ms-text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        max-width:200px;
+    }
+</style>
+<div class="row">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">版本控制管理</a>
+    </div>
+
+    <div class="tab-content">
+        <div class="tab-pane active " id="channelB_Manage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialogList'}"></toaster-container>
+            <div class="content-main">
+                <div class="row SubTabSet" style="margin-top:5px !important;">
+                    <ul class="nav nav-tabs" role="tablist" style="padding-bottom:8px;">
+                        <li style="float: right;width: auto;height: 36px;line-height: 36px;" ng-if="IsVersionAdmin==true">
+                            <button style="height: 36px !important;line-height: 36px;float: right;" type="button" class="btn-yellow" ng-click="OpenAddVersionDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/fabu.png">
+                                <span aria-hidden="true">发布新版本</span>
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="table-container" style="padding-top: 0; ">
+                            <table ng-table="VersionList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                <tbody>
+                                    <tr ng-repeat="version in $data" ng-show="$data.length>0" id="{{version.VersionID}}">
+                                        <td data-title="'升级版本号'" style="width:9%;" sortable="'VersionCode'" title="{{version.VersionID}}" ng-click="ShowID(version)">{{ version.VersionCode }}</td>
+                                        <td data-title="'开发版本号'" style="width:9%;" sortable="'InnerVersionCode'">{{ version.InnerVersionCode }}</td>
+                                        <td data-title="'类型'" style="width:78px;" sortable="'TypeDesc'">{{ version.TypeDesc }}</td>
+                                        <td data-title="'更新说明'" style="text-align:left;width:14%;" sortable="'UpdateInfo'" title="{{version.UpdateInfo}}">
+                                            <div class="limit-length-div">{{version.UpdateInfo|LongFilter}}</div>
+                                        </td>
+                                        <td data-title="'下载地址'" style="text-align:left;width:21%;" sortable="'SoftwareUrl'">
+                                            <label style="width:100%" ng-if="version.SoftwareUrl!=null&&version.PatchUrl!=''">软件下载地址：</label>
+                                            <label ng-if="version.SoftwareUrl!=null&&version.PatchUrl!=''">
+                                                {{ version.SoftwareUrl }}
+                                            </label>
+                                            <label style="width:100%" ng-if="version.PatchUrl!=null&&version.PatchUrl!=''">补丁下载地址：</label>
+                                            <label ng-if="version.PatchUrl!=null&&version.PatchUrl!=''">
+                                                {{ version.PatchUrl }}
+                                            </label>
+                                        </td>
+                                        <td data-title="'发布时间'" style="text-align:center;min-width:78px;width:84px;" sortable="'ReleaseTime'">{{ version.ReleaseDateFormat }}</td>
+                                        <td data-title="'安装数'" style="text-align:center;width:54px;" sortable="'InstallCount'">
+                                            <a class="href" ng-click="OpenVersionDetailDialog(version)">{{ version.InstallCount| EmptyFilter}}</a>
+                                        </td>
+                                        <td data-title="'操作'" style="text-align:center;width:168px;">
+                                            <a class="f12 href" ng-class="'href'" ng-click="GotoPatchUrl(version)">补丁版本管理</a>
+                                            <a class="f12 href" ng-class="'href'" ng-if="IsVersionAdmin==true" ng-click="OpenVersionUpdateDialog(version)">修改</a>
+                                            <a class="f12 href" ng-class="'href'" ng-if="IsVersionAdmin==true" ng-click="OpenVersionDeleteDialog(version)">删除</a>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="$data.length==0">
+                                        <td colspan="8">
+                                            <div class="table-data-empty">
+                                                <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="VersionDetailDialog" tabindex="-4" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:900px; margin: 50px auto 20px;">
+            <div class="modal-header" style="background-color:#e3eaeb;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <font style="color:white;font-size:14px;">{{VersionSelect.VersionCode}}版本安装情况</font>
+            </div>
+            <div class="modal-body">
+                <div class="table-container" style="padding-top: 0; ">
+                    <table ng-table="VersionDetailList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="detail in $data" ng-show="$data.length>0">
+                                <td data-title="'学校名称'" style="text-align:center;" sortable="'SchoolName'">{{ detail.SchoolName }}</td>
+                                <td data-title="'设备ID'" style="text-align:center;" sortable="'DeviceID'">{{ detail.DeviceID| EmptyFilter }}</td>
+                                <td data-title="'安装序列号'" style="text-align:center;" sortable="'DongleCode'">{{ detail.DongleCode }}</td>
+                            </tr>
+                            <tr ng-show="$data.length==0">
+                                <td colspan="3">
+                                    <div class="table-data-empty">
+                                        <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="VersionUpdateDialog" tabindex="-4" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:500px; margin: 50px auto 20px;">
+            <div class="modal-header" style="background-color:#e3eaeb;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <font style="color:white;font-size:14px;">{{VersionSelect.VersionCode}}版本安装情况</font>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label for="" class="col-md-3 col-xs-3  control-label group_lable">升级版本号：</label>
+                        <div class="col-md-6 col-xs-6  form-inline fullline">
+                            <label style="margin-right: 2px;  display: block; float: left;margin-top: 7px;padding-right: 3px;">V</label>
+                            <input type="text" class="form-control" style="width:28px !important;text-align: center;padding-left:0px !important" id="dik_MainCode" ng-model="VersionSelect.MainCode" ng-change="SetPath()">
+                            <label>.</label>
+                            <input type="text" class="form-control" style="width:28px  !important;text-align: center;padding-left:0px !important" id="dik_MinorCode" ng-model="VersionSelect.MinorCode" ng-change="SetPath()">
+                            <label style="color:orange;margin-left:8px;" ng-show="LastVersion.length>0">上个版本:{{LastVersion}}</label>
+                            <img src="http://cdn.uukaola.com/web/img/business/banben.png" style="cursor:pointer;margin-left:8px;margin-top:-3px;" ng-mouseover="IsShowExplain =true" ng-mouseleave="IsShowExplain =false" />
+                            <div ng-show="IsShowExplain==true" style="text-align:center;position: absolute;width:420px;height:320px;border:1px solid #4895c9;left: -100px;top: 30px;background-color: white;border-radius:4px;z-index: 9999;">
+                                <p style="margin-top:10px;font-size: 16px;color: #3074c1;font-weight: bold;line-height: 35px;margin-bottom:0px;">版本号定义规则</p>
+                                <p style="border-bottom:2px solid #eee;width:80%;margin:auto;"></p>
+                                <p style="margin-top:16px;color: #444444;"><span style="font-weight:bold;color:black;">版本格式：</span>主版本号.次版本号.修订号</p>
+                                <p><div><img src="http://cdn.uukaola.com/web/img/business/版本号示意.png" /></div></p>
+                                <p><span style="font-weight:bold;color:black;">主版本号：</span>当你做了不兼容的大版本升级</p>
+                                <p><span style="font-weight:bold;color:black;">次版本号：</span>当你做了向下兼容的功能性新增</p>
+                                <p class="infop">（注：只有购买了升级服务的客户才可更新）</p>
+                                <p><span style="font-weight:bold;color:black;">修订号：</span>当你做了向下兼容的BUG修复</p>
+                                <p class="infop">（注：未购买升级服务的客户也可更新）</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label for="" class="col-md-3 col-xs-3  control-label group_lable">内部版本号：</label>
+                        <div class="col-md-6 col-xs-6  form-inline fullline">
+                            <input type="text" class="form-control" style="width:28px;" id="dik_InstallCode" ng-model="VersionSelect.InnerVersionCode">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label for="" class="col-md-3 col-xs-3  control-label group_lable">类型：</label>
+                        <div class="col-md-6 col-xs-6 fullline">
+                            <div class="radio" style="padding: 5px 0; ">
+                                <label>
+                                    <input type="radio" value="false" name="task_Type_radio" ng-model="VersionSelect.IsMandatory" ng-checked="VersionSelect.IsMandatory==false" />非强制更新
+                                </label>
+                                <label style="margin-left:20px;">
+                                    <input type="radio" value="true" name="task_Type_radio" ng-model="VersionSelect.IsMandatory" ng-checked="VersionSelect.IsMandatory==true" /> 强制更新
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label for="" class="col-md-3 col-xs-3  control-label group_lable">更新说明：</label>
+                        <div class="col-md-6 col-xs-6 fullline">
+                            <textarea ng-model="VersionSelect.UpdateInfo" placeholder="" maxlength="500" class="textarea" style="height:100px;width:100%;overflow-y:scroll;"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label for="" class="col-md-3 col-xs-3  control-label group_lable">软件下载地址：</label>
+                        <div class="col-md-6 col-xs-6 fullline">
+                            <input type="text" class="form-control" id="dik_SoftwareUrl" style="width:100% !important;" ng-model="VersionSelect.SoftwareUrl" />
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label for="" class="col-md-3 col-xs-3  control-label group_lable">补丁下载地址：</label>
+                        <div class="col-md-6 col-xs-6 fullline">
+                            <input type="text" class="form-control" id="dik_PatchUrl" style="width:100% !important;" ng-model="VersionSelect.PatchUrl" />
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <div class="col-md-3 col-xs-3 "></div>
+                        <div class="col-md-9" style="color:red;height:24px;line-height:24px;">{{DongleInstock.ErrorMsg}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="VersionSave()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="CustomerManageDialog" tabindex="-4" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:450px; margin: 50px auto 20px;">
+            <div class="modal-header" style="background-color:#e3eaeb;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <font style="color:white;font-size:14px;">客户管理</font>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="">
+                    <div class="col-md-2 col-xs-2"></div>
+                    <div class="col-md-9 col-xs-9" style="color:red;height:24px;line-height:24px;">{{CustomerManageErrorMsg}}</div>
+                </div>
+                <div class="custom-scrollbar" style="max-height:170px;min-height:80px;text-align: center;">
+                    <div class="form-group" ng-repeat="customer in ManageCustomerList">
+                        <div class="form-inline" style="margin-left:20%;text-align:left;">
+                            <input type="text" ng-readonly="customer.isEdit==false" ng-style="customer.isEdit == true ? {'background-color':'white','border-color':'blue'}:{'background-color':'#f7fefb','border-color':'#d1d2d4'}" ng-click="CustomerFocus(customer)" class="form-control" ng-model="customer.CustomerName">
+                            <a ng-show="customer.isEdit==false && customer.isAdded==true" ng-click="CustomerEdit(customer)">
+                                <img src="http://cdn.uukaola.com/web/img/business/edit.png" style="cursor:pointer;" />
+                            </a>
+                            <a ng-show="customer.isEdit==false && customer.isAdded==true" ng-click="DeleteCustomer(customer)">
+                                <img src="http://cdn.uukaola.com/web/img/business/delete.png" style="cursor:pointer;" />
+                            </a>
+                            <a ng-show="customer.isEdit==true" ng-click="SaveCustomer(customer)">
+                                <img src="http://cdn.uukaola.com/web/img/business/save.png" style="cursor:pointer;" />
+                            </a>
+                            <a ng-show="customer.isEdit==true" ng-click="CancelCustomer(customer)">
+                                <img src="http://cdn.uukaola.com/web/img/business/cancel.png" style="cursor:pointer;" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer" style="border: 0px;text-align: left !important;">
+                <button style="height: 36px !important;line-height: 36px;width:210px !important;margin-left:20%" type="button" class="btn-yellow" ng-click="AddCustomer()">
+                    <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                    <span aria-hidden="true">添加客户</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

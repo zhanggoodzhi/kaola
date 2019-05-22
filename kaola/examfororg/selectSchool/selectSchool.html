@@ -1,0 +1,109 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/kaola/examfororg/selectSchool/selectSchool.css" />
+
+<div class="page-container bg-white">
+    <div class="content-container">
+        <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'select-school-toast'}"
+            style="width:60%;margin:0 15%;z-index:999;margin-top:0!important;position: fixed!important;"></toaster-container>
+        <div class="content-header" style="text-align: center">
+            <span class="view-header-text">
+                <i class="xsmallicon icon-liebiao"></i>
+                <span>
+                    模考管理
+                </span>
+                <span>></span>
+                <span class="bread-font">选择参与学校</span>
+            </span>
+            <a ng-click="jumpBack()" href="" style="color:#24a3e6;float: right;margin-top: 11px;">
+                <span style="letter-spacing: -7px;font-size: 19px;">
+                    <<</span>
+                        <span style="font-size: 13px;margin-left: 2px;">返回</span>
+            </a>
+        </div>
+        <div class="content-main">
+            <div class="clearfix" style="background-color: #ffffff;border: solid 1px #e5e5e5;">
+                <div style="background:#f4f5f9;float:left;border-right:solid 1px #e5e5e5;width: 86px;height: 48px;line-height: 48px;text-align: center;font-size: 14px;color: #333333;">
+                    {{areaData.CityName}}
+                </div>
+                <div class="area-wrap">
+                    <ul class="clearfix">
+                        <li ng-repeat="item in areaData.AreaList" ng-click="selectArea(item.AreaID)" ng-class="{true:'active',false:''}[(item.AreaID==selectedAreaId)]">
+                            {{item.AreaName}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="body clearfix">
+                <div class="col-xs-8 no-padding">
+                    <div class="school-main">
+                        <div class="main-header clearfix" style="background: #f4f5f9;">
+                            <div class="paperdesign-search-filter-scroll">
+                                <div class="paperdesign-search-input-scroll" style="">
+                                    <input style="" type="text" class="" placeholder="根据学校名称查询" ng-keyup="enterEvent($event)" ng-model="schoolName">
+                                </div>
+                                <div class="paperdesign-search-button-scroll" style="">
+                                    <img class="search-btn" src="/web/img/paperDesign/hui-search.png" ng-click="search()" />
+                                </div>
+                            </div>
+                            <button class="main-select-all btn" ng-class="{true:'active',false:''}[selectedSchoolSimpleData.length === schoolData.length]"
+                                type="button" ng-click="selectAll()">全选</button>
+                        </div>
+                        <div class="main-content">
+                            <ul>
+                                <li class="ellipsis" ng-attr-title="{{item.SchoolName}}" ng-repeat="item in schoolData" ng-click="selectSchool(item)" ng-class="{true:'active',false:''}[ifInSelectedSchools(item.SchoolID)]">
+                                    {{item.SchoolName}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4 no-padding">
+                    <div class="aside clearfix" style="margin-left: 20px;">
+                        <div class="mypaper-container">
+                            <div class="header">
+                                <div class="title">
+                                    <span>已选</span>
+                                    <span class="number">{{selectedSchoolSimpleData.length}}</span>
+                                    <span>所学校</span>
+                                </div>
+                                <div class="clear-all" ng-click="clearAll()">
+                                    <span class="smallicon icon-shanchu" aria-hidden="true"></span>全部清空
+                                </div>
+                            </div>
+                            <div class="content">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div ng-repeat="item in selectedSchoolTreeData" class="big-item">
+                                        <div role="tab" ng-attr-id="heading{{$index}}">
+                                            <h4 class="panel-title">
+                                                <span ng-click="expandArea(item.areaId)" role="button" data-toggle="collapse" ng-attr-href="#collapse{{$index}}" ng-attr-aria-controls="collapse{{$index}}">
+                                                    <i class="icon"></i>
+                                                    <span style="margin-left: 3px;">{{item.areaName}}({{item.children.length}})</span>
+                                                </span>
+                                            </h4>
+                                        </div>
+                                        <div ng-attr-id="collapse{{$index}}" class="panel-collapse collapse" ng-class="{true:'in',false:''}[ifExpand(item.areaId)]"
+                                            role="tabpanel" ng-attr-aria-labelledby="heading{{$index}}">
+                                            <div class="panel-body">
+                                                <p ng-repeat="sitem in item.children" class="item clearfix">
+                                                    <span style="vertical-align: middle" class="ellipsis" style="display: inline-block;width: 130px;">{{sitem.name}}</span>
+                                                    <span style="vertical-align: middle" ng-click="deleteSchool(sitem.id)" class="smallicon icon-shanchu" aria-hidden="true"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-wrap">
+                <button type="button" class="btn btn-cancel" ng-click="jumpBack()">
+                    取消
+                </button>
+                <button type="button" class="btn btn-sure" ng-click="update()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

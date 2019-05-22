@@ -1,0 +1,252 @@
+﻿<div class="row MainTabSet">
+    <div class="navigate-bar" style="border-bottom-style:none;">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">用户管理</a>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active " id="user_Manage">
+            <div class="content-main">
+                <div class="table-container">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow-middle btn-yellow" ng-click="GoToAddUser()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">添加用户</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-table="BusinessUserList" class="table table-condensed table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="user in $data" id="{{user.UserID}}">
+                                <td data-title="'姓名'" style="width:30%;text-align:left;">{{ user.NickName }}</td>
+                                <td data-title="'登录手机号'" style="width:15%;">{{ user.PhoneNumber }}</td>
+                                <td data-title="'权限'" style="width:30%;text-align:left;">{{ user.RoleName }}</td>
+                                <td data-title="'操作'" style="width:25%;">
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="OpenResetPwdDialog(user)">
+                                        重置密码
+                                    </a>
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="GoToUpdateUser(user)">修改</a>
+                                    <a class="f12" ng-show="isCurrentUser(user)" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="OpeDeleteUserDialog(user)">删除</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="ResetPwdDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:336px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">重置密码</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-group-one-row">
+                    <div id="labelDivReset" class="div-single-lable">
+                        <label for="newPwd" class="margin-left-right-none form-single-label">新密码：</label>
+                    </div>
+                    <div id="controlDIVReset" class="control-div-single">
+                        <div class="margin-left-right-none form-group-single-control">
+                            <input type="password" class="form-control" id="newPwd" placeholder="（6~20个字符）" ng-model="NewPwd">
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div id="erroMessageReset" class="erro-message">
+                        <div ng-show="resetPWDValidateMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" /> {{resetPWDValidateMessage }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-normal btn-primary" ng-click="ResetPwd()">确认</button>
+                <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="UpdateUserDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 510px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">修改用户</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-group-multiple">
+                    <div id="labelDivUpdateUser" class="div-multiple-lable">
+                        <div class="margin-left-right-none form-label">
+                            <label for="userName">
+                                姓名：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="phoneNum">
+                                登录手机号：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="padding-top:0px;">
+                            <label>权限：</label>
+                        </div>
+                    </div>
+                    <div id="controlDIVUpdateUser" class="control-div-multiple">
+                        <div class="form-group form-group-control">
+                            <input type="text" class="form-control" id="userName" placeholder="请输入姓名" ng-model="CurrentUser.NickName">
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="text" class="form-control" id="phoneNum" placeholder="请输入登录手机号" ng-model="CurrentUser.PhoneNumber" ng-disabled="CurrentUserInfo.UserInfo.PhoneNumberConfirmed==true" ng-blur="CheckPhoneNumber()">
+                        </div>
+                        <div class="margin-left-right-none form-group-control" style="margin-top: -10px;">
+                            <div ng-repeat="role in BusniessRoles" style="height:32px;">
+                                <div style="display:inline-block;">
+                                    <input type="checkbox" class="chk_small" id="roleSelected_{{role.RoleID}}" value="{{role.RoleID}}" ng-checked="isSelected(role.RoleID)" ng-click="updateSelection($event,role.RoleID,role.RoleName)">
+                                    <label for="roleSelected_{{role.RoleID}}"></label>
+                                </div>
+                                <div style="display:inline-block;color:#444444;line-height:32px" >{{role.RoleName}}</div>
+                                <!--<span class="checkbox" style="display:inline-block;">
+                                    <label>
+                                        <input type="checkbox" id="role_{{role.RoleID}}" value="{{role.RoleID}}" ng-checked="isSelected(role.RoleID)" ng-click="updateSelection($event,role.RoleID,role.RoleName)"> {{role.RoleName}}
+                                    </label>
+                                </span>-->
+                                <div ng-if="role.RoleID==3&&ShowContentFlag==true" style="display:inline-block;">
+                                    <div style="display:inline-block;margin-left:20px;">
+                                        所属内容商：
+                                    </div>
+                                    <div class="dropdown" style="min-width:160px;display:inline-block;">
+                                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;min-width:160px;">
+                                            {{Choosed.ContentProvider.ContentProviderName== "" ? "请选择" : Choosed.ContentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;">
+                                            <li ng-repeat="content in ContentProvider"><a href="javascript:void(0);" ng-click="ContentChange(content)">{{content.ContentProviderName}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div ng-if="role.RoleID==2" style="display:inline-block;margin-left:20px;">
+                                    <div style="display:inline-block;">
+                                        所属渠道商：
+                                    </div>
+                                    <div class="dropdown" style="min-width:160px;display:inline-block;">
+                                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;min-width:160px;">
+                                            {{Choosed.ChannelBusiness.BusinessName== "" ? "请选择" : Choosed.ChannelBusiness.BusinessName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;">
+                                            <li ng-repeat="chanel in ChannelBusiness"><a href="javascript:void(0);" ng-click="ChannelChange(chanel)">{{chanel.BusinessName}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div id="erroMessageReset" class="erro-message">
+                        <div ng-show="updateUserValidateMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" /> {{updateUserValidateMessage }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-normal btn-primary" ng-click="BusinessUserUpdate()">保存</button>
+                <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="AddUserDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 510px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">新增用户</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-group-multiple">
+                    <div id="labelAddUpdateUser" class="div-multiple-lable">
+                        <div class="margin-left-right-none form-label">
+                            <label for="userName">
+                                姓名：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="phoneNum">
+                                登录手机号：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="newPwd">登录密码：</label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="padding-top:0px;">
+                            <label>权限：</label>
+                        </div>
+                    </div>
+                    <div id="controlDIVAddUser" class="control-div-multiple">
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="text" class="form-control" id="userName" placeholder="请输入姓名" ng-model="AddBusinessUser.UserName">
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="text" class="form-control" id="phoneNum" placeholder="请输入登录手机号" ng-model="AddBusinessUser.PhoneNumber">
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="password" class="form-control" id="newPwd" placeholder="（6~20个字符）" ng-model="AddBusinessUser.Password" maxlength="20">
+
+                        </div>
+                        <div class="margin-left-right-none form-group-control" style="margin-top:-10px;">
+                            <div ng-repeat="role in BusniessRoles" ng-style="" style="height:32px;">
+                                <div style="display:inline-block;">
+                                    <input type="checkbox" class="chk_small" id="roleAddSelected_{{role.RoleID}}" value="{{role.RoleID}}" ng-checked="isSelected(role.RoleID)" ng-click="updateSelection($event,role.RoleID,role.RoleName)">
+                                    <label for="roleAddSelected_{{role.RoleID}}"></label>
+                                </div>
+                                <div style="display:inline-block;color:#444444;line-height:32px" >{{role.RoleName}}</div>
+                                <div ng-if="role.RoleID==3&&ShowContentFlag==true" style="display:inline-block;">
+                                    <div style="display:inline-block;margin-left:20px;">
+                                        所属内容商：
+                                    </div>
+                                    <div class="dropdown" style="min-width:160px;display:inline-block;">
+                                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;min-width:160px;">
+                                            {{Choosed.ContentProvider.ContentProviderName== "" ? "请选择" : Choosed.ContentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;">
+                                            <li ng-repeat="content in ContentProvider"><a href="javascript:void(0);" ng-click="ContentChange(content)">{{content.ContentProviderName}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div ng-if="role.RoleID==2" style="display:inline-block;margin-left:20px;">
+                                    <div style="display:inline-block;">
+                                        所属渠道商：
+                                    </div>
+                                    <div class="dropdown" style="min-width:160px;display:inline-block;">
+                                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;min-width:160px;">
+                                            {{Choosed.ChannelBusiness.BusinessName== "" ? "请选择" : Choosed.ChannelBusiness.BusinessName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;">
+                                            <li ng-repeat="chanel in ChannelBusiness"><a href="javascript:void(0);" ng-click="ChannelChange(chanel)">{{chanel.BusinessName}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div id="erroMessageReset" class="erro-message">
+                        <div ng-show="addUserValidateMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" /> {{addUserValidateMessage }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-normal btn-primary" ng-click="BusinessUserAdd()">保存</button>
+                <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+            </div>
+            <div>
+                <input type="password" style="width: 0; height: 0; float: left; visibility: hidden" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

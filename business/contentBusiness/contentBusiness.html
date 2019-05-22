@@ -1,0 +1,218 @@
+﻿
+<link rel="stylesheet" type="text/css" href="/web/components/directives/paperpreview_rebuild/paperpreview.css" />
+<div class="row MainTabSet">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">内容商管理</a>
+    </div> 
+
+    <div class="tab-content">
+        <div class="tab-pane active " id="channelB_Manage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog0'}"></toaster-container>
+            <div class="content-main">
+                <div class="row">
+                    <div class="btn-group">
+                        <input type="text" class="search-textbox" style="width: 180px;display: inline-block;"  ng-keyup="KeyupSearchContentProvider($event)"  placeholder="输入内容商名称" id="channelB_Name" ng-model="QueryParams.ContentProviderName">
+                        <button type="button" class="search-button button button-blue" style="" ng-click="SearchContentProvider()">
+                            <span class="smallicon btn-icon icon-sousuo" style="font-size: 1.2em;"></span>
+                        </button>
+                    </div>
+                </div>            
+                <div class="table-container">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow" ng-click="OpenAddProviderDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">新增内容商</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-table="ContentProviderList" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="provider in $data" id="{{provider.ContentProviderID}}">
+                                <td data-title="'内容商名称'" style="width:30%;text-align:left;" sortable="'ContentProviderName'" >{{ provider.ContentProviderName }}</td>
+                                <td data-title="'试卷包数量'" sortable="'PaperPCount'" style="padding-left: 20px;width:15%;">{{ provider.PaperPCount | EmptyFilter}}</td>
+                                <td data-title="'内容序列号数量'" sortable="'ConntentPCount'" style="padding-left: 20px;width:20%;">{{ provider.ConntentPCount | EmptyFilter}}</td>
+                                <td data-title="'试卷数量'" sortable="'PaperCount'" style="padding-left: 20px;width:15%;">{{ provider.PaperCount| EmptyFilter }}</td>
+                                <td data-title="'操作'" style="width:30%;">
+                                    <span class="f12" ng-class="'href'" ng-click="OpenProdiverDetailDialog(provider)">查看</span>
+                                    <span class="f12" ng-class="{true:'href',false:'disabled_href'}[provider.IsCanDel]" ng-click="OpenDeleteProviderDialog(provider)">删除</span>
+                                    <span class="f12" ng-class="'href'" ng-click="OpenUpdateProviderDialog(provider)">修改</span>                                                   
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="modal" id="AddProviderDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" >新增内容商</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog1'}" style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <div style="margin-bottom: 30px;margin-top: 15px;">
+                    <label for="schoolName" class="control-label" style="padding-right: 0;">内容商名称：</label>
+                    <input type="text" class="form-control" id="schoolName"  maxlength="15" style="display:inline;" placeholder="内容商名称" ng-model="ProviderParam.ContentProviderName">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="ProviderAdd()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>                 
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal" id="UpdateProviderDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" >修改内容商名称</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog2'}" style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <div style="margin-bottom: 30px;margin-top: 15px;">
+                    <label for="schoolName" class="control-label" style="padding-right: 0;">内容商名称：</label>
+                    <input type="text" class="form-control" id="schoolName" maxlength="15" style="display:inline;" placeholder="内容商名称" ng-model="ProviderParam.ContentProviderName">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="ProviderUpdate()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>          
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ProviderDetailDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" >
+        <div class="modal-content" style="min-height: 500px; width: 720px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" >查看内容商</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog5'}" style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <span class="detail_title">{{ChoosedProvider.ContentProviderName}}</span>
+                </div>
+                <div class="row SubTabSet">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li ng-class="{true:'active'}[CurrentTabIndex==2]" ng-click="TabChange(2)"><a href="#provider_paperPackageList" data-toggle="tab">试卷包</a></li>
+                        <li ng-class="{true:'active'}[CurrentTabIndex==1]" ng-click="TabChange(1)" style="width: 100px;"><a href="#provider_paperList" data-toggle="tab">内容序列号</a></li>
+                        <li ng-class="{true:'active'}[CurrentTabIndex==3]" ng-click="TabChange(3)"><a href="#provider_packageList" data-toggle="tab">试卷</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==1]" id="provider_paperList">
+                            <div class="table-container" style="padding-top: 0; ">
+                                <table ng-table="ProviderPackageList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                    <tbody>
+                                        <tr ng-repeat="package in $data" ng-show="$data.length>0">
+                                            <td data-title="'内容序列号'"   style="text-align:center;" sortable="'PackageCode'">{{ package.PackageCode }}</td>
+                                            <td data-title="'对应试卷包'"  style="text-align:center;" sortable="'PaperPackageName'">{{ package.PaperPackageName }}</td>
+                                            <td data-title="'状态'"  style="text-align:center;" sortable="'Status'">{{ package.StatusDes }}</td>
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="3">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==2]" id="provider_paperPackageList">
+                            <div class="table-container" style="padding-top: 0; ">
+                                <table ng-table="ProviderPaperPackageList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                    <tbody>
+                                        <tr ng-repeat="paperPackage in $data" ng-show="$data.length>0">
+                                            <td data-title="'试卷包名称'"  style="text-align:center;" sortable="'PaperPackageName'">{{ paperPackage.PaperPackageName| EmptyFilter }}</td>                                          
+                                            <td data-title="'内容序列号数量'"  style="text-align:center;" sortable="'ContentPCount'">{{ paperPackage.ContentPCount| EmptyFilter }}</td>
+                                            <td data-title="'试卷数量'"  style="text-align:center;" sortable="'PaperCount'">{{ paperPackage.PaperCount }}</td>
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="4">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==3]" id="provider_packageList">
+                            <div class="table-container" style="padding-top: 0;">
+                                <table ng-table="ProviderPaperList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                    <tbody>
+                                        <tr ng-repeat="paper in $data" ng-show="$data.length>0">
+                                            <td data-title="'试卷名称'"  style="text-align:center;" sortable="'PaperName'">{{ paper.PaperName }}</td>
+                                            <td data-title="'地区'"  style="text-align:center;" sortable="'Province'">{{ paper.Province | EmptyFilter }}</td>
+                                            <td data-title="'年度'"  style="text-align:center;" sortable="'Year'">{{ paper.Year | EmptyFilter }}</td>
+                                            <td data-title="'适用年级'"  style="text-align:center;" sortable="'Grade'">{{ paper.Grade | EmptyFilter}}</td>
+                                            <td data-title="'难度'"  style="text-align:center;" sortable="'Level'">{{ paper.Level | EmptyFilter }}</td>
+                                            <td data-title="'预览操作'"  style="text-align:center;" sortable="''">
+                                                <a class="f12 href" ng-class="'href'" ng-click="PreviewPackageDetail(paper.PaperID)">预览</a>                                                
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="6">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="PreviewPackageDetailDialog" tabindex="-4" role="dialog">
+    <div class="modal-dialog" style="margin-top:80px !important;">
+        <div class="modal-content" style="width:900px; margin: 50px auto 20px;">
+            <div class="modal-header" style="background-color:#e3eaeb;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <font style="color:#383838;font-size:14px;">试卷预览</font>
+            </div>
+            <div class="modal-body">
+                <paper-preview paper="CurrentPaper"></paper-preview>
+            </div>
+        </div>
+    </div>
+</div>
+
+

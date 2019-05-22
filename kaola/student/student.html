@@ -1,0 +1,338 @@
+﻿
+<link rel="stylesheet" type="text/css" href="/web/kaola/student/student.css" />
+
+<script type="text/ng-template" id="header_StuCheckbox.html">
+    <input type="checkbox" ng-click="SelectAllStudent($event)" ng-true-value="true" ng-false-value="false" ng-checked="SelectAllStuTag" class="select-all" />&nbsp;全选
+</script>
+
+
+<div class="row  bg-white">
+    <div class="content-container">
+        <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}" style="position: absolute !important; margin-top: 15px !important;"></toaster-container>
+        <div class="content-header">
+            <span class="view-header-text"><i class="xsmallicon icon-liebiao"></i>学生管理</span>
+            <div style="float: right; margin-top: 5px;">
+                <div class="btn-group">
+                    <button type="button" class="btn button-textWithIcon btn-custombg" ng-click="ReturnToClass()"><span class="xsmallicon icon-fanhui"></span><span>返回班级</span></button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-createTask button-textWithIcon btn-custombg" ng-click="OpenAddTaskDialog()"><span class="xsmallicon icon-chuangjianrenwu btn-custombg-icon"></span><span>创建任务</span></button>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn  button-textWithIcon btn-custombg" ng-click="openImportDialog()"><span class="xsmallicon icon-daoru btn-custombg-icon"></span><span>批量导入</span></button>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn button-textWithIcon btn-custombg" ng-click="OpenAddStudentDialog()"><span class="xsmallicon icon-xinzeng btn-custombg-icon"></span><span>新增学生</span></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-header studentclass-desc">
+            <div class="col-lg-2 col-xs-2 "><span>班级：</span>{{CurrentClass.ClassName}} </div>
+            <div class="col-lg-2 col-xs-2 "><span>年级：</span>{{CurrentClass.Grade|GradeDes}} </div>
+            <div class="col-lg-2 col-xs-2 "><span>班级编号：</span>{{CurrentClass.ClassNumber}}</div>
+
+        </div>
+
+        <div class="content-main">
+            <div class="table-container" ng-if="hasData">
+                <table ng-table="StudentList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+
+                    <tbody>
+                        <tr ng-repeat="stu in $data">
+                            <td style="width: 8%;text-align:center;padding-left:0px;" ; sortable="'Selected'" data-title="'&nbsp;全选'" header="'header_StuCheckbox.html'">
+                                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-click="SelectAllStuTagChange(stu)" ng-model="stu.Selected" />
+                            </td>
+                            <td data-title="'学号'" style="text-align:left;" sortable="'StudentNumber'">{{ stu.StudentNumber }}</td>
+                            <td data-title="'准考证号'" style="text-align:left;" sortable="'AdmissionTicketNO'">{{ stu.AdmissionTicketNO }}</td>
+                            <td data-title="'头像'" style="text-align:center;" sortable="'HeadPic'">
+                                <div style="width: 36px; height: 36px; overflow: hidden; border: solid 1px #E0DEDE; border-radius: 500rem;text-align:center; margin: 0 auto;">
+                                    <img class="userImage" ng-src="{{stu.HeadPic|HeadPicFilter}}" style="margin: 0; width: 36px; border: none" />
+                                </div>
+                            </td>
+                            <td data-title="'姓名'" style="text-align:center;" sortable="'StudentName'">{{ stu.StudentName }}</td>
+                            <td data-title="'性别'" style="text-align:center;" sortable="'Sex'">{{ stu.Sex | SexFilter}}</td>
+                            <td data-title="'账号'" style="text-align:center;" sortable="'Status'">{{ stu.Name|StudentBindNameFilter}}</td>
+                            <td data-title="'操作'" style="text-align:center;">
+                                <a href="javascript:void(0)" ng-click="OpeDeleteStudentDialog(stu)" class="btn btn-op" tooltip="删除" tooltip-placement="bottom"><span class="smallicon icon-shanchu" aria-hidden="true"></span></a>
+                                <a href="javascript:void(0)" ng-click="OpenUpdateStudentDialog(stu)" class="btn btn-op" tooltip="修改" tooltip-placement="bottom"><span class="smallicon icon-bianjixiugai" aria-hidden="true"></span></a>
+                                <!--<a href="javascript:void(0)" ng-click="" tooltip="相关报告" class="btn btn-op" tooltip-placement="bottom" target="_blank" ui-sref="studentreport({classID:'{{CurrentClass.ClassID}}',studentNumber:'{{stu.StudentNumber}}',from:'student'})">
+                                    <span class="smallicon icon-chengjibaogao" aria-hidden="true"></span>
+                                </a>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="btn-group">
+                        <a class="btn button-textWithIcon" style="background-color: #ffffff !important;color: #339dd2 !important;" ng-click="OpenBatchUpdateStudentDialog()"><span class="xsmallicon icon-shanchu btn-custombg-icon"></span><span style="vertical-align: middle;">批量修改</span></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn button-textWithIcon" style="background-color: #ffffff !important;color: #339dd2 !important;" ng-click="OpenDelStudentDialog()"><span class="xsmallicon icon-shanchu btn-custombg-icon"></span><span style="vertical-align: middle;">批量删除</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="table-container" ng-if="hasData==false">
+                <div style="position: absolute;top: 50%;margin-top: -60px;left: 50%;margin-left: -70px;">
+                    <img src="http://cdn.uukaola.com/web/img/none.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="AddStudentDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="top: 50%;position: absolute;margin-top: -140px !important;">
+        <div class="modal-content" style="width: 400px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">新增学生</h5>
+            </div>
+
+            <div class="modal-body">
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id':'dialog1'}"></toaster-container>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="stu_Num" class="control-label col-sm-3 col-xs-3 ">学号：</label>
+                        <div class="col-sm-6 col-xs-6 ">
+                            <input type="text" class="form-control input-fixWidth" id="stu_Num" placeholder="学号" maxlength="20" ng-model="StudentAdd.StudentNumber">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stu_Num" class="control-label col-sm-3 col-xs-3 ">准考证号：</label>
+                        <div class="col-sm-6 col-xs-6 ">
+                            <input type="text" class="form-control input-fixWidth" id="stu_Num" placeholder="准考证号" maxlength="20" ng-model="StudentAdd.AdmissionTicketNO">
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="col-sm-3 col-xs-3 "></div>
+                        <div class="col-sm-9 col-xs-9 " style="padding-left:20px;color:#FA8714;margin-top: -10px;margin-bottom: 10px;">该选项不必填,&nbsp;&nbsp;仅用于区校级考试</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="stu_Name" class="control-label col-sm-3 col-xs-3 ">姓名：</label>
+                        <div class="col-sm-6 col-xs-6 ">
+                            <input type="text" class="form-control input-fixWidth" id="stu_Name" placeholder="姓名" maxlength="15" ng-model="StudentAdd.StudentName">
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary button-commonDialog" ng-click="AddStudent()" style="width: 169px">创建</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="UpdateStudentDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="top: 50%;position: absolute;margin-top: -140px !important;">
+        <div class="modal-content" style="width: 400px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">修改学生</h5>
+            </div>
+
+            <div class="modal-body">
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog2'}"></toaster-container>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="stu_Num" class="control-label col-sm-3 col-xs-3 ">学号：</label>
+                        <div class="col-sm-6 col-xs-6 ">
+                            <input type="text" class="form-control input-fixWidth" id="stu_Num" maxlength="20" placeholder="学号" ng-model="ChoosedStudent.StudentNumber">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="stu_Num" class="control-label col-sm-3 col-xs-3 ">准考证号：</label>
+                        <div class="col-sm-6 col-xs-6 ">
+                            <input type="text" class="form-control input-fixWidth" id="stu_Num" placeholder="准考证号" maxlength="20" ng-model="ChoosedStudent.AdmissionTicketNO">
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="col-sm-3 col-xs-3 "></div>
+                        <div class="col-sm-9 col-xs-9 " style="padding-left:20px;color:#FA8714;margin-top: -10px;margin-bottom: 10px;">该选项不必填,&nbsp;&nbsp;仅用于区校级考试</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="stu_Name" class="control-label col-sm-3 col-xs-3 ">姓名：</label>
+                        <div class="col-sm-6 col-xs-6 ">
+                            <input type="text" class="form-control input-fixWidth" id="stu_Name" placeholder="姓名" maxlength="15" ng-model="ChoosedStudent.StudentName">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" ng-if="ChoosedStudent.StudentID!=null&&ChoosedStudent.StudentID!=''">
+                        <label for="user_Pwd" class="control-label col-sm-3 col-xs-3 ">密码：</label>
+                        <div class="col-sm-6 col-xs-6 " style="" ng-if="!IsShowPwd">
+                            <button type="button" class="btn btn-warning" ng-click="ShowPwd()" style="width: 80px; margin-left: 10px; height: 38px;">重置</button>
+                            <span style="color: #80C898; font-family: '微软雅黑';" ng-hide="PwdMsg==''">{{PwdMsg}}</span>
+                        </div>
+                        <div class="col-sm-9 col-xs-9 " style="" ng-if="IsShowPwd">
+                            <div class="input-group" style="float: left;">
+                                <input type="password" class="form-control" id="user_Pwd" placeholder="密码" ng-model="ChoosedStudent.Pwd" maxlength="20" style="width: 120px; border-right: 0px;">
+
+                                <div class="input-group-addon" style="background-color: #fff; float: left; width: 60px; border-left: 0px; height: 38px;">
+                                    <div class="yesicon" style="float: left;">
+                                        <img src="http://cdn.uukaola.com/web/img/yesicon.png" ng-click="ResetPwd()" alt="确认" style="width: 20px; height: 20px;" />
+                                    </div>
+                                    <div class="noicon">
+                                        <img src="http://cdn.uukaola.com/web/img/noicon.png" ng-click="NotUpdatePwd()" alt="放弃" style="width: 20px; height: 20px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary button-commonDialog" ng-click="UpdateStudent()" style="width: 169px">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ImportDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document" style="top: 50%;position: absolute;margin-top: -310px !important;">
+        <div class="modal-content" style="width: 600px;margin:0 auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel">导入学生信息</h5>
+            </div>
+            <div class="modal-body" style="background: url('http://cdn.uukaola.com/web/img/import.jpg'); height: 570px;">
+                <div>
+                    <div ng-show="ImportErrMsgType=='1'" id="divErrMsgDownload" style="background-color: #FBE1E4; margin-top: 20px; height: 42px; line-height: 42px; text-align: center">
+                        导入失败，请下载<a href="{{centralServiceBaseUri}}api/teacher/download/{{ErrorFile}}" style="color:#337ab7;text-decoration:underline;">错误列表.xlsx</a>更正后重新导入
+                    </div>
+                    <div ng-show="ImportErrMsgType=='2'" id="divErrMsg" style="background-color: #FBE1E4; margin-top: 20px; height: 42px; line-height: 42px;text-align: center">
+                        {{ImportErrMsg}}
+                    </div>
+                    <div style="position: absolute; top: 226px; left: 52px; line-height: 36px;">
+                        Step1.下载
+                        <a href="tools/StudentTemplate.xlsx" style="text-decoration: underline;color: #337ab7;">
+                            <!--<span class="glyphicon icon-daoru2"></span>-->
+                            导入模板
+                        </a>
+                    </div>
+                    <div style="position: absolute; top: 296px; left: 390px; line-height: 36px;">
+                        Step2.制作导入内容
+                    </div>
+
+                    <div ng-if="IEVersion>11" style="position: absolute; top: 448px; left: 175px; line-height: 36px;">
+                        <input type="file" id="inputImage" class="uploadFile" accept=".xls,.xlsx" ngf-select="" ngf-multiple="true" style="height: 30px;width: 150px;opacity:0;filter: alpha(opacity=0);position: absolute; cursor: pointer;" onchange="angular.element(this).scope().uploadFiles(this.files)" multiple="multiple">
+                        Step3.请
+                        <a href="javascript:void(0)" style="text-decoration: underline;color: #337ab7;">
+                            导入学生名单
+                        </a>
+                    </div>
+                    <div ng-if="IEVersion<=11" style="position: absolute; top: 448px; left: 175px; line-height: 36px;">
+                        Step3.请
+                        <input type="file" id="upload-import-student" name="btn_file" class="fileupload uploadFile" accept=".xls,.xlsx" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="AddTaskDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 600px; margin: auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">创建任务</h5>
+            </div>
+
+            <div class="modal-body">
+                <div ui-view="createTaskView"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="ImportProgressDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:400px;margin:auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel">导入学生名单</h5>
+            </div>
+            <div class="modal-body">
+                <div style="padding: 1px;border:solid 1px #24a3e6;height: 23px;">
+                    <div class="progress" style="margin-bottom: 1px;margin-top: 1px;height: 18px;border-radius: 0px;background-color: #ffffff;box-shadow: none;">
+                        <div id="importProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="background-color:#178ec9;">
+                        </div>
+                    </div>
+                    <div id="progressTitle" style="margin-top: -20px;margin-left: 160px;"></div>
+                </div>
+                <div class="form-group" style="padding-bottom:30px;" ng-show="ImportErrMsg!=''">
+                    <div id="errorMsgContainer" class="btn-group" style="color:red;" role="group">
+                        <span id="errorMsg" class="span-error-msg">
+                            <img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png" style="margin: 1px  5px  0  0;width: 14px;height: 14px;">
+                            <span id="errorMsgContent" class="tip1"></span>
+                        </span>
+                    </div>
+                    <div id="importMsg" class="btn-group color-blue" style="" role="group">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="BatchUpdateStudentDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document" style="top: 50%;position: absolute;margin-top: -310px !important;">
+        <div class="modal-content" style="width: 600px;margin:0 auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel">批量修改学生信息</h5>
+            </div>
+            <div class="modal-body" style="background: url('http://cdn.uukaola.com/web/img/import.jpg'); height: 570px;">
+                <div>
+                    <div ng-show="ImportErrMsgType=='1'" id="divErrMsgDownload" style="background-color: #FBE1E4; margin-top: 20px; height: 42px; line-height: 42px; text-align: center">
+                        导入失败，请下载<a href="{{centralServiceBaseUri}}api/teacher/download/{{ErrorFile}}" style="color:#337ab7;text-decoration:underline;">错误列表.xlsx</a>更正后重新导入
+                    </div>
+                    <div ng-show="ImportErrMsgType=='2'" id="divErrMsg" style="background-color: #FBE1E4; margin-top: 20px; height: 42px; line-height: 42px;text-align: center">
+                        {{ImportErrMsg}}
+                    </div>
+                    <div style="position: absolute; top: 226px; left: 52px; line-height: 36px;">
+                        Step1.下载
+                        <a href="/api/teacher/download/{{BatchUpdateFilePath}}" style="text-decoration: underline;color: #337ab7;" >
+                            批量修改模板
+                        </a>
+                    </div>
+                    <div style="position: absolute; top: 296px; left: 390px; line-height: 36px;">
+                        Step2.修改学生信息
+                    </div>
+
+                    <div ng-if="IEVersion>11" style="position: absolute; top: 448px; left: 175px; line-height: 36px;">
+                        <input type="file" id="inputImage" class="uploadFile" accept=".xls,.xlsx" ngf-select="" ngf-multiple="true" style="height: 30px;width: 150px;opacity:0;filter: alpha(opacity=0);position: absolute; cursor: pointer;" onchange="angular.element(this).scope().uploadFilesForBatchUpdateStudent(this.files)" multiple="multiple">
+                        Step3.请
+                        <a href="javascript:void(0)" style="text-decoration: underline;color: #337ab7;">
+                            导入修改后数据
+                        </a>
+                    </div>
+                    <div ng-if="IEVersion<=11" style="position: absolute; top: 448px; left: 175px; line-height: 36px;">
+                        Step3.请 
+                        <input type="file" id="upload-batch-update-student" name="btn_file" class="fileupload uploadFile" accept=".xls,.xlsx" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

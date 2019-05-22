@@ -1,0 +1,354 @@
+﻿
+<link rel="stylesheet" type="text/css" href="/web/kaola/paperDesign/paperDesign.css" />
+<link rel="stylesheet" type="text/css" href="/web/components//directives/paperDesign/question.css" />
+
+<div class="page-container  bg-white" style="width:992px;margin:0 auto;">
+    <div class="content-container">
+
+        <div class="content-header" style="text-align: center;">
+            <span class="view-header-text"><i class="xsmallicon icon-liebiao"></i></span> <span class="view-header-text" style="color:#24A3E6;text-decoration:underline;cursor:pointer;margin-left:8px;font-weight:normal;" ng-click="Back2Paper()">试卷管理</span><span class="view-header-text" style="color:#888888;">&nbsp;>&nbsp;</span><span class="view-header-text" style="color:#333333;">自由组卷</span>
+            <div class="" style="float:right;margin-top:13px;">
+                <a href="javascript:void(0)" class="operation-a" target="_self" ng-click="Back2Paper()">
+                    << 返回
+                </a>
+            </div>
+        </div>
+
+        <div class="areatype-filter">
+            <div style="" class="areatype-filter-title">
+                题型
+            </div>
+            <div style="" class="areatype-filter-items-div">
+                <div ng-repeat="a in AreaTypeList" class="areatype-filter-item" on-repeat-finish="InitAreaTypeFinished()" ng-class="{true:'active'}[a.Choosed]" ng-click="AreaTypeChoosed(a)">
+                    {{a.AreaTypeTitle}}
+                </div>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <div class="papercontent-container">
+                <div class="papercontent">
+
+                    <div class="paperdesign-search-filter">
+                        <div class="paperdesign-search-input" style="">
+                            <input style="" type="text" class="" placeholder="输入试题信息查询" ng-model="Filter.SearchText">
+                        </div>
+                        <div class="paperdesign-search-button" style="">
+                            <img src="/web/img/paperDesign/hui-search.png" ng-click="SearchText()" />
+                        </div>
+                    </div>
+
+                    <ul class="nav nav-tabs paperdesign-tabs" style="clear:both;">
+                        <li class="paperdesign-tab-header  active" ng-click="PaperDesignTabChange(0)">
+                            <a href="#AllDataPanel" data-toggle="tab">全部({{PaperDesignDisplayData.TotalQuestionCount}})</a>
+
+                        </li>
+                        <li class="paperdesign-tab-header" ng-click="PaperDesignTabChange(1)">
+                            <a href="#ChoosedDataPanel" data-toggle="tab">已选({{PaperDesignChoosedData.TotalQuestionCount}})</a>
+                        </li>
+                        <li class="paperdesign-tab-header" ng-click="PaperDesignTabChange(2)">
+                            <a href="#AllDataPanel" data-toggle="tab">
+                                得分率
+                                <img ng-if="ScoreRateOrderBy=='ASC'" src="/web/img/paperDesign/arrow-s.png" />
+                                <img ng-if="ScoreRateOrderBy=='DESC'" src="/web/img/paperDesign/arrow-x.png" />
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="AllDataPanel">
+                            <div ng-if="PaperDesignDisplayData.Data.length>0" ng-repeat="q in PaperDesignDisplayData.Data" style="" on-repeat-finish="QuestionRepeatFinished()">
+                                <div ng-if="$index==0 || q.AreaType!=PaperDesignDisplayData.Data[$index-1].AreaType" class="area-title-grouppanel">{{q.AreaTitle}}</div>
+                                <question class="question-detail" data="q"></question>
+                            </div>
+                            <div class="loading-div">
+                                <div ng-if="HasMore()">
+                                    <img src="/web/img/paperDesign/loading.png" /><span ng-click="LoadMore()" id="searchButton">点击加载更多试题</span>
+                                </div>
+                                <div ng-if="!HasMore()&&PaperDesignDisplayData.Data.length==0">
+                                  <span id="noresultbtn">未查询到数据</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="ChoosedDataPanel" style="padding-bottom:10px;">
+                            <div ng-repeat="a in PaperDesignChoosedData.Data" style="">
+                                <div ng-if="$index==0 || a.AreaType!=PaperDesignChoosedData.Data[$index-1].AreaType" class="area-title-grouppanel">{{a.AreaTitle}}</div>
+                                <div ng-repeat="q in a.Questions">
+                                    <question class="question-detail" data="GetCachedQuestionModel(q.QuestionID,true)"></question>
+                                </div>
+                            </div>
+                            <div ng-if="PaperDesignChoosedData.Data.length==0" style="padding:5rem;text-align:center;">
+                                <div class="empty">
+                                    <img class="empty-img" src="/web/img/paperDesign/weitianjia.png" />
+                                    <div class="empty-text">还没有添加试题</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="areatype-filter-scroll-container">
+            <div class="areatype-filter-scroll">
+                <div style="" class="areatype-filter-title-scroll">
+                    题型
+                </div>
+                <div style="" class="areatype-filter-items-div-scroll">
+                    <div ng-repeat="a in AreaTypeList" class="areatype-filter-item-scroll" on-repeat-finish="InitAreaTypeFinishedForScroll()" ng-class="{true:'active'}[a.Choosed]" ng-click="AreaTypeChoosed(a)">
+                        {{a.AreaTypeTitle}}
+                    </div>
+                </div>
+                <div class="paperdesign-search-filter-scroll">
+                    <div class="paperdesign-search-input-scroll" style="">
+                        <input style="" type="text" class="" placeholder="输入试题信息查询" ng-model="Filter.SearchText">
+                    </div>
+                    <div class="paperdesign-search-button-scroll" style="">
+                        <img src="/web/img/paperDesign/hui-search.png" ng-click="SearchText()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mypaper-container">
+            <div class="header">
+                <div class="title">我的试卷</div>
+                <div class="clear-all" ng-click="UnChooseAllQuestion()" ng-if="PaperDesignChoosedData.Data!=undefined && PaperDesignChoosedData.Data.length>0">
+                    <span class="smallicon icon-shanchu" aria-hidden="true"></span>全部清空
+                </div>
+            </div>
+            <div class="content" ng-show="PaperDesignChoosedData.Data==undefined ||PaperDesignChoosedData.Data.length==0">
+                <div class="empty">
+                    <img class="empty-img" src="/web/img/paperDesign/weitianjia.png" />
+                    <div class="empty-text">还没有添加试题</div>
+                </div>
+            </div>
+            <div class="content" ng-show="PaperDesignChoosedData.Data!=undefined && PaperDesignChoosedData.Data.length>0">
+
+                <div class="not-empty">
+                    <div class="tips">
+                        <span style="color:#fd8f07;">提示:</span><span style="color:#555555;">可按住进行拖拽排序</span>
+                    </div>
+
+                    <div class="mypaper-questions ob_custom-scrollbar" style="overflow: auto;">
+                        <div ui-sortable="sortAreaOptions" ng-model="PaperDesignChoosedData.Data">
+                            <div class="area-item area_draggable" id="A_{{a.AreaType}}" ng-repeat="a in PaperDesignChoosedData.Data" on-repeat-finish="ResizeMyPaperContentMaxHeight()">
+                                <div class="area-title">
+                                    <span style="font-size: 14px; font-weight: bold;color: #333;width: 145px;text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;float: left;margin-right:5px;">
+                                        {{a.Index | indexFilter}}、{{a.AreaTitle}}
+                                    </span>
+                                    <span style="font-size: 14px; font-weight: normal;color: #333;">(共</span>
+                                    <span style="font-size: 14px; font-weight: normal;color: #ff0000;">{{a.Questions.length}}</span>
+                                    <span style="font-size: 14px; font-weight: normal;color: #333;">题)</span>
+                                </div>
+                                <div ui-sortable="sortQuestionOptions" ng-model="a.Questions">
+                                    <div class="question-item question_draggable" id="A_{{a.AreaType}}_Q_{{q.QuestionID}}" ng-repeat="q in a.Questions">
+
+                                        <!--单小题, Contents.length=1-->
+                                        <div ng-if="a.AreaType!=25 && a.AreaType!=26 && a.AreaType!=16 && q.ExtProperty.Contents.length==1">
+                                            <div class="question-index-desc">第{{q.Index}}题</div>
+
+                                            <input type="number" readonly="readonly" step="0.5" min="0.5" class="score-input" ng-model="q.ExtProperty.Contents[0].Score" ng-change="ChangeScore(q,a.AreaType)">
+                                            <span>&nbsp;分</span>
+                                            <span class="question-item-delete" ng-click="UnChooseQuestion(q,a.AreaType)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        </div>
+
+                                        <!--多小题, Contents.length>1-->
+                                        <div ng-if="a.AreaType!=25 && a.AreaType!=26 && a.AreaType!=16 && q.ExtProperty.Contents.length>1">
+                                            <div class="question-index-desc">第{{q.Index}}题</div>
+
+                                            <span class="question-item-delete" ng-click="UnChooseQuestion(q,a.AreaType)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <div style="clear:both;" ng-repeat="c in q.ExtProperty.Contents">
+                                                <div class="content-index-desc">第{{c.Index}}小题</div>
+                                                <input type="number" readonly="readonly" step="0.5" min="0.5" class="score-input" ng-model="c.Score" ng-change="ChangeScore(q,a.AreaType)">
+                                                <span>&nbsp;分</span>
+                                            </div>
+                                        </div>
+
+                                        <!--跟读与模仿16-->
+                                        <div ng-if="a.AreaType==16">
+                                            <div class="question-index-desc">第{{q.Index}}题</div>
+
+                                            <input type="number" readonly="readonly" step="0.5" min="0.5" class="score-input" ng-model="q.QuestionScore" ng-change="ChangeScore(q,a.AreaType)">
+                                            <span>&nbsp;分</span>
+                                            <span class="question-item-delete" ng-click="UnChooseQuestion(q,a.AreaType)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        </div>
+
+                                        <!--听后记录并转述信息25-->
+                                        <div ng-if="a.AreaType==25 ">
+                                            <div class="question-index-desc">第{{q.Index}}题</div>
+
+                                            <span class="question-item-delete" ng-click="UnChooseQuestion(q,a.AreaType)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                                            <div class="question-part">
+                                                <div class="question-part-index-desc">
+                                                    第一节
+                                                    <span style="font-size: 14px; font-weight: normal;color: #333;">(共</span>
+                                                    <span style="font-size: 14px; font-weight: normal;color: #ff0000;">{{q.ExtProperty.Contents.length-1}}</span>
+                                                    <span style="font-size: 14px; font-weight: normal;color: #333;">小题)</span>
+                                                </div>
+                                                <div style="clear:both;" ng-repeat="c in q.ExtProperty.Contents" ng-if="$last==false">
+                                                    <div class="content-index-desc">第{{c.Index}}小题</div>
+                                                    <input type="number" readonly="readonly" step="0.5" min="0.5" class="score-input" ng-model="c.Score" ng-change="ChangeScore(q,a.AreaType)">
+                                                    <span>&nbsp;分</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="question-part">
+                                                <div class="question-part-index-desc">
+                                                    第二节
+                                                    <span style="font-size: 14px; font-weight: normal;color: #333;">(共</span>
+                                                    <span style="font-size: 14px; font-weight: normal;color: #ff0000;">1</span>
+                                                    <span style="font-size: 14px; font-weight: normal;color: #333;">小题)</span>
+                                                </div>
+                                                <div style="clear:both;" ng-repeat="c in q.ExtProperty.Contents" ng-if="$last">
+                                                    <div class="content-index-desc">第1小题</div>
+                                                    <input type="number" readonly="readonly" step="0.5" min="0.5" class="score-input" ng-model="c.Score" ng-change="ChangeScore(q,a.AreaType)">
+                                                    <span>&nbsp;分</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--信息转述与询问26-->
+                                        <div ng-if="a.AreaType==26 ">
+                                            <div class="question-index-desc">第{{q.Index}}题</div>
+
+                                            <span class="question-item-delete" ng-click="UnChooseQuestion(q,a.AreaType)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <div class="question-part">
+                                                <div class="question-part-index-desc">
+                                                    第一节
+                                                    <span style="font-size: 14px; font-weight: normal;color: #333;">(共</span>
+                                                    <span style="font-size: 14px; font-weight: normal;color: #ff0000;">1</span>
+                                                    <span style="font-size: 14px; font-weight: normal;color: #333;">小题)</span>
+                                                </div>
+                                                <div style="clear:both;" ng-repeat="c in q.ExtProperty.Contents" ng-if="$last">
+                                                    <div class="content-index-desc">第1小题</div>
+                                                    <input type="number" readonly="readonly" step="0.5" min="0.5" class="score-input" ng-model="c.Score" ng-change="ChangeScore(q,a.AreaType)">
+                                                    <span>&nbsp;分</span>
+                                                </div>
+                                            </div>
+                                            <div class="question-part">
+                                                <div class="question-part-index-desc">
+                                                    第二节
+                                                    <span style="font-size: 14px; font-weight: normal;color: #333;">(共</span>
+                                                    <span style="font-size: 14px; font-weight: normal;color: #ff0000;">{{q.ExtProperty.RelationQuestionModel.ExtProperty.Contents.length}}</span>
+                                                    <span style="font-size: 14px; font-weight: normal;color: #333;">小题)</span>
+                                                </div>
+                                                <div style="clear:both;" ng-repeat="c in q.ExtProperty.RelationQuestionModel.ExtProperty.Contents">
+                                                    <div class="content-index-desc">第{{c.Index}}小题</div>
+                                                    <input type="number" readonly="readonly" step="0.5" min="0.5" class="score-input" ng-model="c.Score" ng-change="ChangeScore(q,a.AreaType)">
+                                                    <span>&nbsp;分</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary">
+                        <span>考试时长&nbsp;:&nbsp;约&nbsp;</span><span style="color:#ff0000;font-weight:bold;">{{PaperDesignChoosedData.PaperTotalSeconds |formatMinutesFilter}}</span><span>&nbsp;分钟</span>
+                        <span style="margin-left:15px;">总分&nbsp;:&nbsp;</span><span style="color:#ff0000;font-weight:bold;">{{PaperDesignChoosedData.PaperTotalScore}}</span>
+                    </div>
+                    <div style="margin:20px auto;text-align:center;">
+                        <button type="button" class="btn btn-save-preview" ng-click="ShowSaveDialog()">
+                            预览保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="SavePaperDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 450px; margin: auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">保存</h5>
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    <label for="userName" class="col-sm-3 col-xs-3" style="line-height: 38px; text-align: right;                      padding-right: 0px;">试卷名称：</label>
+                    <div class="col-sm-8 col-xs-8">
+                        <input type="text" class="form-control" id="paperName" placeholder="请输入试卷名称" ng-model="PaperName">
+                    </div>
+
+                </div>
+                <div style="clear:both;height: 26px; line-height: 26px;padding-left: 110px;">
+                    <span class="span-error-msg" ng-hide="ValidatePaperNameMessage==''"><img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png">{{ValidatePaperNameMessage}}</span>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary button-commonDialog" ng-disabled="SaveButtonDisabled" ng-click="Save()" style="">生成试卷</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="PaperTotalSecondsInfoDialog" class="modal" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 450px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">友情提示</h5>
+            </div>
+            <div class="modal-body common-dialog-body" style="height: 80px;">
+                <span class="" style="float: left; margin-left: 80px;                 ">
+                    <img src="http://cdn.uukaola.com/web/img/dialog/warning.png" style="width: 40px; ">
+                </span>
+                <span class="ng-binding" style="font-size:14px;float: left;margin-left: 10px;color: #000000;">已选试题的时长会超出{{MAX_PAPER_TOTAL_SECONDS |formatMinutesFilter}}分钟,<br>不建议再继续添加试题啦!</span>
+            </div>
+            <div class="modal-footer" style="clear: both;background-color:#F4F5F6;padding: 10px !important;">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" style="height:38px;width:120px;">好的,我知道了</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="GeneratePaperProgressDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:500px;margin:auto;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">生成进度</h5>
+            </div>
+            <div class="modal-body">
+                <div style="font-size: 14px;color: #000000;">生成试卷中,请稍候...</div>
+                <div style="padding: 1px;border: solid 1px #c8c8c8;height: 15px;margin-top: 5px;margin-bottom:30px;border-radius: 5px;background-color: #e8e8e8;">
+                    <div ng-if="GeneratePaperPercent>0" class="progress" style="margin-bottom: 1px;margin-top: 1px;height: 10px;border-radius: 5px;box-shadow: none;">
+                        <div id="importProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="background-color:#009d3b;"
+                             ng-style="{'width':GeneratePaperPercent+'%'}">
+                        </div>
+                    </div>
+                    <div style="margin-top: -40px;margin-left: 420px;color: #000000;">{{GeneratePaperPercent+'%'}}</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="PaperGenerateResultDialog" class="modal" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 700px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">错误详情</h5>
+            </div>
+            <div class="modal-body common-dialog-body" style="height: 80px;">
+                <span class="ng-binding" style="font-size:14px;float: left;margin-left: 10px;color: #000000;max-height: 300px;overflow: auto;width: 100%;" ng-bind-html="PaperGenerateResult|trustHtml"></span>
+            </div>
+            <div class="modal-footer" style="clear: both;background-color:#F4F5F6;padding: 10px !important;">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="height:38px;width:160px;">请联系管理员处理</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,315 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/business/changeScore/changeScore.css" />
+<div class="row MainTabSet">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">人工调分</a>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active " id="contenteditor_Manage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'contentEditorList'}"
+                               style="width:60%;margin:0 15%;"></toaster-container>
+            <div class="content-main">
+                <div class="row col-md-12 col-sm-12 col-xs-12">
+                    <div class="btn-group" style="line-height: 30px;">过滤条件：</div>
+                    <div class="btn-group dropdown" style="width: 275px;min-width:160px;margin-right:12px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.searchType.name }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="overflow-y: auto;height: 200px;">
+                            <li ng-repeat="v in typeList">
+                                <a href="javascript:void(0);" ng-click="Filter.searchType = v;">{{v.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">年级：</div>
+                    <div class="btn-group" style="margin-right:10px;">
+                        <select ng-model="QueryParams.ClassGrade " style="width:200px;" class="form-control">
+                            <option value="8">初二（八年级）</option>
+                            <option value="9">初三（九年级）</option>
+                        </select>
+                    </div>
+                    <div class="checkbox" style="display:inline-block; margin-right:10px;">
+                        <label>
+                            <input ng-click="QueryParams.HideAdjusted=!QueryParams.HideAdjusted" type="checkbox"> 隐藏已经调分的记录
+                        </label>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="search-button button button-blue" style="margin-top:1px;" ng-click="SearchEditor()">
+                            <img src="http://cdn.uukaola.com/web/img/business/search.png" style="width:16px;height:16px;" />
+                            查询
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container col-md-12 col-sm-12 col-xs-12">
+                    <table ng-table="EditorList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="editor in $data" ng-show="$data.length>0" id="{{editor.UserID}}">
+                                <td data-title="'学校编号'" style="">{{ editor.SchoolID }}</td>
+                                <td data-title="'学校名称'" style="padding-left: 20px;">{{ editor.SchoolName }}</td>
+                                <td data-title="'学号'" style="padding-left: 20px;text-align:left;">{{ editor.StudentNumber }}</td>
+                                <td data-title="'题目顺序号'" style="">{{ editor.ShowIndex }}</td>
+                                <td data-title="'题型'" style="">{{ editor.AreaTypeDesc }}</td>
+                                <td data-title="'答案编号'" style="padding-left: 20px;">{{ editor.AnswerID }}</td>
+                                <td data-title="'题目分数'" style="padding-left: 20px;text-align:left;">{{ editor.ContentScore }}</td>
+                                <td data-title="'机评分数'" style="padding-left: 20px;text-align:left;">{{ editor.AMSScore }}</td>
+                                <td data-title="'人评分数'" style="padding-left: 20px;text-align:left;">{{ editor.Score }}</td>
+                                <td data-title="'机评结果编号'" style="">{{ editor.MarkResultID }}</td>
+                                <td data-title="'状态'" style="padding-left: 20px;">{{ editor.Status===0?'未调分':'已调分' }}</td>
+                                <td data-title="'操作'" style="">
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="GoEditorEdit(editor)">人工调分</a>
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length==0">
+                                <td colspan="12" style="text-align:center;">暂无内容编辑数据</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="EditEditorDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 1200px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight: bold;margin-bottom:20px;">人工评分</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-group-multiple">
+                    <!-- <div id="labelAddUpdateUser" class="div-multiple-lable">
+                        <div class="margin-left-right-none form-label">
+                            <label>内容商：</label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="userName">
+                                姓名：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="phoneNum">
+                                登录手机号：
+                            </label>
+                        </div>
+                    </div> -->
+                    <div id="controlDIVAddUser" class="control-div-multiple">
+                        <div class="form-item">
+                            <label class="vm-ib lb">
+                                学号
+                            </label>
+                            <div class="vm-ib margin-left-right-none form-group-control">
+                                <span>{{detailData.StudentNumber}}</span>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label class="vm-ib lb">
+                                题目编号
+                            </label>
+                            <div class="vm-ib margin-left-right-none form-group-control">
+                                <span>{{detailData.ContentID}}</span>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label class="vm-ib lb">
+                                机评结果编号
+                            </label>
+                            <div class="vm-ib margin-left-right-none form-group-control">
+                                <span>{{detailData.MarkResultID}}</span>
+                                <button type="button" class="show-detail btn btn-info" ng-click="showMachineDetail()">显示明细</button>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label class="vm-ib lb">
+                                题型
+                            </label>
+                            <div class="vm-ib margin-left-right-none form-group-control">
+                                <span>{{detailData.AreaTypeDesc}}</span>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label class="vm-ib lb">
+                                题目信息
+                            </label>
+                            <div class="vm-ib edit-group">
+                                <!-- <div>
+                                    <h5>问题：</h5>
+                                </div> -->
+                                <div ng-if="detailData.ContentDetail.QuestionText" class="form-item">
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <span>{{detailData.ContentDetail.QuestionText}}</span>
+                                    </div>
+                                </div>
+                                <div ng-if="detailData.ContentDetail.QuestionImageUrl" class="form-item">
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <img class="img" ng-src="{{detailData.ContentDetail.QuestionImageUrl}}" alt="">
+                                    </div>
+                                </div>
+                                <div ng-if="detailData.ContentDetail.QuestionAudio" class="form-item">
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <button ng-if="qIsPause" ng-click="playAudio(detailData.ContentDetail.QuestionAudio,'qIsPause')" type="button" class="btn btn-primary">播放音频</button>
+                                        <button ng-if="!qIsPause" ng-click="playAudio(detailData.ContentDetail.QuestionAudio,'qIsPause')" type="button" class="btn btn-danger">暂停</button>
+                                    </div>
+                                </div>
+                                <!-- <div>
+                                    <h5>内容：</h5>
+                                </div> -->
+                                <div ng-if="detailData.ContentDetail.ContentText" class="form-item">
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <span>{{detailData.ContentDetail.ContentText}}</span>
+                                    </div>
+                                </div>
+                                <div ng-if="detailData.ContentDetail.ContentImageUrl" class="form-item">
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <img class="img" ng-src="{{detailData.ContentDetail.ContentImageUrl}}" alt="">
+                                    </div>
+                                </div>
+                                <div ng-if="detailData.ContentDetail.ContentAudio" class="form-item">
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <button ng-if="cIsPause" ng-click="playAudio(detailData.ContentDetail.ContentAudio,'cIsPause')" type="button" class="btn btn-primary">播放音频</button>
+                                        <button ng-if="!cIsPause" ng-click="playAudio(detailData.ContentDetail.ContentAudio,'cIsPause')" type="button" class="btn btn-danger">暂停</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-item" ng-if="detailData.ContentRefTexts!=null&& detailData.ContentRefTexts.length>0">
+                            <label class="vm-ib lb">
+                                参考答案
+                            </label>
+                            <div class="vm-ib margin-left-right-none form-group-control">
+                                <ref-text id="ref-text" refs="detailData.ContentRefTexts" style="padding-left:0px;"></ref-text>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label class="vm-ib lb">
+                                题目分数
+                            </label>
+                            <div class="vm-ib margin-left-right-none form-group-control">
+                                <span class="black">{{detailData.ContentScore}}</span>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label class="vm-ib lb">
+                                机评分数
+                            </label>
+                            <div class="vm-ib margin-left-right-none form-group-control">
+                                <span class="black">{{detailData.AMSScore}}</span>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label class="vm-ib lb">
+                                学生答案
+                            </label>
+                            <div class="vm-ib margin-left-right-none form-group-control">
+                                <button ng-if="sIsPause" ng-click="playAudio(detailData.AnswerBaseURL,'sIsPause')" type="button" class="btn btn-primary">播放学生答案</button>
+                                <button ng-if="!sIsPause" ng-click="playAudio(detailData.AnswerBaseURL,'sIsPause')" type="button" class="btn btn-danger">暂停</button>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label class="vm-ib lb">
+                                人工评分
+                            </label>
+                            <div class="vm-ib edit-group" ng-class="{true: '', false: 'inactive'}[canEdit]">
+                                <div class="form-item" ng-class="{true: '', false: 'no-mb'}[canEdit]">
+                                    <label class="vm-ib lb lb-inner">
+                                        得分
+                                    </label>
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <input type="text" class="form-control" placeholder="请输入得分" ng-model="EditorEditParams.Score">
+                                    </div>
+                                </div>
+                                <div ng-show="canEdit" class="form-item h-item">
+                                    <label class="vm-ib h-lb lb-inner">
+                                        流利度
+                                    </label>
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <select ng-model="EditorEditParams.Fluency" style="width:100px;" class="form-control">
+                                            <option value="-1">未设置</option>
+                                            <option value="1">差</option>
+                                            <option value="2">中</option>
+                                            <option value="3">良</option>
+                                            <option value="4">优</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div ng-show="canEdit" class="form-item h-item">
+                                    <label class="vm-ib h-lb lb-inner">
+                                        完整度
+                                    </label>
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <select ng-model="EditorEditParams.Integrity" style="width:100px;" class="form-control">
+                                            <option value="-1">未设置</option>
+                                            <option value="1">差</option>
+                                            <option value="2">中</option>
+                                            <option value="3">良</option>
+                                            <option value="4">优</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div ng-show="canEdit" class="form-item h-item">
+                                    <label class="vm-ib h-lb lb-inner">
+                                        发音
+                                    </label>
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <select ng-model="EditorEditParams.Pron" style="width:100px;" class="form-control">
+                                            <option value="-1">未设置</option>
+                                            <option value="1">差</option>
+                                            <option value="2">中</option>
+                                            <option value="3">良</option>
+                                            <option value="4">优</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div ng-show="canEdit" class="form-item h-item">
+                                    <label class="vm-ib h-lb lb-inner">
+                                        韵律度
+                                    </label>
+                                    <div class="vm-ib margin-left-right-none form-group-control">
+                                        <select ng-model="EditorEditParams.Rhythm" style="width:100px;" class="form-control">
+                                            <option value="-1">未设置</option>
+                                            <option value="1">差</option>
+                                            <option value="2">中</option>
+                                            <option value="3">良</option>
+                                            <option value="4">优</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div id="erroMessageReset" class="erro-message">
+                        <div ng-show="editEditorValidateMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" /> {{editEditorValidateMessage }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-normal btn-primary" ng-click="EditorEdit()">保存</button>
+                <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="machine-detail" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 700px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight: bold;margin-bottom:20px;">机评明细</h5>
+            </div>
+            <div class="modal-body">
+                <p style="padding:10px;word-wrap: break-word;">
+                    {{detailData.MarkResult}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

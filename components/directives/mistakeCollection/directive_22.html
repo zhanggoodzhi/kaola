@@ -1,0 +1,15 @@
+﻿<!--听对话或独白回答问题-->
+<div class="content-div">
+    <div class="question-title">【听力原文】</div>
+    <div class="question-text highlight-no" ng-if="data.QuestionModel.AudioText != null && data.QuestionModel.AudioText.length > 0" ng-bind-html="data.QuestionModel.AudioText|trustHtml">
+    </div>
+</div>
+<div ng-repeat="c in data.QuestionModel.Contents">
+    <div class="content-text highlight-no" ng-if="c.Text!=undefined&& c.Text.length>0" ng-bind-html="(c.Index+'.'+c.Text)|trustHtml">
+    </div>
+</div>
+<question-operation data="data" show-answer="true"></question-operation>
+
+
+
+

@@ -1,0 +1,217 @@
+﻿<style>
+    .pay_list_c1 {
+        width: 24px;
+        height: 18px;
+        /*float: left;*/
+        padding-top: 3px;
+        cursor: pointer;
+        text-align: center;
+        margin-right: 10px;
+        background-image: url(http://cdn.uukaola.com/web/img/inputradio.gif);
+        background-repeat: no-repeat;
+        background-position: -24px 0;
+    }
+
+    .radioclass {
+        opacity: 0;
+        cursor: pointer;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+        filter: alpha(opacity=0);
+    }
+
+    .on {
+        background-position: 0 0;
+    }
+</style>
+<script type="text/ng-template" id="header_PaperCheckbox.html">
+    <input type="checkbox" ng-click="SelectAllPaper($event)" class="select-all" value="" />&nbsp;全选
+
+</script>
+<script type="text/ng-template" id="header_ClassCheckbox.html">
+    <input type="checkbox" ng-click="SelectAllClass($event)" class="select-all" value="" />&nbsp;全选
+
+</script>
+
+<div class="row">
+    <div class="step">
+        <div class="common-step task-step1" ng-if="CurrentStep==1"></div>
+        <div class="common-step task-step2" ng-if="CurrentStep==2"></div>
+        <div class="common-step task-step3" ng-if="CurrentStep==3"></div>
+    </div>
+
+    <div style="width: 100%;height: 0;border-bottom: 1px solid #e5e5e5"></div>
+    <div class="firsetstep" ng-if="CurrentStep==1">
+        <div class="form-horizontal" style="width: 100%;padding-left: 20%;">
+            <div class="form-group" style="padding: 20px 0 10px 0">
+                <label for="task_Type" class="">任务类型：</label>
+                <label style="margin-left:20px;">
+                    <input type="radio" value="1" name="task_Type" ng-model="TaskAdd.TaskType" ng-checked="TaskAdd.TaskType==1"> 考试
+                </label>
+                <label style="margin-left:20px;">
+                    <input type="radio" value="2" name="task_Type" ng-model="TaskAdd.TaskType" ng-checked="TaskAdd.TaskType==2"> 练习
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="task_Name" class="control-label" style="padding-top:0px;">任务名称：</label>
+                <input type="text" class="form-control btn-group" id="task_Name" placeholder="任务名称" ng-model="TaskAdd.TaskName" required maxlength="50" style="width:250px;">
+            </div>
+        </div>
+
+
+        <div class="divider "></div>
+
+        <div class="form-group" style="text-align: center;">
+            <button type="button" class="btn btn-primary button-commonDialog" ng-click="NextStepToClass(2,'task')" style="">下一步</button>
+        </div>
+    </div>
+
+    <div class="secondstep" ng-if="CurrentStep==2">
+
+        <div class="table-container" style="height: 300px;overflow-y: auto;">
+            <table ng-table="ClassList" class="table table-condensed table-bordered table-hover table-center-align">
+
+                <tbody>
+                    <tr ng-repeat="cls in $data">
+                        <td header="'header_ClassCheckbox.html'" style="width: 10%;" sortable="'Selected'">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="cls.Selected" ng-checked="cls.Selected==1" ng-disabled="cls.StudentCount==0" ng-click="ChooseClass(cls.ClassID)" />
+                        </td>
+
+                        <td style="width: 25%;" data-title="'班级名称'" sortable="'ClassName'">{{ cls.ClassName }}</td>
+                        <td style="width: 15%;" data-title="'年级'" sortable="'Grade'">{{ cls.Grade|gradeFilter }}</td>
+
+                        <td style="width: 10%;" data-title="'人数'" sortable="'StudentCount'">{{ cls.StudentCount }}</td>
+                        <td style="width: 10%;" data-title="'操作'">
+
+                            <a href="javascript:void(0)" target="_blank" style="color:#178ec9" ui-sref="student({classId:'{{cls.ClassID}}'})" tooltip="查看" tooltip-placement="bottom">
+                                查看
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="create-task-selected-footer">
+            <a href="javascript:void(0)" style="text-decoration:none;cursor:default;color:#7a7a7a;">
+                已选择{{SelectClassCount}}个班级
+            </a>
+        </div>
+        <div class="form-group" style="text-align: center;">
+            <button type="button" class="btn btn-primary button-commonDialog" ng-click="NextStepToTask(1,'')" style="">上一步</button>
+            <button type="button" class="btn btn-primary button-commonDialog" ng-click="NextStepToPaper(3,'class')" style="margin-left:40px;">下一步</button>
+        </div>
+
+    </div>
+
+    <div class="thirdstep" ng-if="CurrentStep==3">
+        <div class="table-container">
+            <div style="margin-bottom: 10px;">
+                <div class="btn-group" style="margin-right:2px;line-height:30px;padding:0 5px;">试卷类型</div>
+                <div class="btn-group" style="width:200px;padding-top: 4px;">
+                    <div style="width: 80px;display: block;float: left;margin-top: 2px;">
+                        <input type="radio" class="radioClass" name="paperType" value="0" checked="checked" ng-click="SwitchPaperList(0)" style="display: block;width: 14px; float: left;margin-top: 3px;margin-right: 5px;" />
+                        <span>学校推荐</span>
+                    </div>
+                    <div style="margin-left:15px; width: 80px;display: block; float: left;margin-top: 2px;">
+                        <input type="radio" class="radioClass" name="paperType" value="1" ng-click="SwitchPaperList(1)" style="display: block;width: 14px; float: left;margin-top: 3px;margin-right: 5px;"  />
+                        <span>自制试卷</span>
+                    </div>
+                </div>
+                <div class="btn-group dropdown" style="width: 200px;float:right;" id="paperTemplate">
+                    <a class="btn btn-block btn-default" href="#" id="paper_template" data-toggle="dropdown" style="color:#7a7a7a;">
+                        {{ PaperFilter.PaperTemplateName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" style="float: right;margin-top: 5px;"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="paper_template" role="menu" style="max-height: 200px;width:200px;overflow-y: auto;overflow-x:hidden;">
+                        <div>
+                            <input type="text" class="" style="height:30px;display: inline-block;margin: 5px 10px;padding-left:30px !important;width: 168px;" id="input_paper_template" placeholder="选择试卷模板" ng-model="PaperFilter.InputPaperTemplateName" ng-change="FilterPaperTemplateList(PaperFilter.InputPaperTemplateName)">
+                            <i class="btn-op smallicon" style="position: absolute;top: 15px;left: 15px;">&#xe608;</i>
+                        </div>
+                        <li ng-repeat="pt in PaperTemplateList" style="margin:5px;"><a href="javascript:void(0);" ng-click="ChoosePaperTemplate(pt)">{{pt.Name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="min-height:150px;max-height: 294px;overflow-y: auto;" ng-if="!CustomerPaper||!ListEmpty">
+                <table ng-table="PaperList" class="table table-condensed table-bordered table-hover table-center-align" style="border: 1px solid #ddd;margin-bottom:10px;">
+                    <tbody>
+                        <tr ng-repeat="paper in $data">
+                            <td header="'header_PaperCheckbox.html'" style="width: 13%;" sortable="'Selected'">
+                                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="paper.Selected" ng-checked="paper.Selected==1" ng-click="ChoosePaper(paper.PaperID)" />
+                            </td>
+                            <td style="text-align:left;padding-left:21px;" data-title="'试卷名称'" sortable="'PaperName'" title="{{paper.PaperName}}">   {{paper.RenamePaper==""?paper.PaperName:paper.RenamePaper |Length16Filter}}</td>
+                            <td ng-if="!CustomerPaper" style="width: 25%;" data-title="'试卷模版'" sortable="'PaperTemplateName'" title="{{ paper.PaperTemplateName }}">{{ paper.PaperTemplateName|Length9Filter}}</td>
+                            <td style="width: 10%;" data-title="'操作'">
+                                <a href="javascript:void(0)" style="color:#178ec9" target="_blank" ui-sref="paperpreview({paperID:'{{paper.PaperID}}'})" tooltip="预览" tooltip-placement="bottom">
+                                    预览
+                                    <!--<span class="btn-op smallicon icon-chakan" aria-hidden="true"></span>-->
+                                    <!--打开新窗口,跳转到试卷预览页面-->
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-if="CustomerPaper&&ListEmpty" style="min-height: 150px; height: 287px; border: 1px solid #EFF2F7;overflow-y: auto;margin-top: -20px;margin-bottom: 25px;">
+                <div id="msgContainer" style="margin: auto;width: 50%; text-align: center;height: 50px;font-size: 16px;margin-top: 100px;">
+                    <span style="display:block;margin-bottom:10px;">暂无自制试卷</span>
+                    <span>请到<a style="color:blue;text-decoration:underline;cursor:pointer;" ng-click="GotoPaperManger()">试卷管理</a>模块，进行自由组卷</span>
+                </div>
+            </div>
+        </div>
+        <div class="create-task-selected-footer" style="margin-bottom: 10px; margin-top: -20px;">
+            <a href="javascript:void(0)" style="text-decoration:none;cursor:default;color:#7a7a7a;">
+                已选择{{SelectPaperCount}}套试卷
+            </a>
+        </div>
+        <div class="form-group" style="text-align: center;">
+            <button type="button" class="btn btn-primary button-commonDialog" ng-click="NextStepToClass(2,'')" style="">上一步</button>
+            <button type="button" class="btn btn-primary button-commonDialog" ng-click="AddTask('paper')" style="margin-left:40px;">创建</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="AllotStuDialog" tabindex="99" role="dialog" style="overflow-y:hidden;">
+    <div class="modal-dialog" style="margin-top:50px !important;">
+        <div class="modal-content" style="width: 500px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" ng-click="CancelChooseStudentClass()"></button>
+                <h5 class="modal-title" style="">提示</h5>
+            </div>
+
+            <div class="modal-body">
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id':'allotStuDialog'}" style="min-height:20px"></toaster-container>
+                <div class="row">
+                    <div class="col-sm-10 col-xs-10" style="padding-left: 0;">
+                        <span style="color: #E93F48;">您选择的班级中，存在以下重复学生，请过滤信息后继续</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-container" style="height: 300px; overflow-y: auto;">
+                        <table ng-table="StuRepeatList" class="table table-condensed table-bordered table-hover table-center-align">
+                            <tbody>
+                                <tr ng-repeat="stu in $data">
+
+                                    <td style="width: 30%;" data-title="'学号'">{{ stu.StudentNumber }}</td>
+                                    <td style="width: 30%;" data-title="'姓名'">{{ stu.StudentName }}</td>
+                                    <td style="width: 40%;" data-title="'班级名称'">
+                                        <div class="btn-group dropdown" style="width: 95%">
+                                            <a class="btn btn-block btn-default" href="#" data-toggle="dropdown" style="color: #7a7a7a;">
+                                                {{ stu.SelectedClass.ClassName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                                                <li ng-repeat="cls in stu.ClassListExtendList"><a href="javascript:void(0);" ng-click="stu.SelectedClass = cls;">{{cls.ClassName}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="button" class="btn btn-primary button-commonDialog" ng-click="AllotStudent('task')" style="">确定</button>
+                <button type="button" class="btn btn-default button-cancel" style="margin-left:40px;" ng-click="CancelChooseStudentClass()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

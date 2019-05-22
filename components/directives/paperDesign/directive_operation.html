@@ -1,0 +1,95 @@
+﻿<div>
+    <div class="operation-div" title="试卷编号[{{data.PaperID}}],试卷名称[{{data.PaperName}}],题目编号[{{data.QuestionID}}]">
+        <span>
+            <img style="vertical-align: text-bottom;" src="/web/img/paperDesign/scoreRate.png" />
+            得分率:
+            <label style="color:#14B203;    font-size: 16px !important;"> {{data.ScoreRate|roundMin0Max2Filter}}%</label>
+        </span>
+        <span style="margin-left:10px;">
+            <img style="vertical-align: text-bottom;" src="/web/img/paperDesign/answerCount.png" />
+            答题次数:
+            <label style="color:#000000;    font-size: 16px !important;"> {{data.AnswerCount}}</label>
+        </span>
+        <div class="operation-button">
+            <button type="button" class="btn btn-choose" ng-click="Choose()" ng-if="data.IsChoosed==undefined||data.IsChoosed==false">
+                <img src="/web/img/paperDesign/tianjia.png" />添加
+            </button>
+            <button type="button" class="btn btn-remove" ng-click="Remove()" ng-if="data.IsChoosed==true">
+                <img src="/web/img/paperDesign/yichu.png" />移除
+            </button>
+        </div>
+        <span class="answer" style="float:right;margin-right:10px;" ng-if="showAnswer==true" ng-click="AnswerToggle()">
+            <img style="vertical-align: text-bottom;" src="/web/img/paperDesign/ckda1.png" />
+            查看答案
+            <img ng-if="isShow==false" src="/web/img/paperDesign/collapseDown.png" />
+            <img ng-if="isShow==true" src="/web/img/paperDesign/collapseUp.png" />
+        </span>
+
+    </div>
+    <div ng-show="isShow==true">
+        <div class="answerDiv" style="margin-top: 12px;">
+            <div ng-if="data.AreaType != 25 && data.AreaType != 26  && data.AreaType != 27">
+                <div>
+                    <div ng-if="data.QuestionModel.Contents != null && data.QuestionModel.Contents.length > 0" ng-repeat="content in data.QuestionModel.Contents">
+                        <div class="question-answer-title" ng-if="data.QuestionModel.Contents.length>1">第{{$index+1}}小题</div>
+                        <div style="margin-bottom:12px;" ng-if="content.Answers != null && content.Answers.length > 0" ng-repeat="ref in content.Answers">
+                            <a href="#" class="round">▪</a>
+                            <div class="ref-text highlight-no" ng-bind-html="ref.Content|trustHtml"></div>
+                            <div style="margin-top:12px;" ng-style="($last==false)?{'border-bottom':'1px dashed #e1e1e1'}:{'border-bottom':'0px dashed #e1e1e1'}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="data.AreaType == 25">
+                <div ng-if="!$last" ng-repeat="content in data.QuestionModel.Contents">
+                    <div class="question-answer-title">第一节<span style="margin-left:12px;">第{{content.Index}}小题</span></div>
+                    <a href="#" class="round">▪</a>
+                    <span style="margin-bottom:12px;" ng-if="content.Answers != null && content.Answers.length > 0" ng-repeat="anw in content.Answers" class="highlight-no">
+                        {{anw.Content}}
+                        <span ng-if="$last==false">/</span>
+                    </span>
+                </div>
+                <div ng-if="data.QuestionModel.Contents != null && data.QuestionModel.Contents.length > 1" style="clear:both;height: 16px;margin-bottom: 16px;border-bottom: 1px solid #e1e1e1;"></div>
+                <div ng-repeat="ca2 in data.QuestionModel.Contents">
+                    <div ng-if="$last" style="margin-bottom:12px;line-height:26px;">
+                        <div class="question-answer-title">第二节</div>
+                        <div style="margin-bottom:12px;" ng-if="ca2.Answers != null && ca2.Answers.length > 0" ng-repeat="ref in ca2.Answers">
+                            <a href="#" class="round">▪</a>
+                            <div class="ref-text highlight-no">{{ref.Content}}</div>
+                            <div style="margin-top:12px;" ng-style="$last?{'border-bottom':'0px dashed #e1e1e1'}:{'border-bottom':'1px dashed #e1e1e1'}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="data.AreaType == 26">
+                <div class="question-answer-title">第一节</div>
+                <div style="border-bottom:1px dashed #e1e1e1" ng-if="data.QuestionModel.Contents != null && data.QuestionModel.Contents.length > 0" ng-repeat="content in data.QuestionModel.Contents">
+                    <div style="margin-bottom:12px;" ng-if="content.Answers != null && content.Answers.length > 0" ng-repeat="ref in content.Answers">
+                        <a href="#" class="round">▪</a>
+                        <div class="ref-text highlight-no" ng-bind-html="ref.Content|trustHtml"></div>
+                        <div style="margin-top:12px;" ng-style="$last?{'border-bottom':'0px dashed #e1e1e1'}:{'border-bottom':'1px dashed #e1e1e1'}"></div>
+                    </div>
+                </div>
+                <div ng-style="$last?{'border-bottom':'0px dashed #e1e1e1'}:{'border-bottom':'1px dashed #e1e1e1'}" ng-if="data.ExtProperty.RelationQuestionModel.QuestionModel.Contents != null && data.ExtProperty.RelationQuestionModel.QuestionModel.Contents.length > 0" ng-repeat="content in data.ExtProperty.RelationQuestionModel.QuestionModel.Contents">
+                    <div class="question-answer-title">第二节<span style="margin-left:12px;">第{{content.Index}}小题</span></div>
+                    <div style="margin-bottom:12px;" ng-if="content.Answers != null && content.Answers.length > 0" ng-repeat="ref in content.Answers">
+                        <a href="#" class="round">▪</a>
+                        <div class="ref-text highlight-no" ng-bind-html="ref.Content|trustHtml"></div>
+                        <div style="margin-top:12px;" ng-style="$last?{'border-bottom':'0px dashed #e1e1e1'}:{'border-bottom':'1px dashed #e1e1e1'}"></div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="data.AreaType == 27">
+                <div ng-repeat="content in data.QuestionModel.Contents">
+                    <div class="question-answer-title"><span style="">第{{content.Index}}小题</span></div>
+                    <a href="#" class="round">▪</a>
+                    <span style="margin-bottom:12px;" ng-if="content.Answers != null && content.Answers.length > 0" ng-repeat="anw in content.Answers" class="highlight-no">
+                        {{anw.Content}}
+                        <span ng-if="$last==false">/</span>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿
+
+<div class="row MainTabSet">
+
+    <ul class="nav nav-tabs">
+        <li class="signup-tab-header  active"><a href="#user_Update" data-toggle="tab">修改内容编辑</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active " id="user_Update">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+            <form class="form-horizontal" id="updateUserForm" style="margin-left: 20px; margin-top: 30px;">
+
+                <div class="form-group">
+                    <label for="userName" class="col-sm-3 control-label   col-xs-3">姓名：</label>
+                    <div class="col-sm-5   col-xs-5" style="max-width: 300px;">
+                        <input type="text" class="form-control" style="" id="userName" placeholder="请输入姓名" ng-model="EditorEditParams.NickName"> 
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNum" class="col-sm-3 control-label   col-xs-3">登录手机号：</label>
+                    <div class="col-sm-5   col-xs-5" style="max-width: 300px;">
+                        <input type="text" class="form-control" style="" id="phoneNum" placeholder="请输入登录手机号" ng-model="EditorEditParams.PhoneNumber" ng-disabled="CurrentUser.UserInfo.PhoneNumberConfirmed==true" ng-blur="CheckPhoneNumber()">                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-sm-3 control-label  col-xs-3"></label>
+                    <div class="col-sm-7  col-xs-7">
+                        <button type="button" class="btn btn-primary button-simpleText" style="width: 120px; margin-bottom: 50px; margin-left: 20px;" ng-click="EditorEdit()">保存</button>
+                        <button type="button" class="btn btn-primary button-simpleText" style="width: 120px; margin-bottom: 50px; margin-left: 20px;" ng-click="EditorEditCancel()">取消</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

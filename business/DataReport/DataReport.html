@@ -1,0 +1,180 @@
+﻿<link rel="stylesheet" href="/web/business/DataReport/DataReport.css">
+<div class="row MainTabSet">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">数据监控->{{ReportName}}</a>
+    </div>
+    <!-- <div style="padding-left:0px;" class="btn-group btn_container">
+        <div class="btn-group btn_container">
+            时间
+        </div>
+        <div class="btn-group btn_container">
+            <input type="text" id="dtFrom" value="{{DateFrom}}" style="width:220px" readonly class="form-control calendar ">
+        </div>
+        <div class="btn-group btn_container">
+            ~
+        </div>
+        <div class="btn-group btn_container">
+            <input type="text" id="dtTo" value="{{DateTo}}" style="width:220px" readonly class="form-control calendar">
+        </div>
+    </div> -->
+    <div class="search-wrap">
+        <span>服务器：</span>
+        <select id="server" class="form-control select">
+            <option ng-repeat="item in servers" ng-value="item.value">{{item.name}}</option>
+        </select>     
+        </select>
+        <span>{{aa}}</span>
+        <span>时间：</span>
+        <input class="form-control datepicker" type="text" id="date-range-picker" />
+    </div>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active " id="DBReprot_Manage">
+        <div class="content-main">
+            <div class="table-container">
+                <div class="operate_container">
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchUserInfo()">
+                            <span aria-hidden="true">用户信息</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchPaperInfo()">
+                            <span aria-hidden="true">试卷信息</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchTaskInfo()">
+                            <span aria-hidden="true">任务信息</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchDongleInfo()">
+                            <span aria-hidden="true">加密狗信息</span>
+                        </button>
+                    </div>
+                    <div class="btn-group btn_container">
+                        <button type="button" class="btn-yellow" ng-click="SearchTeacherTask()">
+                            <span aria-hidden="true">教师创建任务统计</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="divUserInfo" style="display:none">
+                    <table id="tbUserInfo" ng-table="UserSummary" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'用户类型'" style="padding-left: 20px;">{{ data.UserType|UserTypeFilter }}</td>
+                                <td data-title="'数量'" style="padding-left: 20px;">{{ data.count}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" id="chartUserInfo" style="height:450px;width:80%; background-color:#E9F0F2;margin:30px auto !important;"></div>
+
+                    <table id="tbUserInfo" ng-table="UserInfoData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'日期'" style="text-align:left;width:100px;">{{ data.StatisticDate }}</td>
+                                <td data-title="'新增用户'" style="padding-left: 20px;">{{ data.TotalNewUserCount}}</td>
+                                <td data-title="'新增学校'" style="padding-left: 20px;">{{ data.NewSchoolAdminCount}}</td>
+                                <td data-title="'新增教师'" style="padding-left: 20px;">{{ data.NewTeacherCount}}</td>
+                                <td data-title="'新增学生'" style="padding-left: 20px;">{{ data.NewStudentCount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="divPaperInfo" style="display:none">
+                    <table id="tbPaperInfo" ng-table="PaperSummary" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'试卷总数'" style="padding-left: 20px;">{{ data.papercount }}</td>
+                                <td data-title="'试卷包总数'" style="padding-left: 20px;">{{ data.packagecount}}</td>
+                                <td data-title="'分配到学校的试卷包总数'" style="padding-left: 20px;">{{ data.schoolpackagecount}}</td>
+                                <td data-title="'激活的试卷包总数'" style="padding-left: 20px;">{{ data.schoolactiviecount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" id="chartPaperInfo" style="height:450px;width:80%; background-color:#E9F0F2;margin:30px auto !important;"></div>
+
+                    <table id="tbPaperInfo" ng-table="PaperInfoData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'日期'" style="text-align:left;width:100px;">{{ data.StatisticDate }}</td>
+                                <td data-title="'新增试卷'" style="text-align:left;">{{ data.NewPaperCount }}</td>
+                                <td data-title="'新增试卷包'" style="padding-left: 20px;">{{ data.NewPaperPackageCount}}</td>
+                                <td data-title="'新增内容序列号'" style="padding-left: 20px;">{{ data.NewPaperPackageContentIDCount}}</td>
+                                <td data-title="'激活的内容序列号'" style="padding-left: 20px;">{{ data.ActivePaperPackageCount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="divTaskInfo" style="display:none">
+                    <table id="tbTaskInfo" ng-table="TaskSummary" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'任务状态'" style="padding-left: 20px;">{{ data.status|TaskStatusFilter }}</td>
+                                <td data-title="'数量'" style="padding-left: 20px;">{{ data.count}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" id="chartTaskInfo" style="height:450px;width:80%; background-color:#E9F0F2;margin:30px auto !important;"></div>
+
+                    <table id="tbTaskInfo" ng-table="TaskInfoData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'日期'" style="text-align:left;width:100px;">{{ data.StatisticDate }}</td>
+                                <td data-title="'新建任务'" style="padding-left: 20px;">{{ data.NewTaskCount}}</td>
+                                <td data-title="'考试任务'" style="padding-left: 20px;">{{ data.NewTaskExamCount}}</td>
+                                <td data-title="'练习任务'" style="padding-left: 20px;">{{ data.NewTaskPracticeCount}}</td>
+                                <td data-title="'上传答案包'" style="padding-left: 20px;">{{ data.UploadSepCount}}</td>
+                                <td data-title="'上传音频数量'" style="padding-left: 20px;">{{ data.SepAnswerCount}}</td>
+                                <td data-title="'机器评分的任务'" style="padding-left: 20px;">{{ data.SepAnswerMarkCount}}</td>
+                                <td data-title="'机器评分数量'" style="padding-left: 20px;">{{ data.SepAnswerAMSMarkCount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="divDongleInfo" style="display:none">
+                    <table id="tbDongleInfo" ng-table="DongleSummary" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'任务状态'" style="padding-left: 20px;">{{ data.status|DongleStatusFilter }}</td>
+                                <td data-title="'数量'" style="padding-left: 20px;">{{ data.count}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row" id="chartDongleInfo" style="height:450px;width:80%; background-color:#E9F0F2;margin:30px auto !important;"></div>
+
+                    <table id="tbDongleInfo" ng-table="DongleInfoData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'日期'" style="text-align:left;width:100px;">{{ data.StatisticDate }}</td>
+                                <td data-title="'新增加密狗'" style="text-align:left;">{{ data.NewDongleCount }}</td>
+                                <td data-title="'激活加密狗'" style="padding-left: 20px;">{{ data.NewActiveDongleCount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="divTeacherTaskInfo" style="display:none">
+                    <table id="tbTeacherTaskInfo" ng-table="TeacherTaskInfoData" class="table table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td data-title="'学校'" style="text-align:left;width:100px;">{{ data.SchoolName }}</td>
+                                <td data-title="'教师'" style="text-align:left;">{{ data.NickName }}</td>
+                                <td data-title="'教师账号'" style="padding-left: 20px;">{{ data.Name}}</td>
+                                <td data-title="'任务名'" style="padding-left: 20px;">{{ data.TaskName}}</td>
+                                <td data-title="'任务状态'" style="padding-left: 20px;">{{ data.Status|TaskStatusFilter}}</td>
+                                <td data-title="'创建时间'" style="padding-left: 20px;">{{ data.CreatedTime}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

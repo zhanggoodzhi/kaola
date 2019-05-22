@@ -1,0 +1,6 @@
+﻿<!--单词音标认读-->
+<div ng-repeat="c in data.QuestionModel.Contents">
+    <div class="content-text highlight-no" ng-if="c.Text!=undefined&& c.Text.length>0" ng-bind-html="c.Text|trustHtml">
+    </div>
+</div>
+<question-operation data="data" show-answer="true"></question-operation>

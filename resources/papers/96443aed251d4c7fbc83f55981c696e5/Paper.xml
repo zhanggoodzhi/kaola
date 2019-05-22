@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<paper guid="96443aed251d4c7fbc83f55981c696e5" type="1" name="组卷_27_2" title="" backgroundaudio="" backgroudaudioseconds="0" times="0" image="" content="" waitseconds="0" listeningscore="15" speakingscore="0" papertemplateid="" papertemplatename="" totalexamtime="1568" totalscore="15" IsCustomPaper="True">
+  <areas>
+    <area type="27" title="一、听对话后填空(北京)" prompt="" promptaudio="" promptaudioseconds="0" index="1" guid="d7e2febc43894187998e2e150de23d77" times="0" presubmitmaxseconds="0" backgroundaudio="" backgroundaudioseconds="0">
+      <questions>
+        <question guid="9776bd38232441c7a8e748523c227fb8" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="9776bd38232441c7a8e748523c227fb8_Image.jpg" audio="9776bd38232441c7a8e748523c227fb8_Audio.mp3" audioseconds="66" video="" videoseconds="66" times="2" prepareseconds="20" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="W: Carol Robbins.&#xD;&#xA;M: Hello Mrs. Robbins. I saw your advertisement in the Evening News. Is the computer still for sale?&#xD;&#xA;W: Yes, it is.&#xD;&#xA;M: Can you tell me the brand of it? Is it an IBM?&#xD;&#xA;W: It's a Halley computer. That's H-A-L-L-E-Y. They're very good.&#xD;&#xA;M: I've heard that. Is it the 6775 machine?&#xD;&#xA;W: A newer one, the 6790. It's much faster.&#xD;&#xA;M: They only started selling those eighteen months ago. How long have you had yours?&#xD;&#xA;W: I bought it ten months ago.&#xD;&#xA;M: So why are you selling it?&#xD;&#xA;W: I'm going to move to Italy.&#xD;&#xA;M: Oh, right. Well, can I come and see it later today? At three thirty perhaps?&#xD;&#xA;W: I'll be out then. Can you come after six this evening?&#xD;&#xA;M: Mm, half past six then. Where do you live?&#xD;&#xA;W: At 17, Green Lane. You need to go past a local school. My house is almost next to the hospital, but there's no parking. &#xD;&#xA;M: Okay. Thanks. See you then." answerseconds="60" waitseconds="0" score="7.5">
+          <contents>
+            <content guid="b2ec72d1b0fc46efa63043c396d07361" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="1" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="dd4f127eb9f34836acb743ee71c8cc62" content="Halley" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="50001138c4ae4382b587d1959b801f1a" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="2" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="a13bdf611447494fad7987bf35766b6e" content="6790" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="be0c5b70c89843fabf5369964ada927f" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="3" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="5ff0e58f641047d1a97254f9f9aa0178" content="months  " audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="e6b5b1098c364bcf88b8f2c93b268436" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="4" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="cdf8496ce23044b89dedbbb6b2d78ced" content="6:30" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="14c9741c8d0b488aab1f2cadbfa93e84" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="5" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="23c4f7c770b5440a958a00d949f79bf7" content="hospital" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+        <question guid="7feb1c327104495ba0d54bc12b516adc" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="7feb1c327104495ba0d54bc12b516adc_Image.jpg" audio="7feb1c327104495ba0d54bc12b516adc_Audio.mp3" audioseconds="86" video="" videoseconds="86" times="2" prepareseconds="20" tips="" tipsaudio="" tipsaudioseconds="0" index="2" presubmitmaxseconds="0" newscreen="True" audiotext="W: Front Desk. Good evening. Can I help you?  &#xD;&#xA;M: Hello. This is Mr. Hogarth, in Room 1211. Would you arrange a taxi for me for tomorrow afternoon? &#xD;&#xA;W: No problem. Where do you want the taxi to take you? &#xD;&#xA;M: Well, I have a business meeting at 2:00 at the MQ Tower.  &#xD;&#xA;W: It's only a 20-minute drive and the traffic will be good at that time. &#xD;&#xA;M: Then 1:30 will be fine. No, make it 1:20, to be on the safe side.  &#xD;&#xA;W: OK. Would you like to order a taxi for your return?  &#xD;&#xA;M: Good idea! Could you make sure the taxi will be waiting for me outside at 8:00 p.m. &#xD;&#xA;W: Don't worry. We'll take care of that. Your telephone number?  &#xD;&#xA;M: 61 293 3120 97. &#xD;&#xA;W: Your name again?  &#xD;&#xA;M: George Hogarth, Room 1211.  &#xD;&#xA;W: The taxi should arrive at the hotel at 1:20 p.m. and should be waiting for you outside the MQ Tower at 8:00 p.m. Am I right?  &#xD;&#xA;M: Yes, thank you." answerseconds="60" waitseconds="0" score="7.5">
+          <contents>
+            <content guid="b1a518e83a894ce88771ef54c74a3d1f" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="6" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="85bb98c22e644a8fa01873f03ccef370" content="1211" audio="" audioseconds="0" />
+                <answer index="2" guid="d761dc4aebf140cfb2b01976bddb8dc6" content="12-11" audio="" audioseconds="0" />
+                <answer index="3" guid="2753f931b96d4828be7eb075985b143e" content="Twelve-Eleven" audio="" audioseconds="0" />
+                <answer index="4" guid="eb0f81affac6466ab50971fab71121a0" content="twelve-eleven" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="4b90fd7f61d645e180423f923e31e65e" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="7" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="c011b9221e6c4ce0b01fc15bd8d848c6" content="Hogarth" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="c75f955ee16a4d0a9c18aa557650d9f7" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="8" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="6c700cf5207046ef93dde45db3be692c" content="taxi" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="af429e1214da4c6b9d823d174bf33f17" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="9" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="901727d0b427410285b9f266e162fdd0" content="Tower" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="d948f8501ac24ff7b707b2ba1b8d8fd2" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="20" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="10" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options />
+              <answers>
+                <answer index="1" guid="8c5615a491024a708fd7c6eea3052bff" content="outside" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+  </areas>
+  <sections />
+</paper>

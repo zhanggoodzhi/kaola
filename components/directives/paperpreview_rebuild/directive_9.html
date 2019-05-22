@@ -1,0 +1,32 @@
+﻿<div style="background-color:#ffffff;padding-left:14px;padding-right:14px;">
+    <!--看图说话-->
+
+    <div ng-repeat="content in questionData.Contents">
+        <div class="div-content">
+
+            <div>
+                <div class="content-idx" style="">{{content.Index}}</div>
+                <div class="content-text highlight-no" ng-if="content.Text!=undefined&& content.Text.length>0" ng-bind-html="(content.Text)|trustHtml"></div>
+
+                <div class="content-image" style="">
+                    <img ng-src="{{resourcePath+content.Image}}" />
+                </div>
+            </div>
+            <div style="clear:both;">
+
+            </div>
+
+        </div>
+        <div style="" class="content-reftext">
+            <div>
+                <img src="http://cdn.uukaola.com/web/img/report/cankaodaan.png" />
+                <label>参考答案</label>
+            </div>
+            <ul>
+                <li ng-repeat="refText in content.Answers">{{refText.Content}}</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>

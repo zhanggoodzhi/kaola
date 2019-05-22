@@ -1,0 +1,184 @@
+﻿<script type="text/ng-template" id="header_ClassCheckbox.html">
+    <input type="checkbox" ng-click="SelectAllClass($event)" class="select-all" value="" />&nbsp;全选
+</script>
+<div class="step" style="border-bottom: 1px solid #f3f5f9;    height: 63px;margin-bottom:12px;">
+    <div class="common-step class-step1" ng-if="CurrentStep==1"></div>
+    <div class="common-step class-step2" ng-if="CurrentStep==2"></div>
+    <div class="common-step class-step3" ng-if="CurrentStep==3"></div>
+</div>
+<div ng-if="CurrentStep==1">
+    <div class="form-line" style="padding:10px 52px;color:#333">
+        <div class="form-line-label" style="width: 100px;">
+            考试名称:
+        </div>
+        <div class="form-line-input">
+            <input type="text" maxlength="30" style="width: 280px;" placeholder="请输入考试名称" ng-model="CurrentExamPlan.ExamPlanName">
+        </div>
+    </div>
+    <div class="form-line" style="padding:10px 52px;color:#333">
+        <div class="form-line-label" style="width: 100px;">
+            考试时间:
+        </div>
+        <div class="form-line-input">
+            <input size="10" type="text" id="Add_ExamPlanStartDateTime" class="form-control calendar" style="width: 130px;float:left;" readonly onfocus="this.blur()">
+            <input size="10" type="text" id="Add_ExamPlanEndDateTime" class="form-control calendar" style="width: 130px;float:left;margin-left: 21px;" readonly onfocus="this.blur()">
+        </div>
+        <script type="text/javascript">
+            function InitDateTimePicker() {
+                $("#Add_ExamPlanStartDateTime").datetimepicker({
+                    format: "yyyy-mm-dd", autoclose: true, todayBtn: true, language: 'zh-CN', pickerPosition: "bottom-left",
+                    minView: 2, startDate: new Date()
+                });
+                $("#Add_ExamPlanStartDateTime").val('');
+                $("#Add_ExamPlanEndDateTime").datetimepicker({
+                    format: "yyyy-mm-dd", autoclose: true, todayBtn: true, language: 'zh-CN',
+                    minView: 2, startDate: new Date()
+                });
+                $("#Add_ExamPlanEndDateTime").val('');
+            }
+            InitDateTimePicker();
+        </script>
+    </div>
+    <div class="form-line" style="padding:10px 52px;color:#333">
+        <div class="form-line-label" style="width: 100px;">
+            考试年级:
+        </div>
+        <div class="form-line-input" style="width: 305px;padding-top: 12px;">
+            <div ng-repeat="g in Grade" class="examplan-grade" ng-class="{true:'active'}[g.Grade==CurrentExamPlan.Grade]" ng-click="CurrentExamPlan.Grade=g.Grade">{{g.Alias}}</div>
+        </div>
+    </div>
+    <div class="examsetting-controlcontainer">
+        <div class="examsetting-radtitle">试卷分配规则:</div>
+        <div class="radio-item">
+            <div class="custom-radio">
+                <input type="radio" id="radAssignmentRule_0" name="radAssignmentRule" style="" ng-checked="CurrentExamPlan.PaperAssignRule==1||CurrentExamPlan.PaperAssignRule==0" ng-click="CurrentExamPlan.PaperAssignRule=1" />
+                <label for="radAssignmentRule_0"></label>
+            </div>
+            按照IP间隔
+        </div>
+        <div class="radio-item">
+            <div class="custom-radio">
+                <input type="radio" id="radAssignmentRule_1" name="radAssignmentRule" style="" ng-checked="CurrentExamPlan.PaperAssignRule==2" ng-click="CurrentExamPlan.PaperAssignRule=2" />
+                <label for="radAssignmentRule_1"></label>
+            </div>按座位号间隔
+        </div>
+    </div>
+    <div class="examsetting-controlcontainer">
+        <div class="examsetting-radtitle">选择题显示规则:</div>
+        <div class="checkbox-item">
+            <div class="custom-checkbox">
+                <input type="checkbox" id="chkChooseRule" name="chkChooseRule" style="" ng-checked="CurrentExamPlan.MixQuestionOrder" ng-model="CurrentExamPlan.MixQuestionOrder" />
+                <label for="chkChooseRule"></label>
+            </div>题序打乱
+        </div>
+        <div class="checkbox-item">
+            <div class="custom-checkbox" onclick="$('chkAssignmentRule').click()">
+                <input type="checkbox" id="chkAssignmentRule" name="chkAssignmentRule" style="" ng-checked="CurrentExamPlan.MixAnswerOrder" ng-model="CurrentExamPlan.MixAnswerOrder" />
+                <label for="chkAssignmentRule"></label>
+            </div>答案打乱
+        </div>
+    </div>
+    <div class="form-line" style="padding-left: 120px;min-height: 40px;">
+        <span class="span-error-msg" ng-hide="ValidateExamPlanMessage==''">
+            <img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png" style="margin-top: 3px;">{{ValidateExamPlanMessage}}
+        </span>
+    </div>
+</div>
+<div ng-if="CurrentStep==2">
+    <div class="content-title">
+        <span style="font-family: MicrosoftYaHei;font-size: 14px;font-weight: normal;font-stretch: normal;line-height: 26px;letter-spacing: 0px;color: #393939;margin-top: 5px;display: block;width: 100%;">
+            已选<font style="font-family: MicrosoftYaHei;font-size: 14px;font-weight: normal;letter-spacing: 0px;color: #f37a01;">
+                &nbsp;&nbsp;
+                {{SelectClassCount}}&nbsp;&nbsp;
+            </font>个班级
+        </span>
+    </div>
+    <div id="divTableContent">
+        <div class="tab-pane table-container active" id="SelectClassList" style="max-height: 287px; overflow-y: scroll;">
+            <table ng-table="SelectedClassList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                <tbody>
+                    <tr ng-repeat="class in $data">
+                        <td header="'header_PaperCheckbox.html'" style="width: 15%;" sortable="'Selected'">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="class.Selected" ng-checked="class.Selected==1" ng-click="ChooseClass(class.ClassID)" />
+                        </td>
+                        <td style="width: 27%;text-align: left;" header-class="'header-align-left'" data-title="'班级名称'">
+                            <span href="javascript:void(0)">{{ class.ClassName}}</span>
+                        </td>
+                        <td style="width: 90px; text-align: center;" header-class="'header-align-center'" align="center" data-title="'创建教师'" sortable="'TotalMinutes'">{{class.CreaterName }}分钟</td>
+                        <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'人数'" sortable="'TotalScore'">{{ class.TotalStudentNumber }}</td>
+                        <td style="width: 50px; text-align: center;" header-class="'header-align-center'" data-title="'操作'">
+                            <a class="operation-a" href="javascript:void(0)" target="_blank" ui-sref="paperpreview({paperID:'{{class.ClassID}}'})">
+                                查看
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div ng-if="CurrentStep==3">
+    <div class="table-container">
+        <div style="margin-bottom: 10px;">
+            <div class="btn-group" style="margin-right:2px;line-height:30px;padding:0 5px;">试卷类型</div>
+            <div class="btn-group" style="width:200px;padding-top: 4px;">
+                <div style="width: 80px;display: block;float: left;margin-top: 2px;">
+                    <input type="radio" class="radioClass" name="paperType" value="0" checked="checked" ng-click="SwitchPaperList(0)" style="display: block;width: 14px; float: left;margin-top: 3px;margin-right: 5px;" />
+                    <span>学校推荐</span>
+                </div>
+                <div style="margin-left:15px; width: 80px;display: block; float: left;margin-top: 2px;">
+                    <input type="radio" class="radioClass" name="paperType" value="1" ng-click="SwitchPaperList(1)" style="display: block;width: 14px; float: left;margin-top: 3px;margin-right: 5px;" />
+                    <span>自制试卷</span>
+                </div>
+            </div>
+            <div class="btn-group dropdown" style="width: 200px;float:right;" id="paperTemplate">
+                <a class="btn btn-block btn-default" href="#" id="paper_template" data-toggle="dropdown" style="color:#7a7a7a;">
+                    {{ PaperFilter.PaperTemplateName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" style="float: right;margin-top: 5px;"></span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="paper_template" role="menu" style="max-height: 200px;width:200px;overflow-y: auto;overflow-x:hidden;">
+                    <div>
+                        <input type="text" class="" style="height:30px;display: inline-block;margin: 5px 10px;padding-left:30px !important;width: 168px;" id="input_paper_template" placeholder="选择试卷模板" ng-model="PaperFilter.InputPaperTemplateName" ng-change="FilterPaperTemplateList(PaperFilter.InputPaperTemplateName)">
+                        <i class="btn-op smallicon" style="position: absolute;top: 15px;left: 15px;">&#xe608;</i>
+                    </div>
+                    <li ng-repeat="pt in PaperTemplateList" style="margin:5px;"><a href="javascript:void(0);" ng-click="ChoosePaperTemplate(pt)">{{pt.Name}}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="min-height:150px;max-height: 294px;overflow-y: auto;" ng-if="!CustomerPaper||!ListEmpty">
+            <table ng-table="PaperList" class="table table-condensed table-bordered table-hover table-center-align" style="border: 1px solid #ddd;margin-bottom:10px;">
+                <tbody>
+                    <tr ng-repeat="paper in $data">
+                        <td header="'header_PaperCheckbox.html'" style="width: 13%;" sortable="'Selected'">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="paper.Selected" ng-checked="paper.Selected==1" ng-click="ChoosePaper(paper.PaperID)" />
+                        </td>
+                        <td style="text-align:left;padding-left:21px;" data-title="'试卷名称'" sortable="'PaperName'" title="{{paper.PaperName}}">   {{paper.RenamePaper==""?paper.PaperName:paper.RenamePaper |Length16Filter}}</td>
+                        <td ng-if="!CustomerPaper" style="width: 25%;" data-title="'试卷模版'" sortable="'PaperTemplateName'" title="{{ paper.PaperTemplateName }}">{{ paper.PaperTemplateName|Length9Filter}}</td>
+                        <td style="width: 10%;" data-title="'操作'">
+                            <a href="javascript:void(0)" style="color:#178ec9" target="_blank" ui-sref="paperpreview({paperID:'{{paper.PaperID}}'})" tooltip="预览" tooltip-placement="bottom">
+                                预览
+                                <!--<span class="btn-op smallicon icon-chakan" aria-hidden="true"></span>-->
+                                <!--打开新窗口,跳转到试卷预览页面-->
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-if="CustomerPaper&&ListEmpty" style="min-height: 150px; height: 287px; border: 1px solid #EFF2F7;overflow-y: auto;margin-top: -20px;margin-bottom: 25px;">
+            <div id="msgContainer" style="margin: auto;width: 50%; text-align: center;height: 50px;font-size: 16px;margin-top: 100px;">
+                <span style="display:block;margin-bottom:10px;">暂无自制试卷</span>
+                <span>请到<a style="color:blue;text-decoration:underline;cursor:pointer;" ng-click="GotoPaperManger()">试卷管理</a>模块，进行自由组卷</span>
+            </div>
+        </div>
+    </div>
+    <div class="create-task-selected-footer" style="margin-bottom: 10px; margin-top: -20px;">
+        <a href="javascript:void(0)" style="text-decoration:none;cursor:default;color:#7a7a7a;">
+            已选择{{SelectPaperCount}}套试卷
+        </a>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary button-dialog-footer" ng-if="CurrentStep==2||CurrentStep==3" ng-click="GoToPreStep()">上一步</button>
+    <button type="button" class="btn btn-primary button-dialog-footer" style="margin-left:20px;" ng-if="CurrentStep==1||CurrentStep==2" ng-click="GoToNextStep()">下一步</button>
+    <button type="button" class="btn btn-primary button-dialog-footer" style="margin-left:20px;" ng-if="CurrentStep==3" ng-click="FinishAddExamPlan()">完成</button>
+</div>

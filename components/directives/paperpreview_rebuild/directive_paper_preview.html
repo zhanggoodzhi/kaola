@@ -1,0 +1,60 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-11 col-xs-11" style="text-align:center;margin-bottom:20px;">
+            <div>
+                <font style="display:inline-block;font-size:22px;color:#383838;">{{ paper.PaperName }}</font>
+            </div>
+            <div style="color:#909090;margin-top:10px;">总分： {{paper.TotalScore}}分&nbsp;&nbsp;&nbsp;&nbsp;考试时长：{{paper.TotalMinutes}}分钟</div>
+        </div>
+    </div>
+    <div class="row">
+        <!--<div ng-repeat="area in paper.Areas" style="margin-bottom:5px;">
+
+            <div class="areainfo">
+                <div class="areatitle">{{ area.AreaTitle }}</div>
+                <div class="areaprompt" style="display:block;">
+                    <div class="audio">
+                        <button style="display:inline-block;margin-right:6px;" type="button" class="btn btn-papergreen" ng-show="area.BackgroundAudio!=undefined && area.BackgroundAudio!=''" ng-click="PlayPaperAudio(area.AreaID,area.BackgroundAudio)"><i class="smallicon icon-paperaction " ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(area.AreaID)]"></i></button>
+                    </div>
+                    <div class="text">{{ area.Prompt }}</div>
+                </div>
+            </div>
+
+            <div class="" ng-repeat="question in area.Questions">
+                <paper-preview-question-detail question-data="question" resource-path="paper.ResourcePath" area-type="area.AreaType"></paper-preview-question-detail>
+            </div>
+        </div>-->
+
+
+        <div class="" ng-repeat="sa in paper.Areas" style="clear:both;background-color:#ffffff;border-top-left-radius:0px;border-top-right-radius:0px;border-top:solid 2px #1790C9;border-right:solid 1px #e8e8e8;border-left:solid 1px #e8e8e8;margin-bottom:14px;">
+
+            <div data-toggle="collapse" data-parent="#accordion" href="{{'#collapse'+sa.AreaID}}" ng-click="collapseToggle(sa)" style="height:40px;line-height:40px;background-color:#F0F0F0;cursor:pointer;">
+                <label style="margin-left:14px;cursor:pointer;font-weight:bold;font-size:15px !important;color:#000000;">
+                    {{GetAreaTitle(sa)}}
+                </label>
+
+                <img ng-if="sa.CollapseState==0" src="http://cdn.uukaola.com/web/img/report/collapseDown.png" class="arrow-icon" data-toggle="collapse"
+                    data-parent="#accordion" href="{{'#collapse'+sa.AreaID}}" />
+                <img ng-if="sa.CollapseState==1" src="http://cdn.uukaola.com/web/img/report/collapseUp.png" class="arrow-icon" data-toggle="collapse"
+                    data-parent="#accordion" href="{{'#collapse'+sa.AreaID}}" />
+
+                <label ng-if="sa.CollapseState==0" data-toggle="collapse" data-parent="#accordion" href="{{'#collapse'+sa.AreaID}}" style="float:right;cursor:pointer;font-size:13px !important; color:#777777;">
+                    展开
+                </label>
+                <label ng-if="sa.CollapseState==1" data-toggle="collapse" data-parent="#accordion" href="{{'#collapse'+sa.AreaID}}" style="float:right;cursor:pointer;font-size:13px !important;color:#777777;">
+                    收缩
+                </label>
+            </div>
+            <div id="{{'collapse'+sa.AreaID}}" class="panel-collapse collapse">
+                <div style="font-size:14px;padding:10px 14px 10px 14px;border-bottom:dotted 1px #cbcbcb;color:#666;">
+                    {{sa.AreaPrompt}}
+                </div>
+                <div ng-class="{true:'no-border',false:'border-bt'}[sa.AreaType==3||sa.AreaType==6||sa.AreaType==13||sa.AreaType==17||sa.AreaType==24]"
+                    ng-repeat="question in sa.Questions">
+                    <paper-preview-question-detail question-data="question" resource-path="paper.ResourcePath" area-type="sa.AreaType"></paper-preview-question-detail>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

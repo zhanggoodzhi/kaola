@@ -1,0 +1,4 @@
+﻿<ul>
+    <li ng-repeat="ref in refs" ng-if="$index < 3" ng-click="SelectRef(ref)" ng-class="{true:'active'}[currentRef.AnswerID==ref.AnswerID]">{{'参考答案'+($index+1)}}</li>
+</ul>
+<div class="refrenceText" style="word-break:break-all;">{{ currentRef.Content }}</div>

@@ -1,0 +1,59 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/kaola/paperfororg/paperfororg.css" />
+<div class="row page-container  bg-white">
+    <div class="content-container">
+        <div class="content-header" style="text-align: center;">
+            <span class="view-header-text"><i class="xsmallicon icon-liebiao"></i>试卷管理</span>
+            <div class="btn-group" style="float: right;padding-top:5px;">
+                <button type="button" style="width:120px !important;" class="btn button-textWithIcon btn-custombg" ng-click="ImportNewPackageDialog()"><i class="xsmallicon icon-xinzeng"><span>导入试卷</span></i></button>
+            </div>
+        </div>
+        <div class="content-main">
+            <div class="tab-content" style="">
+                <div class="tab-pane table-container active" id="SchoolPaperList">
+                    <table ng-table="SchoolPaperList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="paper in $data">
+                                <td style="width: 27%;text-align: left;" header-class="'header-align-left'" data-title="'试卷名称'">
+                                    <span href="javascript:void(0)">{{ (paper.RenamePaper == ""||paper.RenamePaper==null)?paper.PaperName:paper.RenamePaper }}</span>
+                                </td>
+                                <td style="width: 90px; text-align: center;" header-class="'header-align-center'" align="center" data-title="'考试时长'" sortable="'TotalMinutes'">{{ paper.TotalMinutes   |  zeroEmptyTextFilter }}分钟</td>
+                                <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'总分'" sortable="'TotalScore'">{{ paper.TotalScore }}</td>
+                                <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'听力'" sortable="'TotalListeningScore'">{{ paper.TotalListeningScore  |  zeroEmptyTextFilter }}</td>
+                                <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'口语'" sortable="'TotalSpeakingScore'">{{ paper.TotalSpeakingScore  |  zeroEmptyTextFilter }}</td>
+                                <td style="width: 50px; text-align: center;" header-class="'header-align-center'" data-title="'操作'">
+                                    <a class="operation-a" href="javascript:void(0)" target="_blank" ui-sref="paperpreview({paperID:'{{paper.PaperID}}'})">
+                                        预览
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="NewPackageDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="position: absolute;top: 50%;margin-top: -140px !important;">
+        <div class="modal-content newpackage-modal">
+            <div class="modal-header" style="border-radius: 3px 3px 0 0!important;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight:bold;">新增试卷包</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-top:40px;padding-left:30px;padding-right:30px; margin-bottom: 22px;" ng-class="{true:'has-error'}[ValidatePackageMessage!='']">
+                    <input type="text" class="form-control" id="packageCode" placeholder="请输入试卷包对应的内容序列号" ng-model="NewPackageCode">
+                    <div style="margin-left: 10px; height: 18px;">
+                        <span class="span-error-msg" ng-hide="ValidatePackageMessage==''"><img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png" style="margin-top: 3px;">{{ValidatePackageMessage}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary button-commonDialog" ng-click="ActiveNewPackage()" style="">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

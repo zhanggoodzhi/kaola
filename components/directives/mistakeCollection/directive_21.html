@@ -1,0 +1,11 @@
+﻿<!--短文复述-->
+<div ng-repeat="c in data.QuestionModel.Contents">
+    <div class="question-title">【听力原文】</div>
+    <div class="content-text highlight-no" ng-if="c.AudioText!=undefined&& c.AudioText.length>0" ng-bind-html="c.AudioText|trustHtml">
+    </div>
+    <div style="padding-top: 10px;border-top: 1px dashed #dcdcdc;" ng-show="data.QuestionModel.Prompt!=undefined&& data.QuestionModel.Prompt.length">
+        <div class="question-title">【要点提示】</div>
+        <div class="content-text highlight-no" ng-if="data.QuestionModel.Prompt!=undefined&& data.QuestionModel.Prompt.length>0" ng-bind-html="data.QuestionModel.Prompt|trustHtml"></div>
+    </div>
+</div>
+<question-operation data="data" show-answer="true"></question-operation>

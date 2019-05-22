@@ -1,0 +1,38 @@
+﻿<div class="markview-area-title" style="">
+    <label class="" style="">{{ answer.AreaTitle }}</label>
+</div>
+<!--<div class="" style="margin:10px 0px 10px 0px; color:#24a3e6;">
+    <h6 class="text-break">{{ answer.AreaPrompt }}</h6>
+</div>-->
+<div class="" style="margin:16px 0px 10px 0px;" ng-if="answer.QuestionPrompt != null && answer.QuestionPrompt != ''">
+    <div class="text-break">
+        {{ answer.QuestionPrompt }}
+    </div>
+</div>
+<div class="" style="margin:0px 0px 16px 0px;" ng-if="answer.QuestionText != null && answer.QuestionText != ''">
+    <div class="text-break">
+        {{ answer.QuestionText }}
+    </div>
+</div>
+<div class="question-image" ng-if="answer.QuestionImage != null && answer.QuestionImage != ''">
+    <img class="img-thumbnail" ng-src="{{ answer.ResourcePath + '/' + answer.QuestionImage}}" style="max-width:500px;max-height:260px;border-radius:0px;" />
+</div>
+<div class="" style="margin:16px 0px 0px 0px;" ng-if="answer.QuestionTips != null && answer.QuestionTips != ''">
+    <div class="text-break">
+        {{ answer.QuestionTips }}
+    </div>
+</div>
+<div class="" style="margin:8px 0px 0px 0px;" ng-if="answer.ContentTips != null && answer.ContentTips != ''">
+    <div class="text-break">
+        {{ answer.ContentTips }}
+    </div>
+</div>
+<div class="row" style="margin-top: 16px;margin-bottom: 20px; min-height:90px;max-height:120px; ">
+    <ref-text refs="contentAnswers" style="padding-left:0px;"></ref-text> 
+</div>
+<div class="row" style="margin-bottom:5px;margin-top:10px; text-align: center;">
+    <div ng-audiowave audio-option="answer" wave-color="#EE82EE" progress-color="#337ab7" height="120" ng-if="BroswerVerion>11">
+    </div>
+    <div ng-audio audio-option="answer" height="120" ng-if="BroswerVerion>=8 && BroswerVerion<=11">
+    </div>
+</div>

@@ -1,0 +1,228 @@
+﻿
+<div>
+    <div class="row">
+        <div id="{{'analysis_area_'+$index}}" ng-repeat="area in padata.PaperDetail.Areas" style="margin-top:20px;">
+            <div class="areainfo">
+                <div class="areatitle">{{ area.AreaTitle }}<a style="margin-left:5px;color:#383838;text-decoration:none;">{{GetAreaScore(area.AreaID)}}</a></div>
+            </div>
+            <div class="questioninfo" ng-repeat="question in area.Questions">
+                <div ng-if="(question.Audio || question.Prompt || question.Text) && area.AreaType != 3" class="questionprompt">
+                    <div class="text">{{ question.Prompt == '' ? (question.Audio != '' ? '听语音' : '') : question.Prompt }}</div>
+
+
+                </div>
+                <div ng-if="question.Image" class="questionimage">
+                    <img class="img-thumbnail" ng-src="{{ padata.PaperDetail.ResourcePath + '/' + question.Image }}" style="width:80%;" />
+                </div>
+                <div class="contentinfo" ng-repeat="content in question.Contents">
+
+                    <div ng-if="IsSelectTypeArea(area.AreaType)">
+
+                        <div style="position:absolute;right:50px;margin-top:10px;">
+                            <div style="border:2px solid #2EAE5B;float: right;width: 110px;">
+                                <div style="width: 53px;background-color:#ffffff;color:#2EAE5B;font-size: 24px;  float: left;padding: 8px 15px;">{{GetContentAnswer(content.ContentID)}}</div>
+                                <div style="width: 53px;background-color:#2EAE5B;color:#ffffff;float: left;">
+                                    <div style="padding: 0px 5px;">正确率</div>
+                                    <div style="padding:0px 5px;">{{GetContentAnswerPercent(content.ContentID)}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="content.Text" class="contenttext">
+                            <div class="text">
+                                <span>{{ content.Index }}</span>
+                                {{ content.Text }}
+                            </div>
+
+                        </div>
+                        <div ng-if="content.Image" class="contentimage">
+                            <img class="img-thumbnail" ng-src="{{ padata.PaperDetail.ResourcePath + '/' + content.Image }}" style="width:80%;max-height:500px;max-width:500px;" />
+                        </div>
+                        <div ng-if="content.Options" class="options">
+                            <ul ng-if="content.ResourceType==1" style="background-color:transparent;">
+
+                                <li ng-if="content.Layout==1" ng-class="{'right':content.Answers[0].Content == option.OptionID}" ng-repeat="option in content.Options" style="height:100%;background-position: 0 1px;float: left;margin-right: 30px;line-height: 24px;">
+
+                                    <div>
+                                        <div>
+                                            <a style="text-decoration:none;">{{['A', 'B', 'C'][$index]}}. {{option.Content}}</a>
+                                        </div>
+
+                                        <div class="">
+
+                                            <div style="width:40px;float:left;text-align:right;">
+                                                <a style="text-decoration:none;float:right;" ng-style="{'color':{true:'#5cb85c', false:'#f0ad4e'}[content.Answers[0].Content == option.OptionID]}">%</a>
+                                                <a style="text-decoration:none;float:right;" ng-style="{'color':{true:'#5cb85c', false:'#f0ad4e'}[content.Answers[0].Content == option.OptionID]}" ng-bind="GetContentOptionPercent(content.ContentID,option.OptionID)"></a>
+
+                                            </div>
+
+                                            <div class="progress" style="margin-left:5px;margin-top:5px;margin-bottom:0px;height:15px;width:150px;float:left;">
+                                                <div ng-class="{true:'progress-bar-success', false:'progress-bar-warning'}[content.Answers[0].Content == option.OptionID]" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="min-width: 0.5em;"
+                                                     ng-style="{'width':GetContentOptionPercent(content.ContentID,option.OptionID)+'%'}">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+
+                                <li ng-if="content.Layout!=1" ng-class="{'right':content.Answers[0].Content == option.OptionID}" ng-repeat="option in content.Options" style="height:100%;background-position: 0 1px;">
+                                    <div>
+                                        <div class="row">
+                                            <a style="text-decoration:none;float:left;margin-top:8px;min-width:200px;max-width:350px;">{{['A', 'B', 'C'][$index]}}. {{option.Content}}</a>
+
+                                            <div style="position:absolute;left:400px;float:left;">
+                                                <div style="width:50px;float:left;margin-top:8px;text-align:right;">
+                                                    <a style="text-decoration:none;float:right;" ng-style="{'color':{true:'#5cb85c', false:'#f0ad4e'}[content.Answers[0].Content == option.OptionID]}">%</a>
+                                                    <a style="text-decoration:none;float:right;" ng-style="{'color':{true:'#5cb85c', false:'#f0ad4e'}[content.Answers[0].Content == option.OptionID]}" ng-bind="GetContentOptionPercent(content.ContentID,option.OptionID)"></a>
+
+                                                </div>
+
+                                                <div class="progress" style="margin-left:5px; margin-top:8px;margin-bottom:0px;height:15px;width:150px;float:left;">
+                                                    <div ng-class="{true:'progress-bar-success', false:'progress-bar-warning'}[content.Answers[0].Content == option.OptionID]" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="min-width: 0.5em;"
+                                                         ng-style="{'width':GetContentOptionPercent(content.ContentID,option.OptionID)+'%'}">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <ul ng-if="content.ResourceType==2" style="background-color:transparent;">
+                                <li ng-if="content.Layout==1" ng-class="{'right':content.Answers[0].Content == option.OptionID}" ng-repeat="option in content.Options" style="background-position: 0 50px;height:150px;margin-right: 40px;line-height: 24px;float:left;">
+
+                                    <div>
+                                        {{['A', 'B', 'C'][$index]}}. <img class="img-thumbnail" ng-src="{{ padata.PaperDetail.ResourcePath + '/' + option.Content }}" style="width:160px;height:120px;" />
+                                    </div>
+
+                                    <div class="" style="line-height:25px;">
+
+                                        <div style="width:50px;float:left;">
+                                            <a style="text-decoration:none;float:right;" ng-style="{'color':{true:'#5cb85c', false:'#f0ad4e'}[content.Answers[0].Content == option.OptionID]}">%</a>
+                                            <a style="text-decoration:none;float:right;" ng-style="{'color':{true:'#5cb85c', false:'#f0ad4e'}[content.Answers[0].Content == option.OptionID]}" ng-bind="GetContentOptionPercent(content.ContentID,option.OptionID)"></a>
+
+                                        </div>
+                                        <div class="progress" style="margin-top:5px;margin-bottom:0px;height:15px;width:150px;float:left;">
+                                            <div ng-class="{true:'progress-bar-success', false:'progress-bar-warning'}[content.Answers[0].Content == option.OptionID]" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="min-width: 0.5em;"
+                                                 ng-style="{'width':GetContentOptionPercent(content.ContentID,option.OptionID)+'%'}">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </li>
+
+                                <li ng-if="content.Layout!=1" ng-class="{'right':content.Answers[0].Content == option.OptionID}" ng-repeat="option in content.Options" style="background-position: 0 50px;height:150px;margin-right: 40px;line-height: 24px;">
+                                    <div class="row">
+                                        <div style="float:left;">
+                                            {{['A', 'B', 'C'][$index]}}. <img class="img-thumbnail" ng-src="{{ padata.PaperDetail.ResourcePath + '/' + option.Content }}" style="width:160px;height:120px;" />
+                                        </div>
+
+                                        <div class="" style="margin-top:50px;">
+
+                                            <div style="width:50px;float:left;margin-left:50px;">
+                                                <a style="text-decoration:none;float:right;" ng-style="{'color':{true:'#5cb85c', false:'#f0ad4e'}[content.Answers[0].Content == option.OptionID]}">%</a>
+                                                <a style="text-decoration:none;float:right;" ng-style="{'color':{true:'#5cb85c', false:'#f0ad4e'}[content.Answers[0].Content == option.OptionID]}" ng-bind="GetContentOptionPercent(content.ContentID,option.OptionID)"></a>
+
+                                            </div>
+                                            <div class="progress" style="margin-top:5px;margin-bottom:0px;height:15px;width:150px;float:left;">
+                                                <div ng-class="{true:'progress-bar-success', false:'progress-bar-warning'}[content.Answers[0].Content == option.OptionID]" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="min-width: 0.5em;"
+                                                     ng-style="{'width':GetContentOptionPercent(content.ContentID,option.OptionID)+'%'}">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div ng-if="content.Options.length <= 1 && content.Answers.length > 1" class="row" style="margin-bottom: 10px; margin-top: 10px;float:left;">
+                            <ref-text refs="content.Answers"></ref-text>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+
+                    <div ng-if="IsSelectTypeArea(area.AreaType)==false" class="row">
+                        <div class="contenttext">
+                            <div class="text">
+                                <span>{{ content.Index }}</span>
+                                <div style="margin-left:40px;" class="col-sm-12 col-md-12" ng-if="area.AreaType==3">
+                                    <b ng-repeat="scoreDetail in TaskAnswerMarkResult(content.ContentID,question.Prompt)">
+                                        <b ng-if="scoreDetail.score>=80" style="color:green">{{scoreDetail.text}}</b>
+                                        <b ng-if="scoreDetail.score>=30 && score<80" style="color:purple">{{scoreDetail.text}}</b>
+                                        <b ng-if="scoreDetail.score<30" style="color:red">{{scoreDetail.text}}</b>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8 col-md-8">     
+                            <div ng-if="area.AreaType == 3" id="divShortRead" style="margin-top:30px;margin-left:40px;">
+                                <ul style="margin:0px;list-style:none;padding:0px;">
+                                    <li style="float:left;width:140px;height:24px;">
+                                        <span style="height:14px;background-color:green">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span style="margin-left:5px;">读的很不错哦！</span>
+                                    </li>
+                                    <li style="float:left;width:140px;height:24px;">
+                                        <span style="height:14px;background-color:purple">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span style="margin-left:5px;">有些小错误！</span>
+                                    </li>
+                                    <li style="float:left;width:140px;height:24px;">
+                                        <span style="height:14px;background-color:red">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span style="margin-left:5px;">读的不太好哦！</span>
+                                    </li>
+                                    <li style="float:left;width:120px;height:24px;">流利度：<span style="color:green">{{GetContentScoreData(content.ContentID,2).AvgScore}}%</span></li>
+                                    <li style="float:left;width:120px;height:24px;">完整度：<span style="color:green">{{GetContentScoreData(content.ContentID,3).AvgScore}}%</span></li>
+                                </ul>
+                            </div>                      
+                            <div ng-if="content.Image" class="contentimage">
+                                <img class="img-thumbnail" ng-src="{{ padata.PaperDetail.ResourcePath + '/' + content.Image }}" style="width:80%;max-height:500px;max-width:500px;" />
+                            </div>
+                            <div ng-if="content.Options.length <= 1 && content.Answers.length > 1" class="row" style="margin-bottom: 10px; margin-top: 10px;float:left;">
+                                <ref-text refs="content.Answers"></ref-text>
+                            </div>
+                        </div>
+                        <div class="col-sm-4  col-md-4">
+                            <div class="score-div">
+                                <div style="width: 300px;margin-bottom:5px; border-radius:500em;">
+                                    <div class="row score-table-row" style="background-color:#2EAE5B;color:#ffffff;">
+                                        <div class="col-sm-3 score-row-boder" style="">统计</div>
+                                        <div class="col-sm-3 score-row-boder" style="">最高</div>
+                                        <div class="col-sm-3 score-row-boder" style="">最低</div>
+                                        <div class="col-sm-3 score-row-boder" style="text-align:center;">平均</div>
+                                    </div>
+
+                                    <div class="row score-table-row">
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,1).TypeName}}</div>
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,1).MaxScore}}</div>
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,1).MinScore}}</div>
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,1).AvgScore}}</div>
+                                    </div>
+                                    <div class="row score-table-row" ng-if="area.AreaType==3">
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,2).TypeName}}</div>
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,2).MaxScore}}</div>
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,2).MinScore}}</div>
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,2).AvgScore}}</div>
+                                    </div>
+                                    <div class="row score-table-row" ng-if="area.AreaType==3">
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,3).TypeName}}</div>
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,3).MaxScore}}</div>
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,3).MinScore}}</div>
+                                        <div class="col-sm-3 score-row-boder" style="">{{GetContentScoreData(content.ContentID,3).AvgScore}}</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

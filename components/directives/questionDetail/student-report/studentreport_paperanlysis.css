@@ -1,0 +1,360 @@
+﻿.content-idx {
+    float: left;
+    background-image: url('http://cdn.uukaola.com/web/img/report/biaoqian.png');
+    display: inline-block;
+    width: 40px;
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    padding-right: 6px;
+    height: 28px;
+    line-height: 28px;
+    color: #333;
+    font-size: 18px;
+    font-family: Arial;
+    text-align: center;
+    padding-top: 1px;
+}
+
+.content-text {
+    float: left;
+    width: 100%;
+    font-size: 16px;
+    color: #333333;
+    font-family: Arial, 'Microsoft YaHei';
+    line-height: 28px;
+    margin-left: 14px;
+    max-width: 70%;
+    text-align: justify;
+    word-wrap: break-word;
+    text-align: justify;
+}
+
+.content-controlbar {
+    float: right;
+    line-height: 28px;
+}
+
+.content-controlbar div {
+    float: left;
+    border-radius: 3px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.content-controlbar div:hover {
+    background-color: #e8e8e8;
+}
+
+.content-controlbar div img {
+    vertical-align: middle;
+}
+
+.content-controlbar div span {
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.content-options {
+    padding-top: 16px;
+}
+
+.content-options ul {
+    list-style-type: none;
+}
+
+.content-options .horizontal li.active {}
+
+.content-options .horizontal li {
+    margin-right: 20px;
+    min-width: 200px;
+    float: left;
+}
+
+.content-options .vertical li {
+    margin-bottom: 14px;
+}
+
+.content-option-icon {
+    margin-top: -5px;
+}
+
+.content-option-img {
+    max-width: 120px;
+    max-height: 90px;
+}
+
+.content-option-label {
+    margin-left: 5px;
+    font-size: 16px !important;
+    color: #333;
+}
+
+.question-text {
+    float: left;
+    font-size: 15px;
+    color: #444444;
+    line-height: 30px;
+    margin-left: 14px;
+    max-width: 70%;
+    text-align: justify;
+    word-wrap: break-word;
+    margin-top: 10px;
+}
+
+.question-prompt {
+    float: left;
+    font-size: 18px;
+    color: #333333;
+    margin-top: 16px;
+    max-width: 70%;
+    text-align: justify;
+    word-wrap: break-word;
+}
+
+.question-tips {
+    float: left;
+    font-size: 14px;
+    color: #333333;
+    margin-left: 14px;
+    max-width: 70%;
+    text-align: justify;
+    word-wrap: break-word;
+    margin-top: 10px;
+}
+
+.question-controlbar {
+    float: right;
+    /* margin-top: 16px;
+    margin-bottom: 10px; */
+    line-height: 28px;
+}
+
+.question-controlbar div {
+    float: left;
+    border-radius: 3px;
+    padding: 0 8px;
+    cursor: pointer;
+}
+
+.question-controlbar div:hover {
+    background-color: #e8e8e8;
+}
+
+.question-controlbar div img {
+    vertical-align: middle;
+}
+
+.question-controlbar div span {
+    vertical-align: middle;
+}
+
+.question-controlbar-spliter {
+    clear: both;
+    border-bottom: 1px solid #e8e8e8;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.student-answer {
+    float: right;
+    margin-right: 19px;
+    line-height: 26px;
+    width: 105px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-top: -3px;
+}
+
+.student-answer img {
+    margin-left: 5px;
+    vertical-align: sub;
+    height:26px;
+}
+
+.score-info {
+    clear: both;
+    margin-bottom: 19px;
+    background-color: #DDF0F7;
+    padding-top: 11px;
+    padding-bottom: 13px;
+    color: #555;
+}
+
+.score-info label {
+    vertical-align: top;
+}
+
+.content-reftext {
+    clear: both;
+    margin-top: 19px;
+    margin-bottom: -19px;
+    background-color: #DDF0F7;
+    padding: 20px 0px 3px 14px;
+}
+
+.content-reftext img {
+    margin-top: -4px;
+}
+
+.content-reftext label {
+    font-size: 15px !important;
+    font-weight: bold;
+    color: #000000;
+    margin-left: 5px;
+}
+
+.content-reftext ul {
+    margin-left: -20px;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-family: Arial;
+    font-size: 16px;
+    color: #444444;
+}
+
+.content-reftext ul li {
+    margin-bottom: 5px;
+    padding-left: 0px;
+}
+
+.content-reftext-spliter {
+    margin-top: 18px;
+    margin-left: 15px;
+    margin-right: 15px;
+    height: 1px;
+    border-bottom: dotted 1px #adccda;
+}
+
+.content-image {
+    float: left;
+}
+
+.content-image img {
+    min-width: 300px;
+    min-height: 250px;
+    max-width: 500px;
+    max-height: 350px;
+    margin-left: 20px;
+    margin-top: 2px;
+}
+
+.content-video {
+    width: 300px;
+    height: 220px;
+    float: left;
+    margin-left: 10px;
+}
+
+.content-video .video-js {
+    width: 300px;
+    height: 220px;
+}
+
+.question-image {
+    clear: both;
+}
+
+.question-image img {
+    min-width: 300px;
+    min-height: 250px;
+    max-width: 560px;
+    max-height: 320px;
+    float: left;
+}
+
+.score-comment-legend {
+    float: right;
+    line-height: 12px;
+    margin-top: 20px;
+    margin-right: -8px;
+    margin-bottom: 12px;
+}
+
+.score-comment-legend div {
+    width: 10px;
+    height: 10px;
+    float: left;
+    border-radius: 2px;
+}
+
+.score-comment-legend label {
+    margin-left: 3px;
+    margin-right: 10px;
+    margin-top: -2px;
+    float: left;
+}
+
+.score-comment-legend-default {}
+
+.score-comment-legend-green {
+    background-color: #10B400;
+}
+
+.score-comment-legend-yellow {
+    background-color: #FF8B02;
+}
+
+.score-comment-legend-blue {
+    background-color: #4680B2;
+}
+
+.score-comment-legend-red {
+    background-color: #FC0609;
+}
+
+a.readtext {
+    text-decoration: none;
+}
+
+.readtext.default {
+    color: #000000;
+}
+
+.readtext.green {
+    color: #14b403;
+}
+
+.readtext.yellow {
+    color: #ff8a00;
+}
+
+.readtext.blue {
+    color: #487dad;
+}
+
+.readtext.red {
+    color: #ff0000;
+}
+
+.div-ca {
+    margin: 20px 0px 0px 0px;
+}
+
+.sample-answer {
+    float: right;
+}
+
+.sample-answer-controlbar {
+    margin-right: 10px;
+    cursor: pointer;
+    margin-top: -3px;
+}
+
+.question-audio {
+    float: right;
+}
+
+.label-area-title {
+    color: #333333;
+    font-size: 15px !important;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.img-thumbnail {
+    padding: 0px;
+}

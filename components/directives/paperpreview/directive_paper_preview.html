@@ -1,0 +1,344 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-11 col-xs-11" style="text-align:center;margin-bottom:20px;">
+            <div>
+                <font style="display:inline-block;font-size:22px;color:#383838;">{{ paper.PaperName }}</font>
+            </div>
+            <div style="color:#909090;margin-top:10px;">总分： {{paper.TotalScore}}分&nbsp;&nbsp;&nbsp;&nbsp;考试时长：{{paper.TotalMinutes}}分钟</div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div ng-repeat="area in paper.Areas">
+
+            <div class="areainfo">
+                <div class="areatitle">{{ area.AreaTitle }}</div>
+                <div class="areaprompt" style="display:block;">
+                    <div class="audio">
+                        <button style="display:inline-block;margin-right:6px;" type="button" class="btn btn-papergreen" ng-show="area.BackgroundAudio!=undefined && area.BackgroundAudio!=''" ng-click="PlayPaperAudio(area.AreaID,area.BackgroundAudio)"><i class="smallicon icon-paperaction icon-laba"></i></button>
+                    </div>
+                    <div class="text">{{ area.Prompt }}</div>
+                </div>
+            </div>
+
+            <div class="questioninfo" ng-repeat="question in area.Questions">
+                <div ng-if="area.AreaType!=14 && area.AreaType!=16 && area.AreaType!=19 && area.AreaType!=25 && area.AreaType!=26">
+
+                    <div ng-if="(question.Audio || question.Prompt || question.Text)" class="questionprompt">
+                        <div class="text">{{ (question.Prompt == '' ? (question.Audio != '' ? '' : '') : question.Prompt)==''?question.Text:(question.Prompt == '' ? (question.Audio != '' ? '' : '') : question.Prompt) }}</div>
+                        <div class="action">
+                            <button ng-if="question.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(question.QuestionID,question.Audio)"><i class="smallicon icon-paperaction " ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(question.QuestionID)]"></i></button>
+                            <button ng-if="question.AudioText && question.AudioText != question.AreaID" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-papergreen" role="button"
+                                    popover="{{ question.AudioText }}" popover-placement="left-bottom">
+                                <i class="smallicon icon-paperaction icon-chakanyuanwen"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div ng-if="question.Image" class="question-image">
+                        <img class="img-thumbnail" ng-src="{{ paper.ResourcePath + '/' + question.Image }}" style="max-width:550px;max-height:320px;" />
+                    </div>
+
+                    <div class="contentinfo" ng-repeat="content in question.Contents">
+                        <div class="contenttext">
+                            <div class="text">
+                                <span>{{ content.Index }}</span>
+                                <label ng-bind-html="content.Text|trustHtml"></label>
+                            </div>
+                            <div class="action">
+                                <button ng-if="content.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(content.ContentID,content.Audio)"><i class="smallicon icon-paperaction" ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(content.ContentID)]"></i></button>
+                                <button ng-if="(content.AudioText!=null&&content.AudioText.length>0)" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-papergreen" role="button"
+                                        popover="{{ content.AudioText }}" popover-placement="left-bottom">
+                                    <i class="smallicon icon-paperaction icon-chakanyuanwen"></i>
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <div ng-if="content.Image" class="contentimage" style="margin-left:50px;">
+                            <img class="img-thumbnail" ng-src="{{ paper.ResourcePath + '/' + content.Image }}" style="width:550px;height:320px;" />
+                        </div>
+                        <div ng-if="content.Options" class="options" ng-switch="content.ResourceType">
+                            <ul ng-switch-when="1" ng-class="{1:'vertical'}[content.Layout]">
+                                <li style="min-width:250px;" ng-class="{'right':content.Answers[0].Content == option.OptionID}" ng-repeat="option in content.Options">{{['A', 'B', 'C'][$index]}}. {{option.Content}}</li>
+                            </ul>
+                            <ul ng-switch-when="2" ng-class="{1:'vertical vertical-img'}[content.Layout]">
+                                <li style="min-width:250px;" ng-class="{'right':content.Answers[0].Content == option.OptionID}" ng-repeat="option in content.Options">{{['A', 'B', 'C'][$index]}}. <img class="img-thumbnail" ng-src="{{ paper.ResourcePath + '/' + option.Content }}" style="width:160px;height:120px;" /></li>
+                            </ul>
+                        </div>
+
+                        <div ng-if="content.Options.length <= 1 && content.Answers.length >= 1" class="row" style="margin-bottom: 10px; margin-top: 10px;margin-left:10px !important;">
+                            <ref-text refs="content.Answers"></ref-text>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+
+                <!--快速应答,视频14-->
+                <div ng-if="area.AreaType==14">
+
+                    <div ng-if="(question.Audio || question.Prompt || question.Text)" class="questionprompt">
+                        <div class="text">{{ (question.Prompt == '' ? (question.Audio != '' ? '' : '') : question.Prompt)==''?question.Text:(question.Prompt == '' ? (question.Audio != '' ? '' : '') : question.Prompt) }}</div>
+                        <div class="action">
+                            <button ng-if="question.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(question.QuestionID,question.Audio)"><i class="smallicon icon-paperaction " ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(question.QuestionID)]"></i></button>
+                            <button ng-if="question.AudioText && question.AudioText != question.AreaID" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-papergreen" role="button"
+                                    popover="{{ question.AudioText }}" popover-placement="left-bottom">
+                                <i class="smallicon icon-paperaction icon-chakanyuanwen"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="contentinfo" ng-repeat="content in question.Contents">
+                        <div class="contenttext">
+                            <div class="text">
+                                <span>{{ content.Index }}</span>
+                                <label ng-bind-html="content.Text|trustHtml"></label>
+                            </div>
+                            <div class="action">
+                                <button ng-if="content.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(content.ContentID,content.Audio)"><i class="smallicon icon-paperaction" ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(content.ContentID)]"></i></button>
+                                <button ng-if="(content.AudioText!=null&&content.AudioText.length>0)" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-papergreen" role="button"
+                                        popover="{{ content.AudioText }}" popover-placement="left-bottom">
+                                    <i class="smallicon icon-paperaction icon-chakanyuanwen"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!--快速应答,视频-->
+                        <div class="content-video" style="">
+
+                            <div ng-video id="{{'ng-video-directives_'+content.ContentID}}" data="GetVideoData(content)"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div ng-if="content.Answers.length >= 1" class="row" style="margin-bottom: 10px; margin-top: 10px;margin-left:10px !important;">
+                            <ref-text refs="content.Answers"></ref-text>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+                <!--跟读与模仿16-->
+                <div ng-if="area.AreaType==16">
+
+                    <div ng-if="question.Text" class="question-text-16">
+                        <div class="question-index">
+                            <span>{{ $index+1 }}</span>
+                        </div>
+                        <div class="text">{{ question.Text  }}</div>
+                        <div class="action">
+                            <button ng-if="question.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(question.QuestionID,question.Audio)"><i class="smallicon icon-paperaction " ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(question.QuestionID)]"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <!--信息转述19-->
+                <div ng-if="area.AreaType==19">
+                    <div class="question-index">
+                        <span>{{ question.Index }}</span>
+                    </div>
+
+                    <div ng-if="(question.Audio || question.Prompt || question.Text)" class="questionprompt">
+                        <div class="text">{{ (question.Prompt == '' ? (question.Audio != '' ? '' : '') : question.Prompt)==''?question.Text:(question.Prompt == '' ? (question.Audio != '' ? '' : '') : question.Prompt) }}</div>
+                        <div class="action">
+                            <button ng-if="question.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(question.QuestionID,question.Audio)"><i class="smallicon icon-paperaction " ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(question.QuestionID)]"></i></button>
+                            <button ng-if="question.AudioText && question.AudioText != question.AreaID" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-papergreen" role="button"
+                                    popover="{{ question.AudioText }}" popover-placement="left-bottom">
+                                <i class="smallicon icon-paperaction icon-chakanyuanwen"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div ng-if="question.Image" class="question-image">
+                        <img class="img-thumbnail" ng-src="{{ paper.ResourcePath + '/' + question.Image }}" style="width:550px;height:320px;" />
+                    </div>
+
+                    <div class="question-text">
+                        <div class="text">
+                            <label>{{question.Tips}}</label>
+                        </div>
+                    </div>
+
+                    <div class="contentinfo" ng-repeat="content in question.Contents">
+
+                        <!--信息转述19-->
+                        <div class="contenttext">
+                            <div class="text">
+                                <label>
+                                    {{content.Text}}
+                                </label>
+                                <label>
+                                    {{content.Tips}}
+                                </label>
+                            </div>
+                            <div class="action">
+                                <button ng-if="content.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(content.ContentID,content.Audio)"><i class="smallicon icon-paperaction" ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(content.ContentID)]"></i></button>
+                                <button ng-if="content.AudioText.length > 0" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-papergreen" role="button"
+                                        popover="{{ content.AudioText  }}" popover-placement="left-bottom">
+                                    <i class="smallicon icon-paperaction icon-chakanyuanwen"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div ng-if="content.Image" class="contentimage" style="margin-left:50px;">
+                            <img class="img-thumbnail" ng-src="{{ paper.ResourcePath + '/' + content.Image }}" style="width:550px;height:320px;" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <div ng-if="content.Answers.length >= 1" class="row" style="margin-bottom: 10px; margin-top: 10px;margin-left:10px !important;">
+                            <ref-text refs="content.Answers"></ref-text>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <!--听后记录并转述信息25-->
+                <div ng-if="area.AreaType==25">
+                    <!--Part1-->
+                    <div class="contentinfo">
+                        <div ng-if="question.Audio || question.Prompt || question.Text" class="questionprompt25" ng-class="questionprompt25">
+                            <div class="text">{{ (question.Prompt == '' ? (question.Audio != '' ? '' : '') : question.Prompt)==''?question.Text:(question.Prompt == '' ? (question.Audio != '' ? '' : '') : question.Prompt) }}</div>
+                            <div class="action">
+                                <button ng-if="question.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(question.QuestionID,question.Audio)"><i class="smallicon icon-paperaction " ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(question.QuestionID)]"></i></button>
+                                <button ng-if="question.AudioText && question.AudioText != question.AreaID" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-papergreen" role="button"
+                                        popover="{{ question.AudioText }}" popover-placement="left-bottom">
+                                    <i class="smallicon icon-paperaction icon-chakanyuanwen"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="question-image">
+                            <img class="img-thumbnail" ng-src="{{ paper.ResourcePath + '/' + question.Image }}" style="width:550px;height:320px;" />
+                        </div>
+                        <div ng-init="specialContentAnswers=GetSpecialContentAnswerForArea25(question.Contents)" class="row" style="margin-bottom: 10px; margin-top: 10px;margin-left:10px !important;">
+                            <ref-text25 refs="specialContentAnswers"></ref-text25>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <!--Part2-->
+                    <div class="contentinfo">
+                        <div ng-if="question.Tips" class="questionprompt25 contentinfo">
+                            <div class="text" ng-bind-html="question.Tips|trustHtml"> </div>
+                            <div class="action">
+                                <button ng-if="question.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(question.QuestionID,question.Audio)"><i class="smallicon icon-paperaction " ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(question.QuestionID)]"></i></button>
+                                <button ng-if="question.AudioText && question.AudioText != question.AreaID" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-papergreen" role="button"
+                                        popover="{{ question.AudioText }}" popover-placement="left-bottom">
+                                    <i class="smallicon icon-paperaction icon-chakanyuanwen"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div ng-repeat="p2Content in question.Contents">
+                            <div ng-if="$last">
+                                <div class="contenttext">
+                                    <div class="text" style="display:block;" ng-bind-html="p2Content.Tips|trustHtml">
+                                    </div>
+                                </div>
+                                <div ng-if="p2Content.Options.length <= 1 && p2Content.Answers.length >= 1" class="row" style="margin-bottom: 10px; margin-top: 10px;margin-left:10px !important;">
+                                    <ref-text refs="p2Content.Answers"></ref-text>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--信息转述并询问26-->
+                <div ng-if="area.AreaType==26">
+
+                    <!--信息转述并询问-->
+
+                    <div style="background-color:#ffffff;padding-left:14px;padding-right:14px;" ng-if="question.Index==1">
+                        <!--Part1信息转述-->
+                        <div style="margin-top: 10px;height: 47px;line-height: 47px;padding-left: 10px;padding-right: 10px;border-bottom: solid 1px #e1e1e1;margin: 0px -14px;">
+                            <div style="float:left;font-size: 14px;font-weight: bold;color: #333333;   " ng-if="question.Prompt!=undefined && question.Prompt.length>0">
+                                {{question.Prompt}}
+                            </div>
+                            <div class="" ng-if="question.Audio.length>0" style="float:right;margin-top: 0px;">
+
+                                <div class="action">
+                                    <button ng-if="question.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(question.QuestionID,question.Audio)"><i class="smallicon icon-paperaction " ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(question.QuestionID)]"></i></button>
+                                    <button ng-if="question.AudioText && question.AudioText != question.AreaID" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-papergreen" role="button"
+                                            popover="{{ question.AudioText }}" popover-placement="left-bottom">
+                                        <i class="smallicon icon-paperaction icon-chakanyuanwen"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <div style="margin-top: 20px;color: #333333;" ng-if="question.Text!=undefined && question.Text.length>0">
+                            {{question.Text}}
+                        </div>
+                        <div style="margin-top:10px;color: #333333;" ng-if="question.Tips!=undefined && question.Tips.length>0">
+                            {{question.Tips}}
+                        </div>
+                        <div class="" style="margin-top:10px;">
+                            <img ng-src="{{paper.ResourcePath+question.Image}}" style="max-width:560px;max-height:260px;" />
+                        </div>
+
+                        <!--<div style="margin-top:20px;color: #333333;" ng-if="question.AudioText!=undefined && question.AudioText.length>0">
+                            {{question.AudioText}}
+                        </div>-->
+
+
+                        <div ng-repeat="ca1 in question.Contents">
+                            <div style="color:#333333;font-size:13px;margin-top: 12px;" ng-bind-html="ca1.Tips|trustHtml">
+                            </div>
+                            <div class="row" style="margin-bottom: 10px; margin-top: 10px;">
+                                <ref-text refs="ca1.Answers" style="padding:0px 40px 0px 0px;"></ref-text>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+
+                    <!--Part2情景问答-->
+                    <div style="background-color:#ffffff;padding-left:14px;padding-right:14px;" ng-if="question.Index>1">
+
+                        <div style="margin-top: 10px;height: 47px;line-height: 47px;padding-left: 10px;padding-right: 10px;border-bottom: solid 1px #e1e1e1;margin: 0px -14px;">
+                            <div style="float:left;font-size: 14px;font-weight: bold;color: #333333;   " ng-if="question.Prompt!=undefined && question.Prompt.length>0">
+                                {{question.Prompt}}
+                            </div>
+                            <div ng-if="question.Audio.length>0" style="margin-top: 0px;float:right;">
+
+                                <div class="action">
+                                    <button ng-if="question.Audio" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-paperred" ng-click="PlayPaperAudio(question.QuestionID,question.Audio)"><i class="smallicon icon-paperaction " ng-class="{true:'icon-zanting',false:'icon-bofangyinpin'}[IsAudioPlaying(question.QuestionID)]"></i></button>
+                                    <button ng-if="question.AudioText && question.AudioText != question.AreaID" style="display:inline-block;margin-right:2px;" type="button" class="btn btn-papergreen" role="button"
+                                            popover="{{ question.AudioText }}" popover-placement="left-bottom">
+                                        <i class="smallicon icon-paperaction icon-chakanyuanwen"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-left:0px; margin-top:20px;" ng-if="question.Text!=undefined && question.Text.length>0" ng-bind-html="question.Text|trustHtml">
+                        </div>
+                        <div ng-repeat="ca in question.Contents">
+                            <div style="margin-top:16px;">
+
+                                <div>
+                                    <div class="content-idx" style="">{{ca.Index}}</div>
+                                    <div class="content-text" style="" ng-if="ca.Text.length>0" ng-bind-html="ca.Text|trustHtml">
+                                    </div>
+                                    <div class="content-text" style="" ng-if="ca.AudioText.length==0&&  ca.AudioText.length>0  " ng-bind-html="ca.AudioText|trustHtml">
+                                    </div>
+
+
+                                </div>
+                                <div style="clear:both;"></div>
+
+                            </div>
+                            <div class="row" style="margin-bottom: 10px; margin-top: 10px;">
+                                <ref-text refs="ca.Answers" style="padding:0px 40px 0px 4px;"></ref-text>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

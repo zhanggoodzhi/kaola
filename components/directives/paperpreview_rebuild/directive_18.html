@@ -1,0 +1,50 @@
+﻿<div style="background-color:#ffffff;padding-left:14px;padding-right:14px;">
+    <!--听对话回答问题-->
+
+    <div ng-repeat="content in questionData.Contents">
+        <div class="div-content">
+
+            <div>
+                <div class="content-idx" style="">{{content.Index}}</div>
+
+                <div class="content-text" style="" ng-bind-html="content.Text|trustHtml">
+                </div>
+                <div class="content-controlbar" ng-if="questionData.Audio.length<=0&&content.Audio.length>0">
+                    <div ng-click="PlayAudio(content,content.ContentID,content.Audio)">
+                        <img ng-if="IsAudioPlaying(content.ContentID)==false" src="http://cdn.uukaola.com/web/img/report/bofangluyin.png"
+                        />
+                        <img ng-if="IsAudioPlaying(content.ContentID)==true" src="http://cdn.uukaola.com/web/img/report/bofangluyin-2.png"
+                        />
+                        <span>播放录音</span>
+                    </div>
+                    <div ng-if="content.AudioText.length>0" ng-click="ShowAudioRefText(content.AudioText)">
+                        <img src="http://cdn.uukaola.com/web/img/report/luyinyuanwen.png" />
+                        <span>录音原文</span>
+                    </div>
+                </div>
+            </div>
+            <div style="clear:both;margin-bottom:10px;">
+                <div id="content-options" class="row content-options" ng-switch="content.ResourceType">
+                    <!--文本-->
+                    <ul ng-switch-when="1" ng-class="{1:'horizontal',2:'vertical'}[content.Layout]">
+                        <li ng-repeat="option in content.Options">
+                            <img class="content-option-icon" ng-src="{{GetOptionIcon(content.Answers,option)}}" />
+                            <label class="content-option-label">{{option.Index | optionIndexFilter}}.&nbsp;{{option.Content}}</label>
+                        </li>
+                    </ul>
+                    <!--图片-->
+                    <ul ng-switch-when="2" ng-class="{1:'horizontal',2:'vertical'}[content.Layout]">
+                        <li ng-repeat="option in content.Options">
+                            <img class="content-option-icon" ng-src="{{GetOptionIcon(content.Answers,option)}}" />
+                            <label class="content-option-label">{{option.Index | optionIndexFilter}}.&nbsp;</label>
+                            <img class="img-thumbnail content-option-img" ng-src="{{ resourcePath + '/' + option.Content }}" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

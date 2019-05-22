@@ -1,0 +1,983 @@
+﻿html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "微软雅黑", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #7a7a7a;
+    background-color: #e3eaeb;
+    min-width: 800px;
+    min-height: 400px;
+}
+
+input[type=password] {
+    color: #999999;
+    font-size: 14px;
+}
+
+.main-display {
+    display: block !important;
+    height: 100%;
+}
+
+.main-hide {
+    display: none !important;
+}
+
+.login-body {
+    background: url('http://cdn.uukaola.com/web/img/business/bg.png');
+}
+
+.home-logo-right {
+    float: right !important;
+    margin-top: 8px;
+}
+
+.welcome-header {
+    height: 50px;
+    width: 100%;
+    color: #ffffff;
+    font-size: 14px;
+    background-image: url(http://cdn.uukaola.com/web/img/business/bg.png);
+    z-index: 99999;
+    position: fixed;
+    border-bottom: 1px;
+    border-bottom-color: #0e54a3;
+    border-bottom-style: solid;
+    padding: 6px 12px 0px 12px;
+}
+
+.margin-left-right-none {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.mouse-style-pointer {
+    cursor: pointer;
+}
+
+.seperator {
+    height: 14px;
+    width: 1px;
+    border-left: 0.5px solid #488ddc;
+    margin-right: 12px;
+    margin-left: 12px;
+}
+
+
+/*左边菜单开始*/
+
+.menu-canvas {
+    background-color: #ffffff;
+    height: 100%;
+    width: 180px;
+    float: left;
+    position: fixed;
+    padding: 60px 0px 0px 0px;
+    border-right: 1px;
+    border-right-color: #cfcfcf;
+    border-right-style: solid;
+}
+
+.sidebar {
+    padding: 0px;
+    font-size: 14px;
+    color: #444444;
+    width: 160px;
+    border-radius: 3px;
+    min-height: 700px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+    .sidebar ul li a {
+        outline: none;
+        display: block;
+        height: 38px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 14px;
+        color: #333;
+    }
+
+        .sidebar ul li a:hover {
+            color: #ffffff;
+            background-color: #3074c1;
+            border-radius: 3px;
+        }
+
+    .sidebar ul li.active a {
+        color: #ffffff;
+        background-color: #3074c1;
+        border-radius: 3px;
+    }
+
+    .sidebar .glyphicon {
+        color: #b8b8b8;
+    }
+
+.sidebar-content-span {
+    height: 16px;
+    margin-left: 14px;
+}
+
+.icon-xuxiaoguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/xuexiaoguanli.png');
+    width: 15px;
+    height: 17px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-xuxiaoguanli,
+.sidebar ul li.active a .icon-xuxiaoguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/xuexiaoguanli_1.png');
+}
+
+.icon-kaoshijigouguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/xuexiaoguanli.png');
+    width: 15px;
+    height: 17px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-kaoshijigouguanli,
+.sidebar ul li.active a .icon-kaoshijigouguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/xuexiaoguanli_1.png');
+}
+
+.icon-jiamigouguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/jiamigouguanli.png');
+    width: 15px;
+    height: 16px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-jiamigouguanli,
+.sidebar ul li.active a .icon-jiamigouguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/jiamigouguanli_1.png');
+}
+
+.icon-neirongxuliehaoguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/neirongxuliehaoguanli.png');
+    width: 15px;
+    height: 10px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-neirongxuliehaoguanli,
+.sidebar ul li.active a .icon-neirongxuliehaoguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/neirongxuliehaoguanli_1.png');
+}
+
+.icon-qundaoshangguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/qudaoshangguanli.png');
+    width: 15px;
+    height: 17px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-qundaoshangguanli,
+.sidebar ul li.active a .icon-qundaoshangguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/qudaoshangguanli_1.png');
+}
+
+.icon-neirongguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/xuexiaoguanli.png');
+    width: 15px;
+    height: 17px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-neirongguanli,
+.sidebar ul li.active a .icon-neirongguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/xuexiaoguanli_1.png');
+}
+
+.icon-neirongbianjiguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/neirongbianjiguanli.png');
+    width: 15px;
+    height: 15px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-neirongbianjiguanli,
+.sidebar ul li.active a .icon-neirongbianjiguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/neirongbianjiguanli_1.png');
+}
+
+.icon-neirongshangguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/neirognshangguanli.png');
+    width: 15px;
+    height: 15px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-neirongshangguanli,
+.sidebar ul li.active a .icon-neirongshangguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/neirognshangguanli_1.png');
+}
+
+.icon-yonghuguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/yonghuguanli.png');
+    width: 15px;
+    height: 16px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-yonghuguanli,
+.sidebar ul li.active a .icon-yonghuguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/yonghuguanli_1.png');
+}
+
+.icon-ermaiguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/ermaiguanli.png');
+    width: 15px;
+    height: 16px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-ermaiguanli,
+.sidebar ul li.active a .icon-ermaiguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/ermaiguanli_1.png');
+}
+
+.icon-shijuanbaoguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/shijuanbaoguanli.png');
+    width: 15px;
+    height: 15px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-shijuanbaoguanli,
+.sidebar ul li.active a .icon-shijuanbaoguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/shijuanbaoguanli_1.png');
+}
+
+.icon-shijuankuguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/shijuankuguanli.png');
+    width: 15px;
+    height: 15px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-shijuankuguanli,
+.sidebar ul li.active a .icon-shijuankuguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/shijuankuguanli_1.png');
+}
+
+.icon-banbenkongzhiguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/banbenkongzhi.png');
+    width: 15px;
+    height: 15px;
+    margin-left: 12px;
+}
+
+.sidebar ul li a:hover .icon-banbenkongzhiguanli,
+.sidebar ul li.active a .icon-banbenkongzhiguanli {
+    background-image: url('http://cdn.uukaola.com/web/img/business/banbenkongzhi_1.png');
+}
+
+
+/*左边菜单结束*/
+
+.backgroud-setting {
+    background-color: #e5e5e5;
+    padding-top: 60px;
+    padding-left: 190px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    height: 100%;
+}
+
+.content-setting {
+    min-height: 100%;
+    background: #ffffff;
+    border: 1px solid #cfcfcf;
+}
+
+.copyright {
+    text-align: center;
+    font-size: 13px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    background: rgba(37, 51, 75, 0.3) !important;
+    z-index: 9999;
+}
+
+    .copyright a {
+        text-decoration: none;
+        color: #6d92bf !important;
+    }
+
+        .copyright a:hover {
+            color: #fff !important;
+        }
+
+
+/*tab页开始*/
+
+.MainTabSet {
+}
+
+    .MainTabSet > ul {
+        background-color: #ffffff;
+        padding-left: 8px !important;
+        border-bottom: 1px solid #cfcfcf;
+        height: 39px;
+        color: #333333;
+        font-size: 14px;
+    }
+
+        .MainTabSet > ul li {
+            height: 39px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .MainTabSet > ul > li.active > a {
+            background-color: #fff;
+            cursor: default;
+            border: solid 0px #ffffff !important;
+            font-size: 14px !important;
+            height: 39px !important;
+            line-height: 39px !important;
+        }
+
+    .MainTabSet .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:hover,
+    .nav-tabs > li.active > a:focus {
+        background-color: inherit;
+        color: inherit;
+    }
+
+.content-main {
+    color: #7a7a7a;
+    padding: 0px 15px 15px 15px;
+    min-height: 360px;
+}
+
+.container-content {
+    border: 1px solid #dfe3ec;
+    margin-top: 0px;
+}
+
+.container-button-group {
+    float: right;
+    margin-right: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+/*tab页结束*/
+
+
+/*button开始*/
+
+button {
+    font-size: 14px !important;
+}
+
+.btn {
+    white-space: normal;
+    border-radius: 1px;
+}
+
+.samll-btn {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.btn-normal {
+    width: 80px !important;
+    height: 32px !important;
+}
+
+.btn-small {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.btn-primary {
+    background-color: #3074c1 !important;
+}
+
+    .btn-primary:hover {
+        background-color: #4c8dd6 !important;
+    }
+
+.btn-cancel {
+    border: 1px solid #cbd2db;
+    background-color: #f0f3f7;
+    border-radius: 1px;
+    color: #888888;
+}
+
+    .btn-cancel:hover {
+        background-color: #dbe6f5 !important;
+        border: 1px solid #afcbf1;
+        color: #888888;
+    }
+
+.btn-default {
+    border: 1px solid #cbd2db;
+    border-radius: 1px;
+    color: #888888;
+}
+
+.button-simpleText {
+    height: 32px !important;
+    width: 30px !important;
+}
+
+
+/*button结束*/
+
+
+
+/*弹框开始*/
+
+.modal-content {
+    border: 0px;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+.delete-background {
+    background-color: #e5e5e5;
+}
+
+@media (min-height: 768px) {
+    .modal-dialog {
+        position: relative;
+        top: 0;
+        margin-top: 10% !important;
+    }
+}
+
+@media (max-height: 767px) {
+    .modal-dialog {
+        position: relative;
+        top: 0;
+        margin-top: 10% !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-dialog {
+        width: 100%;
+    }
+}
+
+.modal-sm {
+    width: 400px;
+}
+
+.modal-dialog.modal-sm {
+    /*margin-left: auto !important;
+    margin-right: auto !important;*/
+    margin-top: 20% !important;
+    /*margin-bottom: auto !important;*/
+}
+
+.close {
+    opacity: 1;
+}
+
+    .close:hover,
+    .close:focus {
+        opacity: 0.6;
+    }
+
+.modal-header {
+    padding: 10px;
+    border-bottom: 1px solid #eeeeee !important;
+    height: 38px !important;
+    border-radius: 6px !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    background-color: #3074c1 !important;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+    .modal-header button span {
+        font-size: 24px;
+        color: #fff;
+        font-weight: 100;
+        opacity: 1;
+    }
+
+    .modal-header .close {
+        margin-top: -5px !important;
+    }
+
+.modal-dialog.modal-sm .modal-header {
+    border-bottom: solid 0px gray;
+    background-color: #FFFFFF;
+}
+
+.modal-dialog.modal-sm .modal-body {
+    text-align: center;
+}
+
+    .modal-dialog.modal-sm .modal-body span img {
+        width: 52px;
+        height: 52px;
+    }
+
+
+.modal-footer {
+    height: 52px;
+    text-align: center !important;
+    padding: 10px !important;
+    border-top: 1px solid #e4e4e4;
+}
+
+.common-dialog-body {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    margin: auto;
+}
+
+.modal-body-message {
+    font-size: 14px;
+    display: table-cell;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.form-group-one-row {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top: 20px !important;
+}
+
+.form-group-multiple {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    padding-top: 10px !important;
+}
+
+.control-div-multiple {
+    float: left;
+    margin-bottom: 4px;
+}
+
+.control-div-single {
+    float: left;
+    margin-bottom: 14px;
+}
+
+.erro-message {
+    color: #ff3211;
+    line-height: 26px;
+    height: 26px;
+}
+
+.form-group {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.form-label {
+    text-align: right;
+    color: #444444;
+    font-size: 14px !important;
+    height: 38px;
+    width: auto;
+    padding-top: 6px;
+    margin-bottom: 0px !important;
+}
+
+.form-single-label {
+    text-align: right;
+    color: #444444;
+    font-size: 14px !important;
+    height: 30px;
+    width: auto;
+    padding-top: 6px;
+    margin-bottom: 0px !important;
+}
+
+.div-single-lable {
+    float: left;
+    height: 30px;
+}
+
+.div-multiple-lable {
+    float: left;
+}
+
+.div-content-lable {
+    margin-right: 4px;
+    font-size: 14px;
+    color: #444444;
+}
+
+.form-group-single-control {
+    font-size: 14px !important;
+    padding-left: 10px !important;
+    color: #c3c3c3 !important;
+    text-align: left;
+}
+
+.form-group-control {
+    font-size: 14px !important;
+    padding-left: 0px !important;
+    color: #c3c3c3 !important;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.modal-body input[type=text] {
+    width: 210px !important;
+    height: 30px !important;
+    color: #333333;
+    font-size: 14px;
+}
+
+.modal-body input[type=email] {
+    width: 210px !important;
+    height: 30px !important;
+    color: #333333;
+    font-size: 14px;
+}
+
+.modal-body input[type=password],
+.search-input {
+    width: 210px !important;
+    height: 30px !important;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    background-color: #F9F9F9 !important;
+}
+
+input.form-control {
+    padding-left: 10px !important;
+    border: solid 1px #cecece;
+}
+
+.form-control {
+    height: 30px !important;
+}
+
+.form-control-input {
+    float: left;
+}
+
+.form-control-label {
+    float: left;
+    padding-top: 7px;
+}
+
+/*弹框结束*/
+
+.input[type=password] {
+    width: 210px !important;
+    height: 30px !important;
+}
+
+.detail_title {
+    font-size: 16px;
+    color: #575757;
+    font-weight: bold;
+}
+
+.search-textbox {
+    font-size: 13px;
+    color: #999999;
+    padding-left: 12px;
+    width: 242px;
+    height: 32px;
+    line-height: 32px;
+    border: solid 1px #d1d5d8;
+}
+
+.search-button {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    margin-left: -4px;
+    margin-top: -4px;
+}
+
+.button {
+    min-width: 24px;
+    height: 32px;
+    line-height: normal;
+    /*padding: 0px 12px;*/
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 13px;
+    color: #fff;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+}
+
+.button-blue {
+    background-color: #3074c1;
+}
+
+
+
+
+.operate_container {
+    width: 100%;
+    height: 44px;
+    border-top: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+}
+
+.btn_container {
+    float: right;
+    margin: 4px 10px 4px 0px;
+}
+
+.href {
+    color: #2284e6 !important;
+    cursor: pointer;
+}
+
+    .href:hover {
+        text-decoration: underline;
+    }
+
+.disabled_href {
+    color: #9A9A9A;
+    cursor: default;
+}
+
+.title {
+    height: 20px;
+    line-height: 20px;
+    margin-left: -1px;
+    margin-right: 4px;
+    width: 3px;
+    background-color: #ff7300;
+    display: inline-block;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.navigate-bar {
+    height: 39px;
+    line-height: 39px;
+    border-bottom: solid 1px #d1d5d8;
+    top: 14px;
+}
+
+    .navigate-bar a {
+        margin-right: 6px;
+        font-size: 14px;
+    }
+
+        .navigate-bar a:hover {
+            cursor: pointer;
+            text-decoration: none;
+            color: #1282d0;
+        }
+
+.chk {
+    display: none;
+}
+
+
+    /*******STYLE 1*******/
+
+    .chk + label {
+        border: 1px solid #C1CACA;
+        height: 14px;
+        width: 14px;
+        position: relative;
+        margin: 0px;
+        margin-top: 0.5em;
+    }
+
+        .chk + label:active {
+        }
+
+    .chk:checked + label {
+        border: 1px solid #328CE3;
+        color: #243441;
+    }
+
+        .chk:checked + label:after {
+            content: '\2714';
+            position: absolute;
+            top: -2px;
+            left: 0px;
+            color: #328CE3;
+            width: 100%;
+            text-align: center;
+            font-size: 1em;
+        }
+
+.chk_small {
+    display: none;
+}
+
+
+    /*******STYLE 1*******/
+
+    .chk_small + label {
+        border: 1px solid #C1CACA;
+        height: 15px;
+        width: 15px;
+        position: relative;
+        margin: 0px;
+        vertical-align: middle;
+    }
+
+        .chk_small + label:active {
+        }
+
+    .chk_small:checked + label {
+        border: 1px solid #328CE3;
+        color: #243441;
+    }
+
+        .chk_small:checked + label:after {
+            content: '\2714';
+            position: absolute;
+            top: -2px;
+            left: 0px;
+            color: #328CE3;
+            width: 100%;
+            text-align: center;
+            font-size: 0.5em;
+        }
+
+.circle_disabled {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    background-color: #dcdcdc;
+    font: 13px;
+    font-family: Arial;
+    text-align: center;
+    font-weight: bold;
+    color: #999999;
+    display: inline-block;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    background-color: #4cb914;
+    font: 13px;
+    font-family: Arial;
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+    display: inline-block;
+}
+
+.file-uploader-wrap {
+    position: relative;
+    width: auto;
+}
+
+.file-uploader-wrap-fake {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    _display: none;
+}
+
+.file-uploader-wrap .file-uploader {
+    position: relative;
+    width: 270px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+    _filter: none;
+    _text-align: left;
+    _line-height: 27px;
+}
+
+.textarea {
+    border: 1px solid #D7DDE0;
+    line-height: 24px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-size: 14px;
+    font-family: Arial, "宋体";
+    resize: none;
+}
+
+.calendar {
+    background-image: url(http://cdn.uukaola.com/web/img/business/rili.png);
+    background-repeat: no-repeat;
+    background-position-x: 185px;
+    background-position-y: 5px;
+}
+
+    .calendar:disabled {
+        background-color: #F4F4F4 !important;
+    }
+
+.editor-img-icon {
+}
+
+    .editor-img-icon img {
+        margin: 0px 5px;
+        cursor: pointer;
+    }
+
+.dongleset-form-group {
+    margin-bottom: 10px;
+}
+
+.glyphicon-arrow-left {
+    background-image: url('/web/img/business/arrow-left.png');
+    width: 15px;
+    height: 15px;
+    margin-left: 12px;
+    background-size: 100% 100%;
+}
+
+    .glyphicon-arrow-left:before {
+        content: "";
+    }
+
+.glyphicon-arrow-right {
+    background-image: url('/web/img/business/arrow-right.png');
+    width: 15px;
+    height: 15px;
+    margin-left: 12px;
+    background-size: 100% 100%;
+}
+
+    .glyphicon-arrow-right:before {
+        content: "";
+    }
+
+.pagination > .active > a > span {
+    color: #fff !important;
+}

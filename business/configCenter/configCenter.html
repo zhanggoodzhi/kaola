@@ -1,0 +1,150 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/business/serverDomain/serverDomain.css" />
+<div style="padding:10px;height: 100%;overflow: auto;">
+    <ul class="nav nav-tabs" style="clear:both;">
+        <li class="tab-header active">
+            <a href="#upgradeConfig" data-toggle="tab">软件升级配置</a>
+        </li>
+        <li class="tab-header">
+            <a href="#moduleConfig" data-toggle="tab">功能模块配置</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="upgradeConfig" style="padding:10px;min-height:300px;">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'upgradeToast'}"
+                style="width:60%;margin:0 15%;"></toaster-container>
+            <div style="height:40px;float:right;">
+                <button class="btn btn-warning" style="float:right;" ng-click="addUpgrade()">添加</button>
+            </div>
+            <div class="table-container">
+                <table ng-table="upgradeConfigTable" class="table table-condensed table-bordered table-hover ng-scope">
+                    <thead>
+                        <tr style="font-weight:bold;color:black;background-color:#F5F7FA;">
+                            <td>加密狗设备序列号</td>
+                            <td>版本编号</td>
+                            <td>软件版本</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in $data">
+                            <td>{{ data.DogCode }}</td>
+                            <td>{{ data.VersionID }}</td>
+                            <td>{{ data.VersionDescription}}</td>
+                            <td>
+                                <a style="color:red;cursor:pointer;" ng-click="delUpgrade(data)">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane" id="moduleConfig" style="padding:10px;min-height:300px;">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'moduleToast'}"
+                style="width:60%;margin:0 15%;"></toaster-container>
+            <div style="height:40px;float:right;">
+                <button class="btn btn-warning" style="float:right;" ng-click="addModule()">添加</button>
+            </div>
+            <div class="table-container">
+                <table ng-table="moduleConfigTable" class="table table-condensed table-bordered table-hover ng-scope">
+                    <thead>
+                        <tr style="font-weight:bold;color:black;background-color:#F5F7FA;">
+                            <td>学校编号</td>
+                            <td>学校名称</td>
+                            <td>功能模块名称</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in $data">
+                            <td>{{ data.SchoolID }}</td>
+                            <td>{{ data.SchoolName }}</td>
+                            <td>{{ GetModuleDescription(data.ModuleName)}}</td>
+                            <td>
+                                <a style="color:red;cursor:pointer;" ng-click="delModule(data)">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="AddUpgradeDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'upgradeToastDialog'}"
+            style="width:60%;margin:0 15%;"></toaster-container>
+        <div class="modal-content" style="width:500px;margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">添加</h5>
+            </div>
+            <div class="modal-body" style="padding:50px 0!important;">
+                <div class="form-horizontal form-group-mult iple" style="padding:0px !important;">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-5 control-label">加密狗设备序列号</label>
+                        <div class="col-sm-7">
+                            <input ng-model="upgradeSendData.DogCode" type="text" class="form-control" placeholder="请输入加密狗设备序列号">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal form-group-multiple" style="padding:0px !important;">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-5 control-label">软件版本</label>
+                        <div class="col-sm-7">
+                            <select ng-model="upgradeSendData.VersionID" style="width:210px;" class="form-control">
+                                <option ng-repeat="item in gradeDescription" ng-value="item.VersionID">{{item.VersionDescription}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="saveUpgrade()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="AddModuleDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'moduleToastDialog'}"
+            style="width:60%;margin:0 15%;"></toaster-container>
+        <div class="modal-content" style="width:500px;margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">添加</h5>
+            </div>
+            <div class="modal-body" style="padding:50px 0!important;">
+                <div class="form-horizontal form-group-mult iple" style="padding:0px !important;">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-5 control-label">学校编号</label>
+                        <div class="col-sm-7">
+                            <input ng-model="moduleSendData.SchoolID" type="text" class="form-control" placeholder="请输入学校编号">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal form-group-multiple" style="padding:0px !important;">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-5 control-label">功能模块名称</label>
+                        <div class="col-sm-7">
+                            <select ng-model="moduleSendData.ModuleName" style="width:210px;" class="form-control">
+                                <option ng-repeat="item in moduleDescription" ng-value="item.ModuleName">{{item.ModuleDescription}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="saveModule()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

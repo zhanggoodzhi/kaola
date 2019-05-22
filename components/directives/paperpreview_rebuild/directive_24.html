@@ -1,0 +1,40 @@
+﻿<div style="background-color:#ffffff;padding-left:14px;padding-right:14px;">
+    <!--单词音标认读-->
+
+    <div class="border-bt" ng-repeat="content in questionData.Contents">
+        <div class="div-content">
+
+            <div>
+                <div class="content-idx" style="">{{content.Index}}</div>
+
+                <div class="content-text" style="" ng-bind-html="content.Text|trustHtml">
+                </div>
+                <div class="content-controlbar" ng-if="content.Audio.length>0">
+                    <div ng-click="PlayAudio(content,content.ContentID,content.Audio)">
+                        <img ng-if="IsAudioPlaying(content.ContentID)==false" src="http://cdn.uukaola.com/web/img/report/bofangluyin.png" />
+                        <img ng-if="IsAudioPlaying(content.ContentID)==true" src="http://cdn.uukaola.com/web/img/report/bofangluyin-2.png" />
+                        <span>播放录音</span>
+                    </div>
+                    <div ng-if="content.AudioText.length>0" ng-click="ShowAudioRefText(content.AudioText)">
+                        <img src="http://cdn.uukaola.com/web/img/report/luyinyuanwen.png" />
+                        <span>录音原文</span>
+                    </div>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+
+        </div>
+
+        <div style="" class="content-reftext">
+            <div>
+                <img src="http://cdn.uukaola.com/web/img/report/cankaodaan.png" />
+                <label>参考答案</label>
+            </div>
+            <ul>
+                <li ng-repeat="refText in content.Answers">{{refText.Content}}</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>

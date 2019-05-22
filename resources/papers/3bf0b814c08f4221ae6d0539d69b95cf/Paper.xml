@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<paper guid="3bf0b814c08f4221ae6d0539d69b95cf" type="1" name="组卷_19_2" title="" backgroundaudio="" backgroudaudioseconds="0" times="0" image="" content="" waitseconds="0" listeningscore="0" speakingscore="10" papertemplateid="" papertemplatename="" totalexamtime="452" totalscore="10" IsCustomPaper="True">
+  <areas>
+    <area type="19" title="一、信息转述" prompt="听短文，请根据所听到的内容，记录思维导图提示的信息，请在规定时间完成转述。" promptaudio="area_19_audio.mp3" promptaudioseconds="0" index="1" guid="02c9cded0807462d9a7fd28b10a25fd7" times="1" presubmitmaxseconds="0" backgroundaudio="area_19_audio.mp3" backgroundaudioseconds="12">
+      <questions>
+        <question guid="366eb0e7bee84d358665700b760c871a" title="" prompt="你将听到一篇关于作者家最近变化的记述，录音播放两遍。请根据所听到的内容，记录思维导图提示的信息，在50秒钟内说一段话转述故事内容，包含五个要点的内容。&#xD;&#xA;现在你有15秒钟的时间阅读思维导图。" promptaudio="366eb0e7bee84d358665700b760c871a_PromptAudio.mp3" promptaudioseconds="34" text="" image="366eb0e7bee84d358665700b760c871a_Image.jpg" audio="366eb0e7bee84d358665700b760c871a_Audio.mp3" audioseconds="25" video="" videoseconds="25" times="2" prepareseconds="15" tips="下面请听录音两遍。" tipsaudio="366eb0e7bee84d358665700b760c871a_TipsAudio.mp3" tipsaudioseconds="2" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="My children are growing up fast. My daughter is 16 and my boy is already in junior high school. As they get bigger, our house seems to get smaller. So we want to sell some of our things in a yard sale and give the money to a children's home." answerseconds="50" waitseconds="0" score="5">
+          <contents>
+            <content guid="0d8ef9b079b44a05a487523c22563bf6" text="" image="" audio="0d8ef9b079b44a05a487523c22563bf6_Audio.mp3" audioseconds="6" video="" videoseconds="6" times="2" prepareseconds="50" answerseconds="50" tips="下面你有50秒钟的时间准备。你的介绍可以这样开始：Her children are..." tipsaudio="" tipsaudioSeconds="0" audiotext="" index="1" choosetype="1" layout="1" resourcetype="1" score="5" presubmitmaxseconds="0">
+              <score content="5" />
+              <refrencetexts>
+                <refrencetext index="1" guid="3aa43fe4a8994fc89f875fbdcb495d5e" content="Her children are growing up fast. Her daughter is sixteen years old and her boy is already in junior high school. As they get older, their house seems to be smaller. So they want to sell some of their things in a yard and give the money to transform a children's home. " />
+                <refrencetext index="2" guid="b5d2268916194e429c03985a7703a0a8" content="Her children are growing up fast. Her daughter is sixteen years old and her son is already in junior high school. As they get older, their house seems to be smaller. So they want to sell some of their things in a yard and give the money to have a children's home. " />
+                <refrencetext index="3" guid="31f8de0ae1f04b6b836be3b97985dbc8" content="Her children are growing up fast. Her daughter is sixteen years old and her son is already in junior high school. As they get older, their house seems to be smaller. So they want to sell some of their things in a yard and give the money to a children's home. " />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="639b3f2f840c46318d90daa68b445feb" content="Her children are growing up fast. Her daughter is 16 and her son is already in junior high school. As they get older, their house seems to get smaller. So they want to sell some of their things in a yard and give the money to a children's home. " audio="" audioseconds="0" />
+                <answer index="1" guid="d961beb4d1484aeba07ac9123a649247" content="Her children are growing up fast. Her daughter is 16 and her son is already in junior high school. As they get older, their house seems to be smaller. So they want to sell some of their things in a yard and give the money to a children's home. &#xD;&#xA;" audio="" audioseconds="0" />
+                <answer index="2" guid="3b8b62bb1a7b4071997fad882c30a72a" content="Her children are growing up fast. Her daughter is 16 and her boy is already in junior high school. As they get older, their house seems to get smaller. So they want to sell some of their things in a yard and give the money to transform a children's home. &#xD;&#xA;" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+        <question guid="9be525b469c6495d9bcbfd403a1ac54f" title="" prompt="你将听到一篇关于大熊猫现状的研究，录音播放两遍。请根据所听到的内容，记录思维导图提示的信息，在50秒钟内说一段话转述此研究的内容，包含以下要点。&#xD;&#xA;现在你有15秒钟的时间阅读思维导图。" promptaudio="" promptaudioseconds="0" text="" image="9be525b469c6495d9bcbfd403a1ac54f_Image.jpg" audio="9be525b469c6495d9bcbfd403a1ac54f_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="15" tips="下面请听录音两遍。" tipsaudio="" tipsaudioseconds="0" index="2" presubmitmaxseconds="0" newscreen="True" audiotext="Scientists say there are now fewer than 2,000 pandas living in the forests. Another 300 or so live in zoos or research centers in China and other countries. Pandas do not have many babies, maybe only one every two years. The babies often die from illnesses and do not live very long. Many years ago, there were a lot more bamboo forests and pandas in China, but then humans started to cut down these forests. And now pandas cannot find enough to eat and they are having fewer babies." answerseconds="0" waitseconds="0" score="5">
+          <contents>
+            <content guid="12dd84d2d6384c8dba59c2118110db12" text="" image="" audio="12dd84d2d6384c8dba59c2118110db12_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="50" answerseconds="50" tips="下面你有50秒钟的时间准备。你的介绍可以这样开始：Scientists say there are fewer..." tipsaudio="" tipsaudioSeconds="0" audiotext="" index="2" choosetype="1" layout="1" resourcetype="1" score="5" presubmitmaxseconds="0">
+              <score content="5" />
+              <refrencetexts>
+                <refrencetext index="0" guid="fa9a0ed21b35435a956f3cdd58d81929" content="Scientists say there are fewer than two thousand pandas living in the forests. Another three hundred live in zoos or research centers in China and other countries. Pandas do not have many babies, maybe only one every two years. The babies often die from illnesses and do not live very long. Many years ago, there were a lot more bamboo forests and pandas in China, but then humans started to cut down these forests. And now pandas don't have enough to eat and they are having fewer babies." />
+                <refrencetext index="0" guid="7635227837df4ec6b5738c8a17ec882f" content="Scientists say there are fewer than two thousands pandas living in the forests. Another three hundreds live in zoos or research centers in the world. Pandas do not have many babies. The babies often die from illnesses. Many years ago, there were a lot more bamboo forests and pandas in China, but then humans started to cut down these forests. And now pandas don't have enough to eat and they are having fewer babies." />
+                <refrencetext index="1" guid="af09426111054986861c3728a1e15eea" content="Scientists say there are fewer than two thousand pandas living in the forests. Another three hundred live in zoos or research centers in China and other countries. Pandas do not have many babies, maybe only one every two years. The babies often die from illnesses and do not live very long. Many years ago, there were a lot of bamboo forests and pandas in China, but then humans started to cut down these forests. And now pandas don't have enough to eat and they are having fewer babies." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="7cd15caa9fea40e0b668f20596149c76" content="Scientists say there are fewer than 2,000 pandas living in the forests. Another 300 live in zoos or research centers in China and other countries. Pandas do not have many babies, maybe only one every two years. The babies often die from illnesses and do not live very long. Many years ago, there were a lot of bamboo forests and pandas in China, but then humans started to cut down these forests. And now pandas don't have enough to eat and they are having fewer babies." audio="" audioseconds="0" />
+                <answer index="1" guid="d33f317f132d406db1e3291c2da1513c" content="Scientists say there are fewer than 2,000 pandas living in the forests. Another 300 live in zoos or research centers in China and other countries. Pandas do not have many babies, maybe only one every two years. The babies often die from illnesses and do not live very long. Many years ago, there were a lot more bamboo forests and pandas in China, but then humans started to cut down these forests. And now pandas don't have enough to eat and they are having fewer babies." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+  </areas>
+  <sections />
+</paper>

@@ -1,0 +1,46 @@
+﻿
+
+<div class="row MainTabSet">
+
+    <ul class="nav nav-tabs">
+        <li class="signup-tab-header  active"><a href="#user_Add" data-toggle="tab">添加内容编辑</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active " id="user_Add">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}" style="z-index:-1;"></toaster-container>
+            <form class="form-horizontal" id="addUserForm" autocomplete="off" style="margin-left: 20px; margin-top: 30px;">
+
+                <div class="form-group">
+                    <label for="userName" class="col-sm-3 control-label  col-xs-3">姓名：</label>
+                    <div class="col-sm-5  col-xs-5" style="max-width: 300px;">
+                        <input type="text" class="form-control" id="userName" placeholder="请输入姓名" ng-model="EditorAddParams.NickName">                        
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user_phoneNum" class="col-sm-3 control-label  col-xs-3">登录手机号：</label>
+                    <div class="col-sm-5   col-xs-5" style="max-width: 300px;">
+                        <input type="text" class="form-control" id="user_phoneNum" placeholder="请输入登录手机号" ng-model="EditorAddParams.PhoneNumber">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user_password" class="col-sm-3 control-label  col-xs-3">登录密码：</label>
+                    <div class="col-sm-5  col-xs-5" style="max-width: 300px;">
+                        <input type="password" class="form-control" id="user_password" placeholder="新密码" maxlength="20" ng-model="EditorAddParams.Password">
+                    </div>
+                    <input type="password" style="width: 0; height: 0; float: left; visibility: hidden" />
+                </div>
+        
+                <div class="form-group">
+                    <label for="id_busniessAdd" class="col-sm-3 control-label  col-xs-3"></label>
+                    <div class="col-sm-7  col-xs-7">
+                        <button type="button" class="btn btn-primary button-simpleText" style="width: 120px; margin-bottom: 50px; margin-left: 20px;" id="id_busniessAdd" ng-click="EditorAdd()">保存</button>
+                        <button type="button" class="btn btn-primary button-simpleText" style="width: 120px; margin-bottom: 50px; margin-left: 20px;" ng-click="EditAddCancel()">取消</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

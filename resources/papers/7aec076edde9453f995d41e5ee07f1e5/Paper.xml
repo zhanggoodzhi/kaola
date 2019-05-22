@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<paper guid="7aec076edde9453f995d41e5ee07f1e5" type="1" name="组卷_听力选择题型" title="" backgroundaudio="" backgroudaudioseconds="0" times="0" image="" content="" waitseconds="0" listeningscore="13" speakingscore="0" papertemplateid="" papertemplatename="" totalexamtime="308" totalscore="13" IsCustomPaper="True">
+  <areas>
+    <area type="1" title="一、听力选答" prompt="听对话或独白，从下面各题所给的A、B、C三个选项中选择正确的答案。" promptaudio="area_1_audio.mp3" promptaudioseconds="0" index="1" guid="bc37c873b08e4cf490c05585425555fd" times="1" presubmitmaxseconds="0" backgroundaudio="area_1_audio.mp3" backgroundaudioseconds="13">
+      <questions>
+        <question guid="f81fdda290d24e99a9d4eb1600ef7638" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="5" waitseconds="0" score="1">
+          <contents>
+            <content guid="c626f90cc6254d2581822cbf8bbff9b5" text="What did the man think of the film?  " image="" audio="c626f90cc6254d2581822cbf8bbff9b5_Audio.mp3" audioseconds="6" video="" videoseconds="6" times="1" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="W: Did you go to the movies last night?&#xD;&#xA;M: Yes, but the film was very boring." index="1" choosetype="1" layout="1" resourcetype="1" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <refrencetexts />
+              <options>
+                <option index="1" guid="52ff60a7f7fe4b569d1d466412c5bade" content="Boring.  " />
+                <option index="2" guid="4c78b1f4996f403aa5cede8c2a29f352" content="Interesting." />
+                <option index="3" guid="6b5a26ae18924e9b874b9430b8f916cc" content="Moving." />
+              </options>
+              <answers>
+                <answer index="0" guid="ebebd0500ad7490ca9f93f60a3f7e845" content="52ff60a7f7fe4b569d1d466412c5bade" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+        <question guid="33d764eb4bf5465a9d328aab5e803cf1" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" tips="" tipsaudio="" tipsaudioseconds="0" index="2" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="5" waitseconds="0" score="1">
+          <contents>
+            <content guid="1eb02f5ff7f24fafa585005108449ce2" text="What will the weather be like tomorrow?  " image="" audio="1eb02f5ff7f24fafa585005108449ce2_Audio.mp3" audioseconds="7" video="" videoseconds="7" times="1" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="W: It's raining so heavily!&#xD;&#xA;M: Yes, but the weather report says it will be sunny tomorrow." index="2" choosetype="1" layout="1" resourcetype="1" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <refrencetexts />
+              <options>
+                <option index="1" guid="0208732a799449aa900b90f1d7d6ca99" content="Rainy." />
+                <option index="2" guid="0a04b4cc84934079a76dc79d2aa551ce" content="Windy.  " />
+                <option index="3" guid="d09b95bbcc3f4750b622988e946b11ed" content="Sunny." />
+              </options>
+              <answers>
+                <answer index="0" guid="0a580292445340ef8514dd44474f9d3f" content="d09b95bbcc3f4750b622988e946b11ed" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="5" title="二、听力选图" prompt="听对话，从下面各题所给的A、B、C三幅图片中选择与对话内容相符的图片。" promptaudio="area_5_audio.mp3" promptaudioseconds="0" index="2" guid="49ab222f35a449d595cd0548bc5c2b25" times="1" presubmitmaxseconds="0" backgroundaudio="area_5_audio.mp3" backgroundaudioseconds="14">
+      <questions>
+        <question guid="78b34b15b3e74fabae896b146bf56fca" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" tips="" tipsaudio="" tipsaudioseconds="0" index="3" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="5" waitseconds="0" score="1">
+          <contents>
+            <content guid="af9f2125cc074d56884247f71255040b" text="" image="" audio="af9f2125cc074d56884247f71255040b_Audio.mp3" audioseconds="8" video="" videoseconds="8" times="2" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="M: Do you watch a lot of sports on TV? &#xD;&#xA;W: Not really. But I like to play ping-pong." index="3" choosetype="1" layout="1" resourcetype="2" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <refrencetexts />
+              <options>
+                <option index="1" guid="6e9db9e0b5f944e0b1d2ada93f55d1aa" content="6e9db9e0b5f944e0b1d2ada93f55d1aa_Image.jpg" />
+                <option index="2" guid="abaf3ccf63924f5da805d90d45d848f7" content="abaf3ccf63924f5da805d90d45d848f7_Image.jpg" />
+                <option index="3" guid="e52fbc53326f4e8ab2fc64b13ce9aa7b" content="e52fbc53326f4e8ab2fc64b13ce9aa7b_Image.jpg" />
+              </options>
+              <answers>
+                <answer index="3" guid="b1203eb92d334b988650f982b133b285" content="e52fbc53326f4e8ab2fc64b13ce9aa7b" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+        <question guid="60219e2cf8bd4eba976e4839a2ff9ca0" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="2" tips="" tipsaudio="" tipsaudioseconds="0" index="4" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="3" waitseconds="0" score="1">
+          <contents>
+            <content guid="dbb1205308984c048beefd844aef6432" text="What would the man like to drink?" image="" audio="dbb1205308984c048beefd844aef6432_Audio.mp3" audioseconds="12" video="" videoseconds="12" times="1" prepareseconds="2" answerseconds="3" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="W: What would you like to drink? A cup of tea?&#xD;&#xA;M: No, thanks. I want a glass of orange juice." index="4" choosetype="1" layout="1" resourcetype="2" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <refrencetexts />
+              <options>
+                <option index="1" guid="2126cc6f4c9c4154bf211953c854c998" content="2126cc6f4c9c4154bf211953c854c998_Image.jpg" />
+                <option index="2" guid="30d8699783334508ad61527cd3bcf9a4" content="30d8699783334508ad61527cd3bcf9a4_Image.jpg" />
+                <option index="3" guid="a894c303b2b04357b446992f55f0997c" content="a894c303b2b04357b446992f55f0997c_Image.jpg" />
+              </options>
+              <answers>
+                <answer index="1" guid="a4eacdda71da48e4afbb58fbd9054b04" content="2126cc6f4c9c4154bf211953c854c998" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="2" title="三、听短文答题" prompt="听独白并阅读后面几个小题，从题中所给的A、B、C三个选项中选出最佳选项。" promptaudio="area_2_1_audio.mp3" promptaudioseconds="0" index="3" guid="8d61658bf9b04a3f84b899eca042a3b1" times="1" presubmitmaxseconds="0" backgroundaudio="area_2_1_audio.mp3" backgroundaudioseconds="14">
+      <questions>
+        <question guid="071a2bfcb60c4c7daabd28266fa41eec" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="071a2bfcb60c4c7daabd28266fa41eec_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="10" tips="" tipsaudio="" tipsaudioseconds="0" index="5" presubmitmaxseconds="0" newscreen="False" audiotext="M: Excuse me. Madam. Have all the cases come here yet? &#xD;&#xA;W: I think so. Can I help you?&#xD;&#xA;M: I've been waiting here for my bags for nearly an hour. I only have a few minutes left to catch the plane to Washington. &#xD;&#xA;W: Please wait a moment. &#xD;&#xA;M: Thank you.&#xD;&#xA;W: Sorry, sir. Your bags were left behind in Paris. They won't arrive in New York until late this evening. &#xD;&#xA;M: Oh, that's terrible." answerseconds="10" waitseconds="0" score="3">
+          <contents>
+            <content guid="f5972712c11249b1a0704f7d9849c5d4" text="What do we know about the man's bags?" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="5" choosetype="1" layout="2" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options>
+                <option index="1" guid="6937ec05962549618f67fd946cdf39f7" content="They're broken." />
+                <option index="2" guid="639aaf4c00c5421297115b916d9f2850" content="They're left behind. " />
+                <option index="3" guid="06158e51c585455594cc71c038006577" content=" They are lost. " />
+              </options>
+              <answers>
+                <answer index="0" guid="145aee22d59545a5bd5cc3c6425b0754" content="639aaf4c00c5421297115b916d9f2850" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="14b44cbd7ef04a57b3fb2c0112c7f26e" text="Where does the conversation most probably take place?" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="6" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options>
+                <option index="1" guid="f983c11ee4a741f8871eb9cf11c3a350" content="In Washington." />
+                <option index="2" guid="abbc3b2af4eb4f0c818b0682dfca4fa5" content="In New York." />
+                <option index="3" guid="9acec6e8f9a24174a392863cc46779f5" content="In Paris. " />
+              </options>
+              <answers>
+                <answer index="0" guid="0e1a5c27033e4045a62ec57fc0d0df1a" content="abbc3b2af4eb4f0c818b0682dfca4fa5" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+        <question guid="cfc686ed011e4df8b6ff67611390a86d" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="cfc686ed011e4df8b6ff67611390a86d_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="10" tips="" tipsaudio="" tipsaudioseconds="0" index="6" presubmitmaxseconds="0" newscreen="True" audiotext="W: Are you the tallest in your class, Andy? &#xD;&#xA;M: No, Bill is the tallest. But I dance better than Bill. &#xD;&#xA;W: Did you win a prize in the talent show last Thursday? &#xD;&#xA;M: Yes, Lucy. I danced with my brother. We won the prize for the funniest performers. &#xD;&#xA;W: That sounds interesting." answerseconds="10" waitseconds="0" score="3">
+          <contents>
+            <content guid="5f09305033924d2d9a54e77ecf58a895" text="Who is the tallest in Andy's class?" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="7" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options>
+                <option index="1" guid="9bb67bcf9c9b4d2ca486456a62643cc5" content="Lucy." />
+                <option index="2" guid="951ea63a23b14c1e96f6a6df5a98dde1" content="Andy." />
+                <option index="3" guid="f2529f276eec45d9958e90df74fff941" content="Bill." />
+              </options>
+              <answers>
+                <answer index="0" guid="333a6609d7264303bfe2ee00b1fa123f" content="f2529f276eec45d9958e90df74fff941" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="0b1972be639347ac947b846517feac77" text="When was the talent show?" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="8" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options>
+                <option index="1" guid="b5cf5a6239e14e9796d5d9a2c2570a19" content="Last Monday." />
+                <option index="2" guid="2dd223d86985455dbc1e2b4567e7ce23" content="Last Thursday." />
+                <option index="3" guid="82de6f424cd44e62860b6ea63a760672" content="Last Tuesday. " />
+              </options>
+              <answers>
+                <answer index="0" guid="de6c3bb86eb342efa57b52b913d0c32b" content="2dd223d86985455dbc1e2b4567e7ce23" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+        <question guid="cbf0b23f5717410497ca85a77cb81af0" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="cbf0b23f5717410497ca85a77cb81af0_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="10" tips="" tipsaudio="" tipsaudioseconds="0" index="7" presubmitmaxseconds="0" newscreen="True" audiotext="W: Hi, Bill, I'm doing a survey for the school TV station. How do you usually go to school? &#xD;&#xA;M: I usually go to school on foot. &#xD;&#xA;W: How long does it take?  &#xD;&#xA;M: It takes about 20 minutes. &#xD;&#xA;W: Then where do you usually have breakfast?&#xD;&#xA;M: My mom cooks food for me. And I have it at home. &#xD;&#xA;W: Do you read English every morning? &#xD;&#xA;M: Yes, I read English for 30 minutes. &#xD;&#xA;W: Thank you." answerseconds="5" waitseconds="0" score="3">
+          <contents>
+            <content guid="0149bfc3bc6a4425adf1c3a44ada15fe" text="Where does Bill have breakfast?" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="9" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options>
+                <option index="1" guid="ebde04a1360a41dbbf78d614755823d5" content="At home." />
+                <option index="2" guid="eed8bf97dea64a10bdd172e9e893844e" content="At school." />
+                <option index="3" guid="825bbcf6722142ceacfb6a0b75128836" content="On the way." />
+              </options>
+              <answers>
+                <answer index="0" guid="e96cf11c6d504b7380342024348ff00e" content="ebde04a1360a41dbbf78d614755823d5" audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="ab18685626fa4be5b1a62dd5bf9178b1" text="How long does Bill read English every morning?" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="10" choosetype="1" layout="2" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts />
+              <options>
+                <option index="1" guid="2f6f3436be444cbd9dc9db01d92bac23" content="For forty minutes." />
+                <option index="2" guid="dd534cee04b644cc84cb8ecf4704ae7c" content="For twenty minutes." />
+                <option index="3" guid="f5b36f84128f43c2ba204e0dd36e5463" content="For half an hour." />
+              </options>
+              <answers>
+                <answer index="0" guid="11c905a9d2f74e72896f69a4686b3100" content="f5b36f84128f43c2ba204e0dd36e5463" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+  </areas>
+  <sections />
+</paper>

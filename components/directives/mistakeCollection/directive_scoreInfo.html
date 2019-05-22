@@ -1,0 +1,26 @@
+﻿
+<div style="" class="score-info">
+    <label style="margin-left:14px;font-size: 14px !important;">得分:</label>&nbsp;&nbsp;
+    <label style="font-size:16px !important;font-weight:bold;" ng-style="{true:{color: '#18B109'},false:{color: '#ff0000'}}[answerData.Score>0]">{{answerData.Score | roundMin0Max2Filter}}</label>
+    <label style="font-size:14px !important;font-weight:normal;color:#ff0000;" ng-if="answerData==undefined">未答题</label>
+
+    <label class="spliter" ng-if="EnableShowScoreComment && answerData.ScoreComment.length>0"></label>
+    <label ng-if="EnableShowScoreComment && answerData.ScoreComment.length>0" style="margin-left:20px;font-weight:bold;">整体评价:</label>&nbsp;&nbsp;<label ng-if="EnableShowScoreComment && answerData.ScoreComment.length>0" style="font-size:14px  !important;font-weight:normal;color:#000000;max-width:410px;">{{answerData.ScoreComment}}</label>
+
+    <div class="sample-answer" ng-if="ShowSampleAnswer">
+        <div class="sample-answer-controlbar" ng-if="CurrentContent.Audio.length>0">
+            <div ng-click="PlayAudio(CurrentContent,CurrentContent.ContentID,CurrentContent.Audio,'paper')"><img ng-if="IsAudioPlaying(CurrentContent.ContentID)==false" src="http://cdn.uukaola.com/web/img/report/示范朗读.png" /><img ng-if="IsAudioPlaying(CurrentContent.ContentID)==true" src="http://cdn.uukaola.com/web/img/report/暂停播放.png" /></div>
+        </div>
+    </div>
+    <div class="student-answer" ng-if="ShowQuestionAudio">
+        <div ng-click="PlayAudio(questionData.QuestionModel,questionData.QuestionID+'_Part1',questionData.QuestionModel.Audio,'paper')" style="float:right;"><img ng-if="IsAudioPlaying(questionData.QuestionID+'_Part1')==false" src="http://cdn.uukaola.com/web/img/report/播放录音.png" /><img ng-if="IsAudioPlaying(questionData.QuestionID+'_Part1')==true" src="http://cdn.uukaola.com/web/img/report/暂停播放.png" /></div>
+    </div>
+    <div class="student-answer" ng-if="ShowStudentAnswer && answerData.AnswerContent.length>
+        0" ng-click="PlayAudio(answerData,answerData.AnswerID,answerData.AnswerContent,'answer')">
+        <img ng-if="IsAudioPlaying(answerData.AnswerID)==false" src="http://cdn.uukaola.com/web/img/mistakeCollection/你的答案_Play.png" />
+        <img ng-if="IsAudioPlaying(answerData.AnswerID)==true" src="http://cdn.uukaola.com/web/img/mistakeCollection/你的答案_Stop.png" />
+    </div>
+</div>
+
+
+

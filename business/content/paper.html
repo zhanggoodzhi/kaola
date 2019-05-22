@@ -1,0 +1,86 @@
+﻿ 
+<link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/business/content/paper.css" />
+
+<div class="row contentTabset">
+    <tabset>
+        <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'packageList'}" style="width:60%;margin:0 15%;"></toaster-container>
+        <tab heading="试卷库管理" class="contentTabHeader">
+            <div class="content-main">
+                <div class="row col-md-12 col-sm-12  col-xs-12">
+                    <div class="btn-group dropdown" style="width: 100px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.CurrentProvince.ProvinceName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="overflow-y: auto;height: 200px;">
+                            <li ng-repeat="province in ProvinceList"><a href="javascript:void(0);" ng-click="Filter.CurrentProvince = province;">{{province.ProvinceName}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" style="width: 100px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.CurrentYear.DisplayMember }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" ></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                            <li ng-repeat="year in YearList"><a href="javascript:void(0);" ng-click="Filter.CurrentYear = year;">{{year.DisplayMember}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" style="width: 100px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.CurrentGrade.Name }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                            <li ng-repeat="g in GradeList"><a href="javascript:void(0);" ng-click="Filter.CurrentGrade = g;">{{g.Name}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" style="width: 100px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.CurrentLevel.DisplayMember }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                            <li ng-repeat="level in LevelList"><a href="javascript:void(0);" ng-click="Filter.CurrentLevel = level;">{{level.DisplayMember}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="width: 250px; ">
+                        <input type="text" class="form-control query-height" style="width: 250px; display: inline-block;" id="txt_installCode" ng-model="QueryParams.PaperName" placeholder="输入试卷名称">
+                    </div>
+                    <div class="btn-group" style="width: 70px;">
+                        <button type="button" class="btn btn-primary btn-block query-height" style="padding: 0 10px; border: 0; line-height: 28px;" ng-click="SearchPaperList()"><span class="smallicon btn-icon icon-sousuo" style="font-size: 1.2em;"></span>&nbsp;查询</button>
+                    </div>
+                </div>
+                <div class="table-container col-md-12 col-sm-12 col-xs-12">
+                    <table ng-table="PaperList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="paper in $data">
+                                <td data-title="'试卷名称'" sortable="'PaperName'">{{ paper.PaperName }}</td>
+                                <td data-title="'试卷模板'" sortable="'PaperTemplate'" style="padding-left: 20px;">{{ paper.PaperTemplate == "" ? "无" : paper.PaperTemplate }}</td>
+                                <td data-title="'地区'" sortable="'Province'" style="padding-left: 20px;">{{ paper.ProvinceName }}</td>
+                                <td data-title="'年度'" sortable="'Year'" style="padding-left: 20px;">{{ paper.YearDes }}</td>
+                                <td data-title="'适用年级'" sortable="'Grade'" style="padding-left: 20px;">{{ paper.GradeDes }}</td>
+                                <td data-title="'难度'" sortable="'Level'" style="padding-left: 20px;">{{ paper.LevelDes }}</td>
+                                <td data-title="'内容商'" sortable="'ContentProviderName'" style="padding-left: 20px;">{{ paper.ContentProviderName }}</td>
+                                <td data-title="'内容编辑'" sortable="'ContentProviderUser'" style="padding-left: 20px;">{{ paper.ContentProviderUser }}</td>
+                                <td data-title="'使用次数'" sortable="'UseCount'" style="padding-left: 20px;">{{ paper.UseCount }}</td>
+                                <td data-title="'操作'">
+                                    <button class="btn btn-op" tooltip="" tooltip-placement="bottom" ng-click="PreviewPaperDetail(paper.PaperID)"><span class="smallicon icon-sousuo" aria-hidden="true"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+<div class="modal fade" id="PreviewPaperDetailDialog" tabindex="-4" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:900px; margin: 50px auto 20px;">
+            <div class="modal-header" style="background-color:#e3eaeb;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <font style="color:#383838;font-size:14px;">试卷预览</font>
+            </div>
+            <div class="modal-body">
+                <paper-preview paper="CurrentPaper"></paper-preview>
+            </div>
+        </div>
+    </div>
+</div>
+

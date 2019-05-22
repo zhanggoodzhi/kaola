@@ -1,0 +1,41 @@
+﻿<!--听对话回答问题-->
+<div ng-repeat="c in data.QuestionModel.Contents">
+    <div class="content-div">
+        <div class="content-audiotext-div" ng-if="c.AudioText!=undefined&& c.AudioText.length>0">
+            <div class="question-title">【听力原文】</div>
+            <div class="content-audiotext highlight-no" style="" ng-bind-html="c.AudioText|trustHtml">
+            </div>
+        </div>
+    </div>
+    <div class="content-div">
+        <div class="content-audiotext-div" ng-if="(c.AudioText==undefined|| c.AudioText.length<=0)&&c.Audio!=undefined&&c.Audio.length>0">
+            <div class="question-title">【听力原文】</div>
+            <div ng-click="PlayAudio(c.ContentID,c,data.ResourcePath+c.Audio)" style="float:left;"><img ng-if="IsAudioPlaying(c.ContentID)==false" src="/web/img/paperDesign/playAudio.png" /><img ng-if="IsAudioPlaying(c.ContentID)==true" src="/web/img/paperDesign/playingAudio.gif" /></div>
+        </div>
+    </div>
+    <div class="content-div" style="border-bottom:none">
+        <div class="content-text highlight-no" ng-if="c.Text!=undefined&& c.Text.length>0" ng-bind-html="c.Text|trustHtml">
+        </div>
+        <div class="content-options" ng-switch="c.ResourceType">
+            <!--文本-->
+            <ul ng-switch-when="1" ng-class="{1:'horizontal',2:'vertical'}[c.Layout]">
+                <li ng-repeat="option in c.Options">
+                    <img class="content-option-icon" ng-src="{{GetOptionIcon(c.Answers,option)}}" />
+                    <label class="content-option-label highlight-no">{{option.Index | optionIndexFilter}}.&nbsp;{{option.Content}}</label>
+                </li>
+            </ul>
+            <!--图片-->
+            <ul ng-switch-when="2" ng-class="{1:'horizontal',2:'vertical'}[c.Layout]">
+                <li ng-repeat="option in c.Options">
+                    <img class="content-option-icon" ng-src="{{GetOptionIcon(c.Answers,option)}}" />
+                    <label class="content-option-label">{{option.Index | optionIndexFilter}}.&nbsp;</label>
+                    <img class="img-thumbnail content-option-img" ng-src="{{ data.ResourcePath + '/' + option.Content }}" />
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<question-operation data="data" show-answer="false"></question-operation>
+
+
+

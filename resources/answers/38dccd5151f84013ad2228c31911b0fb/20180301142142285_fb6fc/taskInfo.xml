@@ -1,0 +1,377 @@
+﻿<?xml version="1.0"?>
+<TaskDetail xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TaskID>38dccd5151f84013ad2228c31911b0fb</TaskID>
+  <TaskName>测试2</TaskName>
+  <TeacherID>c301ef3d573b4b17b25a032d3b506d33</TeacherID>
+  <CreatedTime>2018-03-01T13:41:27</CreatedTime>
+  <LastUpdateTime>2018-03-01T13:41:27</LastUpdateTime>
+  <TaskType>Exam</TaskType>
+  <Status>IDLE</Status>
+  <TaskFrom>Kaola</TaskFrom>
+  <TotalPaperCount>1</TotalPaperCount>
+  <TotalClassCount>1</TotalClassCount>
+  <TotalStudentCount>47</TotalStudentCount>
+  <ExamStudentCount>0</ExamStudentCount>
+  <Papers>
+    <TaskPaperInfo>
+      <PaperID>dd6a64d559444209943b28c88b39a5c7</PaperID>
+      <PaperTitle />
+      <PaperName>组卷_口语_问答</PaperName>
+      <IsCustomPaper>false</IsCustomPaper>
+      <ShowName>组卷_口语_问答</ShowName>
+      <PaperDownloadUrl>/web/resources/paps/dd6a64d559444209943b28c88b39a5c7.pap</PaperDownloadUrl>
+      <TotalMinutes>37</TotalMinutes>
+      <TotalScore>40.5</TotalScore>
+      <TotalListeningScore>0</TotalListeningScore>
+      <TotalSpeakingScore>40.5</TotalSpeakingScore>
+    </TaskPaperInfo>
+  </Papers>
+  <Classes>
+    <TaskClassInfo>
+      <TotalStudentCount>47</TotalStudentCount>
+      <ClassID>64bf34bb227c4cfaae02cffc960bb3d1</ClassID>
+      <SchoolID>290196</SchoolID>
+      <SchoolName>Demo学校</SchoolName>
+      <ClassNumber>BJ2901965733</ClassNumber>
+      <ClassName>测试班级1（师）</ClassName>
+      <Grade>7</Grade>
+      <Status>0</Status>
+      <Students>
+        <TaskClassStudent>
+          <StudentNumber>1633010101</StudentNumber>
+          <StudentID>e33e2cf262a24e28b2439f00140f0ea2</StudentID>
+          <StudentName>陈嘉蓓</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+          <HeadPic>/web/img/defaultHeadPic.png</HeadPic>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010102</StudentNumber>
+          <StudentID />
+          <StudentName>陈嘉蓓</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010103</StudentNumber>
+          <StudentID />
+          <StudentName>陈欣怡</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010104</StudentNumber>
+          <StudentID />
+          <StudentName>何秀雯</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010105</StudentNumber>
+          <StudentID />
+          <StudentName>贺霁初</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010106</StudentNumber>
+          <StudentID />
+          <StudentName>黄若尘</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010107</StudentNumber>
+          <StudentID />
+          <StudentName>黄奕郗</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010108</StudentNumber>
+          <StudentID />
+          <StudentName>贾惠妤</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010109</StudentNumber>
+          <StudentID />
+          <StudentName>赖誉云</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010110</StudentNumber>
+          <StudentID />
+          <StudentName>蓝筱青</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010111</StudentNumber>
+          <StudentID />
+          <StudentName>李乐之</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010112</StudentNumber>
+          <StudentID />
+          <StudentName>梁旖晴</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010113</StudentNumber>
+          <StudentID />
+          <StudentName>廖雨林</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010114</StudentNumber>
+          <StudentID />
+          <StudentName>邵楚婷</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010115</StudentNumber>
+          <StudentID />
+          <StudentName>谭艺桐</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010116</StudentNumber>
+          <StudentID />
+          <StudentName>吴玟亮</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010117</StudentNumber>
+          <StudentID />
+          <StudentName>夏文和</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010118</StudentNumber>
+          <StudentID />
+          <StudentName>徐铭悦</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010119</StudentNumber>
+          <StudentID />
+          <StudentName>徐悦之</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010120</StudentNumber>
+          <StudentID />
+          <StudentName>杨焯婷</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010121</StudentNumber>
+          <StudentID />
+          <StudentName>杨雅淇</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010122</StudentNumber>
+          <StudentID />
+          <StudentName>叶金泽</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010123</StudentNumber>
+          <StudentID>725633d8f76049e79317d6ab98e04d4b</StudentID>
+          <StudentName>俞乐</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+          <HeadPic>/web/resources/headpic//290196/BJ2901966976/S002.png</HeadPic>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010124</StudentNumber>
+          <StudentID />
+          <StudentName>袁一灵</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010125</StudentNumber>
+          <StudentID />
+          <StudentName>曾晓岚</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010126</StudentNumber>
+          <StudentID />
+          <StudentName>张济美</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010127</StudentNumber>
+          <StudentID />
+          <StudentName>张稚睿</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010128</StudentNumber>
+          <StudentID />
+          <StudentName>邹梓涵</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010129</StudentNumber>
+          <StudentID />
+          <StudentName>陈靖晔</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010130</StudentNumber>
+          <StudentID />
+          <StudentName>范皓程</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010131</StudentNumber>
+          <StudentID />
+          <StudentName>郭之阳</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010132</StudentNumber>
+          <StudentID />
+          <StudentName>黄俊康</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010133</StudentNumber>
+          <StudentID />
+          <StudentName>黄森</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010134</StudentNumber>
+          <StudentID />
+          <StudentName>康思凯</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010135</StudentNumber>
+          <StudentID />
+          <StudentName>李明珅</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010136</StudentNumber>
+          <StudentID />
+          <StudentName>李睿</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010137</StudentNumber>
+          <StudentID />
+          <StudentName>林轩锐</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010138</StudentNumber>
+          <StudentID />
+          <StudentName>卢仁杰</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010139</StudentNumber>
+          <StudentID />
+          <StudentName>鲁易之</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010140</StudentNumber>
+          <StudentID />
+          <StudentName>皮家恺</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010141</StudentNumber>
+          <StudentID />
+          <StudentName>史筠和</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010142</StudentNumber>
+          <StudentID />
+          <StudentName>孙壬峰</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010143</StudentNumber>
+          <StudentID />
+          <StudentName>王子贤</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010144</StudentNumber>
+          <StudentID />
+          <StudentName>魏祎明</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010145</StudentNumber>
+          <StudentID />
+          <StudentName>夏乐平</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010146</StudentNumber>
+          <StudentID />
+          <StudentName>闫皓哲</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+        <TaskClassStudent>
+          <StudentNumber>1633010147</StudentNumber>
+          <StudentID />
+          <StudentName>游玮迅</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+      </Students>
+    </TaskClassInfo>
+  </Classes>
+  <AMSPredictFinishTime>0001-01-01T00:00:00</AMSPredictFinishTime>
+  <AMSPredictFinishTimeMillisecond>0</AMSPredictFinishTimeMillisecond>
+  <MarkPrecision>1</MarkPrecision>
+</TaskDetail>

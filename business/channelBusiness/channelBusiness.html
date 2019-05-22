@@ -1,0 +1,198 @@
+﻿<div class="row">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">渠道商管理</a>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active " id="channelB_Manage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog0'}"></toaster-container>
+            <div class="content-main">
+                <div class="row">
+                    <div class="btn-group">
+                        <input type="text" class="search-textbox" style="width: 180px;display: inline-block;" ng-keyup="KeyupSearchChannelBusiness($event)" placeholder="输入渠道商名称" id="channelB_Name" ng-model="QueryParams.BusinessName">
+                        <button type="button" class="search-button button button-blue" style="" ng-click="SearchChannelBusiness()">
+                            <span class="smallicon btn-icon icon-sousuo" style="font-size: 1.2em;"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow" ng-click="OpenAddChannelBusDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">新增渠道商</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <table ng-table="ChannelBusinesList" class="table table-bordered table-hover">
+                        <tbody>
+
+                            <tr ng-repeat="business in $data" id="{{business.BusinessID}}">
+                                <td data-title="'渠道商名称'" style="width:30%;text-align:left;" sortable="'BusinessName'">{{ business.BusinessName }}</td>
+
+
+                                <td data-title="'加密狗数量'" style="width:20%;" sortable="'DogCount'">{{ business.DogCount | EmptyFilter}}</td>
+
+                                <td data-title="'内容序列号数量'" style="width:20%;" sortable="'ContentCout'">{{ business.ContentCount| EmptyFilter }}</td>
+
+                                <td data-title="'操作'" style="width:30%;">
+                                    <a class="f12 href" ng-class="'href'" ng-click="OpenBusinessDetailDialog(business)">查看</a>
+                                    <a class="f12 href" ng-class="'href'" ng-click="OpenDeleteBusinessDialog(business)">删除</a>
+                                    <a class="f12 href" ng-class="'href'" ng-click="OpenUpdateBusinessDialog(business)">修改</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="modal" id="AddBusinessDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px;margin: auto">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel" style="">新增渠道商</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog1'}" style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <div style="margin-bottom: 30px;margin-top: 15px;">
+                    <label for="schoolName" class="control-label" style="padding-right: 0;">渠道商名称：</label>
+                    <input type="text" class="form-control" id="schoolName" maxlength="20" style="display:inline;" placeholder="渠道商名称" ng-model="BusinessParam.BusinessName">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="BusinessAdd()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal" id="UpdateBusinessDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel" style="">修改渠道商名称</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog2'}" style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <div style="margin-bottom: 30px;margin-top: 15px;">
+                    <label for="schoolName" class="control-label" style="padding-right: 0;">渠道商名称：</label>
+                    <input type="text" class="form-control" id="schoolName" maxlength="20" style="display:inline;" placeholder="渠道商名称" ng-model="BusinessParam.BusinessName">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="BusinessUpdate()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal" id="BusinessDetailDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-height: 500px; width: 990px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel">渠道商详情</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog5'}" style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <span class="detail_title">{{ChoosedBusiness.BusinessName}}</span>
+                </div>
+                <div class="row SubTabSet">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li ng-class="{true:'active'}[CurrentTabIndex==1]" ng-click="TabChange(1)" style="width: 100px;"><a href="#school_packageList" data-toggle="tab">加密狗</a></li>
+                        <li ng-class="{true:'active'}[CurrentTabIndex==2]" ng-click="TabChange(2)"><a href="#school_dogList" data-toggle="tab">内容序列号</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==1]" id="school_dogList">
+                            <div class="table-container " style="padding-top:0;">
+                                <table ng-table="SchoolDogList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                    <tbody>
+
+                                        <tr ng-repeat="dog in $data" ng-show="$data.length>0">
+                                            <td data-title="'硬件序列号'" style="text-align:center;">{{ dog.DogCode }}</td>
+                                            <td data-title="'安装序列号'" style="text-align:center;">{{ dog.InstallCode }}</td>
+                                            <td data-title="'学校'" style="text-align:center;">{{ dog.SchoolName | EmptyFilter}}</td>
+                                            <td data-title="'激活设备数/可激活数'" style="text-align:center;">{{dog.ActivedDeviceCount| EmptyFilter}}/{{ dog.MaxAllowActiveDeviceCount| EmptyFilter}}</td>
+                                            <td data-title="'发货时间'" style="text-align:center;width:12%;">{{ dog.AllotTime| EmptyFilter }}</td>
+                                            <td data-title="'激活时间'" style="text-align:center;width:12%;">{{ dog.ActiviteTime| EmptyFilter }}</td>
+                                            <td data-title="'状态'" style="text-align:center;min-width:60px;">{{ dog.StatusDesc }}</td>
+
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="7">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==2]" id="school_packageList">
+                            <div class="table-container " ng-if="CurrentTabIndex==2" style="padding-top: 0;width: 920px;overflow-x: auto;">
+                                <table ng-table="ContentPackageList" class="table table-bordered table-hover" style="border: 1px solid #ddd; width: 920px;">
+                                    <tbody>
+
+                                        <tr ng-repeat="package in $data" ng-show="$data.length>0">
+                                            <td data-title="'内容序列号'" style="text-align:center;">{{ package.PackageCode }}</td>
+                                            <td data-title="'试卷包名称'" style="text-align:center;">{{ package.PaperPackageName }}</td>
+                                            <td data-title="'内容商'" style="text-align:center;">{{ package.ContentProviderName }}</td>
+                                            <td data-title="'学校'" style="text-align:center;">{{ package.SchoolName | EmptyFilter}}</td>
+                                            <td data-title="'生成时间'" style="text-align:center;">{{ package.CreatedTime| EmptyFilter }}</td>
+                                            <td data-title="'激活时间'" style="text-align:center;">{{ package.ActivateTime| EmptyFilter }}</td>
+                                            <td data-title="'状态'" style="text-align:center;min-width:60px;">{{ package.Status | PackageStatusFilter }}</td>
+
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="8">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+

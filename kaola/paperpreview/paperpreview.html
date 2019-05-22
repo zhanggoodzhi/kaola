@@ -1,0 +1,47 @@
+﻿
+
+<link rel="stylesheet" type="text/css" href="/web/components/directives/paperpreview_rebuild/paperpreview.css" />
+ 
+<div class="row page-container" style="padding:50px 20px;background-color:#ffffff;">
+
+    <div class="content-container">
+        <div class="col-md-1 col-xs-1" style="padding:10px 0;position: absolute;right: 50px;">
+            <button id="btn_createTaskFromPaperPreview" type="button" style="display:none" class="btn btn-createTask create-btn" ng-click="OpenAddTaskDialogFromPreview()">
+                <span class="smallicon icon-chuangjianrenwu"></span><span class="text">创建任务</span>
+            </button>
+        </div>
+        <paper-preview paper="CurrentPaper"></paper-preview>
+    </div>
+</div>
+
+
+<div class="modal" id="AddTaskDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 600px; margin: auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">创建任务</h5>
+            </div>
+
+            <div class="modal-body">
+                <div ui-view="createTaskView"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="showAudioRefTextDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 500px;margin:auto;">
+            <div class="modal-header" style="background-color: #E1E1E1 !important;color: #333;">
+                <button type="button" class="close" data-dismiss="modal" style="background-image: url(http://cdn.uukaola.com/web/img/report/close.png);width:16px;height:15px;" aria-label="Close"></button>
+                <span class="modal-title" id="myModalLabel" style="line-height:0px;font-size:16px;">录音原文</span>
+            </div>
+
+            <div class="modal-body">
+                <div style="background-color:#ffffff;font-family:Arial,'Microsoft YaHei';font-size:14px !important;color:black !important;" ng-bind-html="AudioRefText|trustHtml"></div>
+            </div>
+        </div>
+    </div>
+</div>
+ 

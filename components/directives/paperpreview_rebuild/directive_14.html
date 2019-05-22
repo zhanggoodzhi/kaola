@@ -1,0 +1,38 @@
+﻿<div style="background-color:#ffffff;padding-left:14px;padding-right:14px;">
+    <!--快速应答,根据视频的提问回答问题-->
+
+    <div ng-repeat="content in questionData.Contents">
+        <div class="div-content">
+
+            <div>
+                <div class="content-idx" style="">{{content.Index}}</div>
+
+                <div class="content-video" style="">
+                    <div ng-video id="{{'ng-video-directives_'+content.ContentID}}" data="GetVideoData(questionData,content)"></div>
+
+                </div>
+                <div class="content-controlbar" ng-if="content.AudioText.length>0">
+                    <div ng-click="ShowAudioRefText(content.AudioText)">
+                        <img src="http://cdn.uukaola.com/web/img/report/luyinyuanwen.png" />
+                        <span>录音原文</span>
+                    </div>
+                </div>
+            </div>
+            <div style="clear:both;">
+
+            </div>
+
+        </div>
+        <div style="" class="content-reftext">
+            <div>
+                <img src="http://cdn.uukaola.com/web/img/report/cankaodaan.png" />
+                <label>参考答案</label>
+            </div>
+            <ul>
+                <li ng-repeat="refText in content.Answers">{{refText.Content}}</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>

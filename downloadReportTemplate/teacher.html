@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <!--[if IE 8]><meta http-equiv="X-UA-Compatible" content="IE=8" /><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+
+    <title>悠悠考拉网</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/ng-table.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/loading-spinner.min.css" />
+    <link rel="stylesheet" type="text/css" href="lib/video-js-5.11.4/video-js.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="lib/jquery-custom-content-scroller/jquery.mCustomScrollbar.css" />
+    <script src="lib/utility.js"></script>
+    <script type="text/javascript" src="data.js"></script>
+    <script>
+        function fixedDocumentTitle() {
+            var originalTitle = '悠悠考拉网';
+            if (getIEVersion() < 11) {
+                document.title = originalTitle;
+                document.attachEvent('onpropertychange', function (evt) {
+                    evt = evt || window.event;
+                    if (evt.propertyName === 'title' && document.title !== originalTitle) {
+                        setTimeout(function () {
+                            document.title = originalTitle;
+                        }, 1);
+                    }
+                });
+            }
+        }
+        fixedDocumentTitle();
+        window.DEFAULT_ROUTE = '/teacherreportdetail/0';
+    </script>
+
+
+    <style type="text/css">
+        .login_body {
+            background: url('img/background/login_bg.png');
+        }
+
+        .navbar-right {
+            float: right !important;
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+
+        .navbar-text {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .main-display {
+            display: block !important;
+        }
+
+        .main-hide {
+            display: none !important;
+        }
+
+        .common-dialog-body {
+            padding-top: 20px !important;
+            padding-bottom: 20px !important;
+        }
+
+        .modal-body-message {
+            font-size: 14px;
+            display: table-cell;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        label {
+            margin-bottom: 0px !important;
+        }
+
+        #kx_verify {
+            width: 66px !important;
+            height: 16px !important;
+            margin-left: 10px;
+        }
+
+        #kx_verify #kx_verify_link img {
+            width: 64px;
+            height: 23px;
+        }
+    </style>
+
+</head>
+
+
+<!--[if lt IE 9]>
+  <body>
+    <div class="center-block" style="width:440px;">
+        <div class="alert alert-danger" role="alert">
+            您的浏览器版本太低, 无法正常使用本系统
+        </div>
+        <p>你可以下载：</p>
+        <ul style="list-style:none;float:left;padding:10px;">
+            <li style="float:left;display:block;margin-right:80px;text-align:center;"><a href="https://www.mozilla.org/zh-CN/firefox/new/"><img src="img/firefox.jpg" alt="火狐浏览器" class="img-circle"></img><br/>火狐浏览器</a></li>
+            <li id="achrome" style="float:left;display:block;margin-right:80px;text-align:center;"><a href="http://sw.bos.baidu.com/sw-search-sp/software/29cd900ea7d/ChromeStandalone_50.0.2661.102_Setup.exe"><img src="img/chrome.jpg" alt="Chrome浏览器" class="img-circle"></img><br/>Chrome浏览器</a></li>
+            <li style="float:left;display:block;text-align:center;"><a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie"><img src="img/ie11.jpg" alt="IE11浏览器" class="img-circle"></img><br/>IE 11</a></li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+    if ((navigator.platform == "Win32") || (navigator.platform == "Windows"))
+    {
+        var sUserAgent = navigator.userAgent;
+        if (sUserAgent.indexOf("Windows NT 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1 || sUserAgent.indexOf("Windows NT 5.1") > -1 || sUserAgent.indexOf("Windows XP") > -1)
+        {
+            var ele_achrome = document.getElementById('achrome');
+            ele_achrome.parentNode.removeChild(ele_achrome);
+        }
+    }
+    </script>
+  </body>
+<![endif]-->
+<!--[if (!IE)|(gte IE 8)]><!-->
+
+<body ng-controller="MainCtrl" style="padding: 0;min-width: 1000px;min-height: 600px;">
+    <script src="lib/require.min.js" data-main="kaola/starter.js"></script>
+
+    <div class="container-fluid main-display" style="display:none;height:100%;">
+        <div id="sidebar_menu_row" class="row" style="">
+            <div id="div_mainChildView" class="col-xs-11 col-sm-11 col-md-11" style="height:100%;padding:16px;">
+                <div class="row" style="height:100%;">
+                    <div class="" ui-view="mainChildView" style="height:100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <script type="text/ng-template" id="commonModalContent.html">
+            <div id="ConfirmDialog" z-index="999">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"></button>
+                        <h5 class="modal-title">{{DialogTitle}}</h5>
+                    </div>
+                    <div class="modal-body common-dialog-body" style="display: table;">
+                        <span class="">
+                            <img src="img/dialog/confirm.png" />
+                        </span>
+                        <span class="modal-body-message">{{DialogMessage}}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-commonDialog button-commonDialog-yes" ng-click="ok()">是</button>
+                        <button type="button" class="btn btn-default button-commonDialog button-commonDialog-no" data-dismiss="modal" ng-click="cancel()"
+                            style="margin-left:40px;">否</button>
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+    <div>
+        <script type="text/ng-template" id="commonInfoDialog.html">
+            <div id="InfoDialog" z-index="998">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"></button>
+                        <h5 class="modal-title">{{DialogTitle}}</h5>
+                    </div>
+                    <div class="modal-body common-dialog-body" style="display: table;">
+                        <span class="">
+                            <img src="img/dialog/info.png" />
+                        </span>
+                        <span class="modal-body-message">{{DialogMessage}}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-commonDialog button-commonDialog-yes" ng-click="ok()">知道了</button>
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+    <div>
+        <script type="text/ng-template" id="commonWarningDialog.html">
+            <div id="WarningDialog" z-index="998">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"></button>
+                        <h5 class="modal-title">{{DialogTitle}}</h5>
+                    </div>
+                    <div class="modal-body common-dialog-body" style="display: table;">
+                        <span class="">
+                            <img src="img/dialog/warning.png" />
+                        </span>
+                        <span class="modal-body-message">{{DialogMessage}}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-commonDialog button-commonDialog-yes" ng-click="ok()">知道了</button>
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+    <div>
+        <script type="text/ng-template" id="commonErrorDialog.html">
+            <div id="ErrorDialog" z-index="997">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"></button>
+                        <h5 class="modal-title">{{DialogTitle}}</h5>
+                    </div>
+                    <div class="modal-body common-dialog-body" style="display: table;">
+                        <span class="">
+                            <img src="img/dialog/error.png" />
+                        </span>
+                        <span class="modal-body-message">{{DialogMessage}}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-commonDialog button-commonDialog-yes" ng-click="ok()">知道了</button>
+
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+
+</body>
+<!--<![endif]-->
+
+</html>

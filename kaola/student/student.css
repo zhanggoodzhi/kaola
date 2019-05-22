@@ -1,0 +1,56 @@
+﻿.studentclass-desc div {
+    line-height: 58px;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+    .studentclass-desc div span {
+        color: #24a3e6;
+    }
+
+.fileupload {
+    height: 20px;
+    width: 100px;
+    margin-left: 2.5em;
+    margin-top: 0.5em;
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    filter: alpha(opacity=1);
+    z-index: 9999;
+}
+
+.importBtn {
+    z-index: 1;
+    color: #337ab7;
+    cursor: pointer;
+    text-decoration: underline;
+    border: none !important;
+    background: none;
+    font-family: "微软雅黑", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+    font-weight: inherit !important;
+    cursor: pointer;
+}
+
+    .importBtn:hover {
+        z-index: 1;
+        color: #337ab7;
+        cursor: pointer;
+        text-decoration: underline;
+        border: none !important;
+        background: none !important;
+        font-family: "微软雅黑", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+        font-weight: inherit !important;
+        cursor: pointer;
+    }
+
+#upload-import-student {
+    left: 55px;
+    top: -28px;
+}
+
+#upload-batch-update-student {
+    left: 55px;
+    top: -28px;
+}

@@ -1,0 +1,571 @@
+﻿
+<link rel="stylesheet" type="text/css" href="/web/kaola/task/task.css" />
+
+<div class="row  bg-white">
+    <div class="content-container">
+        <div class="content-header">
+            <span class="view-header-text"><i class="xsmallicon icon-liebiao"></i>任务管理</span>
+
+            <toaster-container style="position:absolute !important;margin-top:5px !important;" toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+
+            <div style="float: right;margin-top:6px;">
+                <div class="btn-group" style="margin-right:0;">
+                    <button type="button" class="btn-createTask btn" ng-click="OpenAddTaskDialog()"><span class="xsmallicon icon-chuangjianrenwu btn-custombg-icon"></span>创建任务</button>
+                </div>
+            </div>
+        </div>
+        <div class="content-main">
+            <div class="btn-toolbar" style="">
+                <div class="btn-group query-label" style="margin-left:5px !important;">任务进度</div>
+                <div class="btn-group dropdown query-dropdown-width" style="margin-left:10px;">
+                    <a class="btn btn-block btn-default query-height" href="#" id="task_Status" data-toggle="dropdown" style="color:#7a7a7a;">
+                        {{ Filter.CurrentTaskStatus.Name }}<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu query-dropdown-width" aria-labelledby="task_Status" role="menu">
+                        <li ng-repeat="status in TaskStatus"><a href="javascript:void(0);" ng-click="FilterChange('TaskStatus',status)">{{status.Name}}</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group query-label">任务类型</div>
+                <div class="btn-group dropdown query-dropdown-width" style="margin-left:10px;">
+                    <a class="btn btn-block btn-default query-height" href="#" id="task_Type" data-toggle="dropdown" style="color:#7a7a7a;">
+                        {{ Filter.CurrentTaskType.Name }}<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu query-dropdown-width" aria-labelledby="task_Type" role="menu">
+                        <li ng-repeat="type in TaskType"><a href="javascript:void(0);" ng-click="FilterChange('TaskType',type)">{{type.Name}}</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group query-label">班级名称</div>
+                <div class="btn-group dropdown " style="min-width: 150px;margin-left:10px;">
+                    <a class="btn btn-block btn-default query-height" href="#" id="task_Class" data-toggle="dropdown" style="color:#7a7a7a;">
+                        {{ Filter.CurrentCls.ClassName }}<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="task_Class" role="menu" style="min-width: 150px;max-height: 300px; overflow-y: auto;">
+                        <li ng-repeat="cls in AllClass"><a href="javascript:void(0);" ng-click="FilterChange('Class',cls)">{{cls.ClassName}}</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-group query-label">创建时间</div>
+                <div class="btn-group" style="width: 218px;margin-left:10px;">
+                    <input id="task_TimeArrange" class="form-control" style="width:218px;height:30px;display:inline-block;">
+                    <datecontainer style="position: relative; display: inline-block"></datecontainer>
+                </div>
+                <div style="width: 340px;float: left;margin-left: 20px;">
+                    <div class="btn-group" style="line-height:38px;">任务名称</div>
+                    <div class="btn-group" style="margin-left:10px;">
+                        <input type="text" class="form-control" style="width:176px;height:36px !important;display: inline-block;" id="task_Name" ng-model="QueryParams.TaskName">
+                    </div>
+
+                    <div class="btn-group" style="width:70px;margin-left:20px;">
+                        <button type="button" class="btn btn-primary btn-block query-height" style="padding:0;border:0;" ng-click="SearchTask()"><span class="xsmallicon icon-sousuo" style=""></span>&nbsp;查询</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container" ng-if="hasData==true">
+                <table ng-table="TaskList" class="table table-condensed table-bordered table-hover table-center-align" style="border: 1px solid #ddd;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;"><div class="th_div">任务名称</div></th>
+                            <th><div class="th_div">任务类型</div></th>
+                            <th><div class="th_div">试卷数量</div></th>
+                            <th><div class="th_div">班级数量</div></th>
+                            <th><div class="th_div">考生数量</div></th>
+                            <th><div class="th_div">创建日期</div></th>
+                            <th><div class="th_div">任务状态</div></th>
+                            <th><div class="th_div">操作</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="task in $data">
+                            <td data-title="'任务名称'" sortable="'TaskName'" style="text-align:left;"><div style="line-height:24px;">{{ task.TaskName }}</div></td>
+                            <td data-title="'任务类型'" sortable="'TaskType'" style="">{{ task.TaskType |TaskTypeDes }}</td>
+                            <td data-title="'试卷数量'" sortable="'TotalPaperCount'" style="">
+                                <div style="position: relative;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle color-blue" id="ddPapaer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="text-decoration:none;">{{ task.TotalPaperCount}}</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddPapaer" style="white-space: nowrap; padding: 0;border-radius:4px;max-height:400px;min-width:250px;overflow-y:auto;padding-bottom:5px;">
+                                        <a style="" class="popover-title">试卷列表</a>
+                                        <ul class="list-group">
+                                            <li ng-repeat="paper in task.Papers" class="list-group-item popover-li" style="">
+                                                <span style="float: left;display: block;margin-right:10px;" title="{{paper.PaperName}}">{{paper.ShowName}}</span>
+                                                <a href="javascript:void(0)" target="_blank" ui-sref="paperpreview({paperID:'{{paper.PaperID}}'})" tooltip="预览" tooltip-placement="bottom">
+                                                    <span class="btn-op smallicon icon-chakan" aria-hidden="true" style="line-height:0.4;"></span>
+                                                    <!--打开新窗口,跳转到试卷预览页面-->
+                                                </a>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-title="'班级数量'" sortable="'TotalClassCount'" style="">
+                                <div style="position: relative;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle color-blue" id="ddClass" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none;">{{ task.TotalClassCount }}</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddClass" style="white-space: nowrap; padding: 0; width: 200px;max-height:300px;overflow-y:auto;">
+                                        <a style="" class="popover-title">班级列表</a>
+                                        <ul class="list-group">
+                                            <li ng-repeat="cls in task.Classes" class="list-group-item popover-li" style="">
+                                                <span style="float: left;display: block;">{{cls.ClassName}}</span>
+
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td data-title="'考生数量'" sortable="'TotalStudentCount'" style="">
+                                {{ '（应考：'+task.TotalStudentCount +' 实考：'+task.ExamStudentCount+'）'}}
+                            </td>
+                            <td data-title="'创建日期'" sortable="'CreatedTime'">{{ task.CreatedTime}}</td>
+
+                            <td data-title="'任务状态'" sortable="'Status'" style="">
+                                {{ task.Status|TaskStatusDes}}
+                                <div ng-if="task.Status==4" style="position:relative;">
+                                    <a ng-if="task.AMSFinished==false" href="javascript:void(0);" id="ddStatus" style="margin-left:-10px;text-decoration:none;cursor:pointer;color:#14ed38;" tooltip="机评预计结束时间：{{task.AMSPredictFinishTime}}" tooltip-placement="bottom">
+                                        (&nbsp;机评中
+                                        <span class="smallicon icon-lishi" style="font-size:14px;top:2px;color:#7a7a7a" aria-hidden="true"></span>&nbsp;)
+                                    </a>
+
+                                    <a ng-if="task.AMSFinished==true" href="javascript:void(0);" id="ddStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:-10px;text-decoration:none;cursor:pointer;color: #FFA835;">(&nbsp;机评结束&nbsp;)</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddStatus" style="position:absolute;">
+                                        <p style="display:block;text-align:left;padding-left:10px;width:100%;margin:0px;" ng-if="task.AMSLeftCount!=''">{{task.AMSLeftCount}}</p>
+                                        <p style="display:block;text-align:left;padding-left:10px;width:100%;margin:0px;" ng-if="task.TeacherLeftCount!=''">{{task.TeacherLeftCount}}</p>
+                                    </div>
+                                </div>
+
+                            </td>
+
+                            <td data-title="'操作'">
+                                <button class="btn btn-op" ng-if="task.Status==0" ng-click="OpeDeleteTaskDialog(task)" tooltip="删除" tooltip-placement="bottom">
+                                    <span class="smallicon icon-shanchu" aria-hidden="true"></span>
+                                </button>
+                                <button class="btn btn-op" ng-click="OpenUpdateTaskDialog(task)" ng-if="task.Status==0" tooltip="修改" tooltip-placement="bottom">
+                                    <span class="smallicon icon-bianjixiugai" aria-hidden="true"></span>
+                                </button>
+
+                                <a class="btn btn-op" ng-if="task.Status==0" ng-click="OpenGenerateTaskPackageDialog(task.TaskID)" tooltip="导出任务包" tooltip-placement="bottom">
+                                    <span class="smallicon icon-daochu" style="cursor:pointer;" aria-hidden="true"></span>
+                                </a>
+                                <!--文件上传按钮的宽度会遮挡住其他图标,所以这里做了特别处理, 文件上传按钮的宽度无法设置-->
+
+                                <input ng-if="IEVersion>11" type="file" id="{{'af_' + task.TaskID }}" class="uploadFile ng-scope" accept=".SEP" ngf-multiple="true" style="height: 20px;width: 20px;opacity:1; position: absolute;cursor: pointer;display:none;" onchange="angular.element(this).scope().UploadFiles(this.files)" multiple="multiple">
+
+                                <div class="btn btn-op" ng-if="IEVersion>11 && task.Status<=3" tooltip="导入答卷包" tooltip-placement="bottom" ng-click="PerformFileClick(task.TaskID)">
+                                    <span class="smallicon icon-daoru" aria-hidden="true"></span>
+                                </div>
+
+                                <div class="btn btn-op" ng-if="IEVersion<=11 && task.Status<=3">
+                                    <input type="file" id="{{'af_' + task.TaskID }}" class="fileupload uploadFile" accept=".SEP" ngf-select="UploadFiles($files,'{{task.TaskID}}')"
+                                           ngf-multiple="true" />
+                                    <div class="btn btn-op" tooltip="导入答卷包" tooltip-placement="bottom">
+                                        <span class="smallicon icon-daoru" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-op" ng-if="task.Status>=1&&task.Status<=3" ng-click="StartMark(task.TaskID)" tooltip="开始评分" tooltip-placement="bottom">
+                                    <span class="smallicon icon-kaishipingfen" aria-hidden="true"></span>
+                                </button>
+                                <button class="btn btn-op" ng-if="task.Status==4" ng-click="OpenMarkDialog(task.TaskID)" tooltip="自评" tooltip-placement="bottom">
+                                    <span class="smallicon icon-laoshi1" style="cursor:pointer;" aria-hidden="true"></span>
+                                </button>
+                                <button class="btn btn-op" ng-if="task.Status==4&&task.HideReleaseButton==false" ng-click="OpenReleaseDialog(task.TaskID)" tooltip="成绩发布" tooltip-placement="bottom">
+                                    <span class="smallicon icon-fabu" aria-hidden="true"></span>
+                                </button>
+                                <a class="btn btn-op" ng-if="task.Status==5" target="_blank" href="javascript:void(0)" ui-sref="teacherreportdetail({classID:'',taskID:'{{task.TaskID}}'})" tooltip="查看" tooltip-placement="bottom">
+                                    <span class="smallicon icon-chakan" aria-hidden="true"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="table-container" ng-if="hasData==false">
+                <div style="position: absolute;top: 50%;margin-top: -60px;left: 50%;margin-left: -70px;">
+                    <img src="http://cdn.uukaola.com/web/img/none.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal" id="AddTaskDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 600px;margin:auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">创建任务</h5>
+            </div>
+
+            <div class="modal-body">
+                <div ui-view="createTaskView"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="UpdateTaskDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px; margin: auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">修改任务</h5>
+            </div>
+            <div class="modal-body" style="padding-left: 80px;">
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog1'}"></toaster-container>
+                <div class="form-group" style="margin-left:50px;padding: 20px 0 10px 0">
+                    <label for="task_Type" class="control-label " style="padding-top:0px;">任务类型：</label>
+                    <label style="margin-left:20px;">
+                        <input type="radio" value="1" name="task_Type_radio" ng-model="ChoosedTask.TaskType" ng-checked="ChoosedTask.TaskType==1"> 考试
+                    </label>
+                    <label style="margin-left:20px;">
+                        <input type="radio" value="2" name="task_Type_radio" ng-model="ChoosedTask.TaskType" ng-checked="ChoosedTask.TaskType==2"> 练习
+                    </label>
+                </div>
+                <div class="form-group" style="margin-left:50px;">
+                    <label for="task_Name" class="control-label" style="padding-top:0px;">任务名称：</label>
+                    <input type="text" class="form-control btn-group" style="width:210px;" id="task_Name" placeholder="任务名称" ng-model="ChoosedTask.TaskName" required>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="UpdateTask()" style="width: 169px">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ImportSepProgressDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:400px;margin:auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel">导入任务答卷包</h5>
+            </div>
+            <div class="modal-body">
+                <div style="padding: 1px;border:solid 1px #24a3e6;height: 23px;">
+                    <div ng-if="ImportPercent>0" class="progress" style="margin-bottom: 1px;margin-top: 1px;height: 18px;border-radius: 0px;background-color: #ffffff;box-shadow: none;">
+                        <div id="importProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="background-color:#178ec9;"
+                             ng-style="{'width':ImportPercent+'%'}">
+                        </div>
+                    </div>
+                    <div style="margin-top: -20px;margin-left: 160px;" ng-style="{'color':ImportPercent>50?'#ffffff':'#178ec9'}">{{ImportPercent+'%'}}</div>
+                </div>
+                <div class="form-group" style="padding-bottom:30px;">
+                    <div class="btn-group" style="color:red;" ng-if="ImportSepMessage != ''" role="group">
+                        <span class="span-error-msg" ng-if="ImportSepMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png" style="margin: 1px  5px  0  0;width: 14px;height: 14px;">
+                            <span class="tip1">{{ImportSepMessage}}</span>
+                        </span>
+                    </div>
+                    <div class="btn-group color-blue" style="" ng-if="ImportSepInfoMessage != '' &&ImportSepMessage=='' " role="group">
+                        {{ImportSepInfoMessage}}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="MarkDialog" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 800px; margin: auto;">
+            <div class="modal-header" style="background-color:#F2F3F7">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">教师评分</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-5 col-md-4 col-xs-4 answergroup" style="padding:0px;">
+                        <ul class="nav nav-tabs nav-justified">
+                            <li ng-click="ChangeGroupType(0)" style="width:127px;float:left;height: 42px;line-height: 42px;" ng-class="{true:'group_active',false:'group_notactive'}[GroupType==0]">按题型</li>
+                            <li ng-click="ChangeGroupType(1)" style="width:126px;float:left;height: 42px; line-height: 42px;" ng-class="{true:'group_active',false:'group_notactive'}[GroupType==1]">按学生</li>
+                        </ul>
+                        <div>
+                            <div class="input-group" style="margin:10px 0; width: 100%;" ng-if="GroupType==1">
+                                <input type="text" class="form-control" style="height:30px;" placeholder="根据姓名搜索" ng-model="TaskAnswerFilter.FilterStr">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-sm btn-info query-height" type="button" ng-click="SearchTaskAnswer()">
+                                        <span class="smallicon icon-sousuo" style="color:#ffffff;"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="answergroup-area-body" ng-if="GroupType==0">
+                                <div class="accordion" id="accordionByArea">
+                                    <div class="accordion-group" ng-repeat="areaGroup in TaskAnswerData.TaskAnswerAreaGroupList" on-repeat-finish="InitDataFinished()">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle accordion-area collapsed" data-toggle="collapse" data-parent="#accordionByArea" ng-href="{{'#collapse' + areaGroup.AreaType+'_'+areaGroup.AreaID }}" style="text-decoration:none;display: block;   padding: 8px 15px;    color: #7b7b7b;    cursor: pointer;">
+                                                {{areaGroup.AreaTitle}}&nbsp;({{areaGroup.MarkedCount}}/{{areaGroup.TotalCount}})
+                                            </a>
+                                        </div>
+                                        <div id="{{'collapse' + areaGroup.AreaType+'_'+areaGroup.AreaID }}" class="accordion-body collapse" style="height:auto;">
+                                            <div class="accordion-inner" style="padding: 0px 10px;border-top: 1px solid #e5e5e5;">
+                                                <div class="accordion" id="{{'aqc' + areaGroup.AreaType+'_'+areaGroup.AreaID }}">
+                                                    <div class="accordion-group" ng-repeat="contentGroup in areaGroup.TaskAnswerContentList" style="">
+                                                        <div class="accordion-heading">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="{{'#aqc' + areaGroup.AreaType+'_'+areaGroup.AreaID}}" ng-href="{{'#collapse' + areaGroup.AreaType+'_'+areaGroup.AreaID+contentGroup.QuestionContentIndex }}" style="text-decoration:none; display: block; padding: 8px 15px;    color: #7b7b7b;    cursor: pointer;" id="{{'a_collapse' + areaGroup.AreaType+'_'+areaGroup.AreaID + contentGroup.QuestionContentIndex}}">
+                                                                {{contentGroup.QuestionContentIndex}}&nbsp;({{contentGroup.MarkedCount}}/{{contentGroup.TotalCount}})
+                                                            </a>
+                                                        </div>
+                                                        <div id="{{'collapse' + areaGroup.AreaType +'_'+areaGroup.AreaID+ contentGroup.QuestionContentIndex}}" class="accordion-body collapse" style="height:auto;">
+                                                            <div class="accordion-inner" style="border-top: 1px solid #e5e5e5;">
+
+                                                                <ul style="padding-left:20px;">
+                                                                    <li class="answer-li" ng-repeat="answer in contentGroup.TaskAnswerList" id="{{'li' + areaGroup.AreaType +'_'+areaGroup.AreaID+ contentGroup.QuestionContentIndex+answer.StudentNumber+'_'+answer.ContentID}}">
+                                                                        <span ng-click="ShowAnswerDetail(answer)">{{answer.StudentName}}&nbsp;(<i class="glyphicon" style="font-size:16px;margin:0px 3px;" ng-class="{true:'ams-marked',false:''}[answer.IsAMSMarked==true]">&#xe615;</i>{{answer.AMSScore}}分&nbsp;&nbsp;&nbsp;<i class="glyphicon" style="font-size:16px;margin:0px 3px;" ng-class="{true:'ls-marked',false:''}[answer.IsMarked==true]">&#xe618;</i>{{answer.MarkScore}}分)</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="answergroup-stu-body" ng-if="GroupType==1">
+                                <div class="accordion" id="accordionByStudent">
+
+                                    <div class="accordion-group" ng-repeat="studentGroup in TaskAnswerData.TaskAnswerStudentGroupList" on-repeat-finish="InitDataFinished()">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle accordion-area collapsed" data-toggle="collapse" data-parent="#accordionByStudent" ng-href="{{'#collapse' + studentGroup.StudentNumber }}">
+                                                {{studentGroup.StudentName}}&nbsp;({{studentGroup.MarkedCount}}/{{studentGroup.TotalCount}})
+                                            </a>
+                                        </div>
+                                        <div id="{{'collapse' + studentGroup.StudentNumber }}" class="accordion-body collapse" style="height:auto;">
+                                            <div class="accordion-inner" style="padding: 0px 10px;border-top: 1px solid #e5e5e5;">
+                                                <div class="accordion" id="{{'aqc' + studentGroup.StudentNumber}}">
+                                                    <div class="accordion-group" ng-repeat="sAreaGroup in studentGroup.TaskAnswerStudentAreaList" style="">
+                                                        <div class="accordion-heading">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="{{'#aqc' + studentGroup.StudentNumber}}" ng-href="{{'#collapse' + studentGroup.StudentNumber+sAreaGroup.AreaType+'_'+sAreaGroup.AreaID }}" id="{{'a_collapse' + studentGroup.StudentNumber + sAreaGroup.AreaType+'_'+sAreaGroup.AreaID}}">
+                                                                {{sAreaGroup.AreaTitle}}&nbsp;({{sAreaGroup.MarkedCount}}/{{sAreaGroup.TotalCount}})
+                                                            </a>
+                                                        </div>
+                                                        <div id="{{'collapse' + studentGroup.StudentNumber + sAreaGroup.AreaType+'_'+sAreaGroup.AreaID}}" class="accordion-body collapse" style="height:auto;">
+                                                            <div class="accordion-inner" style="border-top: 1px solid #e5e5e5;">
+                                                                <ul style="padding-left:20px;">
+                                                                    <li class="answer-li" ng-repeat="answer in sAreaGroup.TaskAnswerList" id="{{'li' + studentGroup.StudentNumber + sAreaGroup.AreaType+'_'+sAreaGroup.AreaID+'Q'+answer.QuestionIndex+'C'+answer.ContentIndex+'_'+answer.ContentID}}">
+                                                                        <span ng-click="ShowAnswerDetail(answer)">Q{{answer.QuestionIndex}}C{{answer.ContentIndex}}&nbsp;(<i class="glyphicon" style="font-size:16px;margin:0px 3px;" ng-class="{true:'ams-marked',false:''}[answer.IsAMSMarked==true]">&#xe615;</i>{{answer.AMSScore}}分&nbsp;&nbsp;&nbsp;<i class="glyphicon" style="font-size:16px;margin:0px 3px;" ng-class="{true:'ls-marked',false:''}[answer.IsMarked==true]">&#xe618;</i>{{answer.MarkScore}}分)</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group-footer" ng-if="GroupType==0">
+                                共{{TaskAnswerData.TotalCount}}道题，已评完{{TaskAnswerData.MarkedCount}}道题
+                            </div>
+                            <div class="group-footer" ng-if="GroupType==1">
+                                共{{TaskAnswerData.TotalCount}}人，已评完{{TaskAnswerData.MarkedCount}}人
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-md-8 col-xs-8" style="padding: 0 10px;">
+                        <answer-detail answer="currContent" content-answers="currentContentAnswers" paper-resource-base-url="Constants.paperResourceBaseUrl" answer-base-url="Constants.answerBaseUrl" ng-if="currContent!=null"></answer-detail>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 col-md-4 col-xs-4 answergroup" style="padding:0px;">
+                    </div>
+                    <div class="col-sm-7 col-md-8 col-xs-8 answergroup">
+                        <div class="row" style="margin-bottom:10px;height:1px;background-color: #e7e7e7">
+                        </div>
+                        <div class="row" ng-if="currContent!=null" style="float:left;">
+                            <div class="" style="float:left;width:120px;">
+                                <label class="control-label" style="line-height: 38px; text-align: right;">满分：</label>
+                                <div style="font-size: 20px; font-weight: bold; color: red; display: inline-block;">
+                                    {{ currContent.Score }}
+                                </div>
+                                <label class="control-label" style="line-height: 38px; text-align: left;">分</label>
+                            </div>
+                            <div class="" style="float:left;width:140px;">
+                                <label class="control-label" style="line-height: 38px; text-align: right;">机评分：</label>
+                                <div ng-if="currContent.IsAMSMarked==true" style="font-size: 20px; font-weight: bold; color: red; display: inline-block;">
+                                    {{ currContent.AMSScore }}
+                                </div>
+                                <label ng-if="currContent.IsAMSMarked==true" class="control-label" style="line-height: 38px; text-align: left;">分</label>
+                                <div ng-if="currContent.IsAMSMarked==false" style="font-size: 14px; font-weight: bold;color:red; display: inline-block;">
+                                    未评
+                                </div>
+                            </div>
+                            <div class="" style="float:left;width:210px;">
+                                <label class="control-label" for="inputMarkScore" style="line-height: 38px; text-align: right; white-space: nowrap;">请给出您的评分：</label>
+                                <input class="form-control btn-group" type="text" placeholder="您的评分" ng-model="MarkedScore.Score" autofocus name="inputMarkScore" id="inputMarkScore" title="整数或保留一位小数" data-toggle="tooltip" data-placement="bottom" style="width: 100px;">
+                            </div>
+                        </div>
+                        <div class="row" style="text-align: center;margin-bottom:10px;">
+                            <div ng-hide="scoreValidateMessage ==''" class="alert alert-danger" style="padding:0;">
+                                {{ scoreValidateMessage }}
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="text-align:right !important;">
+                            <button ng-if="currContent!=null " type="button" class="btn color-blue button-commonDialog" style="background-color: #fff !important;border:1px solid #079ae4;" ng-click="PreTaskAnswer()">上一题</button>
+                            <button ng-if="currContent!=null && ShowCompleteButton==false " type="button" class="btn btn-primary button-commonDialog" ng-click="SaveAndNextMark(true)" style="background-color: #24a3e6; border-color: #24a3e6;width: 95px!important;">确认&下一题</button>
+                            <button ng-if="ShowCompleteButton==true " type="button" class="btn btn-warning button-simpleText" ng-click="SaveAndNextMark(false)" style="">完成</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="modal" id="ImportSummaryInfoDialog" tabindex="-3" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 450px; margin: auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">导入成功</h5>
+
+            </div>
+            <div class="modal-body" style="padding:30px 20px;">
+                <div class="form-group">
+
+                    <img src="http://cdn.uukaola.com/web/img/task/importSepIcon.png" style="width:55px;height:49px;margin-left:60px;" />
+                    <div style="display: inline-block">
+                        <label class="label" style="color:#504F4F;font-size:16px !important;font-weight:normal;">本次共成功上传<a style="color:red;font-size:16px !important;font-weight:bold;margin-left:2px;margin-right:2px;text-decoration:none;">{{ImportSummaryData.CurrentImportStudentCount}}</a>份答卷包</label>
+                    </div>
+                </div>
+                <div class="" style="margin-bottom: 20px;height:1px;background-color: #f3f5f9;">
+                </div>
+                <div class="form-group" style="">
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">本场考试:</label>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">
+                        应考<a class="color-blue" style="font-weight:normal;margin-left:2px;margin-right:2px;text-decoration:none;font-size:13px;">{{ImportSummaryData.TotalStudentCount}}</a>人
+                    </label>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">
+                        实考<a class="color-blue" style="font-weight:normal;margin-left:2px;margin-right:2px;text-decoration:none;font-size:13px;">{{ImportSummaryData.ExamStudentCount}}</a>人
+                    </label>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">
+                        答卷包成功上传<a style="font-weight:normal;margin-left:2px;margin-right:2px;text-decoration:none;font-size:13px;" ng-style="{'color':ImportSummaryData.TotalImportStudentCount==0?'#e93f4c':'#24a3e6'}">{{ImportSummaryData.TotalImportStudentCount}}</a>个
+                    </label>
+                </div>
+                <div class="" ng-if="ImportSummaryData.LackStudentList.length>0" style="margin-top:20px;">
+                    <div class="" style="margin-bottom: 20px;height:1px;background-color: #f3f5f9;">
+                    </div>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px;">未上传答卷包学生名单:</label>
+                </div>
+                <div class="table-container" ng-if="ImportSummaryData.LackStudentList.length>0" style="max-height:200px;overflow-y:auto;overflow-x:hidden;">
+                    <table ng-table="LackStudentTable" class="table table-condensed table-bordered table-hover table-center-align" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="stu in $data">
+                                <td data-title="'班级名称'" width="40%" sortable="'ClassName'">{{ stu.ClassName }}</td>
+                                <td data-title="'学号'" width="30%" sortable="'StudentNumber'">{{ stu.StudentNumber }}</td>
+                                <td data-title="'姓名'" width="30%" sortable="'StudentName'">{{ stu.StudentName }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div style="margin:0px auto 0px auto;">
+                    <div type="button" ng-if="IEVersion>11" class="btn btn-default button-commonDialog button-commonDialog-no" style="width: 110px !important;">
+                        <input type="file" id="importAnswerPackage" class="uploadFile" accept=".SEP" ngf-select="" ngf-multiple="true" style="height: 40px;width: 110px;margin:-6px;opacity:0;filter: alpha(opacity=0);position: absolute;cursor: pointer;z-index:999;" ng-click="SetCurrentImportTaskID(ImportSummaryData.TaskID)" onchange="angular.element(this).scope().UploadFiles(this.files)" multiple="multiple"> 继续上传答卷包
+                    </div>
+                    <div type="button" ng-if="IEVersion<=11" class="btn btn-default button-commonDialog button-commonDialog-no" style="width: 110px !important;">
+                        <input type="file" id="importAnswerPackageFlash" name="btn_file" class="fileuploadAnswer uploadFile" accept=".SEP" ngf-select="UploadFiles($files)"
+                               ngf-multiple="true" />
+                        <!--<span href="javascript:void(0)" style="text-decoration: underline;color: #337ab7;cursor:pointer; z-index:1;">
+                            继续上传答卷包
+                        </span>-->
+                    </div>
+                    <button type="button" class="btn btn-primary button-commonDialog" ng-click="StartMark(ImportSummaryData.TaskID, true)" ng-disabled="ImportSummaryData.ExamStudentCount<=0" style="width: 110px !important;background-color:#24a3e6;">可以开始机评</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="TaskAnswerImportSummaryInfoDialog" tabindex="-3" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 450px; margin: auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">任务答卷包统计</h5>
+
+            </div>
+            <div class="modal-body" style="padding:30px 20px;">
+
+                <div class="form-group" style="">
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">本场考试:</label>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">
+                        应考<a class="color-blue" style="font-weight:normal;margin-left:2px;margin-right:2px;text-decoration:none;font-size:13px;">{{TaskAnswerImportSummaryData.TotalStudentCount}}</a>人
+                    </label>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">
+                        实考<a class="color-blue" style="font-weight:normal;margin-left:2px;margin-right:2px;text-decoration:none;font-size:13px;">{{TaskAnswerImportSummaryData.ExamStudentCount}}</a>人
+                    </label>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">
+                        答卷包成功上传<a style="font-weight:normal;margin-left:2px;margin-right:2px;text-decoration:none;font-size:13px;" ng-style="{'color':TaskAnswerImportSummaryData.TotalImportStudentCount==0?'#e93f4c':'#24a3e6'}">{{TaskAnswerImportSummaryData.TotalImportStudentCount}}</a>个
+                    </label>
+
+                </div>
+
+                <div class="" ng-if="TaskAnswerImportSummaryData.LackStudentList.length>0" style="margin-top:20px;">
+                    <div class="" style="margin-bottom:20px;height:1px; background-color: #f3f5f9;">
+                    </div>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px;">未上传答卷包学生名单:</label>
+                </div>
+                <div class="table-container" ng-if="TaskAnswerImportSummaryData.LackStudentList.length>0" style="max-height:250px;overflow-y:auto;overflow-x:hidden;">
+                    <table ng-table="TaskAnswerLackStudentTable" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="stu in $data">
+                                <td data-title="'班级名称'" width="40%" sortable="'ClassName'">{{ stu.ClassName }}</td>
+                                <td data-title="'学号'" width="30%" sortable="'StudentNumber'">{{ stu.StudentNumber }}</td>
+                                <td data-title="'姓名'" width="30%" sortable="'StudentName'">{{ stu.StudentName }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div style="margin:0px auto 0px auto;">
+                    <button type="button" class="btn btn-default button-commonDialog button-commonDialog-no" data-dismiss="modal" style="">取消</button>
+                    <button type="button" class="btn btn-default  button-commonDialog " ng-click="ConfirmStartMark()" disabled ng-if="TaskAnswerImportSummaryData.TotalImportStudentCount<=0" style="opacity:1 !important; background-color:#dedede;">开始机评</button>
+                    <button type="button" class="btn btn-primary  button-commonDialog" ng-click="ConfirmStartMark()" ng-if="TaskAnswerImportSummaryData.TotalImportStudentCount>0" style="opacity:1 !important;background-color:#24a3e6;">开始机评</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="GenerateTaskPackageDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:500px;margin:auto;">
+            <div class="modal-body">
+                <div style="font-size: 14px;color: #000000;">生成任务包...</div>
+                <div style="padding: 1px;border: solid 1px #c8c8c8;height: 15px;margin-top: 10px;margin-bottom:10px;border-radius: 5px;background-color: #e8e8e8;margin-right:50px;">
+                    <div ng-if="GenerateTaskPackagePercent>0" class="progress" style="margin-bottom: 1px;margin-top: 1px;height: 10px;border-radius: 5px;box-shadow: none;">
+                        <div id="importProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="background-color:#009d3b;"
+                             ng-style="{'width':GenerateTaskPackagePercent+'%'}">
+                        </div>
+                    </div>
+                    <div style="margin-top: -3px;margin-left: 420px;color: #000000;">{{GenerateTaskPackagePercent+'%'}}</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

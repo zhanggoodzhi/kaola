@@ -1,0 +1,8 @@
+﻿ <!--朗读短文3,句子仿读6,句子朗读13,模仿朗读17-->
+<div ng-repeat="c in data.QuestionModel.Contents">
+    <div class="content-text highlight-no" ng-if="c.Text!=undefined&& c.Text.length>0" ng-bind-html="c.Text|trustHtml">
+
+    </div>
+    <div class="content-text highlight-no" ng-if="(c.Text==undefined||c.Text.length<=0)&&c.AudioText!=undefined&&c.AudioText.length>0" ng-bind-html="c.AudioText|trustHtml"></div> 
+</div>
+<question-operation data="data" show-answer="false"></question-operation>

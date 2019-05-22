@@ -1,0 +1,128 @@
+.eye-icon {
+    cursor: pointer;
+    float: left;
+    margin-left: 190px;
+    margin-top: -22px;
+}
+
+.equal {
+    display: table;
+    border-collapse: separate;
+    border: 1px solid #E8ECEE;
+    border-bottom: 0px;
+    border-right: 0px;
+    width: 100%;
+}
+
+.equal-row {
+    display: table-row;
+}
+
+.equal-head {
+    display: table-row;
+}
+
+.equal-head div {
+    display: table-cell;
+    height: 36px;
+    vertical-align: middle;
+    text-align: center;
+    border-bottom: 1px solid #E8ECEE;
+    color: #333;
+    background-color: #f5f7fa;
+    font-weight: bold;
+}
+
+.equal-row div {
+    display: table-cell;
+    height: 36px;
+    vertical-align: middle;
+    text-align: center;
+    border-bottom: 1px solid #E8ECEE;
+}
+
+.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+    height: 10px !important;
+    margin: 3px auto !important;
+}
+
+.mCSB_scrollTools.mCSB_scrollTools_horizontal {
+    top: 93.5% !important;
+}
+
+.big-screen {
+    position: relative;
+}
+
+.big-screen #containerblock {
+    width: 100%;
+}
+
+.big-screen .table-left {
+    width: 50%;
+}
+
+.big-screen .custom-scrollbar {
+    width: calc(50% - 170px);
+}
+
+.table-right {
+    width: 170px;
+}
+
+.big-screen div[ng-table-pagination=params] {
+    position: absolute;
+    right: 0;
+    width: 400px;
+    text-align: right;
+}
+
+.big-screen {}
+
+.small-screen {}
+
+.small-screen #containerblock {
+    width: 288px;
+}
+
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.small-screen .table-left {}
+
+
+/* .small-screen .custom-scrollbar {
+    overflow: auto;
+}
+
+.small-screen .custom-scrollbar>div {
+    max-width: initial;
+    width: 288px;
+} */
+
+.small-screen .school-name {
+    width: auto!important;
+}
+
+.small-screen .province {
+    width: 44px!important;
+}
+
+.small-screen .city {
+    width: 44px!important;
+}
+
+.small-screen .area {
+    width: 66px!important;
+}
+
+.nav-tabs .tab-item {
+    width: 106px!important;
+}
+
+.modal-body .detail-font {
+    color: #444;
+}

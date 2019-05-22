@@ -1,0 +1,269 @@
+﻿<div>
+    <div class="operation-div" title="试卷编号[{{data.PaperID}}],试卷名称[{{data.PaperName}}],题目编号[{{data.QuestionID}}]">
+        <span>
+            <img style="vertical-align: text-bottom;" src="/web/img/paperDesign/scoreRate.png" />
+            得分率:
+            <label style="color:#14B203;    font-size: 16px !important;"> {{data.ScoreRate|roundMin0Max2Filter}}%</label>
+        </span>
+        <span style="margin-left:10px;">
+            <img style="vertical-align: text-bottom;" src="/web/img/paperDesign/answerCount.png" />
+            答题次数:
+            <label style="color:#000000;    font-size: 16px !important;"> {{data.AnswerCount}}</label>
+        </span>
+        <span class="answer" style="float:right;margin-right:10px;" ng-click="AnswerToggle()">
+            <img style="vertical-align: text-bottom;" src="/web/img/paperDesign/ckda1.png" />
+            查看答案解析
+            <img ng-if="isShow==false" src="/web/img/paperDesign/collapseDown.png" />
+            <img ng-if="isShow==true" src="/web/img/paperDesign/collapseUp.png" />
+        </span>
+    </div>
+    <div ng-if="isShow==true" style="margin-top:18px; padding-bottom:10px">
+        <!--单选题-->
+        <div class="divAnswerAnalysis" style="height:100px" ng-if="GetAnswerDisplayType(data.AreaType)==1" ng-repeat="content in data.QuestionModel.Contents" ng-init="UpdateContentAnswer(content,data.CurrentSelectedTask.AnswerData)">
+            <div class="divanswerTitle">
+                <span class="answer-title-desc">【&nbsp;&nbsp;答案解析&nbsp;&nbsp;】</span>
+                <span>正确答案：</span><span style="font-size:16px; color:#14b403">{{content.OptionAnswer}}</span>
+                <div class="divdropdown" style="float:right;">
+                    <span style="margin-right:10px;">来自考试任务</span>
+                    <div class="btn-group dropdown" style="width: 200px;float:right;" id="paperTemplate">
+                        <a class="btn btn-block btn-default" href="#" id="paper_template" data-toggle="dropdown" style="">
+                            {{data.CurrentSelectedTask.TaskName}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" style="float: right;margin-top: 5px;"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="answer_taskinfo" role="menu" style="max-height: 200px;width:200px;overflow-y: auto;overflow-x:hidden;">
+                            <li ng-repeat="task in data.AnswerList" style="margin:5px;"><a href="javascript:void(0);" ng-click="ChooseTask(task,data.QuestionModel.QuestionID)">{{task.TaskName}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="answer">
+                <span class="answer-span-img" ng-if="content.IsRight"><img class="answer-option-img" src="../web/img/right_sign.png" />{{ content.IsRight?'回答正确':'回答错误'}}</span>
+                <span class="answer-span-img" ng-if="!content.IsRight"><img class="answer-option-img" src="../web/img/wrong_sign.png" />{{ content.IsRight?'回答正确':'回答错误'}}</span>
+                <span class="answer-span-student">您的答案：</span>
+                <span style="font-size:16px;" ng-style="{'color':content.IsRight?'#14b403':'#ff0000' }">{{content.StudentOptionAnswer}}</span>
+            </div>
+        </div>
+
+        <!--2=多选题目-->
+        <div class="divAnswerAnalysis" style="height:100px" ng-if="GetAnswerDisplayType(data.AreaType)==2" ng-repeat="content in data.QuestionModel.Contents" ng-init="UpdateContentAnswer(content,data.CurrentSelectedTask.AnswerData)">
+            <div class="divanswerTitle">
+                <span class="answer-title-desc">【&nbsp;&nbsp;答案解析&nbsp;&nbsp;】&nbsp;第&nbsp;{{$index+1}}&nbsp;题&nbsp;</span>
+                <span>正确答案：</span><span style="font-size:16px; color:#14b403">{{content.OptionAnswer}}</span>
+                <div class="divdropdown" style="float:right;" ng-if="$index==0">
+                    <span style="margin-right:10px;">来自考试任务</span>
+                    <div class="btn-group dropdown" style="width: 200px;float:right;" id="paperTemplate">
+                        <a class="btn btn-block btn-default" href="#" id="paper_template" data-toggle="dropdown" style="">
+                            {{data.CurrentSelectedTask.TaskName}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" style="float: right;margin-top: 5px;"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="answer_taskinfo" role="menu" style="max-height: 200px;width:200px;overflow-y: auto;overflow-x:hidden;">
+                            <li ng-repeat="task in data.AnswerList" style="margin:5px;"><a href="javascript:void(0);" ng-click="ChooseTask(task,data.QuestionModel.QuestionID)">{{task.TaskName}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="answer">
+                <span class="answer-span-img" ng-if="content.IsRight"><img class="answer-option-img" src="../web/img/right_sign.png" />{{ content.IsRight?'回答正确':'回答错误'}}</span>
+                <span class="answer-span-img" ng-if="!content.IsRight"><img class="answer-option-img" src="../web/img/wrong_sign.png" />{{ content.IsRight?'回答正确':'回答错误'}}</span>
+                <span class="answer-span-student">您的答案：</span>
+                <span style="font-size:16px;" ng-style="{'color':content.IsRight?'#14b403':'#ff0000' }">{{content.StudentOptionAnswer}}</span>
+
+            </div>
+        </div>
+
+        <!--3=朗读短文/句子-->
+        <div class="divAnswerAnalysis" style="margin-bottom:10px;" ng-if="GetAnswerDisplayType(data.AreaType)==3" ng-init="UpdateContentAnswer(content,data.CurrentSelectedTask.AnswerData)">
+            <div class="divanswerTitle" style="border-bottom:none">
+                <span class="answer-title-desc">【&nbsp;&nbsp;答案解析&nbsp;&nbsp;】</span>
+                <div class="divdropdown" style="float:right;">
+                    <span style="margin-right:10px;">来自考试任务</span>
+                    <div class="btn-group dropdown" style="width: 200px;float:right;" id="paperTemplate">
+                        <a class="btn btn-block btn-default" href="#" id="paper_template" data-toggle="dropdown" style="">
+                            {{data.CurrentSelectedTask.TaskName}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" style="float: right;margin-top: 5px;"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="answer_taskinfo" role="menu" style="max-height: 200px;width:200px;overflow-y: auto;overflow-x:hidden;">
+                            <li ng-repeat="task in data.AnswerList" style="margin:5px;"><a href="javascript:void(0);" ng-click="ChooseTask(task,data.QuestionModel.QuestionID)">{{task.TaskName}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="answer" style="margin-top: 0px;" ng-repeat="content in data.QuestionModel.Contents" ng-init="UpdateContentAnswer(content,data.CurrentSelectedTask.AnswerData)">
+                <div class="answer-text" style="padding-bottom:30px;" ng-if="content.ReadTextScoreDetailList!=null&&content.ReadTextScoreDetailList.length>0">
+                    <a ng-repeat="char in content.ReadTextScoreDetailList" ng-class="GetTextColorByScoreLevel(char.ScoreLevel)">
+                        {{char.CharText}}
+                    </a>
+                </div>
+                <div class="answer-text" style="padding-bottom:30px;" ng-if="content.ReadTextScoreDetailList==null||content.ReadTextScoreDetailList.length<=0" ng-bind-html="content.AudioText|trustHtml">
+                </div>
+                <div style="" class="score-comment-legend">
+                    <div class="score-comment-legend-green"></div> <label>优</label>
+                    <div class="score-comment-legend-yellow"></div><label>良</label>
+                    <div class="score-comment-legend-blue"></div><label>中</label>
+                    <div class="score-comment-legend-red"></div><label>差</label>
+                </div>
+                <mistake-score-info answer-data="GetAnswerData(data.CurrentSelectedTask.AnswerData,content)" question-data="data" show-score-comment="true" show-sample-answer="true" show-student-answer="true"></mistake-score-info>
+            </div>
+        </div>
+
+        <!--4=直接显示参考答案-->
+        <div class="divAnswerAnalysis" ng-if="GetAnswerDisplayType(data.AreaType)==4" style="margin-bottom: 15px;" ng-init="UpdateContentAnswer(content,data.CurrentSelectedTask.AnswerData)">
+            <div class="divanswerTitle" style="border-bottom:none">
+
+                <div class="divdropdown" style="float:right;">
+                    <span style="margin-right:10px;">来自考试任务</span>
+                    <div class="btn-group dropdown" style="width: 200px;float:right;" id="paperTemplate">
+                        <a class="btn btn-block btn-default" href="#" id="paper_template" data-toggle="dropdown" style="">
+                            {{data.CurrentSelectedTask.TaskName}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" style="float: right;margin-top: 5px;"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="answer_taskinfo" role="menu" style="max-height: 200px;width:200px;overflow-y: auto;overflow-x:hidden;">
+                            <li ng-repeat="task in data.AnswerList" style="margin:5px;"><a href="javascript:void(0);" ng-click="ChooseTask(task,data.QuestionModel.QuestionID)">{{task.TaskName}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="answer" style="padding-left: 5px;margin-top: 0px;" ng-repeat="content in data.QuestionModel.Contents">
+                <div class="answer-title-desc" style="margin-left:5px;margin-top:20px;">【参考答案】&nbsp;第&nbsp;{{$index+1}}&nbsp;题&nbsp;</div>
+                <div class="answer-text" ng-repeat="anwText in content.Answers">
+                    <div class="answer-text-indicator">▪</div>
+                    <div class="answer-text-content  highlight-no">{{anwText.Content}}</div>
+                </div>
+                <mistake-score-info answer-data="GetAnswerData(data.CurrentSelectedTask.AnswerData,content)" question-data="data" show-score-comment="false" show-sample-answer="false" show-student-answer="true"></mistake-score-info>
+            </div>
+        </div>
+        <!--5=听后记录与转述-->
+        <div ng-if="isShow==true&&GetAnswerDisplayType(data.AreaType)==5" style="margin-top:18px;margin-bottom: 10px;padding-top: 36px;">
+            <span class="contentTitle">第一节</span>
+            <div class="divdropdown" style="float:right;margin-top: -43px;">
+                <span style="margin-right:10px;    line-height: 30px;">来自考试任务</span>
+                <div class="btn-group dropdown" style="width: 200px;float:right;" id="paperTemplate">
+                    <a class="btn btn-block btn-default" href="#" id="paper_template" data-toggle="dropdown" style="">
+                        {{data.CurrentSelectedTask.TaskName}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" style="float: right;margin-top: 5px;"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="answer_taskinfo" role="menu" style="max-height: 200px;width:200px;overflow-y: auto;overflow-x:hidden;">
+                        <li ng-repeat="task in data.AnswerList" style="margin:5px;"><a href="javascript:void(0);" ng-click="ChooseTask(task,data.QuestionModel.QuestionID)">{{task.TaskName}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="divAnswerAnalysis" style="height:125px" ng-if="$index<data.QuestionModel.Contents.length-1" ng-repeat="content in data.QuestionModel.Contents" ng-init="UpdateContentAnswer(content,data.CurrentSelectedTask.AnswerData)">
+                <div class="divanswerTitle">
+                    <div class="answer-title-desc">【参考答案】&nbsp;第&nbsp;{{$index+1}}&nbsp;题&nbsp;</div>
+                    <div><div class="answer-text-indicator">▪</div><span style="font-size:16px;color:#333333;">{{content.OptionAnswer}}</span></div>
+                </div>
+                <div class="answer">
+                    <span class="answer-span-img" ng-if="content.IsRight"><img class="answer-option-img" src="../web/img/right_sign.png" />{{ content.IsRight?'回答正确':'回答错误'}}</span>
+                    <span class="answer-span-img" ng-if="!content.IsRight"><img class="answer-option-img" src="../web/img/wrong_sign.png" />{{ content.IsRight?'回答正确':'回答错误'}}</span>
+                    <span style="float:left;" class="answer-span-student">您的答案：</span>
+                    <span class="ellipsis" style="font-size:16px;width:250px;display:block;float:left;" ng-style="{'color':content.IsRight?'#14b403':'#ff0000' }">{{content.StudentOptionAnswer}}</span>
+                </div>
+            </div>
+            <span class="contentTitle" style="margin-top:0px">第二节</span>
+            <div ng-repeat="ca2 in data.QuestionModel.Contents">
+                <div ng-if="$last" style="margin-bottom: 12px;line-height: 26px;margin-top: 29px;padding-left: 14px;padding-right: 14px;padding-top: 0px;background-color: #f9f9f9;border: solid 1px rgba(230, 230, 230, 1);">
+                    <div class="question-answer-title">【参考答案】</div>
+                    <div style="margin-bottom:12px;" ng-if="ca2.Answers != null && ca2.Answers.length > 0" ng-repeat="ref in ca2.Answers">
+                        <div class="answer-text-indicator">▪</div>
+                        <div class="ref-text highlight-no">{{ref.Content}}</div>
+                        <div style="margin-top:12px;" ng-style="$last?{'border-bottom':'0px dashed #e1e1e1'}:{'border-bottom':'1px dashed #e1e1e1'}"></div>
+                    </div>
+                    <mistake-score-info answer-data="GetAnswerData(data.CurrentSelectedTask.AnswerData,ca2)" question-data="data" show-score-comment="true" show-sample-answer="true" show-student-answer="true"></mistake-score-info>
+                </div>
+            </div>
+        </div>
+        <!--信息转述及询问-->
+        <div ng-if="isShow==true&&GetAnswerDisplayType(data.AreaType)==6" style="margin-bottom: 10px;">
+            <div class="question-answer-title" style="margin-top: 17px;">第一节</div>
+            <div class="divdropdown" style="float:right;margin-top: -40px;">
+                <span style="margin-right:10px;    line-height: 30px;">来自考试任务</span>
+                <div class="btn-group dropdown" style="width: 200px;float:right;" id="paperTemplate">
+                    <a class="btn btn-block btn-default" href="#" id="paper_template" data-toggle="dropdown" style="line-height: 12px;">
+                        {{data.CurrentSelectedTask.TaskName}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" style="float: right;margin-top: 5px;"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="answer_taskinfo" role="menu" style="max-height: 200px;width:200px;overflow-y: auto;overflow-x:hidden;">
+                        <li ng-repeat="task in data.AnswerList" style="margin:5px;"><a href="javascript:void(0);" ng-click="ChooseTask(task,data.QuestionModel.QuestionID)">{{task.TaskName}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="divanswerTitle" style="padding-top: 15px;padding-left:15px; border-bottom: none; background: #f9f9f9; margin: 0px;border: 1px solid #e6e6e6;border-bottom: none;padding-bottom:0px;">
+                <span class="answer-title-desc">【参考答案】</span>
+            </div>
+            <div style="padding-left:15px; background: #f9f9f9;border: 1px solid #e6e6e6;border-top: none;" ng-if="data.QuestionModel.Contents != null && data.QuestionModel.Contents.length > 0" ng-repeat="content in data.QuestionModel.Contents">
+                <div style="padding-bottom:15px;padding-top:15px;padding-left:7px;border-bottom:1px dashed #dcdcdc;font-size:15px;" ng-if="content.Answers != null && content.Answers.length>0" ng-repeat="ref in content.Answers">
+                    <div class="answer-text-indicator">▪</div>
+                    <div class="ref-text highlight-no" ng-bind-html="ref.Content|trustHtml"></div>
+                </div>
+                <mistake-score-info answer-data="GetAnswerData(data.CurrentSelectedTask.AnswerData,content)" question-data="data" show-score-comment="true" show-sample-answer="false" show-student-answer="true" style="padding-top:18px;"></mistake-score-info>
+            </div>
+            <div class="question-answer-title">第二节</div>
+            <div style="border: 1px solid #e6e6e6;background-color: #f9f9f9;padding-bottom:10px" ng-if="data.ExtProperty.RelationQuestionModel.QuestionModel.Contents != null && data.ExtProperty.RelationQuestionModel.QuestionModel.Contents.length > 0" ng-repeat="content in data.ExtProperty.RelationQuestionModel.QuestionModel.Contents">
+                <div class="divanswerTitle" style="padding-top: 15px;padding-bottom:0px;border-bottom:none">
+                    <span class="answer-title-desc">【参考答案】第{{content.Index}}小题</span>
+                </div>
+                <div style="padding-bottom:15px;padding-top:15px;padding-left:23px;border-bottom:1px dashed #dcdcdc;font-size:15px;" ng-if="content.Answers != null && content.Answers.length > 0" ng-repeat="ref in content.Answers">
+                    <div class="answer-text-indicator">▪</div>
+                    <div class="ref-text highlight-no" ng-bind-html="ref.Content|trustHtml"></div>
+                </div>
+                <mistake-score-info answer-data="GetAnswerData(data.CurrentSelectedTask.AnswerData,content)" question-data="data" show-score-comment="true" show-sample-answer="false" show-student-answer="true" style="padding-top:18px;"></mistake-score-info>
+            </div>
+        </div>
+        <!--填空题-->
+        <div ng-if="isShow==true&&GetAnswerDisplayType(data.AreaType)==7" style="margin-top:18px;margin-bottom: 10px;padding-top: 36px;">
+            <div class="divdropdown" style="float:right;margin-top: -43px;">
+                <span style="margin-right:10px;    line-height: 30px;">来自考试任务</span>
+                <div class="btn-group dropdown" style="width: 200px;float:right;" id="paperTemplate">
+                    <a class="btn btn-block btn-default" href="#" id="paper_template" data-toggle="dropdown" style="">
+                        {{data.CurrentSelectedTask.TaskName}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" style="float: right;margin-top: 5px;"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="answer_taskinfo" role="menu" style="max-height: 200px;width:200px;overflow-y: auto;overflow-x:hidden;">
+                        <li ng-repeat="task in data.AnswerList" style="margin:5px;"><a href="javascript:void(0);" ng-click="ChooseTask(task,data.QuestionModel.QuestionID)">{{task.TaskName}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="divAnswerAnalysis" style="height:114px" ng-if="$index<data.QuestionModel.Contents.length" ng-repeat="content in data.QuestionModel.Contents" ng-init="UpdateContentAnswer(content,data.CurrentSelectedTask.AnswerData)">
+                <div class="divanswerTitle">
+                    <div class="answer-title-desc">【参考答案】&nbsp;第&nbsp;{{$index+1}}&nbsp;题&nbsp;</div>
+                    <div class="highlight-no">
+                        <div class="answer-text-indicator">▪</div>
+                        <span style="font-size:16px;color:#333333;">{{content.OptionAnswer}}</span>
+                    </div>
+                </div>
+                <div class="answer">
+                    <span class="answer-span-img" ng-if="content.IsRight"><img class="answer-option-img"  src="../web/img/right_sign.png" />{{ content.IsRight?'回答正确':'回答错误'}}</span>
+                    <span class="answer-span-img" ng-if="!content.IsRight"><img class="answer-option-img" src="../web/img/wrong_sign.png" />{{ content.IsRight?'回答正确':'回答错误'}}</span>
+                    <span style="float:left;" class="answer-span-student">您的答案：</span>
+                    <span class="ellipsis" style="font-size:16px;width:250px;display:block;float:left;" ng-style="{'color':content.IsRight?'#14b403':'#ff0000' }">{{content.StudentOptionAnswer}}</span>
+                </div>
+            </div>
+        </div>
+        <!--8=跟读与模仿-->
+        <div class="divAnswerAnalysis" style="margin-bottom:10px;" ng-if="GetAnswerDisplayType(data.AreaType)==8" ng-init="UpdateQuestionAnswer(data.QuestionModel,data.CurrentSelectedTask.AnswerData)">
+            <div class="divanswerTitle" style="border-bottom:none">
+                <span class="answer-title-desc">【&nbsp;&nbsp;答案解析&nbsp;&nbsp;】</span>
+                <div class="divdropdown" style="float:right;">
+                    <span style="margin-right:10px;">来自考试任务</span>
+                    <div class="btn-group dropdown" style="width: 200px;float:right;" id="paperTemplate">
+                        <a class="btn btn-block btn-default" href="#" id="paper_template" data-toggle="dropdown" style="">
+                            {{data.CurrentSelectedTask.TaskName}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret" style="float: right;margin-top: 5px;"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="answer_taskinfo" role="menu" style="max-height: 200px;width:200px;overflow-y: auto;overflow-x:hidden;">
+                            <li ng-repeat="task in data.AnswerList" style="margin:5px;"><a href="javascript:void(0);" ng-click="ChooseTask(task,data.QuestionModel.QuestionID)">{{task.TaskName}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="answer" style="margin-top: 0px;" ng-init="UpdateQuestionAnswer(data.QuestionModel,data.CurrentSelectedTask.AnswerData)">
+                <div class="answer-text" style="padding-bottom:30px;" ng-if="data.QuestionModel.Contents[0].ReadTextScoreDetailList!=null&&data.QuestionModel.Contents[0].ReadTextScoreDetailList.length>0">
+                    <a ng-repeat="char in data.QuestionModel.Contents[0].ReadTextScoreDetailList" ng-class="GetTextColorByScoreLevel(char.ScoreLevel)">
+                        {{char.CharText}}
+                    </a>
+                </div>
+                <div class="answer-text" style="padding-bottom:30px;" ng-if="data.QuestionModel.Contents[0].ReadTextScoreDetailList==null||data.QuestionModel.Contents[0].ReadTextScoreDetailList.length<=0" ng-bind-html="data.QuestionModel.Contents[0].AudioText|trustHtml">
+                </div>
+                <div style="" class="score-comment-legend">
+                    <div class="score-comment-legend-green"></div> <label>优</label>
+                    <div class="score-comment-legend-yellow"></div><label>良</label>
+                    <div class="score-comment-legend-blue"></div><label>中</label>
+                    <div class="score-comment-legend-red"></div><label>差</label>
+                </div>
+                <mistake-score-info answer-data="GetAnswerData(data.CurrentSelectedTask.AnswerData,data.QuestionModel.Contents[0])" question-data="data" show-score-comment="true" show-sample-answer="false" show-student-answer="true" show-question-audio="true"></mistake-score-info>
+            </div>
+        </div>
+    </div>
+</div>

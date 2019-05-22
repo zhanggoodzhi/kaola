@@ -1,0 +1,341 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/kaola/examforschooladmin/examforschooladmin.css" />
+
+<div class="row page-container bg-white">
+
+    <div class="content-container">
+
+        <div class="content-header" style="text-align: center">
+            <span class="view-header-text">
+                <i class="xsmallicon icon-liebiao"></i>
+                <span>
+                    模拟考试
+                </span>
+            </span>
+            <div class="" style="float:right;margin-top:5px;">
+                <button type="button" class="btn btn-add-examplan" ng-click="OpenAddExamPlanDialog()">
+                    <img src="/web/img/examForOrg/add_examplan.png" class="btn-add-examplan-icon" />新建考试
+                </button>
+            </div>
+        </div>
+
+        <div class="content-main">
+            <div class="divexamitemcontainer">
+                <div class="divexamitem" ng-repeat="epd in PlanDetailList">
+                    <div class="divexaminfotitle">
+                        <div class="divexamstate-orange" ng-if="epd.ExamPlan.ExamPlanStatus.3==1&&epd.ExamTaskDetailList.length==0">未开始</div>
+                        <div class="divexamstate-orange" ng-if="epd.ExamPlan.ExamPlanStatus.3==1&&epd.ExamTaskDetailList.length>0">倒计时{{epd.ExamPlan.CountDownDays}}天</div>
+                        <div class="divexamstate-green" ng-if="epd.ExamPlan.ExamPlanStatus.3==2">进行中</div>
+                        <div class="divexamstate-green" ng-if="epd.ExamPlan.ExamPlanStatus.3==3">评分中</div>
+                        <div class="divexamstate-orange" ng-if="epd.ExamPlan.ExamPlanStatus.3==4"> 已完成</div>
+                        <span class="divexamname">{{epd.ExamPlan.ExamPlanName}}</span>
+                        <div class="divdistype" ng-if="epd.ExamPlan.ExamLevel==1">区级</div>
+                        <div class="divdistype" style="color :#00bb03;border-color: #00bb03;" ng-if="epd.ExamPlan.ExamLevel==2">校级</div>
+                        <div class="divexamdate">考试日期：{{epd.ExamPlan.ExamPlanStartDateTimeString}}---{{epd.ExamPlan.ExamPlanEndDateTimeString}}</div>
+                        <div class="examplan-operation" ng-if="epd.ExamPlan.ExamLevel==2&&epd.ExamPlan.ExamPlanStatus.3==1">
+                            <div class="update-examplan" ng-click="OpenUpdateExamPlanDialog(epd.ExamPlan)"></div>
+                            <div class="delete-examplan" ng-click="DeleteExamPlan(epd.ExamPlan)"></div>
+                        </div>
+                    </div>
+                    <div class="divempty" ng-if="epd.ExamPlan.ExamPlanStatus.3==1&&epd.ExamTaskDetailList.length==0">
+                        <button type="button" class="btn btn-selectclass-addnew" ng-click="OpenSelectClassDialog(epd.ExamPlan)">
+                            <img src="/web/img/examForOrg/add_examplan.png" class="btn-add-examplanpaper-icon" />请选择参与本次考试的班级
+                        </button>
+                    </div>
+                    <div class="divtabletitle" ng-if="epd.ExamPlan.ExamPlanStatus.3!=1">
+                        <span style="font-size: 14px;font-weight: normal;font-stretch: normal;line-height: 28px;letter-spacing: 0px;color: #555555;">
+                            考生总数 :{{epd.ExamPlan.ExamineeNum}}&nbsp;&nbsp;已考 : {{epd.ExamPlan.SuccessedExamineeNum}}&nbsp;&nbsp;未考 : {{epd.ExamPlan.ExamineeNum-epd.ExamPlan.SuccessedExamineeNum}}&nbsp;&nbsp;实收答案包数 : 18
+                        </span>
+                    </div>
+                    <div class="divtabletitle" ng-if="epd.ExamPlan.ExamPlanStatus.3==1&&epd.ExamTaskDetailList.length>0">
+                        <span style="font-size: 14px;font-weight: normal;font-stretch: normal;line-height: 28px;letter-spacing: 0px;color: #555555;">
+                            考生总数 :{{epd.ExamPlan.ExamineeNum}}
+                        </span>
+                        <button type="button" style="width: 101px !important;height: 31px !important;margin-top: -6px;float: right;margin-right: 10px;" class="btn button-textWithIcon btn-custombg" ng-if="epd.ExamPlan.ExamLevel==1" ng-click="OpenSelectClassDialog(epd.ExamPlan)"><i class="xsmallicon icon-xinzeng"><span>添加班级</span></i></button>
+                    </div>
+                    <div class="tablecontainer" ng-if="(((epd.ExamPlan.ExamPlanStatus.3==2||epd.ExamPlan.ExamPlanStatus.3==3||epd.ExamPlan.ExamPlanStatus.3==4)&&epd.ExamPlan.ExamLevel==1)||epd.ExamPlan.ExamLevel==2)&&epd.ExamTaskDetailList.length>0">
+                        <table class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 9%;" header-class="'header-align-left'">序号</th>
+                                    <th style="width: 27%;" header-class="'header-align-left'">任务名称</th>
+                                    <th style="width: 9%; " header-class="'header-align-center'">考生总数</th>
+                                    <th style="width: 7%; " header-class="'header-align-center'">已考</th>
+                                    <th style="width: 7%; " header-class="'header-align-center'">未考</th>
+                                    <th style="width: 13%; " header-class="'header-align-center'">实收答案包数</th>
+                                    <th style="width: 28%; " header-class="'header-align-center'" ng-if="epd.ExamPlan.ExamPlanStatus.3==2||epd.ExamPlan.ExamPlanStatus.3==4">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="class in epd.ExamTaskDetailList">
+                                    <td style="width: 9%;text-align: center;" header-class="'header-align-left'">
+                                        <span href="javascript:void(0)">1</span>
+                                    </td>
+                                    <td style="width: 27%;text-align: center;" header-class="'header-align-left'">
+                                        <span href="javascript:void(0)">{{ class.TaskName|EmptyFilter  }}</span>
+                                    </td>
+                                    <td style="width: 9%;text-align: center;" header-class="'header-align-left'">
+                                        <span href="javascript:void(0)">{{ class.TotalExamNum  }}</span>
+                                    </td>
+                                    <td style="width: 7%;text-align: center;" header-class="'header-align-left'">
+                                        <span href="javascript:void(0)">{{ class.SuccessedExamNum }}</span>
+                                    </td>
+                                    <td style="width: 7%; text-align: center;" header-class="'header-align-center'" align="center" sortable="'TotalMinutes'">{{ class.TotalExamNum -class.SuccessedExamNum }}</td>
+                                    <td style="width: 13%;text-align: center;" header-class="'header-align-left'">
+                                        <span href="javascript:void(0)">{{class.ReceivedExamNum}}</span>
+                                    </td>
+                                    <td style="width: 28%; text-align: center;" header-class="'header-align-center'" ng-if="epd.ExamPlan.ExamPlanStatus.3==2||epd.ExamPlan.ExamPlanStatus.3==4">
+                                        <a class="operation-a" href="javascript:void(0)" target="_blank" ng-if="epd.ExamPlan.ExamPlanStatus.3==2" ng-click="OpenGenerateTaskPackageDialog(class.TaskID)">
+                                            下载离线任务包
+                                        </a>
+                                        <a class="operation-a" href="javascript:void(0)" target="_blank" ng-if="epd.ExamPlan.ExamPlanStatus.3==2" ng-click="StartMark(class.TaskID)">
+                                            开始评分
+                                        </a>
+                                        <a class="operation-a" href="javascript:void(0)" target="_blank" ng-if="epd.ExamPlan.ExamPlanStatus.3==4" ui-sref="teacherreportdetail({classID:'',taskID:'{{task.TaskID}}'})" tooltip="查看" tooltip-placement="bottom">
+                                            班级成绩报告
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tablecontainer" ng-if="epd.ExamPlan.ExamPlanStatus.3==1&&epd.ExamPlan.ExamLevel==1&&epd.ExamTaskDetailList.length>0">
+                        <table class="table table-condensed table-bordered table-hover">
+                            <thead class="ng-scope">
+                                <tr>
+                                    <th style="width: 5%;" header-class="'header-align-left'">序号</th>
+                                    <th style="width: 35%;" header-class="'header-align-left'">班级名称</th>
+                                    <th style="width: 30%; " header-class="'header-align-center'">考生总数</th>
+                                    <th style="width: 30%; " header-class="'header-align-center'">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody style="max-height:200px;min-height:200px;">
+                                <tr ng-repeat="class in epd.ExamTaskDetailList" style="height: 40px;">
+                                    <td style="width: 5%;text-align: center;font-size:14px;color: #555555;line-height:39px;" header-class="'header-align-left'" data-title="'序号'">
+                                        <span href="javascript:void(0)">1</span>
+                                    </td>
+                                    <td style="width: 35%;text-align: center;font-size:14px;color: #555555;line-height:39px;" header-class="'header-align-left'" data-title="'班级名称'">
+                                        <span href="javascript:void(0)">{{ class.ClassName|EmptyFilter }}</span>
+                                    </td>
+                                    <td style="width: 30%; text-align: center;font-size:14px;color: #555555;line-height:39px;" header-class="'header-align-center'" align="center" data-title="'考生总数'" sortable="'TotalMinutes'">{{class.TotalExamNum|EmptyFilter }}</td>
+                                    <td style="width: 30%; text-align: center;font-size:14px;color: #555555;line-height:39px;" header-class="'header-align-center'" data-title="'操作'">
+                                        <a class="operation-a" href="javascript:void(0)" target="_blank" ng-click="RemoveExamPlanClass(class.ClassID,epd.ExamPlan.ExamPlanID)">
+                                            移除
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="load-more" ng-click="SearchPlanDetailList()" ng-show="ShowLoadMore&&PlanDetailList.length>0">
+                加载更多
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="SelectClassDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="position: absolute;top: 30%;margin-top: -140px !important;">
+        <div class="modal-content selectclass-modal">
+            <div class="modal-header" style="border-radius: 3px 3px 0 0!important;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight:bold;">选择班级</h5>
+            </div>
+            <div class="modal-body">
+                <div class="content-title">
+                    <span style="font-family: MicrosoftYaHei;font-size: 14px;font-weight: normal;font-stretch: normal;line-height: 26px;letter-spacing: 0px;color: #393939;margin-top: 5px;display: block;width: 100%;">
+                        已选<font style="font-family: MicrosoftYaHei;font-size: 14px;font-weight: normal;letter-spacing: 0px;color: #f37a01;">
+                            &nbsp;&nbsp;
+                            {{SelectClassCount}}&nbsp;&nbsp;
+                        </font>个班级
+                    </span>
+                </div>
+                <div id="divTableContent">
+                    <div class="tab-pane table-container active" id="SelectClassList" style="max-height: 287px; overflow-y: scroll;">
+                        <table ng-table="SelectedClassList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                            <tbody>
+                                <tr ng-repeat="class in $data">
+                                    <td header="'header_PaperCheckbox.html'" style="width: 15%;" sortable="'Selected'">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="class.Selected" ng-checked="class.Selected==1" ng-click="ChooseClass(class.ClassID)" />
+                                    </td>
+                                    <td style="width: 27%;text-align: left;" header-class="'header-align-left'" data-title="'班级名称'">
+                                        <span href="javascript:void(0)">{{ class.ClassName}}</span>
+                                    </td>
+                                    <td style="width: 90px; text-align: center;" header-class="'header-align-center'" align="center" data-title="'创建教师'" sortable="'TotalMinutes'">{{class.CreaterName|EmptyFilter  }}</td>
+                                    <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'人数'">{{ class.StudentCount  }}</td>
+                                    <td style="width: 50px; text-align: center;" header-class="'header-align-center'" data-title="'操作'">
+                                        <a class="operation-a" href="javascript:void(0)" target="_blank" ui-sref="student({classId:'{{class.ClassID}}'+'&from=examforschooladmin&model=view'})">
+                                            查看
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding:30px !important;">
+                <button type="button" class="btn btn-cancel button-commonDialog" style="width: 110px !important;margin-left:21px;" ng-click="CancleSelect()">取消</button>
+                <button type="button" class="btn btn-primary button-commonDialog" style="width: 110px !important;margin-left:21px;" ng-click="SaveExamPlanClass()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="GenerateTaskPackageDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:500px;margin:auto;">
+            <div class="modal-body">
+                <div style="font-size: 14px;color: #000000;">生成任务包...</div>
+                <div style="padding: 1px;border: solid 1px #c8c8c8;height: 15px;margin-top: 10px;margin-bottom:10px;border-radius: 5px;background-color: #e8e8e8;margin-right:50px;">
+                    <div ng-if="GenerateTaskPackagePercent>0" class="progress" style="margin-bottom: 1px;margin-top: 1px;height: 10px;border-radius: 5px;box-shadow: none;">
+                        <div id="importProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="background-color:#009d3b;"
+                             ng-style="{'width':GenerateTaskPackagePercent+'%'}">
+                        </div>
+                    </div>
+                    <div style="margin-top: -3px;margin-left: 420px;color: #000000;">{{GenerateTaskPackagePercent+'%'}}</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="AddExamPlanDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="width: 590px">
+        <div class="modal-content newpackage-modal">
+            <div class="modal-header" style="border-radius: 3px 3px 0 0!important;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight:bold;">新建考试</h5>
+            </div>
+            <div class="modal-body" style="">
+                <div ui-view="addNewSchoolExamPlanView"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="EditExamPlanDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="width: 590px">
+        <div class="modal-content newpackage-modal">
+            <div class="modal-header" style="border-radius: 3px 3px 0 0!important;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight:bold;">新建考试</h5>
+            </div>
+            <div class="modal-body" style="">
+                <div class="form-line" style="padding:10px 52px;color:#333">
+                    <div class="form-line-label" style="width: 100px;">
+                        考试名称:
+                    </div>
+                    <div class="form-line-input">
+                        <input type="text" maxlength="30" style="width: 280px;" placeholder="请输入考试名称" ng-model="CurrentExamPlan.ExamPlanName">
+                    </div>
+                </div>
+                <div class="form-line" style="padding:10px 52px;color:#333">
+                    <div class="form-line-label" style="width: 100px;">
+                        考试时间:
+                    </div>
+                    <div class="form-line-input">
+                        <input size="10" type="text" id="Add_ExamPlanStartDateTime" class="form-control calendar" style="width: 130px;float:left;" value="{{CurrentExamPlan.ExamPlanStartDateTime}}" readonly onfocus="this.blur()">
+                        <input size="10" type="text"  value="{{CurrentExamPlan.ExamPlanEndDateTime}}" id="Add_ExamPlanEndDateTime" class="form-control calendar" style="width: 130px;float:left;margin-left: 21px;" readonly onfocus="this.blur()">
+                    </div>
+                </div>
+                <div class="examsetting-controlcontainer">
+                    <div class="examsetting-radtitle">试卷分配规则:</div>
+                    <div class="radio-item">
+                        <div class="custom-radio">
+                            <input type="radio" id="radAssignmentRule_0" name="radAssignmentRule" style="" ng-checked="CurrentExamPlan.PaperAssignRule==1||CurrentExamPlan.PaperAssignRule==0" ng-click="CurrentExamPlan.PaperAssignRule=1" />
+                            <label for="radAssignmentRule_0"></label>
+                        </div>
+                        按照IP间隔
+                    </div>
+                    <div class="radio-item">
+                        <div class="custom-radio">
+                            <input type="radio" id="radAssignmentRule_1" name="radAssignmentRule" style="" ng-checked="CurrentExamPlan.PaperAssignRule==2" ng-click="CurrentExamPlan.PaperAssignRule=2" />
+                            <label for="radAssignmentRule_1"></label>
+                        </div>按座位号间隔
+                    </div>
+                </div>
+                <div class="examsetting-controlcontainer">
+                    <div class="examsetting-radtitle">选择题显示规则:</div>
+                    <div class="checkbox-item">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" id="chkChooseRule" name="chkChooseRule" style="" ng-checked="CurrentExamPlan.MixQuestionOrder" ng-model="CurrentExamPlan.MixQuestionOrder" />
+                            <label for="chkChooseRule"></label>
+                        </div>题序打乱
+                    </div>
+                    <div class="checkbox-item">
+                        <div class="custom-checkbox" onclick="$('chkAssignmentRule').click()">
+                            <input type="checkbox" id="chkAssignmentRule" name="chkAssignmentRule" style="" ng-checked="CurrentExamPlan.MixAnswerOrder" ng-model="CurrentExamPlan.MixAnswerOrder" />
+                            <label for="chkAssignmentRule"></label>
+                        </div>答案打乱
+                    </div>
+                </div>
+                <div class="form-line" style="padding-left: 120px;min-height: 40px;">
+                    <span class="span-error-msg" ng-hide="ValidateExamPlanMessage==''">
+                        <img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png" style="margin-top: 3px;">{{ValidateExamPlanMessage}}
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary button-dialog-footer"  ng-click="CancelEdit()">取消</button>
+                    <button type="button" class="btn btn-primary button-dialog-footer" style="margin-left:20px;" ng-click="EditExamPlan()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="TaskAnswerImportSummaryInfoDialog" tabindex="-3" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 450px; margin: auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">任务答卷包统计</h5>
+            </div>
+            <div class="modal-body" style="padding:30px 20px;">
+                <div class="form-group" style="">
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">本场考试:</label>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">
+                        应考<a class="color-blue" style="font-weight:normal;margin-left:2px;margin-right:2px;text-decoration:none;font-size:13px;">{{TaskAnswerImportSummaryData.TotalStudentCount}}</a>人
+                    </label>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">
+                        实考<a class="color-blue" style="font-weight:normal;margin-left:2px;margin-right:2px;text-decoration:none;font-size:13px;">{{TaskAnswerImportSummaryData.ExamStudentCount}}</a>人
+                    </label>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px !important;">
+                        答卷包成功上传<a style="font-weight:normal;margin-left:2px;margin-right:2px;text-decoration:none;font-size:13px;" ng-style="{'color':TaskAnswerImportSummaryData.TotalImportStudentCount==0?'#e93f4c':'#24a3e6'}">{{TaskAnswerImportSummaryData.TotalImportStudentCount}}</a>个
+                    </label>
+
+                </div>
+
+                <div class="" ng-if="TaskAnswerImportSummaryData.LackStudentList.length>0" style="margin-top:20px;">
+                    <div class="" style="margin-bottom:20px;height:1px; background-color: #f3f5f9;">
+                    </div>
+                    <label class="label" style="color:#636363;font-weight:normal;font-size:14px;">未上传答卷包学生名单:</label>
+                </div>
+                <div class="table-container" ng-if="TaskAnswerImportSummaryData.LackStudentList.length>0" style="max-height:250px;overflow-y:auto;overflow-x:hidden;">
+                    <table ng-table="TaskAnswerLackStudentTable" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="stu in $data">
+                                <td data-title="'班级名称'" width="40%" sortable="'ClassName'">{{ stu.ClassName }}</td>
+                                <td data-title="'学号'" width="30%" sortable="'StudentNumber'">{{ stu.StudentNumber }}</td>
+                                <td data-title="'姓名'" width="30%" sortable="'StudentName'">{{ stu.StudentName }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="margin:0px auto 0px auto;">
+                    <button type="button" class="btn btn-default button-commonDialog button-commonDialog-no" data-dismiss="modal" style="">取消</button>
+                    <button type="button" class="btn btn-default  button-commonDialog " ng-click="ConfirmStartMark()" disabled ng-if="TaskAnswerImportSummaryData.TotalImportStudentCount<=0" style="opacity:1 !important; background-color:#dedede;">开始机评</button>
+                    <button type="button" class="btn btn-primary  button-commonDialog" ng-click="ConfirmStartMark()" ng-if="TaskAnswerImportSummaryData.TotalImportStudentCount>0" style="opacity:1 !important;background-color:#24a3e6;">开始机评</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="header_PaperCheckbox.html">
+    <input type="checkbox" ng-click="SelectAllClass($event)" class="select-all" value="" />&nbsp;全选
+</script>
+

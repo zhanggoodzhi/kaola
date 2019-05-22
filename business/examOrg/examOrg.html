@@ -1,0 +1,245 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/business/examOrg/examOrg.css">
+
+<div class="row">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">考试机构管理</a>
+    </div>
+    <div class="">
+        <div class="tab-pane active " id="school_Manage">
+            <div class="content-main">
+                <div class="row" style="margin-top:20px;">
+                    <div class="btn-group">地区：</div>
+                    <div class="dropdown  btn-group" style="">
+                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                            {{ CurrentRegion.Province.ProvinceName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                            <li ng-repeat="province in RegionNow.ProvinceList">
+                                <a href="javascript:void(0);" ng-click="ProvinceChange(province)">{{province.ProvinceName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown btn-group" style="margin-left: 15px;">
+                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                            {{ CurrentRegion.City.CityName== "" ? "市" : CurrentRegion.City.CityName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                            <li ng-repeat="city in RegionNow.CityList">
+                                <a href="javascript:void(0);" ng-click="CityChange(city)">{{city.CityName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group" style="margin-left: 15px;">
+                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                            {{ CurrentRegion.Area.AreaName== "" ? "区" :CurrentRegion.Area.AreaName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                            <li ng-repeat="area in RegionNow.AreaList">
+                                <a href="javascript:void(0);" ng-click="AreaChange(area)">{{area.AreaName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="margin-left: 15px;">
+                        <input type="text" class="search-textbox" style="width: 180px;display: inline-block;" placeholder="请输入考试机构名称" id="channelB_Name"
+                               ng-keyup="KeyupSearch($event)" ng-model="QueryParams.ExamOrgName">
+                        <button type="button" class="search-button button button-blue" style="" ng-click="SearchExamOrg()">
+                            <span class="smallicon btn-icon icon-sousuo" style="font-size: 1.2em;"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="clearfix table-container scroll-wrap">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow" ng-click="OpenAddExamOrgDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">新增考试机构</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-table="ExamOrgTable" class="table table-bordered table-hover  table-cell-bordered ">
+                        <tbody>
+                            <tr ng-repeat="d in $data" id="{{d.ExmaOrgID}}">
+                                <td data-title="'考试机构名称'" style="text-align:left;">{{ d.ExamOrgName }}</td>
+                                <td data-title="'省'" style="">{{ d.ProvinceName}}</td>
+                                <td data-title="'市'" style="">{{ d.CityName}}</td>
+                                <td data-title="'区'" style="text-align:left;width:200px;">{{ d.AreaNames}}</td>
+                                <td data-title="'机构管理员数量'" class="href" style="" ng-click="ViewExamOrgManager(d)">{{ d.ExamOrgManagerCount>0?d.ExamOrgManagerCount:'添加管理员'}}</td>
+                                <td data-title="'操作'" style="width:200px;">
+                                    <span class="f12 href" ng-click="ViewExam(d)">考试管理</span>
+                                    <span class="f12 href" ng-click="OpenUpdateExamOrgDialog(d)">修改</span>
+                                    <span class="f12 href" ng-click="DeleteExamOrg(d)">删除</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="EditExamOrgDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 590px;height:435px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel" style="margin-bottom: 20px;">{{CurrentExamOrg.ExamOrgID?'修改考试机构信息':'新增考试机构'}}</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog2'}"
+                                   style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" style="padding-top:30px !important;padding-left:50px !important;padding-right:50px !important;padding-bottom:10px !important;">
+                <div class="examorg-label">考试机构地区:</div><div class="examorg-district-info" tooltip="{{GetChoosedDistrictInfo()}}" tooltip-placement="bottom">{{GetChoosedDistrictInfo()}}</div>
+
+                <div style="clear:both;padding-top:10px;">
+                    <div class="examorg-tab" ng-class="{true:'active'}[ActiveTab=='province']" ng-click="ChooseTab('province')">省份</div>
+                    <div class="examorg-tab" ng-class="{true:'active'}[ActiveTab=='city']" ng-click="ChooseTab('city')">城市</div>
+                    <div class="examorg-tab" ng-class="{true:'active'}[ActiveTab=='area']" ng-click="ChooseTab('area')">区县</div>
+                </div>
+                <div style="clear:both;"> </div>
+                <div class="examorg-tab-content" ng-show="ActiveTab=='province'">
+                    <div ng-repeat="p in ProvinceForEdit" class="choose-item" ng-class="{true:'choosed'}[IsChoosedProvince(p)]" ng-click="ChooseProvince(p)">{{p.ProvinceName}}</div>
+                </div>
+                <div class="examorg-tab-content" ng-show="ActiveTab=='city'">
+                    <div ng-repeat="p in CityForEdit" class="choose-item" ng-class="{true:'choosed'}[IsChoosedCity(p)]" ng-click="ChooseCity(p)">{{p.CityName}}</div>
+                </div>
+                <div class="examorg-tab-content" ng-show="ActiveTab=='area'">
+                    <div ng-repeat="p in AreaForEdit" class="choose-multi-item" ng-class="{true:'choosed'}[IsChoosedArea(p)]" ng-click="ChooseArea(p)">{{p.AreaName}}</div>
+                </div>
+
+                <div class="examorg-label" style="margin-top:25px;">
+                    考试机构名称:
+                </div>
+                <div class="examorg-name" style="float:left;margin-top:20px;margin-left:10px;">
+                    <input type="text" class="form-control" id="examorg-name" style="width:300px !important" placeholder="请输入考试机构名称" ng-model="CurrentExamOrg.ExamOrgName" maxlength="20" />
+                </div>
+                <div style="clear:both;margin-bottom:10px;"> </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="UpdateExamOrg()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal" id="ViewExamOrgManagerDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 590px;height:390px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">查看考试机构管理员</h5>
+            </div>
+
+            <div class="modal-body">
+                <div class="clearfix table-container scroll-wrap">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow" ng-click="OpenAddExamOrgManagerDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">添加管理员</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-table="ExamOrgManagerTable" class="table table-bordered table-hover  table-cell-bordered table-fixed-header">
+                        <thead>
+                            <tr>
+                                <th style="width: 160px;">姓名</th>
+                                <th style="width: 180px;">
+
+                                    邮箱
+                                </th>
+                                <th style="width: 120px;">
+
+                                    手机号码
+                                </th>
+                                <th style="width:100px;">
+                                    操作
+                                </th>
+                            </tr>
+
+                        </thead>
+                        <tbody class="fixed-examorg-manager custom-scrollbar">
+
+                            <tr ng-repeat="d in $data" id="{{d.AccountUserID}}">
+                                <td style="width: 160px;text-align:center">{{ d.NickName|EmptyFilter }}</td>
+                                <td style="width: 180px;">{{ d.Email|EmptyFilter }}</td>
+                                <td style="width: 120px;">{{ d.PhoneNumber|EmptyFilter }}</td>
+
+                                <td style="width:100px;">
+                                    <span class="f12 href" ng-click="OpenUpdateExamOrgManagerDialog(d)">编辑</span>
+                                    <span class="f12 href" ng-click="DeleteExamOrgManager(d)">删除</span>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal" id="EditExamOrgManagerDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px;height:300px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">{{CurrentExamOrgManager.AccountUserID?'修改考试机构管理员信息':'添加考试机构管理员'}}</h5>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" id="addExamOrgManagerForm" autocomplete="off" style="margin-left: 10px; margin-top: 20px;">
+
+                    <div class="form-group">
+                        <div class="form-control-label" style="width:100px;text-align:right;">登录邮箱：</div>
+                        <div class="form-control-input">
+                            <input type="email" class="form-control" id="userName" placeholder="请输入邮箱" ng-model="CurrentExamOrgManager.Email">
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-control-label" style="width:100px;text-align:right;">登录手机号码：</div>
+                        <div class="form-control-input">
+                            <input type="text" class="form-control" id="user_phoneNum" placeholder="请输入登录手机号码" maxlength="11" ng-model="CurrentExamOrgManager.PhoneNumber">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-control-label" style="width:100px;text-align:right;">登录密码：</div>
+                        <div class="form-control-input">
+                            <input type="password" class="form-control" id="user_password" placeholder="(6~20个字符)" maxlength="20" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" ng-model="CurrentExamOrgManager.OriginalPassword">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="UpdateExamOrgManager()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

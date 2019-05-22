@@ -1,0 +1,53 @@
+﻿<?xml version="1.0"?>
+<TaskDetail xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TaskID>68af8ae994154ffca193733f7cb728ae</TaskID>
+  <TaskName>33333</TaskName>
+  <TeacherID>c301ef3d573b4b17b25a032d3b506d33</TeacherID>
+  <CreatedTime>2018-03-05T09:18:04</CreatedTime>
+  <LastUpdateTime>2018-03-05T09:18:04</LastUpdateTime>
+  <TaskType>Exam</TaskType>
+  <Status>IDLE</Status>
+  <TaskFrom>Kaola</TaskFrom>
+  <TotalPaperCount>1</TotalPaperCount>
+  <TotalClassCount>1</TotalClassCount>
+  <TotalStudentCount>1</TotalStudentCount>
+  <ExamStudentCount>0</ExamStudentCount>
+  <Papers>
+    <TaskPaperInfo>
+      <PaperID>b0c66fb65af24dd4ac7da6f4600bf003</PaperID>
+      <PaperTitle />
+      <PaperName>组卷_朗读类型_多维度</PaperName>
+      <IsCustomPaper>false</IsCustomPaper>
+      <ShowName>组卷_朗读类型_多维度</ShowName>
+      <PaperDownloadUrl>/web/resources/paps/b0c66fb65af24dd4ac7da6f4600bf003.pap</PaperDownloadUrl>
+      <TotalMinutes>13</TotalMinutes>
+      <TotalScore>42.2000007629394</TotalScore>
+      <TotalListeningScore>0</TotalListeningScore>
+      <TotalSpeakingScore>42.2000007629394</TotalSpeakingScore>
+    </TaskPaperInfo>
+  </Papers>
+  <Classes>
+    <TaskClassInfo>
+      <TotalStudentCount>1</TotalStudentCount>
+      <ClassID>6ba88e8bae934fe6bc6b8f2869706a0f</ClassID>
+      <SchoolID>290196</SchoolID>
+      <SchoolName>Demo学校</SchoolName>
+      <ClassNumber>BJ2901961113</ClassNumber>
+      <ClassName>高大上的班级</ClassName>
+      <Grade>9</Grade>
+      <Status>0</Status>
+      <Students>
+        <TaskClassStudent>
+          <StudentNumber>1</StudentNumber>
+          <StudentID />
+          <StudentName>张某某</StudentName>
+          <Sex>Male</Sex>
+          <Status>1</Status>
+        </TaskClassStudent>
+      </Students>
+    </TaskClassInfo>
+  </Classes>
+  <AMSPredictFinishTime>0001-01-01T00:00:00</AMSPredictFinishTime>
+  <AMSPredictFinishTimeMillisecond>0</AMSPredictFinishTimeMillisecond>
+  <MarkPrecision>1</MarkPrecision>
+</TaskDetail>

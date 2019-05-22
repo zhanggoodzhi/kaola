@@ -1,0 +1,25 @@
+﻿<!--情景问答(中职)-->
+<div class="content-div">
+    <div class="content-audiotext-div" style="border-bottom: dashed 1px #dcdcdc;" ng-if="data.QuestionModel.AudioText!=undefined&& data.QuestionModel.AudioText.length>0">
+        <div class="question-title">【听力原文】</div>
+        <div class="content-audiotext highlight-no" style="" ng-bind-html="data.QuestionModel.AudioText|trustHtml">
+        </div>
+    </div>
+    <div class="content-text highlight-no" style="padding-top:10px;" ng-if="data.QuestionModel.Prompt != undefined&& data.QuestionModel.Prompt.length>0" ng-bind-html="data.QuestionModel.Prompt|trustHtml">
+    </div>
+    <div class="content-text highlight-no" style="padding-top:10px;" ng-if="data.QuestionModel.Image != undefined&& data.QuestionModel.Image.length>0">
+        <img src="{{data.ResourcePath+data.QuestionModel.Image}}" style="width:500px;height:300px;" />
+    </div>
+</div>
+<div ng-repeat="c in data.QuestionModel.Contents">
+    <span style="float: left; margin-top: 5px;margin-right: 10px;">{{c.Index}}.</span>
+    <div class="content-text highlight-no" ng-if="c.Text.length==0&&c.AudioText!=undefined&& c.AudioText.length>0" ng-bind-html="c.AudioText|trustHtml">
+    </div>
+    <div class="content-text highlight-no" ng-if="c.Text!=undefined&& c.Text.length>0" ng-bind-html="c.Text|trustHtml">
+    </div> 
+    <div class="content-text highlight-no" ng-if="(c.Text==undefined|| c.Text.length<=0)&&(c.AudioText==undefined|| c.AudioText.length<=0)&&c.Audio!=undefined&&c.Audio.length>0" style="display:inline-block">
+        <div ng-click="PlayAudio(c.ContentID,c,data.ResourcePath+c.Audio)" style="float:left;"><img ng-if="IsAudioPlaying(c.ContentID)==false" src="/web/img/paperDesign/playAudio.png" /><img ng-if="IsAudioPlaying(c.ContentID)==true" src="/web/img/paperDesign/playingAudio.gif" /></div>
+    </div>
+</div>
+<question-operation data="data" show-answer="true"></question-operation>
+

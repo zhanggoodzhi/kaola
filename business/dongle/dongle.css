@@ -1,0 +1,99 @@
+.table-wrap {
+    width: 100%;
+}
+
+.middle-table-wrap .table {
+    table-layout: fixed;
+    margin-left: -1px!important;
+    /* margin-right: -1px!important; */
+}
+
+.left-table-wrap .table {
+    /* border-right: 2px solid #d1d5d8!important; */
+    table-layout: fixed;
+}
+
+.middle-table-wrap {
+    float: left;
+    width: calc(100% - 151px - 421px);
+}
+
+.left-table-wrap {
+    float: left;
+    width: 351px;
+}
+
+.is-admin-middle {
+    width: calc(100% - 151px - 521px)!important;
+}
+
+.is-admin-left {
+    width: 521px!important;
+}
+
+.right-table-wrap {
+    float: left;
+    width: 151px;
+}
+
+.right-table-wrap .table {
+    margin-left: -2px!important;
+    background: white;
+    position: relative;
+}
+
+.left-table-wrap .table {
+    /* border-left: 2px solid #d1d5d8!important; */
+    table-layout: fixed;
+}
+.middle-table-wrap .mCustomScrollBox{
+    overflow: visible!important;
+}
+
+.middle-table-wrap .mCSB_container {
+    overflow: auto;
+    position: initial!important;
+}
+
+.middle-table-wrap .mCSB_container>div {
+    position: absolute;
+    right: -150px;
+    bottom: -60px;
+}
+
+.small-screen .wi {
+    width: 100px;
+}
+.small-screen .wi1 {
+    width: 150px;
+}
+.small-screen .wi-sell {
+    width: 100px;
+}
+
+.small-screen .wischool {
+    width: 200px;
+}
+
+.small-screen .wis {
+    width: 70px;
+}
+
+.small-screen .wit {
+    width: 120px;
+}
+
+.small-screen .wib {
+    width: 270px;
+}
+
+.small-screen .operation {
+    width: 150px;
+    height: 61px;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}

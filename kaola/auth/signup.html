@@ -1,0 +1,239 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/kaola/auth/signup.css" />
+
+<style type="text/css">
+    .eye-icon {
+        cursor: pointer;
+        float: left;
+        margin-left: 223px;
+        margin-top: -27px;
+        position: absolute;
+    }
+</style>
+
+
+
+<div class="signup">
+    <div class="signup_container">
+        <div class="signup_content">
+            <div class="row">
+
+                <ul class="nav nav-tabs">
+
+                    <li class="signup-tab-header  active" ng-click="TabChange(1)">
+                        <a href="#signup_teacher" data-toggle="tab">我是教师</a>
+                        <span class="Angle"></span>
+                    </li>
+                    <li class="signup-tab-header" ng-click="TabChange(2)">
+                        <a href="#signup_student" data-toggle="tab">我是学生</a>
+                        <span class="Angle"></span>
+                    </li>
+                </ul>
+
+                <div class="tab-content" style="height: 455px;">
+                    <div class="tab-pane active" id="signup_teacher">
+                        <div id="signupTeacherTabContent" class="signup-tab-content col-sm-7 col-xs-7">
+                            <div class="" id="teacherSignUp">
+                                <form class="form-horizontal" id="signUpTeacherForm" name="signUpTeacherForm" ng-submit="Submit()" autocomplete="off" style="margin-left: 20px;" novalidate>
+
+                                    <div class="form-group">
+
+                                        <div class="col-sm-10 col-xs-10 ">
+                                            <div class="radio" style="padding-top: 5px; margin-left: 10px">
+                                                <label style="margin-right: 20px;">
+
+                                                    <input type="radio" value="1" ng-click="ChangeRegisterType(1)" name="RegisterType" ng-model="registration.registerType" ng-checked="registration.registerType==1">手机号码注册
+                                                </label>
+                                                <label>
+                                                    <input type="radio" value="2" ng-click="ChangeRegisterType(2)" name="RegisterType" ng-model="registration.registerType" ng-checked="registration.registerType==2">邮箱注册
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <div class="col-sm-10 col-xs-10 " ng-class="{true:'has-error'}[InvateCodeMsg!='']">
+                                            <input type="text" class="form-control" name="invateCode" placeholder="邀请码" maxlength="50" ng-model="registration.inviteCode" ng-blur="TriggerValidate('invateCode')">
+
+                                        </div>
+                                    </div>
+                                    <div style="height: 27px; line-height: 27px; color: #ff9a22; font-size: 14px; text-align: left; width: 210px; margin-left: 10px;">
+                                        没有邀请码？请联系学校管理员
+                                    </div>
+                                    <div class="form-group" ng-show="registration.registerType==1">
+
+                                        <div class="col-sm-10 col-xs-10 " ng-class="{true:'has-error'}[phoneNumberMsg!='']">
+                                            <input type="text" class="form-control" name="phoneNumber1" placeholder="手机号" ng-model="registration.phoneNumber" ng-blur="TriggerValidate('phoneNumber')">
+
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group" ng-show="registration.registerType==1">
+
+                                        <div class="col-sm-6 col-xs-6 " ng-class="{true:'has-error'}[TeacherPhoneNumberVCMsg!='']">
+                                            <input type="text" class="form-control" name="TeacherPhoneNumberValidateCode" placeholder="验证码" maxlength="11" ng-model="registration.phoneNumberValidateCode" ng-blur="TriggerValidate('phoneNumberVC')">
+
+                                        </div>
+                                        <div class="col-sm-4 col-xs-4 ">
+                                            <button type="button" style="line-height: 0px !important;width: 90px !important; font-size: 12px !important; margin-left: 0;" class="form-control btn btn-default btn-validateCode" id="btn_teacher_PhoneNumberValidateCode" ng-click="GetPhoneNumberValidateCode(1)">获取验证码</button>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group" ng-show="registration.registerType==2">
+
+                                        <div class="col-sm-10 col-xs-10 " ng-class="{true:'has-error'}[TeacherEmailMsg!='']">
+                                            <input type="email" class="form-control" name="email" placeholder="邮箱" maxlength="50" ng-model="registration.email"
+                                                   ng-blur="TriggerValidate('email')">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <div class="col-sm-10 col-xs-10 " ng-class="{true:'has-error'}[passwordMsg!='']">
+                                            <input type="password" class="form-control" placeholder="密码" maxlength="20" name="teacher_password" id="teacher_password" ng-model="registration.password" ng-blur="TriggerValidate('password')">
+                                            <input type="text" class="form-control" placeholder="密码" maxlength="20" name="teacher_passwordShow" id="teacher_passwordShow" ng-blur="TriggerValidate('password')" style="display:none">
+                                            <img class="eye-icon" id="showpwd_teacher" for="teacher_password" src="http://cdn.uukaola.com/web/img/login/eyeunselect.png" checked=false />
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+
+                                        <div class="col-sm-10 col-xs-10 " ng-class="{true:'has-error'}[passwordConfirmMsg!='']">
+                                            <input type="password" class="form-control" name="confirmPassword" placeholder="重新输入密码" maxlength="20" ng-model="registration.confirmPassword" ng-blur="TriggerValidate('confirmPassword')">
+                                            <input type="text" class="form-control" placeholder="密码" maxlength="20" name="confirmPasswordShow" id="confirmPasswordShow" ng-blur="TriggerValidate('confirmPassword')" style="display:none">
+                                            <img class="eye-icon" id="showpwd_confirm" for="confirmPassword" src="http://cdn.uukaola.com/web/img/login/eyeunselect.png" checked=false />
+                                        </div>
+                                    </div>
+                                    <div style="height: 26px; line-height: 26px;">
+                                        <span class="span-error-msg" ng-hide="ValidateMsg==''"><img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png">{{ValidateMsg}}</span>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <div class="col-sm-10 col-xs-10 ">
+                                            <button type="submit" class="form-control btn btn-block btn-primary button-bottom-blue" style="height: 36px;" id="id_registerTeacher" name="id_registerTeacher" ng-click="SignUpTeacher()">立即注册</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div style="height: 26px;line-height: 26px; color: #7a7a7a; font-size: 12px; text-align: center; width: 100%;">
+                                    已有账号，<a style="" class="color-blue" ui-sref="login">直接登录</a>
+                                </div>
+
+                                <div class="form-group" style="height:30px;">
+                                    <div class="col-sm-10 col-xs-10 ">
+                                        <div ng-hide="infoMessage == ''" class="alert alert-success">
+                                            {{infoMessage}}
+                                        </div>
+                                        <div ng-hide="errorMessage == ''" class="alert alert-danger">
+                                            {{errorMessage}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tabContent_splitter">
+                        </div>
+                        <div class="logo_right col-sm-4 col-xs-4 ">
+                            <img src="http://cdn.uukaola.com/web/img/register.png" style="cursor: pointer" alt="悠悠考拉网" />
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="signup_student">
+                        <div id="signupStudentTabContent" class="signup-tab-content col-sm-7 col-xs-7">
+                            <div class="" id="studentSignUp">
+                                <form class="form-horizontal" id="signUpStudentForm" name="signUpStudentForm" ng-submit="Submit()" autocomplete="off" style="margin-left: 20px;" novalidate="novalidate">
+                                    <div class="form-group">
+                                        <div class="col-sm-10 col-xs-10 ">
+                                            <div class="radio" style="padding-top: 5px; margin-left: 10px">
+                                                <label style="margin-right: 20px;">
+                                                    <input type="radio" value="1" ng-click="ChangeRegisterType(1)" name="RegisterType" ng-model="registration.registerType" ng-checked="registration.registerType==1">手机号码注册
+                                                </label>
+                                                <label>
+                                                    <input type="radio" value="2" ng-click="ChangeRegisterType(2)" name="RegisterType" ng-model="registration.registerType" ng-checked="registration.registerType==2">邮箱注册
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" ng-show="registration.registerType==1">
+
+                                        <div class="col-sm-10 col-xs-10 " ng-class="{true:'has-error'}[phoneNumber2Msg!='']">
+                                            <input type="text" class="form-control" name="phoneNumber2" placeholder="手机号" maxlength="20" ng-model="registration.phoneNumber" ng-blur="TriggerValidate('phoneNumber')">
+
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group" ng-show="registration.registerType==1">
+
+                                        <div class="col-sm-6 col-xs-6 " ng-class="{true:'has-error'}[StudentPhoneNumberVCMsg!='']">
+                                            <input type="text" class="form-control" name="StudentPhoneNumberValidateCode" placeholder="验证码" maxlength="20" ng-model="registration.phoneNumberValidateCode" ng-blur="TriggerValidate('phoneNumberVC')">
+
+                                        </div>
+                                        <div class="col-sm-4 col-xs-4 ">
+                                            <button type="button" style="width: 90px !important; font-size: 12px !important; margin-left: 0;" class="form-control btn btn-default btn-validateCode" id="btn_student_PhoneNumberValidateCode" ng-click="GetPhoneNumberValidateCode(2)">获取验证码</button>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="registration.registerType==2">
+
+                                        <div class="col-sm-10 col-xs-10 " ng-class="{true:'has-error'}[StudentEmailMsg!='']">
+                                            <input type="email" class="form-control" name="email" placeholder="邮箱" maxlength="50" ng-model="registration.email"
+                                                   ng-blur="TriggerValidate('email')">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <div class="col-sm-10 col-xs-10 " ng-class="{true:'has-error'}[password2Msg!='']">
+                                            <input type="password" class="form-control" placeholder="密码" maxlength="20" name="student_password" id="student_password" ng-model="registration.password" ng-blur="TriggerValidate('password')">
+                                            <input type="text" class="form-control" placeholder="密码" maxlength="20" name="student_passwordShow" id="student_passwordShow" ng-blur="TriggerValidate('password')" style="display:none">
+                                            <img class="eye-icon" id="showpwd_student" for="student_password" src="http://cdn.uukaola.com/web/img/login/eyeunselect.png" checked=false />
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <div class="col-sm-10 col-xs-10 " ng-class="{true:'has-error'}[passwordConfirm2Msg!='']">
+                                            <input type="password" class="form-control" name="confirmPasswordStu" placeholder="重新输入密码" maxlength="20" ng-model="registration.confirmPassword" ng-blur="TriggerValidate('confirmPassword')">
+                                            <input type="text" class="form-control" name="confirmPasswordStuShow" id="confirmPasswordStuShow" placeholder="重新输入密码" maxlength="20" ng-blur="TriggerValidate('confirmPassword')" style="display:none">
+                                            <img class="eye-icon" id="showpwd_confirmStu" for="confirmPasswordStu" src="http://cdn.uukaola.com/web/img/login/eyeunselect.png" checked=false />
+
+                                        </div>
+                                    </div>
+                                    <div style="height: 26px; line-height: 26px;">
+                                        <span class="span-error-msg" ng-hide="ValidateMsg==''"><img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png">{{ValidateMsg}}</span>
+                                    </div>
+
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <div class="col-sm-10 col-xs-10 ">
+                                            <button type="submit" class="form-control btn btn-block btn-primary button-bottom-blue" id="id_registerStudent" style="height: 36px;" name="id_registerStudent" ng-click="SignUpStudent()">立即注册</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div style="height: 26px;line-height: 26px; color: #7a7a7a; font-size: 12px; text-align: center; width: 100%">
+                                    已有账号，<a style="" class="color-blue" ui-sref="login">直接登录</a>
+                                </div>
+                                <div class="form-group" style="height:30px;">
+                                    <div class="col-sm-10 col-xs-10 ">
+                                        <div ng-hide="infoMessage == ''" class="alert alert-success">
+                                            {{infoMessage}}
+                                        </div>
+                                        <div ng-hide="errorMessage == ''" class="alert alert-danger">
+                                            {{errorMessage}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tabContent_splitter">
+                        </div>
+                        <div class="logo_right col-sm-4 col-xs-4 ">
+                            <img src="http://cdn.uukaola.com/web/img/register.png" style="cursor: pointer" alt="悠悠考拉网" />
+                            <!--ui-sref="login"-->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

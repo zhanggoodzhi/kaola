@@ -1,0 +1,129 @@
+﻿.tasklabel-desc {
+    color: #848484;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.tasksummarylabel-desc {
+    color: #848484;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.reportContentTabHeader {
+    width: 120px !important;
+    text-align: center;
+    margin-right: 2px;
+    height: 45px !important;
+    font-size: 12px;
+    border-bottom: 2px solid #C4C4C4;
+}
+
+.reportContentTabHeader.active,
+.reportContentTabHeader:hover {
+    border-bottom: 2px solid #379BCF;
+    cursor: default;
+    background-color: #ffffff;
+}
+
+.reportContentTabHeader.active>a,
+.reportContentTabHeader:hover>a {
+    color: #379BCF !important;
+}
+
+.reportContentTabHeader a {
+    border: solid 0px #ffffff !important;
+    font-size: 14px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+}
+
+.report-title {
+    background-color: #ffffff;
+    padding: 50px 0px 0px 0px;
+    height: 130px;
+}
+
+.report-title-taskname {
+    font-size: 28px !important;
+    padding-bottom: 13px;
+    color: #000000;
+}
+
+.report-title-taskdesc {
+    font-size: 16px !important;
+    color: #000000;
+    margin-left: 20px;
+}
+
+.report-info {
+    padding: 5px 10px;
+    background-color: #ffffff;
+}
+
+.report-info .row {
+    background-color: #FFF9E9;
+    border: dashed 1px #EBD9C4;
+    padding: 10px 5px;
+    line-height: 30px;
+}
+
+.report-content {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 0px 14px;
+    min-height: 500px;
+    padding-bottom: 10px;
+}
+
+.report-content-section {
+    background-color: #ffffff;
+    padding: 15px 0px;
+    margin-bottom: 10px;
+}
+
+.report-content-section-img {
+    width: 11px;
+    height: 11px;
+    margin-top: -6px;
+    vertical-align: middle;
+}
+
+#sidebar_menu_row {
+    padding-left: calc(100vw - 100%);
+}
+
+.report-content-section-label {
+    font-weight: bold;
+    font-size: 16px !important;
+    color: #000000;
+    margin-left: 6px;
+}
+
+.student-info label {
+    font-size: 15px !important;
+    color: #333333;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.label-studenttask-papername {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 280px;
+}
+
+.tr-item .left-title-wrap {
+    width: 241px;
+    text-align: center;
+    float: left;
+    border-right: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    background: white;
+}
+
+.tr-item .right-score-wrap {
+    float: left;
+    width: 629px;
+}

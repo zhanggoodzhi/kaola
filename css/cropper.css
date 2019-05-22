@@ -1,0 +1,65 @@
+﻿
+/*Cropper*/
+
+
+.img-container,
+.img-preview {
+    background-color: transparent;
+    width: 100%;
+    text-align: center;
+}
+
+.img-preview {
+    /*border: solid 2px #E0DEDE;    
+    border-radius: 500rem;*/
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+    .img-preview > img {
+        max-width: 100%;
+    }
+
+.img-container {
+    /*height: 100%;
+    width: 500px;*/
+    width: 290px;
+    height: 290px;
+    background-color: #d8d9d9;
+}
+
+@media (width:500px) {
+    .img-container {
+        height: 100%;
+        width: 500px;
+    }
+}
+
+.img-container > img {
+    width: 100%;
+}
+
+
+
+.preview-label {
+    position: absolute;
+    top: 18px;
+    left: 340px;
+    color: #636363;
+}
+
+.img-desc-label {
+    /*position: absolute;
+    top: 580px;
+    left: 20px;*/
+    /*font-size: smaller;*/
+    color: #e43622;
+    /*font-size: 14px;
+    margin-top: 12px;*/
+    margin-bottom: 0;
+}
+
+
+/*Cropper*/

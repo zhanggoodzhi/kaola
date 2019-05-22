@@ -1,0 +1,103 @@
+﻿
+<link rel="stylesheet" type="text/css" href="/web/kaola/paper/paper.css" />
+
+
+<div class="row page-container  bg-white">
+    <div class="content-container">
+
+        <div class="content-header" style="text-align: center;">
+            <span class="view-header-text"><i class="xsmallicon icon-liebiao"></i>试卷管理</span>
+            <div class="" style="float:right;margin-top:5px;">
+              
+                <button ng-if="EnablePaperDesign" type="button" class="btn btn-paperDesign" style="float:right;" ng-click="OpenPaperDesignView()">
+                    <img src="/web/img/paperDesign/zyzj.png" style="margin-right:2px;height:14px;" />自由组卷
+                </button>
+            </div>
+        </div>
+
+        <div class="content-main">
+
+            <div class="papermgr-papername-filter">
+                <div class="papermgr-papername-input" style="">
+                    <input style="" type="text" class="" placeholder="输入试卷名称查询" ng-model="Filter.PaperName">
+                </div>
+                <div class="papermgr-papername-button" style="">
+                    <img src="/web/img/paperDesign/hui-search.png" ng-click="FilterPaperName()" />
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs papermgr-tabs" style="clear:both;">
+                <li class="papermgr-tab-header  active" ng-click="PaperListTabChange(0)">
+                    <a href="#SchoolPaperList" data-toggle="tab">学校推荐({{PaperListSummary.SchoolPaperCount}})</a>
+
+                </li>
+                <li ng-if="EnablePaperDesign" class="papermgr-tab-header" ng-click="PaperListTabChange(1)">
+                    <a href="#CustomPaperList" data-toggle="tab">自制试卷({{PaperListSummary.CustomPaperCount}})</a>
+
+                </li>
+            </ul>
+
+            <div class="tab-content" style="">
+                <div class="tab-pane table-container active" id="SchoolPaperList">
+                    <table ng-table="SchoolPaperList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="paper in $data">
+
+                                <td style="width: 27%;text-align: left;" header-class="'header-align-left'" data-title="'试卷名称'">
+                                    <span href="javascript:void(0)">{{ (paper.RenamePaper == ""||paper.RenamePaper==null)?paper.PaperName:paper.RenamePaper }}</span>
+                                </td>
+                                <td style="width: 21%; text-align: center;" header-class="'header-align-center'" data-title="'试卷模版'">{{ paper.PaperTemplateName|EmptyFilter }}</td>
+                                <td style="width: 90px; text-align: center;" header-class="'header-align-center'" align="center" data-title="'考试时长'" sortable="'TotalMinutes'">{{ paper.TotalMinutes   |  zeroEmptyTextFilter }}分钟</td>
+                                <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'总分'" sortable="'TotalScore'">{{ paper.TotalScore }}</td>
+                                <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'听力'" sortable="'TotalListeningScore'">{{ paper.TotalListeningScore  |  zeroEmptyTextFilter }}</td>
+                                <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'口语'" sortable="'TotalSpeakingScore'">{{ paper.TotalSpeakingScore  |  zeroEmptyTextFilter }}</td>
+                                <td style="width: 90px; text-align: center;" header-class="'header-align-center'" data-title="'使用次数'" sortable="'PaperUsedInTaskCount'">{{ paper.PaperUsedInTaskCount  |  zeroEmptyTextFilter }}</td>
+                                <td style="width: 50px; text-align: center;" header-class="'header-align-center'" data-title="'操作'">
+
+                                    <a class="operation-a" href="javascript:void(0)" target="_blank" ui-sref="paperpreview({paperID:'{{paper.PaperID}}'})">
+                                        预览
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane table-container" id="CustomPaperList">
+                    <table ng-table="CustomPaperList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="paper in $data">
+
+                                <td style="width: 40%;text-align: left;" header-class="'header-align-left'" data-title="'试卷名称'">
+                                    <span href="javascript:void(0)">{{ (paper.RenamePaper == ""||paper.RenamePaper==null)?paper.PaperName:paper.RenamePaper }}</span>
+                                </td>
+
+                                <td style="width: 90px; text-align: center;" header-class="'header-align-center'" data-title="'考试时长'" sortable="'TotalMinutes'">{{ paper.TotalMinutes  |  zeroEmptyTextFilter  }}分钟</td>
+                                <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'总分'" sortable="'TotalScore'">{{ paper.TotalScore }}</td>
+                                <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'听力'" sortable="'TotalListeningScore'">{{ paper.TotalListeningScore  |  zeroEmptyTextFilter }}</td>
+                                <td style="width: 60px; text-align: center;" header-class="'header-align-center'" data-title="'口语'" sortable="'TotalSpeakingScore'">{{ paper.TotalSpeakingScore  |  zeroEmptyTextFilter }}</td>
+                                <td style="width: 90px; text-align: center;" header-class="'header-align-center'" data-title="'使用次数'" sortable="'PaperUsedInTaskCount'">{{ paper.PaperUsedInTaskCount |  zeroEmptyTextFilter }}</td>
+                                <td style="width: 110px; text-align: left;" header-class="'header-align-center'" data-title="'操作'">
+
+                                    <a class="operation-a" href="javascript:void(0)" target="_blank" ui-sref="paperpreview({paperID:'{{paper.PaperID}}'})">
+                                        预览
+                                    </a>
+                                    <a class="operation-a" href="javascript:void(0)" target="_blank" ng-click="OpenPaperDesignView(paper.PaperID)">
+                                        编辑
+                                    </a>
+                                    <a class="operation-a" href="javascript:void(0)" target="_blank" ng-click="DeleteCustomPaper(paper.PaperID)">
+                                        删除
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

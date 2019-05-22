@@ -1,0 +1,4 @@
+﻿<ul>
+    <li ng-repeat="ref in refs" ng-if="!$last" ng-click="SelectRef(ref)" ng-class="{true:'active'}[currentRef.ContentID==ref.ContentID]">{{ref.Title}}</li>
+</ul>
+<div class="refrenceText" style="word-break:break-all;">{{ currentRef.Content }}</div>

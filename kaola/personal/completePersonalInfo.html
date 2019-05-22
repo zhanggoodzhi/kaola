@@ -1,0 +1,134 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/kaola/personal/completePersonalInfo.css" />
+ 
+
+<div class="completePersonalInfo">
+    <div class="completePersonalInfo_container">
+        
+        <div class="completePersonalInfo_content">
+            <div class="" style="text-align:center;margin-bottom:30px;">
+                <img src="http://cdn.uukaola.com/web/img/logo.png" ui-sref="login" style="cursor:pointer" alt="悠悠考拉网" />
+            </div>
+            <div class="row">
+                <div id="completePersonalInfoTeacherTabContent" class="completePersonalInfo-tab-content">
+                    <div class="" id="teachercompletePersonalInfo">
+                         
+                        <form class="form-horizontal" id="completePersonalInfoTeacherForm" name="completePersonalInfoTeacherForm" ng-submit="Submit()" autocomplete="off" style="">
+
+                            <div style="height: 30px;color: #24a3e6;font-size: 18px;">
+                                完善个人信息
+                            </div>
+                            <div style="width: 130px; height: 130px;margin:10px auto 10px auto;overflow: hidden;border-radius: 500rem;cursor:pointer; border: solid 3px #Fff; box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);-webkit-box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);">
+                                <input type="file" id="inputImage" class="uploadFile" accept="image/jpeg, image/png" ngf-select="" ngf-multiple="true" style="height: 130px;width: 130px;opacity:0;filter: alpha(opacity=0);/* left:0; *//* right: 0px; */position: absolute; cursor: pointer;" onchange="angular.element(this).scope().ChangeImage(this.files[0])" multiple="multiple">
+                                <img class="largeUserImage" alt="头像" id="userimage" ng-src="{{ HeadPic }}" src="http://cdn.uukaola.com/web/img/defaultHeadPic.png" title="" style="cursor: pointer;">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="userName" class="col-sm-3 col-xs-3 control-label ">姓名：</label>
+                                <div class="" ng-class="{true:'has-error'}[nickNameMsg!='']">
+                                    <input type="text" class="form-control input-fixWidth" name="nickName" placeholder="建议您填写真实姓名" maxlength="20" ng-model="UserInfo.NickName" ng-blur="CheckNickName()">
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:0px !important;">
+
+                                <label for="userName" class="col-sm-3 col-xs-3 control-label " style="height: 30px;line-height: 30px;padding-top: 0px;">性别：</label>
+                                <div class="">
+                                    <div class="radio" style="padding: 5px 0;margin-left:20px">
+                                        <label>
+                                            <input type="radio" value="1" name="sex" ng-model="UserInfo.Sex" ng-checked="UserInfo.Sex==1"> 男
+                                        </label>
+                                        <label style="margin-left:30px;">
+                                            <input type="radio" value="2" name="sex" ng-model="UserInfo.Sex" ng-checked="CurrentUserInfo.UserInfo.Sex==2"> 女
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 20px; color: #C68887; line-height: 16px; margin-top: 3px;padding-left:68px;">
+                                <span class="span-error-msg" ng-hide="nickNameMsg==''"><img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png" style="margin: 0  5px  0  0; width: 12px; height: 12px;"><span class="tip1 ng-binding">{{nickNameMsg}}</span></span>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-sm-12 col-xs-12">
+                                    <button type="submit" class="form-control btn btn-block btn-primary button-commonDialog" style="width: 250px !important;margin: 0 auto;" id="id_complete" name="id_complete" ng-click="CompletePersonalInfo()">完成</button>
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <div class="col-sm-9 col-xs-9">
+                                    <div ng-hide="infoMessage == ''" class="alert alert-success">
+                                        {{infoMessage}}
+                                    </div>
+                                    <div ng-hide="errorMessage == ''" class="alert alert-danger">
+                                        {{errorMessage}}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="EditHeadPicDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:482px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel" style="">修改头像</h5>
+            </div>
+
+            <div class="modal-body">
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 1}"></toaster-container>
+                <div class="form-group" style="height: 40px;">
+
+                    <a href="javascript:;" name="file" class="btn btn-warning" style="height:34px;width:82px; background-color: #E2E7EA; color: #636363; font-size: 12px;">
+                        <input type="file" id="inputImage" class="uploadFile" accept="image/jpeg, image/png" ngf-select ngf-multiple="true" style="opacity:0;left:0;right:0;position: absolute" onchange="angular.element(this).scope().ChangeImage(this.files[0])" />
+                        重新上传
+                    </a>
+                    <label for="inputFile" style="font-size: 12px;">&nbsp;&nbsp;支持jpg、png格式图片</label><br />
+
+                </div>
+                <div class="form-group" style="border: solid 1px #ddd;padding: 1px; position: relative; margin-bottom: 12px;">
+                    <div class="img-container" style="" ng-show="ImageShowed==true">
+                        <img id="HeadPicImg" class="cropper-hidden HeadPicImg" />
+
+                    </div>
+                    <div class="img-container" style="" ng-show="ImageShowed==false">
+                        <img id="defaultHeadPicImg" class="" src="http://cdn.uukaola.com/web/img/defaultHeadPic.png" style="width: 290px; height: 286px; margin-top: 100px;" />
+
+                    </div>
+                    <label class="preview-label">头像预览</label>
+
+                    <div ng-show="ImageShowed==true" style="top: 90px; left: 310px; position: absolute; width: 110px; height: 110px; margin: 0 auto; border: solid 3px #Fff; border-radius: 500rem; overflow: hidden; box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);-webkit-box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);">
+                        <div class="img-preview" style="position: absolute; top: 0px; width: 110px; height: 166px;">
+                            <img src="" style="">
+                        </div>
+
+                    </div>
+                    <div class="" ng-show="ImageShowed==false">
+
+                        <div class="img-preview" style="top: 200px; left: 530px; position: absolute; width: 224px; height: 224px; margin: 0 auto; border: solid 1px #E0DEDE; border-radius: 500rem; overflow: hidden;">
+                            <img src="http://cdn.uukaola.com/web/img/defaultHeadPic.png" style="position: absolute; top: 40px; left: 54px;">
+                        </div>
+                    </div>
+
+
+                </div>
+                <label class="img-desc-label">滚动鼠标可缩放图片, 拖拽鼠标可移动图片</label>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn query-height" ng-disabled="ImageShowed==false" ng-click="SaveHeadPic()" style="width: 110px;margin-right:10px; background-color: #24a3e6; color: #fff;">确定</button>
+                <button type="button" class="btn query-height" ng-click="CancelHeadPic()" style="width: 120px;background-color: #e2e7ea;margin-left:40px;color: #7a7a7a;">取消</button>
+            </div>
+
+        </div>
+    </div>
+</div>

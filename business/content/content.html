@@ -1,0 +1,293 @@
+﻿ 
+<link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/business/content/paper.css" />
+
+<script type="text/ng-template" id="header_paperCheckbox.html">
+    <input type="checkbox" ng-click="SelectAllPaper($event)" id="selectAllPaperTag" ng-true-value="true" ng-false-value="false" ng-checked="SelectAllPaperTag" class="select-all" />
+    全选
+</script>
+
+<div class="row MainTabSet">
+    <ul class="nav nav-tabs">
+        <li class="signup-tab-header  active"><a href="#content_Manage" data-toggle="tab">内容管理</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active " id="content_Manage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'packageList'}" style="width:60%;margin:0 15%;z-index:-1;"></toaster-container>
+            <div class="content-main">
+                <div class="row col-md-12 col-sm-12 col-xs-12">
+                    <div class="btn-group" style="width: 250px;">
+                        <input type="text" class="form-control query-height" style="width: 250px;display: inline-block;" id="txt_installCode" ng-model="QueryParams.PackageName" placeholder="输入试卷包名称">
+                    </div>
+                    <div class="btn-group" style="width: 70px;">
+                        <button type="button" class="btn btn-primary btn-block query-height" style="padding: 0 10px; border: 0; " ng-click="SearchPackage()"><span class="smallicon btn-icon icon-sousuo" style="font-size: 1.2em;"></span>&nbsp;查询</button>
+                    </div>
+
+                    <div class="btn-group pull-right" style="margin-right: 5px;">
+                        <button type="button" class="btn btn-primary btn-block query-height button-simpleText" style="padding: 0 10px; border: 0; " ng-click="GoToPaperManage()"><span style="font-size: 1.2em;"></span>&nbsp;试卷库管理</button>
+                    </div>
+                    <div class="btn-group  pull-right" style="margin-right: 5px;">
+                        <button type="button" class="btn btn-primary btn-block query-height button-simpleText" style="padding: 0; border: 0; " ng-click="OpenAddPackage()"><span style="font-size: 1.2em;"></span>&nbsp;新增试卷包</button>
+                    </div>
+                    <div class="btn-group pull-right" style="margin-right:5px;">
+                        <button type="button" class="btn btn-primary btn-operate query-height button-simpleText" ng-click="ImportNewPaperDialog()" style="width:120px !important; "><span class="">导入试卷(测试)</span></button>
+                    </div>
+
+
+                </div>
+                <div class="table-container col-md-12 col-sm-12 col-xs-12">
+                    <table ng-table="PackageList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="package in $data">
+                                <td data-title="'试卷包名称'" sortable="'PaperPackageName'">{{ package.PaperPackageName }}</td>
+                                <td data-title="'类型'" sortable="'PaperPackageType'" style="padding-left: 20px;">{{ package.PaperPackageTypeDes }}</td>
+                                <td data-title="'内容序列号数量'" sortable="'ContentCount'" style="padding-left: 20px;">{{ package.ContentCount }}</td>
+                                <td data-title="'试卷数量'" sortable="'PaperCount'" style="padding-left: 20px;">{{ package.PaperCount }}</td>
+                                <td data-title="'操作'">
+                                    <button class="btn btn-op" tooltip="" tooltip-placement="bottom" ng-click="OpenPaperPackageDetail(package)"><span class="smallicon icon-sousuo" aria-hidden="true"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="row contentTabset">
+    <tabset>
+
+        <tab heading="内容管理" class="contentTabHeader">
+
+        </tab>
+    </tabset>
+</div>-->
+
+<div class="modal" id="AddPaperPckageDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 720px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="font-weight: bold;margin-bottom:20px;">新增试卷包</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'addPaperPckageDialog'}" style="width:60%;margin:0 15%;z-index:-1;"></toaster-container>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal" style="margin: auto; width: 95%;">
+                    <div class="form-group">
+                        <div class="btn-group" style="margin-right:2px;line-height:30px;padding:0 5px;">选择试卷：</div>
+                        <div class="btn-group dropdown" style="width: 100px;">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                                {{ AddPackage.CurrentProvince.ProvinceName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height: 300px; overflow-y: scroll;">
+                                <li ng-repeat="province in ProvinceList"><a href="javascript:void(0);" ng-click="ProvinceChange(province)">{{province.ProvinceName}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group dropdown" style="width: 100px;">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                                {{ AddPackage.CurrentYear.DisplayMember }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                                <li ng-repeat="year in YearList"><a href="javascript:void(0);" ng-click="YearChange(year)">{{year.DisplayMember}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group dropdown" style="width: 100px;">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                                {{ AddPackage.CurrentGrade.Name }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                                <li ng-repeat="g in GradeList"><a href="javascript:void(0);" ng-click="GradeChange(g)">{{g.Name}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group dropdown" style="width: 100px;">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                                {{ AddPackage.CurrentLevel.DisplayMember }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                                <li ng-repeat="level in LevelList"><a href="javascript:void(0);" ng-click="LevelChange(level)">{{level.DisplayMember}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="table-container table-headefix-scroll">
+                            <table ng-table="AddPackage.PaperList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                                <tbody>
+                                    <tr ng-repeat="paper in $data" ng-show="$data.length>0">
+                                        <td header="'header_paperCheckbox.html'" style="width: 10%;" sortable="'Selected'">
+                                            <input type="checkbox" id="{{paper.PaperID}}" ng-click="SelectPaper(paper.Selected)" ng-true-value="1" ng-false-value="0" ng-model="paper.Selected" ng-checked="paper.Selected==1" />
+                                        </td>
+                                        <td data-title="'试卷名称'" sortable="'PaperName'" style="width: 20%;">{{ paper.PaperName }}</td>
+                                        <td data-title="'地区'" sortable="'Province'" style="padding-left: 20px; width: 20%;">{{ paper.ProvinceName }}</td>
+                                        <td data-title="'年度'" sortable="'Year'" style="padding-left: 20px;">{{ paper.YearDes }}</td>
+                                        <td data-title="'适用年级'" sortable="'Grade'" style="padding-left: 20px;">{{ paper.GradeDes }}</td>
+                                        <td data-title="'难度'" sortable="'Level'" style="padding-left: 20px;">{{ paper.LevelDes }}</td>
+                                        <td data-title="'操作'">
+                                            <a href="javascript:void(0);" style="color: deepskyblue" ng-click="PreviewPaperDetail(paper.PaperID)">预览</a>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="$data.length==0">
+                                        <td colspan="7">
+                                            <div class="table-data-empty">
+                                                <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span style="color: skyblue">已选{{SelectAllPaperCount}}套试卷</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="btn-group" style="margin-left: 5%; line-height: 30px; padding: 0 5px;">试卷包名称：</div>
+                        <div class="btn-group dropdown" style="width: 200px;">
+                            <input type="text" class="form-control query-height" style="width: 200px; display: inline-block;" ng-model="AddPackage.PaperPackageName" placeholder="输入试卷包名称">
+                        </div>
+                        <div class="btn-group" style="line-height: 30px; padding: 0 10px;">类型：</div>
+                        <div class="btn-group dropdown" style="width: 200px;">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;">
+                                {{ AddPackage.CurrentPaperPackageType.Text }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="width: 200px;">
+                                <li ng-repeat="packageType in PaperPackageTypeList">
+                                    <a href="javascript:void(0);" ng-click="AddPackage.CurrentPaperPackageType = packageType;">{{packageType.Text}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary button-commonDialog" style="width: 100px; height: 30px;" ng-click="SavePaperPackage()">保存</button>
+                <button type="button" class="btn btn-primary button-commonDialog" style="width: 100px; height: 30px;" ng-click="CancelPaperPackage()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="PaperPackageDetailDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 490px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" >查看</h5>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-6" style="padding-left: 0;">
+                        <span style="margin-right: 20px; font-size: 16px; color: #7C7C7C;">{{PaperPackageDetail.PaperPackageName}}</span>
+                        <span>{{PaperPackageDetail.PaperPackageTypeDes}}</span>
+                    </div>
+                </div>
+                <div class="row SubTabSet">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li ng-class="{true:'active'}[CurrentTabIndex==1]" ng-click="TabChange(1)" style="width:100px;"><a href="#paperlist" data-toggle="tab">试卷</a></li>
+                        <li ng-class="{true:'active'}[CurrentTabIndex==2]" ng-click="TabChange(2)" style="width:100px;"><a href="#contentlist" data-toggle="tab">内容序列号</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==1]" id="paperlist">
+                            <div class="table-container table-headefix-scroll" style="padding-top: 0; border-top: solid 2px #68B2DE;">
+                                <table ng-table="PaperPackageDetail.PaperList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                                    <tbody>
+                                        <tr ng-repeat="paper in $data" ng-show="$data.length>0">
+                                            <td data-title="'试卷名称'" sortable="'PaperName'">{{ paper.PaperName }}</td>
+                                            <td data-title="'地区'" sortable="'Province'" style="padding-left: 20px;">{{ paper.ProvinceName }}</td>
+                                            <td data-title="'年度'" sortable="'Year'" style="padding-left: 20px;">{{ paper.YearDes }}</td>
+                                            <td data-title="'适用年级'" sortable="'Grade'" style="padding-left: 20px;">{{ paper.GradeDes}}</td>
+                                            <td data-title="'难度'" sortable="'Level'" style="padding-left: 20px;">{{ paper.LevelDes }}</td>
+                                            <td data-title="'操作'">
+                                                <a href="javascript:void(0);" style="color: deepskyblue" ng-click="PreviewPaperDetail(paper.PaperID)">预览</a>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="6">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==2]" id="contentlist">
+                            <div class="table-container" style="padding-top: 0; border-top: solid 2px #68B2DE;">
+                                <table ng-table="PaperPackageDetail.ContentList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                                    <tbody>
+                                        <tr ng-repeat="content in $data" ng-show="$data.length>0">
+                                            <td data-title="'内容序列号'" sortable="'PackageCode'">{{ content.PackageCode }}</td>
+                                            <td data-title="'状态'" sortable="'Status'" style="padding-left: 20px;">{{ content.PakageStatusDes }}</td>
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="2">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="PreviewPaperDetailDialog" tabindex="-4" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:900px; margin: 50px auto 20px;">
+            <div class="modal-header" style="background-color:#e3eaeb;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <font style="color:#383838;font-size:14px;">试卷预览</font>
+            </div>
+            <div class="modal-body">
+                <paper-preview paper="CurrentPaper"></paper-preview>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ImportNewPaperDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 490px; margin: 0 auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">导入本地试卷资源</h4>
+            </div>
+            <div class="modal-body">
+                <form id="paper_localimport_form" name="paper_localimport_form" class="form-horizontal" style="margin:10px 10px;" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="inputFile">请选择本地试卷资源(papz格式的试卷文件)：</label>
+                        <input type="file" id="inputFile" class="uploadFile" accept=".papz" ngf-select ng-model="files" style="float: left;">
+                        <!--accept type link : http://www.iana.org/assignments/media-types/media-types.xhtml -->
+                    </div>
+                    <div ng-if="CurrentPercent>0" style="padding: 1px;border: solid 1px #24a3e6; height: 23px; margin-left: 0px; margin-bottom: 15px;">
+                        <div  class="progress" style="margin-bottom: 1px;margin-top: 1px;height: 18px;border-radius: 0px;background-color: #ffffff;box-shadow: none;">
+                            <div id="importProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="width:{{CurrentPercent}}%;background-color:#178ec9;">
+                            </div>
+                        </div>
+                        <div style="margin-top: -20px;margin-left: 180px;" ng-style="{'color':CurrentPercent>50?'#ffffff':'#178ec9'}">{{CurrentPercent+'%'}}</div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-xs-4"><button type="submit" class="btn btn-primary btn-block button-commonDialog" ng-click="UploadFiles(files)" ng-disabled="files==null||files.length==0">导入</button></div>
+                        <div class="btn-group bg-danger" style="font-size:18px;color:red" ng-hide="LocalImportMessage == ''" role="group">
+                            {{LocalImportMessage}}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

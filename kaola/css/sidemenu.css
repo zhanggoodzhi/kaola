@@ -1,0 +1,44 @@
+﻿
+.sidemenu-a {
+    padding: 20px 15px;
+    cursor: pointer;
+}
+
+    .sidemenu-a .sidemenu-title {
+        font-size: 15px;
+        color: #2F3A52;
+    }
+
+    .sidemenu-a.active .sidemenu-title {
+        color: #178DCA;
+    }
+
+    .sidemenu-a .sidemenu-sub-title {
+        font-size: 14px;
+        color: #2F3A52;
+        margin-left: 20px;
+    }
+
+
+    .sidemenu-a.active .sidemenu-sub-title {
+        color: #178DCA;
+    }
+
+
+.sidemenu-icon {
+    float: left;
+    margin-right: 5px;
+    margin-top: 2px;
+    width:14px;
+    height:14px;
+}
+
+.sidemenu-module {
+    padding: 20px 15px;
+    cursor: default;
+}
+
+    .sidemenu-module .sidemenu-title {
+        font-size: 15px;
+        color: #7D869D;
+    }

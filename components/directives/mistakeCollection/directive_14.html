@@ -1,0 +1,19 @@
+﻿<!--快速应答-->
+<div ng-repeat="c in data.QuestionModel.Contents">
+    <div class="content-div">
+        <div class="content-audiotext-div" ng-if="c.AudioText!=undefined&& c.AudioText.length>0">
+            <div class="question-title">【听力原文】</div>
+            <div class="content-audiotext highlight-no" style="" ng-bind-html="c.AudioText|trustHtml">
+            </div>
+        </div>
+        <div class="content-text highlight-no" ng-if="c.Text!=undefined&& c.Text.length>0" ng-bind-html="c.Text|trustHtml">
+        </div>
+    </div>
+    <div class="content-video" style="">
+        <div ng-video id="{{'ng-video-directives_'+c.ContentID}}" data="GetVideoData(data.ResourcePath,c)"></div>
+    </div>
+</div>
+<question-operation data="data" show-answer="true"></question-operation>
+
+
+

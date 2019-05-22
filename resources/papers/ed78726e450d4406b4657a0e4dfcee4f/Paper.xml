@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<paper guid="ed78726e450d4406b4657a0e4dfcee4f" type="1" name="快速应答" title="" backgroundaudio="" backgroudaudioseconds="0" times="0" image="" content="" waitseconds="0" listeningscore="0" speakingscore="1" papertemplateid="" papertemplatename="" totalexamtime="592" totalscore="1" IsCustomPaper="True">
+  <areas>
+    <area type="14" title="一、快速应答" prompt="请听以下句子，听完每个句子后，请在规定时间内进行快速应答。" promptaudio="area_14_audio.mp3" promptaudioseconds="0" index="1" guid="7c8b9adcefc542eaa63073e544c5c1d6" times="1" presubmitmaxseconds="0" backgroundaudio="area_14_audio.mp3" backgroundaudioseconds="11">
+      <questions>
+        <question guid="3109f27a97f74c42be89a7ee1a2f0f5f" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="10" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="10" waitseconds="0" score="1">
+          <contents>
+            <content guid="aae8b00ae9f74dd3aaaf840fc572906f" text="" image="" audio="" audioseconds="136" video="aae8b00ae9f74dd3aaaf840fc572906f_Video.mp4" videoseconds="136" times="2" prepareseconds="10" answerseconds="7" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="A picture of his favourite person." index="1" choosetype="1" layout="1" resourcetype="1" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <options />
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+  </areas>
+  <sections />
+</paper>

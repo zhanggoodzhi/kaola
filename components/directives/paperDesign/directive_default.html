@@ -1,0 +1,13 @@
+﻿
+<div>
+    QuestionID:{{data.QuestionModel.QuestionID}}
+    <div ng-repeat="c in data.QuestionModel.Contents">
+        <div> ContentID:{{c.ContentID}}</div>
+    </div>
+
+    <question-operation data="data" show-answer="false"></question-operation>
+</div>
+
+
+
+

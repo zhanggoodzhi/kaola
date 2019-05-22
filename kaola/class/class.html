@@ -1,0 +1,263 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/kaola/class/deckgrid.css" />
+<link rel="stylesheet" type="text/css" href="/web/kaola/class/class.css" />
+<style>
+    .a-card {
+        width: 270px;
+        float: left;
+        margin-left: 2%;
+    }
+</style>
+<script type="text/ng-template" id="header_Checkbox.html">
+    <input type="checkbox" ng-click="SelectAllClass($event)" class="select-all" value="" />&nbsp;全选
+</script>
+
+<div class="row bg-white">
+    <div class="content-container ">
+        <div class="content-header">
+            <span class="view-header-text">
+                <i class="xsmallicon icon-liebiao"></i>班级管理</span>
+            <div style="float: right; margin-top: 5px;">
+                <div class="btn-group" ng-if="ClsListStatus==1">
+                    <button type="button" class="btn btn-createTask button-textWithIcon" ng-click="OpenAddTaskDialog()">
+                        <span class="xsmallicon icon-chuangjianrenwu btn-custombg-icon"></span>
+                        <span>创建任务</span>
+                    </button>
+                </div>
+                <div class="btn-group" ng-if="ClsListStatus==1">
+                    <button type="button" class="btn button-textWithIcon btn-custombg" style="background-color: #2EAE5B;" ng-click="LoadHistoryClsList()">
+                        <span class="xsmallicon icon-lishi btn-custombg-icon"></span>
+                        <span>历史班级</span>
+                    </button>
+                </div>
+                <div class="btn-group" ng-if="ClsListStatus==1">
+                    <button type="button" class="btn button-textWithIcon btn-custombg" ng-click="OpenAddClassDialog()">
+                        <span class="xsmallicon icon-xinzeng btn-custombg-icon"></span>
+                        <span>新增班级</span>
+                    </button>
+                </div>
+
+                <div class="btn-group" ng-if="ClsListStatus==2">
+                    <button type="button" class="btn button-textWithIcon btn-custombg" ng-click="LoadClsList()">
+                        <span class="xsmallicon icon-fanhui btn-custombg-icon"></span>
+                        <span>返回当前</span>
+                    </button>
+                </div>
+            </div>
+            <toaster-container style="position: absolute !important; margin-top: 15px !important;" toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+        </div>
+        <div class="content-main">
+            <div id="classDeckGrid" class="row" style="" ng-if="ClsListStatus==1 && InitDataForDeckGrid==true">
+                <div ng-show="hasData==true">
+                    <div class="a-card" ng-repeat="card in ClassDataList">
+                        <div class="" style="width:270px;margin:0 auto;">
+                            <div class="tabpanel">
+                                <div class="color-blue" style="background-color: #e3eaeb; height: 50px;   line-height: 50px; text-align: left; position: relative;"
+                                    ng-click="SelectCard(card)">
+                                    <span class="ellipsis" style="display:inline-block;max-width:228px;font-size: 14px; color: #383838; padding-left: 10px;" ng-attr-title="{{card.ClassName}}">{{card.ClassName}}</span>
+                                    <div class="checkbox">
+                                        <label ng-class="{true:'checked'}[card.Selected==1]" for="{{'chk_Choose_'+card.ClassID}}"></label>
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="card.Selected" ng-checked="card.Selected==1" ng-click="SelectCard(card)"
+                                            id="{{'chk_Choose_'+card.ClassID}}" />
+                                    </div>
+                                </div>
+                                <div class="row" style="text-align: center; margin: 25px auto; height: 50px;">
+                                    <div class="col-xs-3" style="width:70px;padding:0 10px;">年级
+                                        <br />
+                                        <span class="spanContent">{{ card.Grade|GradeDes }}</span>
+                                    </div>
+                                    <div class="col-xs-3" style="border-left: 1px solid #ddd; border-right: 1px solid #ddd;padding-left: 0px;padding: 0px 10px;width:130px;">班级编号
+                                        <br />
+                                        <span class="spanContent">{{ card.ClassNumber }}</span>
+                                    </div>
+                                    <div class="col-xs-3" style="padding:0 10px;width:67px;">人数
+                                        <br />
+                                        <span class="spanContent">{{ card.StudentCount }}</span>
+                                    </div>
+                                </div>
+                                <div class="" style="border-top: 1px solid #ddd; margin-top: 0px;padding-top:10px;">
+                                    <ul class="list-container">
+                                        <li>
+                                            <a href="javascript:void(0)" ng-click="OpenUpdateClassDialog(card)" class="btn btn-op" tooltip="修改" tooltip-placement="bottom">
+                                                <span class="smallicon icon-bianjixiugai" aria-hidden="true" style="top: -0px;color: #a2b4bd;"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" ng-click="OpenClsToHistoryDialog(card.ClassID)" class="btn btn-op" tooltip="删除" tooltip-placement="bottom">
+                                                <span class="smallicon icon-shanchu" aria-hidden="true" style="top: -1px;color: #a2b4bd;"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" ng-click="OpenUpGradeDialog(card)" class="btn btn-op" tooltip="升班" tooltip-placement="bottom">
+                                                <span class="smallicon icon-shengban" aria-hidden="true" style="color: #a2b4bd;"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" ng-click="ReturnToStu(card)" class="btn btn-op" tooltip="学生管理" tooltip-placement="bottom">
+                                                <span class="smallicon icon-yonghu" aria-hidden="true" style="top: 0px;color: #a2b4bd;"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" class="btn btn-op" tooltip="相关报告" tooltip-placement="bottom" target="_blank" ui-sref="teacherreport({classID:'{{card.ClassID}}',taskID:'',from:'class'})">
+                                                <span class="smallicon icon-chengjibaogao" aria-hidden="true" style="top: 0px;color: #a2b4bd;"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<deckgrid source="ClassDataList" cardTemplate="deckgrid-card.html" class="deckgrid">
+                    </deckgrid>-->
+                </div>
+            </div>
+
+            <div class="table-container" ng-if="ClsListStatus==2 && hasData==true">
+                <table ng-table="HistoryClassList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                    <tbody>
+                        <tr ng-repeat="cls in $data">
+                            <td header="'header_Checkbox.html'" style="width: 8%;" sortable="'Selected'">
+                                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="cls.Selected" style="margin-left:20px;" />
+                            </td>
+                            <td data-title="'班级名称'" sortable="'ClassName'">{{ cls.ClassName }}</td>
+                            <td data-title="'年级'">{{ cls.Grade|GradeDes }}</td>
+                            <td data-title="'班级编号'">{{ cls.ClassNumber }}</td>
+                            <td data-title="'人数'">{{ cls.StudentCount }}</td>
+                            <td data-title="'操作'">
+                                <a href="javascript:void(0)" ng-click="OpeDeleteClassDialog(cls)" class="btn btn-op" tooltip="永久删除" tooltip-placement="bottom">
+                                    <span class="smallicon icon-shanchu" aria-hidden="true"></span>
+                                </a>
+                                <a href="javascript:void(0)" ng-click="ClassToCurrent(cls.ClassID)" class="btn btn-op" tooltip="恢复" tooltip-placement="bottom">
+                                    <span class="smallicon icon-huifu"></span>
+                                </a>
+                                <a href="javascript:void(0)" ng-click="ReturnToStu(cls)" class="btn btn-op" tooltip="学生管理" tooltip-placement="bottom">
+                                    <span class="smallicon icon-xueshengguanli" style="top: 2px;"></span>
+                                </a>
+                                <a href="javascript:void(0)" class="btn btn-op" tooltip="相关报告" tooltip-placement="bottom" target="_blank" ui-sref="teacherreport({classID:'{{cls.ClassID}}',taskID:'',from:'class'})">
+                                    <span class="smallicon icon-chengjibaogao" aria-hidden="true" style="top: 0px;"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row" ng-if="hasData==true">
+                    <div class="btn-group">
+                        <a class="btn button-textWithIcon" style="background-color: #ffffff !important;color: #339dd2 !important;" ng-click="OpenDelClsDialog()">
+                            <span class="xsmallicon icon-shanchu btn-custombg-icon"></span>
+                            <span style="vertical-align: middle;">批量删除</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="hasData==false" style="position: absolute;top: 50%;margin-top: -60px; left: 50%;margin-left: -70px;">
+                <img src="http://cdn.uukaola.com/web/img/none.png" />
+            </div>
+        </div>
+
+
+        <div class="modal" id="UpdateClassDialog" tabindex="-2" role="dialog">
+            <div class="modal-dialog" style="position: absolute;top: 50%;margin-top: -140px !important;">
+                <div class="modal-content" style="width: 400px; margin: auto;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" style="margin-bottom:20px;">修改班级</h5>
+                    </div>
+
+                    <div class="modal-body">
+                        <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog2'}"
+                            style="width:60%;margin:0 15%;"></toaster-container>
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="clsU_Name" class="control-label col-sm-3 col-xs-3 ">班级名称：</label>
+                                <div class="col-sm-6 col-xs-6 ">
+                                    <input type="text" class="form-control " id="clsU_Name" placeholder="例:初一(1)班" ng-model="UpdateCls.ClassName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="clsU_Grade" class="col-sm-3 col-xs-3  control-label ">年级：</label>
+                                <div class="col-sm-6 col-xs-6 ">
+                                    <div class="form-control dropdown">
+                                        <a class="btn" href="#" id="clsU_Grade" data-toggle="dropdown" style="width: 100%; text-align: left;height: 100%;">
+                                            {{ !(choosedClass.currentGrade.Grade>0)? "请选择" : choosedClass.currentGrade.Name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span class="caret" style="position: absolute; right: 10px; top: 12px;"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="clsU_Grade" role="menu">
+                                            <li ng-repeat="grade in Grade">
+                                                <a href="javascript:void(0);" ng-click="choosedClass.currentGrade = grade;">{{grade.Name}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-commonDialog" ng-click="UpdateClass()" style="width: 150px">修改</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="AddClassDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="position: absolute;top: 50%;margin-top: -140px !important;">
+        <div class="modal-content" style="width: 400px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">新增班级</h5>
+            </div>
+            <div class="modal-body">
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog1'}"></toaster-container>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="cls_Name" class="control-label col-md-3 col-xs-3 ">班级名称：</label>
+                        <div class="col-md-6 col-xs-6">
+                            <input type="text" class="form-control" id="cls_Name" placeholder="例:初一(1)班" ng-model="ClassParam.ClassName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cls_Grade" class="col-md-3 col-xs-3  control-label ">年级：</label>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="form-control dropdown">
+                                <a class="btn" href="#" id="clsU_Grade" data-toggle="dropdown" style="width: 100%; text-align: left; height: 100%;">
+                                    {{ !(ClassParam.Grade.Grade >0) ? "请选择" : ClassParam.Grade.Name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="caret" style="position: absolute; right: 10px; top: 12px;"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="clsU_Grade" role="menu">
+                                    <li ng-repeat="grade in Grade">
+                                        <a href="javascript:void(0);" ng-click="ClassParam.Grade = grade;">{{grade.Name}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary button-commonDialog" ng-click="AddClass()" id="btn_AddClass" style="width: 169px">创建</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="AddTaskDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 600px; margin: auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" style="">创建任务</h5>
+            </div>
+
+            <div class="modal-body">
+                <div ui-view="createTaskView"></div>
+            </div>
+        </div>
+    </div>
+</div>

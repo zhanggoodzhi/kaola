@@ -1,0 +1,340 @@
+﻿
+
+@media(max-width:1300px) {
+    .query-label {
+        line-height: 38px;
+        margin-left: 10px !important;
+    }
+
+    .query-dropdown-width {
+        min-width: 100px;
+    }
+}
+
+@media(min-width:1300px) {
+    .query-label {
+        line-height: 38px;
+        margin-left: 50px !important;
+    }
+
+    .query-dropdown-width {
+        min-width: 150px;
+    }
+}
+
+@media(max-width:1300px) {
+    .dropdown-query {
+        width: 130px;
+        float: left;
+        margin-left: 5px;
+    }
+
+    .query-text-width {
+        width: 140px !important;
+    }
+}
+
+@media(min-width:1300px) {
+    .dropdown-query {
+        width: 150px;
+        float: left;
+        margin-left: 30px;
+    }
+
+    .query-text-width {
+        width: 200px !important;
+    }
+}
+
+.dropdown-menu {
+    min-width: 0px;
+    width: 150px;
+}
+
+.paperSummaryInfo {
+    float: left;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.col-sm-3 select {
+    height: 40px;
+    width: 80%;
+    color: #b1adad;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.icon-paperaction {
+    font-size: 1.5em !important;
+}
+
+.popover {
+    max-width: 400px;
+}
+
+.btn-papergreen, .btn-paperred, .btn-paperpurple {
+    background-color: transparent;
+    border: 2px solid #c7cbcf;
+    color: #c7cbcf;
+    border-radius: 500px;
+    width: 24px;
+    height: 24px;
+    padding: 0px 0px;
+}
+
+    .btn-papergreen:hover {
+        color: #2eae5b;
+        border-color: #2eae5b;
+    }
+
+    .btn-paperred:hover {
+        color: #dd594a;
+        border-color: #dd594a;
+    }
+
+    .btn-paperpurple:hover {
+        color: #a276a4;
+        border-color: #a276a4;
+    }
+
+.areainfo {
+    /*margin-bottom:4px;*/
+}
+
+    .areainfo .areatitle {
+        font-size: 14px;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 10px;
+        background-color: #e8ebef;
+        color: #383838;
+    }
+
+    .areainfo .areaprompt {
+        color: #79889b;
+        padding: 10px;
+        border: 1px dashed #a6bdd1;
+        display: table;
+        width: 100%;
+    }
+
+        .areainfo .areaprompt .audio {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .areainfo .areaprompt .text {
+            vertical-align: middle;
+            display: table-cell;
+        }
+
+.questioninfo {
+    margin-bottom: 10px;
+}
+
+    .questioninfo .questionprompt {
+        padding: 10px;
+        display: table;
+        width: 100%;
+    }
+
+        .questioninfo .questionprompt .text {
+            display: table-cell;
+            /*font-size:1.2em;*/
+            color: #0094ff;
+            vertical-align: middle;
+            padding-right: 10px;
+        }
+
+        .questioninfo .questionprompt .action {
+            width: 84px;
+            font-size: .9em;
+            text-align: center;
+            vertical-align: middle;
+            display: table-cell;
+        }
+
+.contentinfo {
+    /*margin:10px;*/
+}
+
+    .contentinfo:hover, .contentinfo:hover clearfix {
+        background-color: #dbf0fc;
+    }
+
+        .contentinfo:hover .btn-papergreen {
+            color: #2eae5b;
+            border-color: #2eae5b;
+        }
+
+        .contentinfo:hover .btn-paperred {
+            color: #dd594a;
+            border-color: #dd594a;
+        }
+
+        .contentinfo:hover .btn-paperpurple {
+            color: #a276a4;
+            border-color: #a276a4;
+        }
+
+        .contentinfo:hover .contenttext .text span {
+            color: #ffffff;
+            background-image: url('http://cdn.uukaola.com/web/img/paper/h2.png');
+        }
+
+    .contentinfo .contenttext {
+        padding: 10px;
+        display: table;
+        width: 100%;
+    }
+
+        .contentinfo .contenttext .text {
+            display: table-cell;
+            vertical-align: middle;
+            padding-right: 10px;
+            color: #383838;
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+            .contentinfo .contenttext .text span {
+                display: inline-block;
+                color: #383838;
+                width: 40px;
+                margin-right: 10px;
+                height: 26px;
+                line-height: 26px;
+                background-image: url('http://cdn.uukaola.com/web/img/paper/h1.png');
+                background-repeat: no-repeat;
+                background-position: 0 50%;
+                padding-left: 12px;
+            }
+
+        .contentinfo .contenttext .action {
+            width: 84px;
+            font-size: .9em;
+            text-align: center;
+            vertical-align: middle;
+            display: table-cell;
+        }
+
+.options ul {
+    list-style-type: none;
+}
+
+    .options ul li {
+        background-image: url('http://cdn.uukaola.com/web/img/paper/circle1.png');
+        background-repeat: no-repeat;
+        background-position: 2% 50%,95% 50%;
+        padding-left: 30px;
+        margin: 4px;
+        min-width: 280px;
+    }
+
+        .options ul li.right {
+            background-image: url('http://cdn.uukaola.com/web/img/paper/circle2.png');
+        }
+
+        .options ul li.rightSelected {
+            background-image: url('http://cdn.uukaola.com/web/img/mr.png'),url('http://cdn.uukaola.com/web/img/rightSelect.png');
+            border: 1px solid green;
+        }
+
+        .options ul li.wrongSelected {
+            background-image: url('http://cdn.uukaola.com/web/img/mr.png'),url('http://cdn.uukaola.com/web/img/wrongSelect.png');
+            border: 1px solid red;
+        }
+
+.options .vertical li {
+    float: left;
+    margin-right: 60px;
+    height: 24px;
+    line-height: 24px;
+}
+
+.options .vertical-img li {
+    height: 130px;
+    line-height: 130px;
+}
+
+
+
+.papermgr-tab-header {
+    color: #555;
+    background-color: #fafafa;
+    border-top: solid 1px #E6E5E5;
+    border-left: solid 1px #E6E5E5;
+    border-right: solid 1px #E6E5E5;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    width: 150px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+    .papermgr-tab-header.active {
+        background-color: #24a3e6;
+        border-bottom-color: transparent;
+        cursor: default;
+    }
+
+.papermgr-tabs {
+    border-bottom: solid 1px #dcdcdc;
+}
+
+    .papermgr-tabs li {
+        height: 38px;
+        width: 139px;
+        background-color: #ffffff;
+        border-radius: 3px 3px 0 0;
+        border: solid 1px #dcdcdc;
+        border-bottom: none;
+    }
+
+
+        .papermgr-tabs li a {
+            height: 38px;
+            line-height: 38px;
+            font-size: 16px !important;
+            font-weight: bold;
+            color: #555555;
+            border: none !important;
+        }
+
+.papermgr-tab-header.active a {
+    color: #ffffff !important;
+    border: none !important;
+    background-color: #178EC9 !important;
+}
+
+
+.papermgr-papername-filter {
+    float: right;
+    margin-bottom: -34px;
+}
+
+    .papermgr-papername-filter .papermgr-papername-input {
+        float: left;
+    }
+
+        .papermgr-papername-filter .papermgr-papername-input input[type=text] {
+            background-color: #ffffff;
+            border: solid 1px #dcdcdc;
+            border-right: none;
+            border-radius: 3px 0 0 3px;
+            padding-left: 8px;
+            width: 252px;
+            height: 32px;
+            line-height: 32px;
+            color: #333333;
+        }
+
+    .papermgr-papername-filter .papermgr-papername-button {
+        float: left;
+        cursor: pointer;
+    }
+
+        .papermgr-papername-filter .papermgr-papername-button img {
+            height: 32px;
+        }

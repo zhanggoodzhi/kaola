@@ -1,0 +1,274 @@
+﻿
+<link rel="stylesheet" type="text/css" href="/web/business/PaperManagement/paper.css" />
+<link rel="stylesheet" type="text/css" href="/web/components/directives/paperpreview_rebuild/paperpreview.css" />
+
+<div class="margin-left-right-none MainTabSet">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">试卷库管理</a>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active" id="paperLibaryManage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+            <div class="content-main">
+                <div class="row" style="line-height: 40px;">
+                    <div class="btn-group" style="line-height: 30px;" ng-show="isAdmin">内容商：</div>
+                    <div class="btn-group dropdown" style="width: auto;margin-right:6px;" ng-show="isAdmin">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.CurrentContentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="overflow-y: auto;height: 200px;">
+                            <li ng-repeat="contentProvider in ContentProviderList"><a href="javascript:void(0);" ng-click="Filter.CurrentContentProvider = contentProvider;">{{contentProvider.ContentProviderName}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="line-height: 30px;">适用地区：</div>
+                    <div class="btn-group dropdown" style="width: auto;margin-right:6px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.CurrentProvince.ProvinceName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="overflow-y: auto;height: 200px;">
+                            <li ng-repeat="province in ProvinceList"><a href="javascript:void(0);" ng-click="Filter.CurrentProvince = province;">{{province.ProvinceName}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="line-height: 30px;">年度：</div>
+                    <div class="btn-group dropdown" style="width: 90px;margin-right:6px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.CurrentYear.DisplayMember }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                            <li ng-repeat="year in YearList"><a href="javascript:void(0);" ng-click="Filter.CurrentYear = year;">{{year.DisplayMember}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="line-height: 30px;">适用年级：</div>
+                    <div class="btn-group dropdown" style="width: 90px;margin-right:6px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.CurrentGrade.Name }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                            <li ng-repeat="g in GradeList"><a href="javascript:void(0);" ng-click="Filter.CurrentGrade = g;">{{g.Name}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="line-height: 30px;">难度：</div>
+                    <div class="btn-group dropdown" style="width: 90px;margin-right:6px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.CurrentLevel.DisplayMember }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                            <li ng-repeat="level in LevelList"><a href="javascript:void(0);" ng-click="Filter.CurrentLevel = level;">{{level.DisplayMember}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="">
+                        <input type="text" class="search-textbox" style="width: 250px;display: inline-block;" id="txt_installCode" ng-keyup="KeyupSearchPaperList($event)" ng-model="QueryParams.PaperName" placeholder="输入试卷名称">
+                        <button type="button" class="search-button button button-blue" style="margin-left:-4px;margin-top:-4px;" ng-click="SearchPaperList()">
+                            <img src="http://cdn.uukaola.com/web/img/business/search.png" style="width:16px;height:16px;" />
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow" ng-click="ImportNewPaperDialog(true,false)">
+                                <img src="http://cdn.uukaola.com/web/img/business/ruku.png">
+                                <span aria-hidden="true">导入试卷</span>
+                            </button>
+                            <button ng-if="IsSuperAdmin" type="button" class="btn-yellow" ng-click="ImportNewPaperDialog(true,true)">
+                                <img src="http://cdn.uukaola.com/web/img/business/ruku.png">
+                                <span aria-hidden="true">替换试卷</span>
+                                <!--只有超级管理员才有该权限-->
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-table="PaperList" class="table table-condensed table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="paper in $data" id="{{paper.PaperID}}">
+                                <td data-title="'试卷名称'" style="width:14%;text-align:left;">{{ paper.PaperName }}</td>
+                                <td data-title="'试卷模板'" style="padding-left: 20px;width:14%;">{{ paper.PaperTemplateName  | EmptyFilter }}</td>
+                                <td data-title="'适用地区'" style="padding-left: 20px;width:8%;">{{ paper.ProvinceName| EmptyFilter }}</td>
+                                <td data-title="'年度'" style="padding-left: 20px;width:8%;">{{ paper.YearDes| EmptyFilter }}</td>
+                                <td data-title="'适用年级'" style="padding-left: 20px;width:10%;">{{ paper.GradeDes | EmptyFilter}}</td>
+                                <td data-title="'难度'" style="padding-left: 20px;width:8%;">{{ paper.LevelDes | EmptyFilter}}</td>
+                                <td data-title="'内容商'" ng-if="isAdmin" style="padding-left: 20px;width:10%;">{{ paper.ContentProviderName }}</td>
+                                <td data-title="'内容编辑'" style="padding-left: 20px;width:10%;">{{ paper.ContentProviderUser }}</td>
+                                <td data-title="'使用次数'" style="padding-left: 20px;width:8%;">{{ paper.UseCount| EmptyFilter }}</td>
+                                <td data-title="'操作'" style="width:10%;">
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="OpenReimportDialog(paper.PaperID)">
+                                        重新导入
+                                    </a>
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="PreviewPaperDetail(paper.PaperID)">预览</a>
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-show="paper.UseCount==0" ng-click="OpenDeletePaperDialog(paper.PaperID)">删除</a>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="PreviewPaperDetailDialog" tabindex="-4" role="dialog">
+    <div class="modal-dialog" style="margin-top:80px !important;">
+        <div class="modal-content" style="width:900px; margin: 50px auto 20px;">
+            <div class="modal-header" style="background-color:#e3eaeb;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">试卷预览</h5>
+            </div>
+            <div class="modal-body">
+                <paper-preview paper="CurrentPaper"></paper-preview>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="ImportNewPaperDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 456px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">导入试卷</h5>
+            </div>
+            <form id="paper_localimport_form" name="paper_localimport_form" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <div ng-show="isAdmin" style="width:80px;text-align: right;" class="btn-group">
+                            内容商：
+                        </div>
+                        <div class="dropdown" style="min-width:160px;display:inline-block;" ng-show="isAdmin">
+                            <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;min-width:160px;">
+                                {{ FilterImport.CurrentContentProviderImport.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;">
+                                <li ng-repeat="contentProvider in ContentProviderListImport"><a href="javascript:void(0);" ng-click="FilterImport.CurrentContentProviderImport = contentProvider;">{{contentProvider.ContentProviderName}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:12px;">
+                        <div class="btn-group" style="width:80px;text-align: right;">
+                            选择文件：
+                        </div>
+                        <div class="btn-group file-uploader-wrap">
+                            <input type="file" class="file-uploader" accept=".papz,.package" ngf-select ng-model="files" name="uploadDataField" id="inputFile" />
+                            <div class="file-uploader-wrap-fake">
+                                <input type="text" id="PathDisplayer" class="search-textbox" readonly="readonly" ng-model="files.name" />
+                                <button href="javascript:void(0)" style="background-color: #eff2f7;border:1px solid #d2d5d8;height: 30px;width: 50px;">浏览</button>
+                            </div>
+                        </div>
+                        <!--<input type="file" id="inputFile" class="uploadFile" accept=".papz" ngf-select ng-model="files">-->
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div ng-if="CurrentPercent>0 && LocalImportMessage==''" style="padding: 1px;border: solid 1px #24a3e6; height: 23px; margin-left: 0px; margin-bottom: 15px;margin-top: 15px">
+                        <div class="progress" style="margin-bottom: 1px;margin-top: 1px;height: 18px;border-radius: 0px;background-color: #ffffff;box-shadow: none;">
+                            <div id="importProgressBar" class="progress-bar progress-bar-info" role="progressbar" style="width:{{CurrentPercent}}%;background-color:#178ec9;">
+                            </div>
+                        </div>
+                        <div style="margin-top: -20px;margin-left: 180px;" ng-style="{'color':CurrentPercent>50?'#ffffff':'#178ec9'}">{{CurrentPercent+'%'}}</div>
+                    </div>
+                    <div id="erroMessageReset" class="erro-message" style="margin-top:10px;margin-left:85px;">
+                        <div ng-show="LocalImportMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" />
+                            <span style="color:red;">
+                                导入失败，
+                                <span class="href" style="color:red !important;" ng-click="ShowErrorMsg()">查看错误原因</span>
+                            </span>
+                            <div ng-show="IsShowError==true">
+                                <div class="triangle1"></div>
+                                <div class="triangle2"></div>
+                                <div class="custom-scrollbar tooltiptext" ng-mouseleave="IsShowError=false"
+                                     style="text-align:center;position: absolute;width:264px;height:144px;
+                                        border:1px solid #d2d5d8;left: 280px;top: 94px;background-color: white;
+                                        border-radius:4px;z-index: 9999;">
+                                    <div style="width:100%;min-height:100%;padding:12px;width:240px;height:120px;color:#a4a4a4;text-align:left;" ng-bind-html="LocalImportMessage|trustHtml">
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-normal btn-primary" ng-click="UploadFiles(files,reImportPaperId)" ng-disabled="files==null||files.length==0">开始导入</button>
+                    <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="replacePaper" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 700px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">替换试卷</h5>
+            </div>
+            <form id="paper_localimport_form" name="paper_localimport_form" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <table class="table table-condensed table-bordered table-hover">
+                            <thead>
+                                <tr style="text-align: left">
+                                    <td style="width:50%;">新导入试卷</td>
+                                    <td style="width:50%;">原有试卷</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%;text-align: left">
+                                        <div ng-repeat="paper in ReplaceData" id="{{paper.PaperID}}">
+                                            <span style="text-align:left;"><input type="radio" name="isReplace" ng-click="SelectPaper(paper)" /></span>
+                                            <span data-title="'试卷名称'" style="text-align:left;">{{ paper.PaperName }}</span>
+                                        </div>
+                                    </td>
+                                    <td style="width:50%;text-align: left">
+                                        <div ng-repeat="paper in OldPaperData" id="{{paper.PaperID}}" style="margin-left:20px;">
+                                            <span style="text-align:left;"><input type="radio" name="isOld" ng-click="SetOldPaperID(paper.PaperID)" /></span>
+                                            <span data-title="'试卷名称'" style="text-align:left;">{{ paper.PaperName }}</span>
+                                            <span data-title="'导入时间'" style="text-align:left;">{{ paper.ImportTime }}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span ng-show="ReplaceResult.Result">试卷包</span>
+                        <table class="table table-condensed table-bordered table-hover" ng-show="ReplaceResult.Result">
+                            <tbody>
+                                <tr ng-repeat="result in ReplaceResult.ListPaperPackage">
+                                    <td data-title="'试卷包名称'" style="width:30%;text-align:left;">{{ result.PaperPackageName }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span ng-show="ReplaceResult.Result"> 内容序列号</span>
+                        <table class="table table-condensed table-bordered table-hover" ng-show="ReplaceResult.Result">
+                            <tbody>
+                                <tr ng-repeat="result in ReplaceResult.ListPackageList">
+                                    <td data-title="'内容序列号'" style="width:30%;text-align:left;">{{ result.PacKageCode }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-normal btn-primary" ng-click="ReplacePaper()">处理</button>
+                    <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal" id="showAudioRefTextDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 500px;margin:auto;">
+            <div class="modal-header" style="background-color: #E1E1E1 !important;color: #333;">
+                <button type="button" class="close" data-dismiss="modal" style="background-image: url(http://cdn.uukaola.com/web/img/report/close.png);width:16px;height:15px;" aria-label="Close"></button>
+                <span class="modal-title" id="myModalLabel" style="line-height:0px;font-size:16px;">录音原文</span>
+            </div>
+
+            <div class="modal-body">
+                <div style="padding: 0px 10px 10px;background-color:#ffffff;font-family:Arial,'Microsoft YaHei';font-size:14px !important;color:black !important;" ng-bind-html="AudioRefText|trustHtml"></div>
+            </div>
+        </div>
+    </div>
+</div>

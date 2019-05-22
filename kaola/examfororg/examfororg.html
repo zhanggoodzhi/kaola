@@ -1,0 +1,233 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/kaola/examfororg/examfororg.css" />
+
+<div class="row page-container bg-white">
+
+    <div class="content-container">
+
+        <div class="content-header" style="text-align: center">
+            <span class="view-header-text">
+                <i class="xsmallicon icon-liebiao"></i>
+                <span>
+                    模考管理
+                </span>
+            </span>
+            <div class="" style="float:right;margin-top:5px;">
+                <button type="button" class="btn btn-add-examplan" ng-click="OpenAddExamPlanDialog()">
+                    <img src="/web/img/examForOrg/add_examplan.png" class="btn-add-examplan-icon" />新建考试
+                </button>
+            </div>
+        </div>
+        <div class="content-main">
+            <div ng-if="ExamPlanList.length==0" class="empty-examplan">
+                <img src="/web/img/examForOrg/empty_examplan.png" />
+            </div>
+            <div ng-if="ExamPlanList.length>0">
+                <div ng-repeat="ep in ExamPlanList" class="card">
+                    <div class="card-header">
+                        <div class="status" ng-class="GetExamPlanStatusCSS(ep)">{{GetExamPlanStatus(ep)}}</div>
+                        <div class="examplan-name">{{ep.ExamPlanName}}</div>
+                        <div class="examplan-time">考试时间&nbsp;:&nbsp;{{ep.ExamPlanStartDateTimeString}}--{{ep.ExamPlanEndDateTimeString}}</div>
+                        <div class="examplan-operation">
+                            <div class="update-examplan" ng-if="CheckByStatus(ep,[1,2,3])" ng-click="OpenUpdateExamPlanDialog(ep)"></div>
+                            <div class="delete-examplan" ng-if="CheckByStatus(ep,[1,4,5])" ng-click="DeleteExamPlan(ep)"></div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="paper">
+                            <div ng-class="{'allow-choose':CheckByStatus(ep,[1]),'disabled':CheckByStatus(ep,[1])==false,'text':ep.PaperNum==0,'val':ep.PaperNum>0}" ng-click="ChooseExamRelationPaper(ep)">{{ep.PaperNum==0?'选择使用试卷':ep.PaperNum}}</div>
+                            <div class="desc">试卷数量</div>
+
+                        </div>
+                        <div class="school">
+                            <div ng-class="{'allow-choose':CheckByStatus(ep,[1]),'disabled':CheckByStatus(ep,[1])==false,'text':ep.SchoolNum==0,'val':ep.SchoolNum>0}"
+                                 ng-click="ChooseExamRelationSchool(ep)">{{ep.SchoolNum==0?'选择参与学校':ep.SchoolNum}}</div>
+                            <div class="desc">学校数量</div>
+                        </div>
+                        <div class="student-count">
+                            <div class="val">{{ep.ExamineeNum |EmptyFilter}}</div>
+                            <div class="desc">考生总数</div>
+                        </div>
+                        <div class="success-student-count">
+                            <div class="val">{{ep.SuccessedExamineeNum|EmptyFilter }}</div>
+                            <div class="desc">考生成功数</div>
+                        </div>
+                        <div class="percent">
+                            <div class="val">{{ep.SuccessedPercent |EmptyFilter}}</div>
+                            <div class="desc">考试完成进度</div>
+                        </div>
+                        <div class="operation">
+                            <div class="button-group">
+
+                                <button type="button" class="btn btn-examplan-setting" ng-if="CheckByStatus(ep,[1])" ng-click="UpdateExamPlanSetting(ep)">
+                                    考试相关设置
+                                </button>
+
+                                <button type="button" class="btn btn-examplan-view-detail" ng-if="CheckByStatus(ep,[])" ng-click="ViewExamPlanDetail(ep)">
+                                    查看考试详情
+                                </button>
+
+                                <button type="button" class="btn btn-examplan-view-detail" ng-if="CheckByStatus(ep,[5])" ng-click="ViewExamPlanReport(ep)">
+                                    查看成绩报告
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="load-more" ng-click="SearchExamPlanList()" ng-show="ShowLoadMore&&ExamPlanList.length>0">
+                加载更多
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="AddExamPlanDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="width: 430px">
+        <div class="modal-content newpackage-modal">
+            <div class="modal-header" style="border-radius: 3px 3px 0 0!important;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight:bold;">新建考试</h5>
+            </div>
+
+            <div class="modal-body" style="">
+
+                <div class="form-line">
+
+                    <div class="form-line-label" style="width: 100px;">
+                        考试名称:
+                    </div>
+                    <div class="form-line-input">
+                        <input type="text" maxlength="30" style="width: 250px;" placeholder="请输入考试名称" ng-model="CurrentExamPlan.ExamPlanName">
+                    </div>
+                </div>
+                <div class="form-line">
+
+                    <div class="form-line-label" style="width: 100px;">
+                        考试时间:
+                    </div>
+                    <div class="form-line-input">
+                        <input size="10" type="text" value="{{CurrentExamPlan.ExamPlanStartDateTime}}" id="Add_ExamPlanStartDateTime" class="form-control calendar" style="width: 120px;float:left;" readonly onfocus="this.blur()">
+                        <input size="10" type="text" value="{{CurrentExamPlan.ExamPlanEndDateTime}}" id="Add_ExamPlanEndDateTime" class="form-control calendar" style="width: 120px;float:left;margin-left: 10px;" readonly onfocus="this.blur()">
+                    </div>
+                </div>
+                <div class="form-line">
+
+                    <div class="form-line-label" style="width: 100px;">
+                        考试年级:
+                    </div>
+                    <div class="form-line-input" style="width: 250px;    padding-top: 15px;">
+                        <div ng-repeat="g in Grade" class="examplan-grade" ng-class="{true:'active'}[g.Grade==CurrentExamPlan.Grade]" ng-click="CurrentExamPlan.Grade=g.Grade">{{g.Alias}}</div>
+                    </div>
+                </div>
+
+                <div class="form-line" style="padding-left: 120px;min-height: 40px;">
+                    <span class="span-error-msg" ng-hide="ValidateExamPlanMessage==''">
+                        <img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png" style="margin-top: 3px;">{{ValidateExamPlanMessage}}
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel button-dialog-footer" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary button-dialog-footer" style="margin-left:20px;" ng-click="AddExamPlan()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="UpdateExamPlanDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="width: 430px">
+        <div class="modal-content newpackage-modal">
+            <div class="modal-header" style="border-radius: 3px 3px 0 0!important;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight:bold;">修改考试信息</h5>
+            </div>
+
+            <div class="modal-body" style="">
+
+                <div class="form-line">
+
+                    <div class="form-line-label" style="width: 100px;">
+                        考试名称:
+                    </div>
+                    <div class="form-line-input">
+                        <input type="text" maxlength="30" style="width: 250px;" placeholder="请输入考试名称" ng-model="CurrentExamPlan.ExamPlanName">
+                    </div>
+                </div>
+                <div class="form-line">
+
+                    <div class="form-line-label" style="width: 100px;">
+                        考试时间:
+                    </div>
+                    <div class="form-line-input">
+                        <input size="10" type="text" value="{{CurrentExamPlan.ExamPlanStartDateTime}}" id="Update_ExamPlanStartDateTime" class="form-control calendar" style="width: 120px;float:left;" readonly onfocus="this.blur()" ng-disabled="DisableUpdateExamPlanStartDateTime(CurrentExamPlan)">
+                        <input size="10" type="text" value="{{CurrentExamPlan.ExamPlanEndDateTime}}" id="Update_ExamPlanEndDateTime" class="form-control calendar" style="width: 120px;float:left;margin-left: 10px;" readonly onfocus="this.blur()">
+                    </div>
+                </div>
+                <div class="form-line" style="padding-left: 120px;min-height: 40px;">
+                    <span class="span-error-msg" ng-hide="ValidateExamPlanMessage==''">
+                        <img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png" style="margin-top: 3px;">{{ValidateExamPlanMessage}}
+                    </span>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel button-dialog-footer" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary button-dialog-footer" style="margin-left:20px;" ng-click="UpdateExamPlan()">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ExamSettingDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="position: absolute;top: 50%;margin-top: -140px !important;">
+        <div class="modal-content examsetting-modal">
+            <div class="modal-header" style="border-radius: 3px 3px 0 0!important;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight:bold;">考试设置</h5>
+            </div>
+            <div class="modal-body">
+                <div class="examsetting-controlcontainer">
+                    <div class="examsetting-radtitle">试卷分配规则:</div>
+                    <div class="radio-item">
+                        <!--<div class="custom-radio">
+                            <input type="radio" id="radAssignmentRule_0" name="radAssignmentRule" style="" ng-checked="CurrentAssignRule==1||CurrentAssignRule==0" ng-click="CurrentAssignRule=1" />
+                            <label for="radAssignmentRule_0"></label>
+                        </div>
+                        按照IP地址间隔-->
+                        <custom-radiobutton check-value="CurrentAssignRule" match-value="1" showlabel="按照IP地址间隔"></custom-radiobutton>
+                    </div>
+                    <div class="radio-item">
+                        <!--<div class="custom-radio">
+                            <input type="radio" id="radAssignmentRule_1" name="radAssignmentRule" style="" ng-checked="CurrentAssignRule==2" ng-click="CurrentAssignRule=2" />
+                            <label for="radAssignmentRule_1"></label>
+                        </div>按座位号间隔-->
+                        <custom-radiobutton check-value="CurrentAssignRule" match-value="2" showlabel="按座位号间隔"></custom-radiobutton>
+                    </div>
+                </div>
+                <div class="examsetting-controlcontainer">
+                    <div class="examsetting-radtitle">选择题显示规则:</div>
+                    <div class="checkbox-item">
+                        <!--<div class="custom-checkbox" >
+                            <input type="checkbox" id="chkChooseRule" name="chkChooseRule" style="" ng-checked="SettingMixQuestionOrder" ng-model="SettingMixQuestionOrder" />
+                            <label for="chkChooseRule"></label>
+                        </div>题序打乱-->
+                        <custom-checkbox checked="SettingMixQuestionOrder" showlabel="题序打乱"></custom-checkbox>
+                    </div>
+                    <div class="checkbox-item">
+                        <!--<div class="custom-checkbox" onclick="$('chkAssignmentRule').click()">
+                            <input type="checkbox" id="chkAssignmentRule" name="chkAssignmentRule" style="" ng-checked="SettingMixAnswerOrder" ng-model="SettingMixAnswerOrder" />
+                            <label for="chkAssignmentRule"></label>
+                        </div>答案打乱-->
+                        <custom-checkbox checked="SettingMixAnswerOrder" showlabel="答案打乱"></custom-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn  btn-cancel button-dialog-footer" style="width: 110px !important;margin-left:21px;" ng-click="CancelExamSetting()">取消</button>
+                <button type="button" class="btn btn-primary button-dialog-footer" style="width: 110px !important;margin-left:21px;" ng-click="SaveExamSetting()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>

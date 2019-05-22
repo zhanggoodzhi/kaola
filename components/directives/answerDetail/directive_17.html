@@ -1,0 +1,21 @@
+﻿<div class="markview-area-title" style="">
+    <label class="" style="">{{ answer.AreaTitle }}</label>
+</div>
+
+ <div class="row" style="color:#24a3e6;margin:16px 0px 0px 0px;" ng-if="answer.QuestionTitle != null && answer.QuestionTitle.length > 0">
+    <h6>{{ answer.QuestionTitle }}</h6>
+</div>
+<div class="row" style="margin:16px 0px 0px 0px;" ng-if="answer.QuestionPrompt != null && answer.QuestionPrompt.length > 0">
+    {{ answer.QuestionPrompt }}
+</div>
+
+<div class="row" style="font-weight:normal;margin-top:16px;">
+    <span class="text-break">{{ answer.ContentText }}</span>
+    <button ng-if="answer.ResourcePath!=''&&answer.ContentAudio!=''" class="btn btn-op btn-green" ng-click="PlayContentAudio(answer)" style="float: right; padding-left: 4px; padding-top: 0;"><span class="smallicon icon-laba"></span></button>
+</div>
+<div class="row" style="margin-bottom:5px;margin-top:10px; text-align: center;">
+    <div ng-audiowave audio-option="answer" wave-color="#EE82EE" progress-color="#337ab7" height="120" ng-if="BroswerVerion>11">
+    </div>
+    <div ng-audio audio-option="answer" height="120" ng-if="BroswerVerion>=8 && BroswerVerion<=11">
+    </div>
+</div>

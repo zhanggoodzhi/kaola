@@ -1,0 +1,214 @@
+﻿<script type="text/ng-template" id="header_paperCheckbox.html">
+    <input type="checkbox" ng-click="SelectAllPaper($event)" id="selectAllPaperTag" />
+    全选
+</script>
+
+<div class="row MainTabSet">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">内容编辑管理</a>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active " id="contenteditor_Manage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'contentEditorList'}" style="width:60%;margin:0 15%;"></toaster-container>
+            <div class="content-main">
+                <div class="row col-md-12 col-sm-12 col-xs-12" ng-show="isAdmin">
+                    <div class="btn-group" style="line-height: 30px;">内容商：</div>
+                    <div class="btn-group dropdown" style="min-width:160px;margin-right:12px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ Filter.CurrentContentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="overflow-y: auto;height: 200px;">
+                            <li ng-repeat="contentProvider in ContentProviderList"><a href="javascript:void(0);" ng-click="Filter.CurrentContentProvider = contentProvider;">{{contentProvider.ContentProviderName}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="search-button button button-blue" style="margin-top:1px;" ng-click="SearchEditor()">
+                            <img src="http://cdn.uukaola.com/web/img/business/search.png" style="width:16px;height:16px;" />
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container col-md-12 col-sm-12 col-xs-12">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow" ng-click="GoEditorAdd()">
+                                <img src="http://cdn.uukaola.com/web/img/business/ruku.png">
+                                <span aria-hidden="true">添加内容编辑</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-table="EditorList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+
+                            <tr ng-repeat="editor in $data" ng-show="$data.length>0" id="{{editor.UserID}}">
+                                <td data-title="'姓名'" style="width:30%;">{{ editor.NickName }}</td>
+                                <td data-title="'登录手机号'" style="padding-left: 20px;width:15%;">{{ editor.PhoneNumber }}</td>
+                                <td data-title="'内容商'" style="padding-left: 20px;width:30%;text-align:left;" ng-if="isAdmin">{{ editor.ContentProviderName }}</td>
+                                <td data-title="'操作'" style="width:25%;">
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="OpenEditorPwsResetDialog(editor)">重置密码</a>
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="GoEditorEdit(editor)">编辑</a>
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="OpeDeleteEditorDialog(editor)">删除</a>
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length==0">
+                                <td colspan="{{isAdmin?4:3}}" style="text-align:center;">暂无内容编辑数据</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="EditorPwdResetDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 450px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">重置密码</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'editorPwdResetDialog'}" style="width:60%;margin:0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="dik_DogCode" class="control-label col-md-3 col-xs-3">新密码：</label>
+                        <div class="col-md-6 col-xs-6">
+                            <input type="text" class="form-control" id="dik_DogCode" placeholder="（6~20个字符）" ng-model="EditorPwdResetDialog.Password">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary  button-commonDialog" style="vertical-align:middle;" ng-click="ResetPwd()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="AddEditorUserDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 450px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">添加内容编辑</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-group-multiple">
+                    <div id="labelAddUpdateUser" class="div-multiple-lable">
+                        <div class="margin-left-right-none form-label" style="padding: 0px;height: 35px;line-height: 35px;margin-bottom: 10px !important;">
+                            <label>内容商：</label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="userName">
+                                姓名：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="phoneNum">
+                                登录手机号：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="newPwd">登录密码：</label>
+                        </div>                       
+                    </div>
+                    <div id="controlDIVAddUser" class="control-div-multiple">
+                        <div class="margin-left-right-none form-group-control">
+                            <div class="dropdown" style="min-width:160px;display:inline-block;line-height:35px;">
+                                <a ng-disabled="!isAdmin" class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;min-width:160px;">
+                                    {{Filter.AddContentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                </a>
+                                <ul ng-show="isAdmin" class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;">
+                                    <li ng-repeat="contentProvider in ContentProviderList"><a href="javascript:void(0);" ng-click="Filter.AddContentProvider = contentProvider;">{{contentProvider.ContentProviderName}}</a></li>
+                                </ul>
+                            </div>
+                        </div>  
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="text" class="form-control" id="userName" placeholder="请输入姓名" ng-model="EditorAddParams.NickName">
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="text" class="form-control" id="phoneNum" placeholder="请输入登录手机号" ng-model="EditorAddParams.PhoneNumber">
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="password" class="form-control" id="newPwd" placeholder="（6~20个字符）" ng-model="EditorAddParams.Password" maxlength="20">
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div id="erroMessageReset" class="erro-message">
+                        <div ng-show="addEditorValidateMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" /> {{addEditorValidateMessage }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-normal btn-primary" ng-click="EditorAdd()">保存</button>
+                <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+            </div>          
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="EditEditorUserDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 450px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">修改内容编辑</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-group-multiple">
+                    <div id="labelAddUpdateUser" class="div-multiple-lable">
+                        <div class="margin-left-right-none form-label" ng-show="isAdmin" style="padding: 0px;height: 35px;line-height: 35px;margin-bottom: 10px !important;">
+                            <label>内容商：</label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="userName">
+                                姓名：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="phoneNum">
+                                登录手机号：
+                            </label>
+                        </div>                     
+                    </div>
+                    <div id="controlDIVAddUser" class="control-div-multiple">
+                        <div class="margin-left-right-none form-group-control">
+                            <div class="dropdown" style="min-width:160px;display:inline-block;line-height:35px;" ng-show="isAdmin">
+                                <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;min-width:160px;">
+                                    {{Filter.EditContentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="max-height: 150px; overflow-y: auto;" >
+                                    <li ng-repeat="contentProvider in ContentProviderList"><a href="javascript:void(0);" ng-click="Filter.EditContentProvider = contentProvider;">{{contentProvider.ContentProviderName}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="text" class="form-control" id="userName" placeholder="请输入姓名" ng-model="EditorEditParams.NickName">
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="text" class="form-control" id="phoneNum" placeholder="请输入登录手机号" ng-model="EditorEditParams.PhoneNumber">
+                        </div>                      
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div id="erroMessageReset" class="erro-message">
+                        <div ng-show="editEditorValidateMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" /> {{editEditorValidateMessage }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-normal btn-primary" ng-click="EditorEdit()">保存</button>
+                <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

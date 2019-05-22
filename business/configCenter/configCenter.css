@@ -1,0 +1,78 @@
+﻿.tab-header {
+    color: #555;
+    background-color: #fafafa;
+    border-top: solid 1px #E6E5E5;
+    border-left: solid 1px #E6E5E5;
+    border-right: solid 1px #E6E5E5;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    width: 150px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    text-align: center;
+    margin-right: 5px;
+}
+
+    .tab-header a {
+        height: 40px !important;
+        line-height: 40px !important;
+        font-size: 14px !important;
+    }
+
+    .tab-header.active {
+        background-color: #24a3e6;
+        border-bottom-color: transparent;
+        cursor: default;
+        color: white;
+    }
+
+.nav-tabs > li.active > a {
+    background-color: transparent !important;
+    color: white;
+}
+
+.sync-status {
+    width: 15px;
+    height: 15px;
+}
+
+.file-info {
+    padding: 3px 0px;
+}
+
+.server {
+    background-color: green;
+    color: white;
+    padding: 5px;
+}
+
+.center-server {
+}
+
+.district-server {
+}
+
+.form-row {
+    padding: 5px 0px;
+}
+
+    .form-row label {
+        float: left;
+        width: 30%;
+    }
+
+    .form-row div {
+        float: left;
+    }
+
+.server-online {
+}
+
+.server-offline {
+    background-color: red !important;
+    color: white;
+}
+
+    .server-offline:hover {
+        background-color: red !important;
+    }

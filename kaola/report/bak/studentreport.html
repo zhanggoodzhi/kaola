@@ -1,0 +1,124 @@
+﻿ 
+<link rel="stylesheet" type="text/css" href="/web/kaola/report/studentreport.css" />
+ 
+
+<div class="row  bg-white" ng-if="ShowBdClassView==1" style="background-color:#ffffff">
+    <div class="content-container">
+        <div class="content-header">
+            <span class="view-header-text" style="float: left; margin-top: 20px; border-bottom: 2px solid #30A2EB;width: 120px;padding-bottom: 10px;text-align:center;">
+                成绩报告
+            </span>
+
+        </div>
+        <div class="content-main">
+            <div class="area">
+                <div class="childarea">
+                    <button type="button" class="btn btn-warning btn-sm" ng-click="BindJudge()" style="width: 150px;height:40px;">
+                        <span class="xsmallicon icon-bangdinbanji" style="font-size:16px;top:0px;"></span>绑定班级
+                    </button>
+                    <div class="areacontent">
+                        您还没有任何班级，请先绑定班级！
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row  bg-white" ng-if="ShowStudentReportView==1">
+    <div class="content-container">
+        <div class="content-header">
+            <span class="view-header-text" style="float: left; margin-top: 20px; border-bottom: 2px solid #30A2EB;width: 120px;padding-bottom: 10px;text-align:center;">
+                成绩报告
+            </span>
+            <div class="input-group   pull-right" style="margin-top: 10px;">
+                <input style="border-top-left-radius: 3px; border-bottom-left-radius: 3px;" type="text" class="form-control ng-pristine ng-valid input-fixWidth" placeholder="根据任务名称过滤" ng-model="QueryParams.TaskName">
+                <span class="input-group-btn" style="float: left;">
+                    <button class="btn btn-info button-onlyIcon" type="button" style="border-top-right-radius: 3px; border-bottom-right-radius: 3px;" ng-click="QueryTaskScoreList()">
+                        <span class="xsmallicon icon-sousuo"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="content-main">
+            <div class="table-container" style="">
+                <div ng-repeat="taskScore in TaskScoreListData">
+                    <div style="height:90px;width:100%; border:1px solid #e3eaeb;margin-bottom:10px;">
+                        <div class="row" style="background-color:#F4F5F8;height: 35px;padding: 8px 10px;">
+                            {{taskScore.TaskName}}
+                        </div>
+                        <div class="row taskscore-div" style="height: 55px;padding: 20px 10px;">
+                            <div class="col-sm-2">考试日期:<a>{{taskScore.TaskFinishedTime|fixedTimeFilter}}</a></div>
+                            <div class="col-sm-3" style="padding-left:20px;">班级:<a>{{taskScore.ClassName}}</a></div>
+                            <div class="col-sm-2">总得分:<a>{{taskScore.Score}}</a></div>
+                            <div class="col-sm-2">听力部分:<a>{{taskScore.ListeningScore}}</a></div>
+                            <div class="col-sm-2">口语部分:<a>{{taskScore.SpeakingScore}}</a></div>
+                            <div class="col-sm-1">
+                                <a href="javascript:void(0)" target="_blank" ui-sref="studentreportdetail({studentNumber:'{{taskScore.StudentNumber}}',taskID:'{{taskScore.TaskID}}',classID:'{{CurrentClassID}}', from:'{{From}}'})" style="display: block; float: left; width: 40px;" tooltip="查看学生报告" tooltip-placement="bottom">
+                                    <span class="smallicon icon-chakan" aria-hidden="true">
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal" id="StudentDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content" style="width: 550px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="">绑定班级</h5>
+            </div>
+
+            <div class="modal-body">
+
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog1'}"></toaster-container>
+                <div style="text-align: center;margin: 25px auto 35px;">
+                    <span class="span-content">绑定后可以查看校内成绩</span>
+                </div>
+                <form class="form-horizontal">
+                    <div class="form-group"  style="height:24px;">
+                        <label for="user_ClassNum" class="control-label col-sm-3">班级编号：</label>
+                        <div class="col-sm-6">
+                            <input class="form-control input-fixWidth" id="user_ClassNum" ng-model="BindClassParam.ClassNumber" />
+                        </div>
+                    </div>
+                    <div class="form-group" style="height:14px;">
+                        <p class="control-label col-sm-3 col-md-3 col-lg-3"></p>
+                        <p class="col-sm-6 col-md-6 col-lg-6" style="color: red; font-size: 14px; margin-left: 10px;height:14px;line-height:28px;">
+                            没有班级编号？请向任课教师申请
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_StudentNum" class="control-label col-sm-3">学号：</label>
+                        <div class="col-sm-6">
+                            <input class="form-control input-fixWidth" id="user_StudentNum" ng-model="BindClassParam.StudentNumber" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_NickName" class="control-label col-sm-3">姓名：</label>
+                        <div class="col-sm-6">
+                            <input class="form-control input-fixWidth" id="user_NickName" ng-model="BindClassParam.StudentName" />
+                        </div>
+                    </div>
+                    </form>
+
+</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary button-commonDialog" id="btnBind" style="" ng-click="BindClass()">绑定</button>
+            </div>
+        </div>
+    </div>
+</div>
+

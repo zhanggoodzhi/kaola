@@ -1,0 +1,12 @@
+﻿<!--话题简述-->
+<div ng-repeat="c in data.QuestionModel.Contents">
+    <div class="content-text highlight-no" ng-if="data.QuestionModel.Prompt!=undefined&& data.QuestionModel.Prompt.length>0" ng-bind-html="data.QuestionModel.Prompt|trustHtml">
+    </div>
+    <div class="content-text highlight-no" ng-if="(c.Text!=undefined&& c.Text.length>0)&&!(data.QuestionModel.Prompt!=undefined&& data.QuestionModel.Prompt.length>0)" ng-bind-html="c.Text|trustHtml">
+    </div>
+</div>
+<question-operation data="data" show-answer="true"></question-operation>
+
+
+
+

@@ -1,0 +1,26 @@
+﻿<!--情景反应-->
+<div ng-repeat="c in data.QuestionModel.Contents">
+    <div class="content-div">
+        <div class="content-audiotext-div" ng-if="c.AudioText!=undefined&& c.AudioText.length>0">
+            <div class="question-title">【听力原文】</div>
+            <div class="content-audiotext highlight-no" style="" ng-bind-html="c.AudioText|trustHtml">
+            </div>
+        </div>
+        <div class="content-audiotext-div" ng-if="(c.AudioText==undefined|| c.AudioText.length<=0)&&(c.RefrenceTexts != null && c.RefrenceTexts.length > 0)">
+            <div class="question-title">【听力原文】</div>
+            <div class="content-audiotext highlight-no" style="" ng-bind-html="c.RefrenceTexts[0].Content|trustHtml">
+            </div>
+        </div>
+
+        <div class="content-audiotext-div" ng-if="((c.AudioText==undefined|| c.AudioText.length<=0)&&(c.RefrenceTexts == null && c.RefrenceTexts.length <= 0))&&data.QuestionModel.Audio!=undefined&&data.QuestionModel.Audio.length>0">
+            <div class="question-title">【听力原文】</div>
+            <div ng-click="PlayAudio(data.QuestionModel.QuestionID,data,data.ResourcePath+data.QuestionModel.Audio)" style="float:left;"><img ng-if="IsAudioPlaying(data.QuestionModel.QuestionID)==false" src="/web/img/paperDesign/playAudio.png"/><img ng-if="IsAudioPlaying(data.QuestionModel.QuestionID)==true" src="/web/img/paperDesign/playingAudio.gif" /></div>
+        </div>
+    </div>
+    <div class="content-text highlight-no" ng-if="c.Text!=undefined&& c.Text.length>0" ng-bind-html="c.Text|trustHtml">
+    </div>
+</div>
+<question-operation data="data" show-answer="true"></question-operation>
+
+
+

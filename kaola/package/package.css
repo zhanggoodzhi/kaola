@@ -1,0 +1,21 @@
+﻿.newpackage-modal {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.viewPackage-modal {
+    width: 800px;
+    /*height: 380px;*/
+    margin: auto;
+}
+
+.table-container tbody tr td {
+    padding: 0 10px;
+}
+
+.headcount {
+    color: #24a3e6;
+}
+
+
+

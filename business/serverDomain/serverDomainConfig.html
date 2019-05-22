@@ -1,0 +1,346 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/business/serverDomain/serverDomain.css" />
+<div style="padding:10px;height: 100%;overflow: auto;">
+    <ul class="nav nav-tabs" style="clear:both;">
+        <li class="tab-header active">
+            <a href="#SchoolServerConfigPanel" data-toggle="tab">学校-区域配置</a>
+        </li>
+
+        <li class="tab-header">
+            <a href="#ResourceSyncPanel" data-toggle="tab">资源同步</a>
+        </li>
+        <li class="tab-header ">
+            <a href="#serverDomainListPanel" data-toggle="tab">服务器列表</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane " id="serverDomainListPanel" style="padding:10px;">
+            <div style="height:40px;">
+                <button class="btn btn-warning" style="float:right;" ng-click="RefreshServerStatus()">刷新状态</button>
+            </div>
+            <table id="ServerDomainTable" ng-table="ServerDomainTable" class="table table-bordered table-hover">
+                <tbody>
+                    <tr ng-repeat="data in $data" ng-class="{true:'server-online',false:'server-offline'}[data.ServerOnline]">
+                        <td data-title="'类型'">
+                            <label class="server">{{ data.ServerType|serverTypeFilter}}</label>
+                        </td>
+                        <td data-title="'状态'">{{ data.Enable |enableFilter}}</td>
+                        <td data-title="'编号'">{{ data.ServerDomainID }}</td>
+                        <td data-title="'名称'">{{ data.ServerDomain}}</td>
+                        <td data-title="'业务API地址'">{{ data.apiServiceBaseUri}}</td>
+                        <td data-title="'中心管理API地址'">{{ data.authServiceBaseUri}}</td>
+                        <td data-title="'答案音频地址'">{{ data.answerBaseUrl}}</td>
+                        <td data-title="'试卷资源地址'">{{ data.paperResourceBaseUrl}}</td>
+                        <!--<td data-title="'操作'">
+                            <a ng-if="data.ServerType!=1" style="color:blue;cursor:pointer;" ng-click="UpdateServerDomain(data)">编辑</a>
+                        </td>-->
+                    </tr>
+                </tbody>
+            </table>
+            <div>* 中心服务器(负责身份验证与资源管理)</div>
+            <div>* 区域服务器(负责处理业务)</div>
+        </div>
+        <div class="tab-pane active" id="SchoolServerConfigPanel" style="padding:10px;min-height:300px;">
+            <div class="row " style="float:left;">
+                <div class="btn-group">地区：</div>
+                <div class="dropdown  btn-group" style="">
+                    <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                        {{ RegionQuery.Province.ProvinceName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                        <li ng-repeat="province in RegionNow.ProvinceList">
+                            <a href="javascript:void(0);" ng-click="ProvinceChangeForQuery(province)">{{province.ProvinceName}}</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="dropdown btn-group" style="margin-left: 15px;">
+                    <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                        {{ RegionQuery.City.CityName== "" ? "市" : RegionQuery.City.CityName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span
+                            class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                        <li ng-repeat="city in RegionNow.CityList">
+                            <a href="javascript:void(0);" ng-click="CityChangeForQuery(city)">{{city.CityName}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown btn-group" style="margin-left: 15px;">
+                    <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                        {{ RegionQuery.Area.AreaName== "" ? "区" :RegionQuery.Area.AreaName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span
+                            class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                        <li ng-repeat="area in RegionNow.AreaList">
+                            <a href="javascript:void(0);" ng-click="AreaChangeForQuery(area)">{{area.AreaName}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn-group" style="margin-left: 15px;">
+                    <input type="text" class="search-textbox" style="width: 180px;display: inline-block;" placeholder="请输入学校名称" id="channelB_Name"
+                        ng-model="RegionQuery.SchoolName">
+                    <button type="button" class="search-button button button-blue" style="" ng-click="RefreshSchoolServerDomainTable()">
+                        <div class="smallicon btn btn-icon icon-sousuo" style="font-size: 1.2em;"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div style="height:40px;float:right;">
+                <button class="btn btn-warning" style="float:right;" ng-click="AddSchoolServerDomainMapping()">配置学校</button>
+            </div>
+            <table id="SchoolServerDomainTable" ng-table="SchoolServerDomainTable" class="table table-bordered table-hover">
+
+                <thead>
+                    <tr style="font-weight:bold;color:black;background-color:#F5F7FA;">
+                        <td>
+                            <input style="vertical-align: -2px;margin-right:5px;" type="checkbox" ng-click="ChooseAllMapping()" ng-model="AllMappingChoosed"
+                            />选择</td>
+                        <td>服务器编号</td>
+                        <td>服务器名称</td>
+                        <td>学校编号</td>
+                        <td>学校名称</td>
+                        <td>省</td>
+                        <td>市</td>
+                        <td>区</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="data in $data">
+                        <td>
+                            <input type="checkbox" ng-model="data.Choosed" />
+                        </td>
+                        <td>{{ data.ServerDomainID }}</td>
+                        <td>{{ data.ServerDomain}}</td>
+                        <td>{{data.SchoolID}}</td>
+                        <td>{{ data.SchoolName}}</td>
+                        <td>{{ data.ProvinceName}}</td>
+                        <td>{{ data.CityName}}</td>
+                        <td>{{ data.AreaName}}</td>
+
+                        <td data-title="'操作'">
+                            <a style="color:red;cursor:pointer;" ng-click="RemoveSchoolServerDomainMapping(data)">移除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="btn-group">
+                    <a class="btn button-textWithIcon" style="background-color: #ffffff !important;color: #339dd2 !important;" ng-click="BatchRemoveSchoolServerDomainMapping()">
+                        <span class="xsmallicon icon-shanchu btn-custombg-icon"></span>
+                        <span style="vertical-align: middle;">批量移除</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane " id="ResourceSyncPanel" style="padding:10px;">
+            <div style="">
+                <button class="btn btn-warning" style="float:right;" ng-click="RefreshSyncProgress()">刷新同步状态</button>
+            </div>
+            <div style="clear:both;"></div>
+            <label style="font-size:16px; font-weight:bold;margin:5px 0px;">资源目录:</label>
+
+            <div style="margin:10px 0px; padding:5px;border:solid 1px #dcdcdc;">
+                <div ng-repeat="d in SyncDirList" style="margin:10px 20px;">
+                    <label style="width:150px;"> {{d.name}}</label>
+                    <label style="width:200px;margin-right:20px;"> {{d.path}}</label>
+
+                    <button class="btn btn-warning" style="margin-right:20px;" ng-click="CalculateSyncFileList(d)">
+                        计算文件数量
+                    </button>
+                    <button class="btn btn-danger" ng-click="Sync(d,SyncFileResp)">同步文件</button>
+                </div>
+            </div>
+            <div>
+                <div ng-repeat="s in SyncFileResp" style="margin:5px;">
+                    <div style="font-size:16px;font-weight:bold;background-color:aliceblue;padding:10px 0px;">区域服务器:&nbsp;&nbsp;{{s.Data.ServerDomain}} &nbsp;&nbsp;待同步文件数量:&nbsp;{{s.Data.FileList.length}}&nbsp;&nbsp;大小:&nbsp;{{SumFileSize(s.Data.FileList)
+                        |fileSizeFilter}}</div>
+                    <div ng-repeat="f in s.Data.FileList" class="file-info">
+                        <label style="width:50px;">{{$index+1}}</label>
+                        <label style="width:600px;">{{f.FileRelativePath}}</label>
+                        <label style="width:100px;">{{f.FileSize|fileSizeFilter}}</label>
+                        <label style="width:150px;">{{f.FileLastUpdateTime}}</label>
+                        <label ng-if="f.SyncStatus==0">
+                            未同步
+                        </label>
+                        <img src="/web/img/pass.png" class="sync-status" ng-if="f.SyncStatus==1" />
+                        <img src="/web/img/failed.png" class="sync-status" ng-if="f.SyncStatus==99" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="AddSchoolServerDomainMappingDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:850px;margin:auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">添加学校配置</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="btn-group">地区：</div>
+                    <div class="dropdown  btn-group" style="">
+                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                            {{ CurrentRegion.Province.ProvinceName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span
+                                class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                            <li ng-repeat="province in RegionNow.ProvinceList">
+                                <a href="javascript:void(0);" ng-click="ProvinceChange(province)">{{province.ProvinceName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown btn-group" style="margin-left: 15px;">
+                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                            {{ CurrentRegion.City.CityName== "" ? "市" : CurrentRegion.City.CityName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span
+                                class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                            <li ng-repeat="city in RegionNow.CityList">
+                                <a href="javascript:void(0);" ng-click="CityChange(city)">{{city.CityName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown btn-group" style="margin-left: 15px;">
+                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                            {{ CurrentRegion.Area.AreaName== "" ? "区" :CurrentRegion.Area.AreaName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span
+                                class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                            <li ng-repeat="area in RegionNow.AreaList">
+                                <a href="javascript:void(0);" ng-click="AreaChange(area)">{{area.AreaName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="margin-left: 15px;">
+                        <input type="text" class="search-textbox" style="width: 180px;display: inline-block;" placeholder="请输入学校名称" id="channelB_Name"
+                            ng-model="QueryParams.SchoolName">
+                        <button type="button" class="search-button button button-blue" style="" ng-click="SearchSchoolList()">
+                            <div class="smallicon btn btn-icon icon-sousuo" style="font-size: 1.2em;"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="height:350px;overflow:auto;padding:20px 0px;">
+                    <table id="SchoolListTable" ng-table="SchoolListTable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr style="font-weight:bold;color:black;background-color:#F5F7FA;">
+                                <td>
+                                    <input style="vertical-align:-2px;margin-right:5px;" type="checkbox" ng-click="ChooseAll()" ng-model="AllChoosed"
+                                    />选择</td>
+                                <td>学校编号</td>
+                                <td>学校名称</td>
+                                <td>省</td>
+                                <td>市</td>
+                                <td>区</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in $data">
+                                <td>
+                                    <input type="checkbox" ng-model="data.Choosed" />
+                                </td>
+                                <td>{{data.SchoolID}}</td>
+                                <td>{{ data.SchoolName}}</td>
+                                <td>{{ data.ProvinceName}}</td>
+                                <td>{{ data.CityName}}</td>
+                                <td>{{ data.AreaName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin:10px 0px;line-height: 35px;">
+                    <div style="float:left;margin-right:5px;"> 区域服务器:</div>
+                    <div class="dropdown  btn-group" style="">
+                        <a class="btn btn-default query-height" href="#" id="paper_area" data-toggle="dropdown" style="min-width: 150px;font-size: 12px; color: #7a7a7a;">
+                            {{ CurrentServerDomain.ServerDomain }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="paper_area" role="menu" style="min-width: 150px;max-height: 150px; overflow-y: auto;overflow-x: hidden;">
+                            <li ng-repeat="s in ServerDomainList">
+                                <a href="javascript:void(0);" ng-click="ChooseServerDomain(s)">{{s.ServerDomain}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="button" class="btn btn-primary button-commonDialog" ng-click="AddMapping()" style="">确定</button>
+                <button type="button" class="btn btn-default button-cancel" style="margin-left:40px;" ng-click="Cancel()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="UpdateServerDomainDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:550px;margin:auto;">
+            <div class="modal-header" style="background-color: #F2F3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">服务器配置</h5>
+            </div>
+            <div class="modal-body">
+
+                <div class="row form-row">
+                    <label>类型：</label>
+                    <div class="">
+                        {{CurrentServerDomain.ServerType|serverTypeFilter}}
+                    </div>
+                </div>
+                <div class="row form-row">
+                    <label>编号：</label>
+                    <div class="">
+                        {{CurrentServerDomain.ServerDomainID}}
+                    </div>
+                </div>
+                <div class="row form-row">
+                    <label>名称：</label>
+                    <div class="">
+                        <input type="text" ng-model="CurrentServerDomain.ServerDomain" />
+                    </div>
+                </div>
+                <div class="row form-row">
+                    <label>业务API地址：</label>
+                    <div class="">
+                        <input type="text" ng-model="CurrentServerDomain.apiServiceBaseUri" />
+                    </div>
+                </div>
+                <div class="row form-row">
+                    <label>中心管理API地址：</label>
+                    <div class="">
+                        <input type="text" ng-model="CurrentServerDomain.authServiceBaseUri" />
+                    </div>
+                </div>
+                <div class="row form-row">
+                    <label>答案音频地址：</label>
+                    <div class="">
+                        <input type="text" ng-model="CurrentServerDomain.answerBaseUrl" />
+                    </div>
+                </div>
+                <div class="row form-row">
+                    <label>试卷资源地址：</label>
+                    <div class="">
+                        <input type="text" ng-model="CurrentServerDomain.paperResourceBaseUrl" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button type="button" class="btn btn-primary button-commonDialog" ng-click="UpdateServer()" style="">确定</button>
+                <button type="button" class="btn btn-default button-cancel" data-dismiss="modal" style="margin-left:40px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

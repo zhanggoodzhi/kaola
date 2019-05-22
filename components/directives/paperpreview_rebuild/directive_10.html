@@ -1,0 +1,40 @@
+﻿<div style="background-color:#ffffff;padding-left:14px;padding-right:14px;">
+    <!--话题简述-->
+    <div style="float:left;font-size: 15px;color: #000000;line-height:24px;width:100%" ng-if="questionData.Prompt!=undefined && questionData.Prompt.length>0"
+        ng-bind-html="questionData.Prompt|trustHtml">
+
+    </div>
+    <div class="question-controlbar" ng-if="questionData.Audio.length>0" style="margin-top: 0px;">
+        <div ng-if="questionData.AudioText.length>0" ng-click="ShowAudioRefText(questionData.AudioText)" style="float:right;">
+            <img src="http://cdn.uukaola.com/web/img/report/luyinyuanwen.png" />
+            <span>录音原文</span>
+        </div>
+        <div ng-click="PlayAudio(questionData,questionData.QuestionID+'_Part1',questionData.Audio)" style="float:right;">
+            <img ng-if="IsAudioPlaying(questionData.QuestionID+'_Part1')==false" src="http://cdn.uukaola.com/web/img/report/bofangluyin.png"
+            />
+            <img ng-if="IsAudioPlaying(questionData.QuestionID+'_Part1')==true" src="http://cdn.uukaola.com/web/img/report/bofangluyin-2.png"
+            />
+            <span>播放录音</span>
+        </div>
+    </div>
+    <div ng-repeat="content in questionData.Contents">
+        <div class="div-content">
+            <div>
+                <div class="content-text" style="" ng-if="(content.Text!=undefined&& content.Text.length>0)&&!(questionData.Prompt!=undefined&& questionData.Prompt.length>0)"
+                    ng-bind-html="content.Text|trustHtml">
+                </div>
+            </div>
+            <div style="clear:both;">
+            </div>
+        </div>
+        <div style="" class="content-reftext">
+            <div>
+                <img src="http://cdn.uukaola.com/web/img/report/cankaodaan.png" />
+                <label>参考答案</label>
+            </div>
+            <ul>
+                <li ng-repeat="refText in content.Answers">{{refText.Content}}</li>
+            </ul>
+        </div>
+    </div>
+</div>

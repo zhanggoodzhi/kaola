@@ -1,0 +1,40 @@
+﻿ 
+<link rel="stylesheet" type="text/css" href="/web/kaola/auth/validate.css" />
+
+
+<div class="validate">
+
+    <div class="validate_container">
+        <div class="validate_content">
+            <div class="validate_content_top">
+                <img src="http://cdn.uukaola.com/web/img/logo.png" ui-sref="login" style="cursor:pointer" alt="悠悠考拉网" />
+            </div>
+            <div class="validate_content_form">
+                <div class="form_top">
+                    <div class="form_top_left">邮箱验证</div>
+                </div>
+                <form class="form-horizontal" id="validate_form" autocomplete="off" novalidate="novalidate">
+
+                    <div class="input-group input_box">
+
+                        <input type="password" id="id_password" name="id_password" ng-model="validateData.password" class="form-control" maxlength="20" placeholder="密码" style="height: 46px; width: 100%; border:initial; box-shadow: none;font-family: '微软雅黑';border-radius: 4px;">
+
+                    </div>
+
+                    <div style="height: 28px; color: #C68887; line-height: 28px;">
+                        <span class="span-error-msg" ng-hide="passwordValidateMsg==''"><img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png" style="margin-top: 8px;">{{passwordValidateMsg}}</span>
+                    </div>
+
+                    <div class="form-group" style="margin: 0">
+                        <button type="submit" class="btn btn-block btn-primary" ng-click="doValidate()" style="height: 40px;">完成验证</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+

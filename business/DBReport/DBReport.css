@@ -1,0 +1,12 @@
+.search-wrap{
+    padding: 10px 5px;
+}
+.datepicker{
+    display: inline-block;
+    width: 280px;
+}
+.select{
+    width:200px;
+    display: inline-block;
+    margin-right: 20px;
+}

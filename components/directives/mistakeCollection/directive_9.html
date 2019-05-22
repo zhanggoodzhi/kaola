@@ -1,0 +1,11 @@
+﻿<div style="width:565px;">
+    <!--看图说话-->
+    <div ng-repeat="c in data.QuestionModel.Contents">
+        <div class="content-text highlight-no" ng-if="c.Text!=undefined&& c.Text.length>0" ng-bind-html="(c.Text)|trustHtml">
+        </div>
+        <div class="content-image">
+            <img ng-src="{{data.ResourcePath+c.Image}}"   />
+        </div> 
+    </div>
+</div>
+<question-operation data="data" show-answer="true"></question-operation>

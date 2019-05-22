@@ -1,0 +1,79 @@
+﻿.validate {
+    width: 100%;
+    height: 100%;
+}
+
+
+.validate_container {
+    height: 65%;
+    background: url('http://cdn.uukaola.com/web/img/background/top.png');
+}
+
+.validate_content {
+    /*position: absolute;
+    margin: 0 auto;
+    left: 50%;
+    margin-left: -200px;
+    bottom: -10%;
+    width: 400px;
+    background: inherit;
+    border-radius: 5px;*/
+    position: absolute;
+    bottom: 50%;
+    margin-bottom: -165px;
+    width: 325px;
+    left: 50%;
+    margin-left: -162px;
+}
+
+.validate_content_top {
+    /*width: 226px;
+    height: 125px;
+    margin: 0 auto 30px;
+    text-align: center;*/
+    height: 67px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.validate_content_form {
+    /*margin-bottom: -70px;*/
+    height: 223px;
+    background: url('http://cdn.uukaola.com/web/img/login/login_midbg.png') -1px;
+    padding: 20px 32px 0px 32px;
+    border-radius: 6px;
+    border: 1px solid #e9e9e9;
+}
+
+.form_top {
+    /*clear: both;*/
+    margin-bottom: 32px;
+}
+
+.form_top_left {
+    color: #389bcf;
+    font-size: 20px;
+    display: inline-block;
+    font-family: "微软雅黑";
+}
+
+.input_box {
+    /*height: 46px;*/
+    /*padding: 18px 10px 20px;*/
+    border-radius: 4px;
+    margin: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+    .input_box :focus {
+        border: 1px solid #CCCCCC;
+        box-shadow: none;
+        background-color: #FFFFFF;
+    }
+
+input {
+    background-color: #FFFFFF !important;
+    background-image: none;
+    color: rgb(0, 0, 0);
+}

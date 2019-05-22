@@ -1,0 +1,41 @@
+﻿.score-info {
+    clear: both;
+    /*margin-bottom: 19px;*/
+    background-color: #ffffff;
+    padding-top: 11px;
+    padding-bottom: 13px;
+    color: #555;
+    background-color:transparent;
+}
+
+    .score-info label {
+        vertical-align: top;
+    }
+
+
+.sample-answer {
+    float: right;
+}
+
+.sample-answer-controlbar {
+    margin-right: 10px;
+    cursor: pointer;
+    margin-top: -3px;
+}
+
+.student-answer {
+    float: right;
+    margin-right: 19px;
+    line-height: 26px;
+    width: 105px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-top: -3px;
+}
+
+    .student-answer img {
+        margin-left: 5px;
+        vertical-align: sub;
+    }

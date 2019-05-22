@@ -1,0 +1,93 @@
+﻿<div class="row MainTabSet">   
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">耳麦管理</a>
+    </div> 
+    <div class="tab-content">
+        <div class="tab-pane active " id="headphoneManage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+            <div class="content-main">
+                <div class="row">                 
+                    <input type="text" class="search-textbox" style="width: 180px;display: inline-block;"  ng-keyup="KeyupSearchHeadPhones($event)"  placeholder="请输入设备描述/硬件序列号" id="channelB_Name" ng-model="QueryParams.HeadphoneNoDescription">
+                    <button type="button" class="search-button button button-blue" style="" ng-click="SearchHeadPhones()">
+                        <span class="smallicon btn-icon icon-sousuo" style="font-size: 1.2em;"></span>
+                    </button>
+                </div>
+                <div class="table-container">                    
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">                        
+                            <button type="button" class="btn-yellow" style="margin-right:5px;" ng-click="OpenAddHeadphoneDialog()">
+                                <img src="http://cdn.uukaola.com/web/img/business/ruku.png">
+                                <span aria-hidden="true">入库</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-table="HeadphoneList" class="table table-condensed table-bordered table-hover">
+                        <tbody>
+                            <tr ng-repeat="headphone in $data" id="{{headphone.HeadphoneId}}">
+                                <td data-title="'设备描述'" style="width:30%;text-align:left;">{{headphone.HeadphoneDescription}}</td>
+                                <td data-title="'硬件序列号'" style="width:30%;">{{ headphone.HeadphoneNo }}</td>
+                                <td data-title="'入库时间'" style="width:20%;">{{ headphone.StorageDatetimeFormat }}</td>
+                                <td data-title="'操作'" style="width:20%;">
+                                    <a class="f12" style="color:#0083d4;cursor:pointer;" ng-click="OpeDeleteHeadphoneDialog(headphone)">删除</a>
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length==0">
+                                <td colspan="4">
+                                    <div class="table-data-empty">
+                                        <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="AddHeadphoneDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 356px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">入库</h5>
+            </div>
+            <div class="modal-body">
+              <div class="form-horizontal form-group-multiple">
+                    <div id="labelDIVAddHeadphone" class="div-multiple-lable">
+                        <div class="margin-left-right-none form-label">
+                            <label for="headphoneNo">
+                                硬件序列号：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="headphoneDescription">
+                                设备描述：
+                            </label>
+                        </div>
+                    </div> 
+                    <div id="controlDIVAddHeadphone" class="control-div-multiple">
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="text" class="form-control" id="headphoneNo"  ng-model="HeadphoneNo">
+                        </div>
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="text" class="form-control" id="headphoneDescription"  ng-model="HeadphoneDescription">
+                        </div>                       
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div id="erroMessageReset" class="erro-message">
+                        <div ng-show="addHeadphoneValidateMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" /> {{addHeadphoneValidateMessage }}
+                        </div>
+                    </div>
+               
+            </div>              
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-normal btn-primary" ng-click="SaveHeadphone()">保存</button>
+                <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+            </div>       
+    </div>
+</div>
+</div>

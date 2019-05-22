@@ -1,0 +1,649 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/business/dongle/dongle.css" />
+<script type="text/ng-template" id="header_DgnCheckbox.html">
+    <input type="checkbox" ng-click="SelectAllDng($event)" id="selectAllDngTag" ng-true-value="true" ng-false-value="false" ng-checked="SelectAllDngTag" class="chk" />
+    <label for="selectAllDngTag"></label>
+</script>
+<script type="text/ng-template" id="header_ReportCheckbox.html">
+    <input type="checkbox" ng-click="SelectAllReport($event)" id="selectAllReportTag" ng-true-value="true" ng-false-value="false" ng-checked="SelectAllReportTag" class="chk" />
+    <label for="selectAllReportTag"></label>
+</script>
+
+<div class="row MainTabSet">
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">加密狗管理</a>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active " id="dongle_Manage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialogList'}"
+                style="width:60%;margin:0 15%;"></toaster-container>
+            <div class="content-main">
+                <div class="row">
+                    <div class="btn-group" style="">状态：</div>
+                    <div class="btn-group dropdown" style="min-width: 90px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;">
+                            {{ Filter.CurrentStatus.Text == "" ? "请选择" : Filter.CurrentStatus.Text}}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                            <li ng-repeat="status in StatusList">
+                                <a href="javascript:void(0);" ng-click="Filter.CurrentStatus = status;">{{status.Text}}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group" style="" ng-show="IsAdmin">渠道商：</div>
+                    <div class="btn-group dropdown" style="min-width: 90px;" ng-show="IsAdmin">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;">
+                            {{ Filter.CurrentChannelBusiness.BusinessName ==""?"请选择": Filter.CurrentChannelBusiness.BusinessName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height: 200px; overflow-y: auto;">
+                            <li ng-repeat="business in ChannelBusinessList">
+                                <a href="javascript:void(0);" ng-click="Filter.CurrentChannelBusiness = business;">{{business.BusinessName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" style="min-width: 90px;margin-left:6px; min-width: 170px;">
+                        <input type="text" class="search-textbox" style="width: 250px;display: inline-block;" id="txt_installCode" ng-model="QueryParams.Code"
+                            placeholder="请输入硬件/安装序列号/学校名称">
+                        <button type="button" class="search-button button button-blue" style="margin-left:-4px;margin-top:-4px;" ng-click="SearchDongle()">
+                            <img src="http://cdn.uukaola.com/web/img/business/search.png" style="width:16px;height:16px;" />
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow" style="margin-right:5px;" ng-click="OpenDongleInstock()" ng-show="IsAdmin">
+                                <img src="http://cdn.uukaola.com/web/img/business/ruku.png">
+                                <span aria-hidden="true">入库</span>
+                            </button>
+                            <button type="button" class="btn-yellow" style="margin-right:5px;" ng-click="OpenDongleAllotted()" ng-show="IsAdmin">
+                                <img src="http://cdn.uukaola.com/web/img/business/ruku.png">
+                                <span aria-hidden="true">发货给渠道商</span>
+                            </button>
+                            <button type="button" class="btn-yellow" style="margin-right:0px;" ng-click="OpenDongleReport()">
+                                <img src="http://cdn.uukaola.com/web/img/business/ruku.png">
+                                <span aria-hidden="true">分配到学校</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-wrap clearfix small-screen">
+                        <div class="left-table-wrap custom-scrollbar" ng-class="{'is-admin-left':!IsChannel}">
+                            <table class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                <thead>
+                                    <tr style="height:61px;">
+                                        <th class="wi1">设备序列号</th>
+                                        <th class="wib">安装序列号</th>
+                                        <th ng-if="!IsChannel" class="wi-sell">渠道商</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in dongleList">
+                                        <td class="ellipsis" data-title="'设备序列号'" sortable="'DogCode'"  ng-attr-title="{{item.DogCode}}">{{ item.DogCode }}</td>
+                                        <td class="ellipsis" data-title="'安装序列号'" sortable="'InstallCode'"  ng-attr-title="{{item.InstallCode}}">{{ item.InstallCode }}</td>
+                                        <td ng-if="!IsChannel" class="ellipsis" data-title="'渠道商'" sortable="'BusinessName'" ng-attr-title="{{item.BusinessName}}">{{ item.BusinessName }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="middle-table-wrap custom-scrollbar" ng-class="{'is-admin-middle':!IsChannel}">
+                            <table ng-table="DongleList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                <thead>
+                                    <tr>
+                                        <th class="wischool">学校</th>
+                                        <th class="wis">激活设备数/可激活数</th>
+                                        <th class="wis">安装验证SN</th>
+                                        <th class="wit">入库时间</th>
+                                        <th class="wit">发货时间</th>
+                                        <th class="wit">激活时间</th>
+                                        <th class="wi">过期时间</th>
+                                        <th class="wi">运维过期时间</th>
+                                        <th class="wi">升级过期时间</th>
+                                        <th class="wis">状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="dongle in $data" id="{{dongle.DogCode}}">
+                                        <td class="ellipsis" data-title="'学校'" sortable="'SchoolName'" ng-attr-title="{{dongle.SchoolName|EmptyFilter}}">{{ dongle.SchoolName|EmptyFilter }}</td>
+                                        <td data-title="'激活设备数/可激活数'">
+                                            <a class="`href" ng-click="OpenActivedDeviceSearchDialog(dongle)">{{dongle.ActivedDeviceCount|EmptyFilter}}</a>/{{ dongle.MaxAllowActiveDeviceCount|EmptyFilter
+                                            }}
+                                        </td>
+                                        <td data-title="'安装验证SN'">{{ dongle.ValidateSN?'是':'否' }}</td>
+                                        <td data-title="'入库时间'">{{ dongle.CreatedTimeFormat|EmptyFilter }}</td>
+                                        <td data-title="'发货时间'">{{ dongle.AllotTimeFormat|EmptyFilter }}</td>
+                                        <td data-title="'激活时间'">{{ dongle.ActiviteTimeFormat|EmptyFilter }}</td>
+                                        <td data-title="'过期时间'">{{ dongle.ExpireTime|Time8Filter }}</td>
+                                        <td data-title="'运维过期时间'">{{ dongle.SoftwareVersionUpgradeExpireTime|Time8Filter }}</td>
+                                        <td data-title="'升级过期时间'">{{ dongle.SoftwareVersionSPExpireTime|Time8Filter }}</td>
+                                        <td data-title="'状态'" sortable="'Status'">{{ dongle.StatusDes }}</td>
+                                        <!-- <td  data-title="'操作'" style="text-align:center;width:7%;">
+                                            <a class="f12 href" ng-class="'href'" ng-if="dongle.Status == 1 || dongle.Status == 5" ng-click="OpenDeleteDongleDialog(dongle)">删除</a>
+                                            <a class="f12 href" ng-class="'href'" ng-click="OpenSetDongleDialog(dongle)">设置</a>
+                                            <a class="f12 href" ng-class="'href'" ng-if="dongle.Status == 1" ng-click="OpenDongleAllotted(dongle)">发货</a>
+                                            <a class="f12 href" ng-class="'href'" ng-if="dongle.Status == 2" ng-click="OpenDongleReport(dongle)">分配</a> -->
+                                        <!--<button class="btn btn-op" ng-click="OpenDeleteDongleDialog(dongle)" ng-if="dongle.Status == 1" tooltip="删除" tooltip-placement="bottom"><span class="smallicon icon-shanchu" aria-hidden="true"></span></button>-->
+                                        <!--<button class="btn btn-op" ng-click="OpenDongleAllotted(dongle)" ng-if="dongle.Status == 1" tooltip="分配" tooltip-placement="bottom"><span class="smallicon icon-fenpei" aria-hidden="true"></span></button>
+                                            <button class="btn btn-op" ng-click="OpenStopDongleDialog(dongle)" ng-if="dongle.Status == 3 || dongle.Status == 4" tooltip="停用" tooltip-placement="bottom"><span class="smallicon icon-tingyong" aria-hidden="true"></span></button>
+        
+                                            <button class="btn btn-op" ng-click="OpenStartDongleDialog(dongle)" ng-if="dongle.Status == 5" tooltip="启用" tooltip-placement="bottom"><span class="smallicon icon-qiyong" aria-hidden="true"></span></button>
+                                            <button class="btn btn-op" ng-click="OpenDongleReport(dongle)" ng-if="dongle.Status == 2" tooltip="报备" tooltip-placement="bottom"><span class="smallicon icon-baobei" aria-hidden="true"></span></button>
+                                            <button class="btn btn-op" ng-click="OpenCancelDongleDialog(dongle)" ng-if="dongle.Status == 4" tooltip="注销" tooltip-placement="bottom">-->
+                                        <!--<img src="http://cdn.uukaola.com/web/img/zx.png" style="margin-top:-5px;" />
+                                            </button>-->
+                                        <!-- </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="right-table-wrap">
+                            <table class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                <thead>
+                                    <tr>
+                                        <th class="operation">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in dongleList">
+                                        <td style="text-align:center;">
+                                            <a class="f12 href" ng-class="'href'" ng-if="item.Status == 1 || item.Status == 5" ng-click="OpenDeleteDongleDialog(item)">删除</a>
+                                            <a class="f12 href" ng-class="'href'" ng-click="OpenSetDongleDialog(item)">设置</a>
+                                            <a class="f12 href" ng-class="'href'" ng-if="item.Status == 1" ng-click="OpenDongleAllotted(item)">发货</a>
+                                            <a class="f12 href" ng-class="'href'" ng-if="item.Status == 2" ng-click="OpenDongleReport(item)">分配</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="DongleSetDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 550px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight: bold;margin-bottom:20px;">加密狗设置</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog1'}"
+                    style="width:60%;margin:0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="dik_DogCode" class="control-label col-md-5  col-xs-5">加密狗过期时间：</label>
+
+                        <div class="col-md-5  col-xs-5" style="padding-left:0px;">
+                            <input size="16" type="text" value="{{DongleSet.ExpireTime |Time16Filter}}" id="ExpireTime" readonly class="form-control calendar"
+                                ng-disabled="DongleSettingType!=1">
+                        </div>
+                        <div class="col-md-2  col-xs-2 editor-img-icon" style="" ng-if="DongleSettingType!=1">
+                            <img src="/web/img/business/edit.png" ng-click="EditSetting(1,DongleSet)" />
+                            <img src="/web/img/business/lishi.png" ng-click="ViewSettingLog(1,DongleSet)" />
+                        </div>
+                        <div class="col-md-2  col-xs-2 editor-img-icon" style="" ng-if="DongleSettingType==1">
+                            <img src="/web/img/business/confirmEdit.png" ng-click="SaveSetting(1,DongleSet)" />
+                            <img src="/web/img/business/cancelEdit.png" ng-click="CancelEditSetting(1,DongleSet)" />
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="DongleSettingType==1">
+                        <label for="dik_DogCode" class="control-label col-md-5  col-xs-5">备注：</label>
+                        <div class="col-md-7  col-xs-7" style="padding-left:0px;">
+                            <textarea ng-model="DongleSet.Comment" id="ExpireTimeComment" style="height:50px;width:100%;"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-5  col-xs-5">软件运维到期时间：</label>
+                        <div class="col-md-5  col-xs-5" style="padding-left:0px;">
+                            <input size="16" type="text" value="{{DongleSet.SoftwareVersionUpgradeExpireTime|Time16Filter}}" id="SoftwareVersionUpgradeExpireTime"
+                                readonly class="form-control calendar" ng-disabled="DongleSettingType!=3">
+                        </div>
+                        <div class="col-md-2  col-xs-2 editor-img-icon" style="" ng-if="DongleSettingType!=3">
+                            <img src="/web/img/business/edit.png" ng-click="EditSetting(3,DongleSet)" />
+                            <img src="/web/img/business/lishi.png" ng-click="ViewSettingLog(3,DongleSet)" />
+                        </div>
+                        <div class="col-md-2  col-xs-2 editor-img-icon" style="" ng-if="DongleSettingType==3">
+                            <img src="/web/img/business/confirmEdit.png" ng-click="SaveSetting(3,DongleSet)" />
+                            <img src="/web/img/business/cancelEdit.png" ng-click="CancelEditSetting(3,DongleSet)" />
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="DongleSettingType==3">
+                        <label for="dik_DogCode" class="control-label col-md-5  col-xs-5">备注：</label>
+                        <div class="col-md-7  col-xs-7" style="padding-left:0px;">
+                            <textarea ng-model="DongleSet.Comment" id="ExpireTimeComment" style="height:50px;width:100%;"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-5  col-xs-5">软件升级到期时间：</label>
+                        <div class="col-md-5  col-xs-5" style="padding-left:0px;">
+                            <input size="16" type="text" value="{{DongleSet.SoftwareVersionSPExpireTime|Time16Filter}}" id="SoftwareVersionSPExpireTime"
+                                readonly class="form-control calendar" ng-disabled="DongleSettingType!=2">
+                        </div>
+                        <div class="col-md-2  col-xs-2 editor-img-icon" style="" ng-if="DongleSettingType!=2">
+                            <img src="/web/img/business/edit.png" ng-click="EditSetting(2,DongleSet)" />
+                            <img src="/web/img/business/lishi.png" ng-click="ViewSettingLog(2,DongleSet)" />
+                        </div>
+                        <div class="col-md-2  col-xs-2 editor-img-icon" style="" ng-if="DongleSettingType==2">
+                            <img src="/web/img/business/confirmEdit.png" ng-click="SaveSetting(2,DongleSet)" />
+                            <img src="/web/img/business/cancelEdit.png" ng-click="CancelEditSetting(2,DongleSet)" />
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="DongleSettingType==2">
+                        <label for="dik_DogCode" class="control-label col-md-5  col-xs-5">备注：</label>
+                        <div class="col-md-7  col-xs-7" style="padding-left:0px;">
+                            <textarea ng-model="DongleSet.Comment" id="ExpireTimeComment" style="height:50px;width:100%;"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <label for="dik_InstallCode" class="col-md-5 control-label col-xs-5">加密狗可激活设备数：</label>
+                        <div class="" style="">
+                            <input type="text" class="form-control" id="dik_InstallCode" maxlength="4" style="float:left;width:70px !important;" ng-model="DongleSet.MaxAllowActiveDeviceCount"
+                                ng-disabled="DongleSettingType!=4">
+                            <div style="float:left;line-height:30px;margin-left:6px;">台</div>
+                        </div>
+                        <div class="col-md-2  col-xs-2 editor-img-icon" style="" ng-if="DongleSettingType!=4">
+                            <img src="/web/img/business/edit.png" ng-click="EditSetting(4,DongleSet)" />
+                            <img src="/web/img/business/lishi.png" ng-click="ViewSettingLog(4,DongleSet)" />
+                        </div>
+                        <div class="col-md-2  col-xs-2 editor-img-icon" style="" ng-if="DongleSettingType==4">
+                            <img src="/web/img/business/confirmEdit.png" ng-click="SaveSetting(4,DongleSet)" />
+                            <img src="/web/img/business/cancelEdit.png" ng-click="CancelEditSetting(4,DongleSet)" />
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="DongleSettingType==4">
+                        <label for="dik_DogCode" class="control-label col-md-5  col-xs-5">备注：</label>
+
+                        <div class="col-md-7  col-xs-7" style="padding-left:0px;">
+                            <textarea ng-model="DongleSet.Comment" id="ExpireTimeComment" style="height:50px;width:100%;"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-5  col-xs-5">安装时SN验证：</label>
+                        <div class="col-md-5  col-xs-5" style="margin-top:5px;padding-left:0px;">
+                            <label class="radio-inline">
+                                <input type="radio" name="sn" value="true" ng-model="DongleSet.ValidateSN" ng-change="saveSN(DongleSet)"> 验证
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="sn" value="false" ng-model="DongleSet.ValidateSN" ng-change="saveSN(DongleSet)"> 不验证
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;margin-top: 12px;">
+                        <div class="col-md-5  col-xs-5">
+                        </div>
+                        <div class="col-md-6   col-xs-6" style="color:#f47611;padding-left:0px;">
+                            此加密狗已激活{{DongleSet.ActivedDeviceCount}}台设备
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:5px;">
+                        <div class="col-md-2  col-xs-2"></div>
+                        <div class="col-md-9   col-xs-9" style="color:red;height:30px;line-height:30px;">{{DongleSet.ErrorMsg}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="DongleActivedDeviceSearchDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 490px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight: bold;margin-bottom:20px;">查看激活设备</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog3'}"
+                    style="width:60%;margin:0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body">
+                <div class="table-container custom-scrollbar" style="height:400px;margin-top:12px;">
+                    <table ng-table="DeviceList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="device in $data" ng-show="$data.length>0">
+                                <td data-title="'设备ID'" sortable="'DogCode'">{{ device.SchoolDeviceID }}</td>
+
+                                <td data-title="'激活时间'" sortable="'OccurTime'" style="">{{ device.OccurTimeFormat }}</td>
+                                <td data-title="'操作'" sortable="''" style="">
+                                    <a class="f12 href" ng-class="'href'" ng-click="OpenCancelDongleDialog(device)">注销</a>
+                                </td>
+                            </tr>
+                            <tr ng-show="$data.length==0">
+                                <td colspan="4">
+                                    <div class="table-data-empty">
+                                        <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary button-commonDialog" style="vertical-align:middle;">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="DongleInstockDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 435px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight: bold;margin-bottom:20px;">入库</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog2'}"
+                    style="width:60%;margin:0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-group-multiple" style="padding-left:20px !important;padding-top:10px !important;padding-right:10px !important;">
+                    <div id="labelDIVAddDongle" class="div-multiple-lable">
+                        <div class="margin-left-right-none form-label">
+                            <label for="dongleCode">
+                                硬件序列号：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label">
+                            <label for="installCode">
+                                安装序列号：
+                            </label>
+                        </div>
+                    </div>
+                    <div id="controlDIVAddDongle" class="control-div-multiple" style="margin-bottom:0px !important;">
+                        <div class="margin-left-right-none form-group-control" style="padding-left:8px !important;">
+                            <input type="text" class="form-control" id="dongleCode" ng-model="DongleInstock.DogCode">
+                        </div>
+                        <div class="margin-left-right-none form-group-control" style="margin-bottom:4px !important;padding-left:8px !important;">
+                            <input type="text" style="display:inline-block;" class="form-control" id="installCode" ng-model="DongleInstock.InstallCode"
+                                readonly="readonly">
+                            <button type="button" class="btn" style="width: 58px; height: 30px;line-height:15px; vertical-align:middle;text-align:center; background-color:#f0f3f7;border:1px solid #cbd2db;margin-left:10px;"
+                                ng-click="GenerateInstallCode()">生成</button>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div id="erroMessageReset" class="erro-message">
+                        <div ng-show="DongleInstock.ErrorMsg!=''">
+                            <img src="/web/img/business/wrong_icon.png" /> {{DongleInstock.ErrorMsg }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="Instock()">保存</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="DongleAllottedDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 690px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" style="font-weight: bold;margin-bottom:20px;">发货给渠道商</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog2'}"
+                    style="width:60%;margin:0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" style="padding-top:26px !important;padding-left:20px !important;padding-right:20px !important;">
+                <div class="form-group" style="margin-bottom:0px !important;">
+                    <div class="table-container">
+                        <table ng-table="DongleAllotted.InstockDongleList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                            <tbody>
+                                <tr ng-repeat="dongle in $data" ng-show="$data.length>0">
+                                    <td header="'header_DgnCheckbox.html'" style="width: 10%;">
+                                        <input type="checkbox" class="chk" id="dongleAllot_{{$index}}" ng-click="SelectDng(dongle.Selected)" ng-true-value="1" ng-false-value="0"
+                                            ng-model="dongle.Selected" ng-checked="dongle.Selected==1" />
+                                        <label for="dongleAllot_{{$index}}"></label>
+
+                                    </td>
+                                    <td data-title="'设备序列号'" sortable="'DogCode'">{{ dongle.DogCode }}</td>
+                                    <td data-title="'安装序列号'" sortable="'InstallCode'" style="padding-left: 20px;">{{ dongle.InstallCode }}</td>
+                                    <td data-title="'入库时间'" style="width:25%;" sortable="'CreatedTime'">{{ dongle.CreatedTimeFormat }}</td>
+                                </tr>
+                                <tr ng-show="$data.length==0">
+                                    <td colspan="4">
+                                        <div class="table-data-empty">
+                                            <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:0px;">
+                    已选
+                    <span style="color: #2386e4;">{{SelectAllDngCount}}</span>个
+                </div>
+                <div class="form-group" style="text-align:center;height:50px;line-height:50px;margin-top:20px; background-color:#f5f7fa;border:1px solid #E8ECF0;">
+                    <div class="btn-group" style="text-align: right;line-height:36px;">发货给渠道商：</div>
+                    <div class="btn-group dropdown" style="width: 200px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                            {{ DongleAllotted.CurrentChannelBusiness.BusinessName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                            <li ng-repeat="business in ChannelBusinessList">
+                                <a href="javascript:void(0);" ng-click="DongleAllotted.CurrentChannelBusiness = business;">{{business.BusinessName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-normal" style="" ng-click="Allotted()">确定</button>
+                <button type="button" class="btn btn-cancel btn-normal" data-dismiss="modal" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="DongleReportDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 740px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" style="font-weight: bold; margin-bottom: 20px;">分配到学校</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog4'}"
+                    style="width: 60%; margin: 0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body" ng-show="AllotStep==1" style="padding-top:26px !important;padding-left:20px !important;padding-right:20px !important;">
+                <div style="display:inline-block;">
+                    <a>
+                        <div class="circle">1</div>
+                        <div style="margin-left: 4px;display: inline-block;color:#444444;font-size:14px;">选择加密狗</div>
+                    </a>
+                    <a style="color:#9e9e9e;margin-left:8px;">></a>
+                    <a style="margin-left:8px;">
+                        <div class="circle_disabled">2</div>
+                        <div style="margin-left: 4px;display: inline-block;color:#999999;font-size:14px;">选择学校</div>
+                    </a>
+                </div>
+                <div class="pull-right" style="margin-top:-8px;">
+                    <div class="btn-group" style="margin-right: 2px; line-height: 36px; padding: 0 5px;">渠道商：</div>
+                    <div class="btn-group dropdown" style="min-width: 150px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color: #7a7a7a;">
+                            {{ DongleReport.CurrentChannelBusiness.BusinessName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu">
+                            <li ng-repeat="business in ChannelBusinessList">
+                                <a href="javascript:void(0);" ng-click="BusinessChange(business);">{{business.BusinessName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="table-container custom-scrollbar" style="height:400px;">
+                    <table ng-table="DongleReport.ReportDongleList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="dongle in $data" ng-show="$data.length>0">
+                                <td header="'header_ReportCheckbox.html'" style="width: 8%;">
+                                    <input type="checkbox" id="dongleReport_{{$index}}" class="chk" ng-click="SelectReport(dongle.Selected)" ng-true-value="1"
+                                        ng-false-value="0" ng-model="dongle.Selected" ng-checked="dongle.Selected==1" />
+                                    <label for="dongleReport_{{$index}}"></label>
+                                </td>
+                                <td data-title="'设备序列号'" sortable="'SchoolName'" style="width: 22%;">{{ dongle.DogCode }}</td>
+
+                                <td data-title="'安装序列号'" sortable="'Province'" style="padding-left: 48px;">{{ dongle.InstallCode }}</td>
+                                <td data-title="'发货时间'" sortable="'Province'" style="padding-left: 22px;">{{ dongle.AllotTimeFormat }}</td>
+                            </tr>
+                            <tr ng-show="$data.length==0">
+                                <td colspan="4">
+                                    <div class="table-data-empty">
+                                        <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group" style="margin-top:12px;">
+                    已选
+                    <span style="color: #328CE3">{{SelectAllReportCount}}</span>个
+                </div>
+                <div class="form-group" style="margin-top:12px;">
+                    <div style="color:red">{{AllotErrorMsg}}</div>
+                </div>
+
+            </div>
+            <div class="modal-body" ng-show="AllotStep==2" style="margin: 10px 0px 0px 20px;">
+                <a>
+                    <div class="circle_disabled">1</div>
+                    <div style="margin-left: 4px;display: inline-block;color:#9e9e9e;">选择内容序列号</div>
+                </a>
+                <a style="color:#9e9e9e;margin-left:4px;">></a>
+                <a style="margin-left:4px;">
+                    <div class="circle">2</div>
+                    <div style="margin-left: 4px;display: inline-block;">选择学校</div>
+                </a>
+                <div class="form-group" style="margin-top:12px;">
+                    <div class="btn-group " style="line-height:30px;text-align: right;">&nbsp;&nbsp;&nbsp;地区：</div>
+                    <div class="btn-group dropdown" style="min-width: 75px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;padding-left:5px; ">
+                            {{ DongleReport.Province.ProvinceName== "" ? "省份" : DongleReport.Province.ProvinceName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height:200px; overflow-y: scroll;min-width: 150px;">
+                            <li ng-repeat="province in ProvinceList">
+                                <a href="javascript:void(0);" ng-click="ProvinceChange(province)">{{province.ProvinceName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" style="min-width: 75px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;padding-left:5px;">
+                            {{ DongleReport.City.CityName== "" ? "地市" : DongleReport.City.CityName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height:200px; overflow-y: scroll;min-width: 180px;">
+                            <li ng-repeat="city in CityList">
+                                <a href="javascript:void(0);" ng-click="CityChange(city)">{{city.CityName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" style="min-width: 75px;">
+                        <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="font-size: 12px; color: #7a7a7a;padding-left:5px;">
+                            {{ DongleReport.Area.AreaName== "" ? "区" :DongleReport.Area.AreaName }}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height:200px; overflow-y: scroll;min-width: 180px;">
+                            <li ng-repeat="area in AreaList">
+                                <a href="javascript:void(0);" ng-click="AreaChange(area)">{{area.AreaName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="btn-group " style="line-height:30px;text-align: right;">&nbsp;&nbsp;&nbsp;学校：</div>
+                    <div class="btn-group" style="height:32px;line-height:32px;">
+                        <input type="text" class="search-textbox" style="width: 180px;display: inline-block;height:32px !important;width: 234px !IMPORTANT;"
+                            placeholder="输入学校名称" id="channelB_Name" ng-model="SchoolQuery.SchoolName">
+
+                        <span class="smallicon btn-icon icon-sousuo" ng-click="SearchSchoolList()" style="font-size: 1.2em;margin-left:-28px;cursor:pointer;margin-top:6px;"></span>
+                    </div>
+                </div>
+                <div class="form-group custom-scrollbar" style="height:400px;background-color:#eef3f7;margin-left: 54px !important;">
+                    <div style="padding:15px 10px 15px 10px;">
+                        <div style="width:33%;float:left;text-align:left;height:25px;line-height:25px;" ng-repeat="school in SchoolList" ng-click="SelectSchool(school)">
+                            <div style="cursor:pointer;width:80%;max-width:100%;padding-left:4px;" ng-style="school.Selected==true?{'background-color':'#3075c3','color':'white'}:{'background-color':'#eef3f7;','color':'black;'}">
+                                {{school.SchoolName}}
+                                </>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group" style="margin-top:12px;height:24px;">
+                        <span style="color:red">{{AllotErrorMsg}}</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer" ng-if="AllotStep==1">
+                <button type="button" class="btn btn-primary btn-normal" ng-click="NextStep()">下一步</button>
+            </div>
+            <div class="modal-footer" ng-if="AllotStep==2">
+                <button type="button" class="btn btn-cancel btn-normal" ng-click="PreStep()">上一步</button>
+                <button type="button" class="btn btn-primary btn-normal" ng-click="Report()" style="margin-left:20px;">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal" id="DongleOperateLogDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 600px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight: bold;margin-bottom:20px;">{{GetDongleOperateLogTypeDialogTitle(ViewDongleOperateLogType)}}</h5>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center','toaster-id': 'dialog1'}"
+                    style="width:60%;margin:0 15%;"></toaster-container>
+            </div>
+            <div class="modal-body">
+                <div class="table-container" style="min-height:470px;">
+                    <table ng-table="DongleOperateLog" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <thead>
+                            <tr>
+                                <th width="20%">操作者</th>
+                                <th width="25%">{{GetDongleOperateLogTypeHeader(ViewDongleOperateLogType)}}</th>
+                                <th width="25%">修改时间</th>
+                                <th width="30%">备注</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="log in $data" ng-show="$data.length>0">
+                                <td width="20%">{{ log.OperatorName }}</td>
+                                <td width="25%">{{ log.NewVal |Time10Filter }}</td>
+                                <td width="25%">{{ log.CreatedTime |Time16Filter }}</td>
+                                <td width="30%">{{ log.Comment }}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

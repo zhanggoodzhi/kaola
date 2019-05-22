@@ -1,0 +1,52 @@
+﻿   <!--信息转述与询问-->
+<div ng-if="data.QuestionModel">
+    <div class="highlight-no" style="font-weight:bold;" ng-if="data.QuestionModel.Prompt!=undefined && data.QuestionModel.Prompt.length>0">
+        {{data.QuestionModel.Prompt}}
+    </div>
+    <div class="question-text highlight-no" ng-if="data.QuestionModel.Text != null && data.QuestionModel.Text.length > 0" ng-bind-html="data.QuestionModel.Text|trustHtml">
+    </div>
+    <div class="question-tips highlight-no" ng-if="data.QuestionModel.Tips != null && data.QuestionModel.Tips.length > 0" ng-bind-html="data.QuestionModel.Tips|trustHtml">
+    </div>
+    <div class="question-image">
+        <img  style="width:500px;height:260px;" ng-src="{{data.ResourcePath+data.QuestionModel.Image}}" />
+    </div>
+    <div class="question-title">【听力原文】</div>
+    <div class="content-text highlight-no" ng-if="data.QuestionModel.AudioText!=undefined&& data.QuestionModel.AudioText.length>0" ng-bind-html="data.QuestionModel.AudioText|trustHtml">
+    </div>
+
+    <div style="clear:both;"></div>
+    <div ng-repeat="content in data.QuestionModel.Contents">
+     
+        <div class="content-text highlight-no" ng-bind-html="content.Tips|trustHtml">
+        </div>
+    </div>
+</div>
+<div ng-if="data.ExtProperty.RelationQuestionModel.QuestionModel" style="clear:both;margin-bottom: 20px;border-bottom: 1px solid #e1e1e1;"></div>
+<div ng-if="data.ExtProperty.RelationQuestionModel.QuestionModel">
+
+    <div style="padding-left: 10px;padding-right: 10px;">
+        <div style="font-weight:bold;" class="question-prompt highlight-no" ng-if="data.ExtProperty.RelationQuestionModel.QuestionModel.Prompt!=undefined && data.ExtProperty.RelationQuestionModel.QuestionModel.Prompt.length>0">
+            {{data.ExtProperty.RelationQuestionModel.QuestionModel.Prompt}}
+        </div>      
+    </div>
+    <div ng-if="data.ExtProperty.RelationQuestionModel.QuestionModel.Prompt!=undefined && data.ExtProperty.RelationQuestionModel.QuestionModel.Prompt.length>0" style="clear:both;height: 16px;margin-bottom: 16px;border-bottom: 1px dashed #e1e1e1;"></div>
+    <div class="highlight-no" style="margin-left:0px;" ng-if="data.ExtProperty.RelationQuestionModel.QuestionModel.Text!=undefined && data.ExtProperty.RelationQuestionModel.QuestionModel.Text.length>0" ng-bind-html="data.ExtProperty.RelationQuestionModel.QuestionModel.Text|trustHtml">
+    </div>
+    <div ng-repeat="ca in data.ExtProperty.RelationQuestionModel.QuestionModel.Contents">
+        <div style="margin-top:16px;">
+            <div>
+                <div class="content-idx" style="">{{ca.Index}}.</div>
+                <div class="content-text highlight-no" style="" ng-if="ca.Text.length>0" ng-bind-html="ca.Text|trustHtml">
+                </div>
+                <div class="content-text highlight-no" style="" ng-if="ca.AudioText.length==0&&  ca.AudioText.length>0  " ng-bind-html="ca.AudioText|trustHtml">
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>     
+        <div class="clearfix"></div>
+    </div>
+   
+</div>
+
+<question-operation data="data" show-answer="true"></question-operation>
+

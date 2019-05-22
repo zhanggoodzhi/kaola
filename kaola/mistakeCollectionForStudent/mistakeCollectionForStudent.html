@@ -1,0 +1,110 @@
+﻿
+<link rel="stylesheet" type="text/css" href="/web/kaola/mistakeCollectionForStudent/mistakeCollectionForStudent.css" />
+<link rel="stylesheet" type="text/css" href="/web/components/directives/mistakeCollection/mistakeScoreInfo.css" />
+<link rel="stylesheet" type="text/css" href="/web/components/directives/mistakeCollection/operation.css" />
+<link rel="stylesheet" type="text/css" href="/web/components/directives/paperDesign/question.css" />
+
+<div class="page-container  bg-white" style="width:992px;margin:0 auto;">
+    <div class="content-container">
+
+        <div class="content-header" style="text-align: center;">
+            <span class="view-header-text"><i class="xsmallicon icon-liebiao"></i></span><span class="view-header-text" style="color:#333333;">错题集</span>
+            <div class="" style="float:right;margin-top:13px;">
+                <!--<button   type="button" class="btn btn-paperDesign" style="float:right;" ng-click="">
+                    <img src="/web/img/paperDesign/zyzj.png" style="margin-right:2px;height:14px;" />错题练习
+                </button>-->
+            </div>
+        </div>
+        <div class="areatype-filter">
+            <div style="" class="areatype-filter-title">
+                题型
+            </div>
+            <div style="" class="areatype-filter-items-div">
+                <div ng-repeat="a in AreaTypeList" class="areatype-filter-item" on-repeat-finish="InitAreaTypeFinished()" ng-class="{true:'active'}[a.Choosed]" ng-click="AreaTypeChoosed(a)">
+                    {{a.AreaTypeTitle}}
+                </div>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <div class="papercontent-container">
+                <div class="papercontent">
+                    <div class="paperdesign-search-filter">
+                        <div class="paperdesign-search-input" style="">
+                            <input style="" type="text" class="" placeholder="输入试题信息查询" ng-model="Filter.SearchText">
+                        </div>
+                        <div class="paperdesign-search-button" style="">
+                            <img src="/web/img/paperDesign/hui-search.png" ng-click="SearchText()" />
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs paperdesign-tabs" style="clear:both;">
+                        <li class="paperdesign-tab-header  active" ng-click="PaperDesignTabChange(0)">
+                            <a href="#AllDataPanel" data-toggle="tab">
+                                综合排序
+                                <img onclick="return false;" ng-if="CommonOrderBy=='ASC'" src="/web/img/paperDesign/arrow-s.png" />
+                                <img onclick="return false;" ng-if="CommonOrderBy=='DESC'" src="/web/img/paperDesign/arrow-x.png" />
+                            </a>
+                        </li>
+                        <li class="paperdesign-tab-header" ng-click="PaperDesignTabChange(1)" style="margin-left:-6px !important;border-radius:0px;">
+                            <a href="#AllDataPanel" data-toggle="tab">
+                                得分率
+                                <img onclick="return false;" ng-if="ScoreRateOrderBy=='ASC'" src="/web/img/paperDesign/arrow-s.png" />
+                                <img onclick="return false;" ng-if="ScoreRateOrderBy=='DESC'" src="/web/img/paperDesign/arrow-x.png" />
+                            </a>
+                        </li>
+                        <li class="paperdesign-tab-header" ng-click="PaperDesignTabChange(2)" style="margin-left:-6px !important;-moz-border-radius-topleft:0px;">
+                            <a href="#AllDataPanel" data-toggle="tab">
+                                答题次数
+                                <img onclick="return false;" ng-if="AnswerCountOrderBy=='ASC'" src="/web/img/paperDesign/arrow-s.png" />
+                                <img onclick="return false;" ng-if="AnswerCountOrderBy=='DESC'" src="/web/img/paperDesign/arrow-x.png" />
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="AllDataPanel">
+                            <div ng-if="PaperDesignDisplayData.Data.length>0" ng-repeat="q in PaperDesignDisplayData.Data" style="" on-repeat-finish="QuestionRepeatFinished()">
+                                <div ng-if="$index==0 || q.AreaType!=PaperDesignDisplayData.Data[$index-1].AreaType" class="area-title-grouppanel">{{q.AreaTitle}}</div>
+                                <question class="question-detail" data="q" paper-resource-base-url="UrlConfig.paperResourceBaseUrl" answer-base-url="UrlConfig.answerBaseUrl"></question>
+                            </div>
+                            <div class="loading-div">
+                                <div ng-if="HasMore()">
+                                    <img src="/web/img/paperDesign/loading.png" /><span ng-click="LoadMore()" id="searchButton">点击加载更多试题</span>
+                                </div>
+                                <div id="no-resource" class="no-resource" ng-if="!HasMore()&&PaperDesignDisplayData.Data.length==0">
+                                    <!-- <span id="noresultbtn">未查询到数据</span> -->
+                                    <div>
+
+                                        <img src="/web/img/wujilu.png" alt="">
+                                    </div>
+                                    <p class="text">暂无记录！</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="areatype-filter-scroll-container">
+            <div class="areatype-filter-scroll">
+                <div style="" class="areatype-filter-title-scroll">
+                    题型
+                </div>
+                <div style="" class="areatype-filter-items-div-scroll">
+                    <div ng-repeat="a in AreaTypeList" class="areatype-filter-item-scroll" on-repeat-finish="InitAreaTypeFinishedForScroll()" ng-class="{true:'active'}[a.Choosed]" ng-click="AreaTypeChoosed(a)">
+                        {{a.AreaTypeTitle}}
+                    </div>
+                </div>
+                <div class="paperdesign-search-filter-scroll">
+                    <div class="paperdesign-search-input-scroll" style="">
+                        <input style="" type="text" class="" placeholder="输入试题信息查询" ng-model="Filter.SearchText">
+                    </div>
+                    <div class="paperdesign-search-button-scroll" style="">
+                        <img src="/web/img/paperDesign/hui-search.png" ng-click="SearchText()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

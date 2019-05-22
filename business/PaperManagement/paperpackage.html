@@ -1,0 +1,333 @@
+﻿<link rel="stylesheet" type="text/css" href="/web/business/PaperManagement/paper.css" />
+<link rel="stylesheet" type="text/css" href="/web/components/directives/paperpreview_rebuild/paperpreview.css" />
+<script type="text/ng-template" id="header_paperCheckbox.html">
+    <input type="checkbox" class="chk" ng-click="SelectAllPaper($event)" id="selectAllPaperTag" ng-true-value="true" ng-false-value="false" ng-checked="SelectAllPaperTag" />
+    <label for="selectAllPaperTag"></label>
+</script>
+<div class="margin-left-right-none MainTabSet">
+
+    <div class="navigate-bar">
+        <div class="title">&nbsp;</div>
+        <a style="font-weight:bold;color:black;" class="ng-binding">试卷包管理</a>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active" id="paperPackageManage">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+            <div class="content-main">
+                <div class="row">
+                    <div class="btn-group">
+                        <div class="btn-group" ng-show="isAdmin" style="line-height: 30px; ">内容商：</div>
+                        <div class="btn-group dropdown" style="width: 100px;min-width:160px;margin-right:12px;" ng-show="isAdmin">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                                {{ Filter.CurrentContentProvider.ContentProviderName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="overflow-y: auto;height: 200px;">
+                                <li ng-repeat="contentProvider in ContentProviderList"><a href="javascript:void(0);" ng-click="Filter.CurrentContentProvider = contentProvider;">{{contentProvider.ContentProviderName}}</a></li>
+                            </ul>
+                        </div>
+                        <input type="text" class="search-textbox" style="width: 250px;display: inline-block;" id="txt_installCode" ng-keyup="KeyupSearchPackage($event)"  ng-model="QueryParams.PackageName" placeholder="输入试卷包名称">
+                        <button type="button" class="search-button button button-blue" style="margin-left:-4px;margin-top:-4px;" ng-click="SearchPackage()">
+                            <img src="http://cdn.uukaola.com/web/img/business/search.png" style="width:16px;height:16px;" />
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="operate_container">
+                        <div class="btn-group btn_container">
+                            <button type="button" class="btn-yellow" ng-click="OpenAddPackage()">
+                                <img src="http://cdn.uukaola.com/web/img/business/add.png">
+                                <span aria-hidden="true">新增试卷包</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-table="PackageList" class="table table-condensed table-bordered table-hover" style="border: 1px solid #ddd;">
+                        <tbody>
+                            <tr ng-repeat="package in $data" id="{{package.PaperPackageID}}">
+                                <td data-title="'试卷包名称'" style="width:30%;text-align:left;">{{ package.PaperPackageName }}</td>
+                                <td data-title="'内容商'" style="width:20%;text-align:left;" ng-if="isAdmin">{{ package.ContentProviderName }}</td>
+                                <td data-title="'内容序列号数量'" style="padding-left: 20px;width:15%;">{{ package.ContentSerialNoCount| EmptyFilter }}</td>
+                                <td data-title="'试卷数量'" style="padding-left: 20px;width:15%;">{{ package.PaperCount| EmptyFilter}}</td>
+                                <td data-title="'操作'" style="width:20%;">
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="OpenPaperPackageDetail(package)">
+                                        查看
+                                    </a>
+                                    <a class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="OpenUpdatePaperPackageDialog(package)">修改</a>
+                                    <a ng-show="package.ContentSerialNoCount==0" class="f12" style="color:#0083d4;margin-right:10px;cursor:pointer;" ng-click="OpeDeletePaperPackageDialog(package.PaperPackageID)">删除</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="AddPaperPckageDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog" style="margin-top:80px !important;">
+        <div class="modal-content" style="width: 960px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">新增试卷包</h5>
+            </div>
+            <div class="modal-body" style="padding-left:20px !important;padding-top:33px !important;">
+                <div style="display:inline-block;">
+                    <a><div class="circle">></div><div style="margin-left: 4px;display: inline-block;color:#444444;font-size:14px;">选择试卷</div></a>
+                </div>
+                <div class="form-group-multiple" style="padding-left:0px !important;padding-right:0px !important;padding-top:14px !important;clear:both;">
+                    <div class="form-group" style="line-height:36px;margin-bottom:8px;">                     
+                        <label class="div-content-lable" ng-show="isAdmin">内容商:</label>
+                        <div class="btn-group dropdown" style="min-width:186px;margin-right:12px;" ng-show="isAdmin">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                                {{ AddPackage.SearchContentProvider.ContentProviderName }}<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="overflow-y: auto;height: 200px;min-width:186px;">
+                                <li ng-repeat="contentProvider in SearchContentProviderList"><a href="javascript:void(0);" ng-click="ContentProviderChange(contentProvider)">{{contentProvider.ContentProviderName}}</a></li>
+                            </ul>
+                        </div>
+                        <label class="div-content-lable">适用地区:</label>
+                        <div class="btn-group dropdown" style="min-width: 130px;margin-right:12px;">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                                {{ AddPackage.CurrentProvince.ProvinceName }}<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="max-height: 300px; min-width:130px;overflow-y: scroll;">
+                                <li ng-repeat="province in ProvinceList"><a href="javascript:void(0);" ng-click="ProvinceChange(province)">{{province.ProvinceName}}</a></li>
+                            </ul>
+                        </div>
+                        <label class="div-content-lable">年度:</label>
+                        <div class="btn-group dropdown" style="width:80px;margin-right:12px;">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                                {{ AddPackage.CurrentYear.DisplayMember }}<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="min-width:80px;">
+                                <li ng-repeat="year in YearList"><a href="javascript:void(0);" ng-click="YearChange(year)">{{year.DisplayMember}}</a></li>
+                            </ul>
+                        </div>
+                        <label class="div-content-lable">适用年级:</label>
+                        <div class="btn-group dropdown" style="width: 90px;margin-right:12px;">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                                {{ AddPackage.CurrentGrade.Name }}<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="min-width:90px;">
+                                <li ng-repeat="g in GradeList"><a href="javascript:void(0);" ng-click="GradeChange(g)">{{g.Name}}</a></li>
+                            </ul>
+                        </div>
+                        <label class="div-content-lable">难度:</label>
+                        <div class="btn-group dropdown" style="width: 80px;margin-right:12px;">
+                            <a class="btn btn-block btn-default query-height" href="#" data-toggle="dropdown" style="color:#7a7a7a;">
+                                {{ AddPackage.CurrentLevel.DisplayMember }}<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="task_Status" role="menu" style="min-width:80px;">
+                                <li ng-repeat="level in LevelList"><a href="javascript:void(0);" ng-click="LevelChange(level)">{{level.DisplayMember}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <input type="text" class="search-textbox" style="width: 209px;height:32px !important; display : inline-block;" id="txtPackageName" ng-model="AddPackagePaperListFilter.PaperName" placeholder="输入试卷名称">
+                            <button type="button" class="search-button button button-blue" style="margin-left:-4px;margin-top:-4px;" ng-click="SearchPaperForAddPackage()">
+                                <img src="http://cdn.uukaola.com/web/img/business/search.png" style="width:16px;height:16px;" />
+                            </button>
+                        </div>
+                     
+                    </div>
+                    <div class="table-container " style="padding:0px !important;margin-top:10px;">
+                        <table ng-table="AddPackage.PaperList" class="table table-bordered table-hover" style="">
+                            <tbody>
+                                <tr ng-repeat="paper in $data" ng-show="$data.length>0">
+                                    <td header="'header_paperCheckbox.html'" style="padding:0px !important;width:6%;">
+                                        <input type="checkbox" class="chk" id="{{paper.PaperID}}" ng-click="SelectPaper($event,paper)" ng-true-value="1" ng-false-value="0" ng-checked="isSelected(paper)==true" />
+                                        <label for="{{paper.PaperID}}"></label>
+                                    </td>
+                                    <td data-title="'试卷名称'" style="width: 20%;text-align:left;">{{ paper.PaperName }}</td>
+                                    <td data-title="'内容商'" style="width: 15%;text-align:left;">{{ paper.ContentProviderName }}</td>
+                                    <td data-title="'地区'" style="width:10%;">{{ paper.ProvinceName| EmptyFilter }}</td>
+                                    <td data-title="'年度'" style="width:8%;">{{ paper.YearDes | EmptyFilter}}</td>
+                                    <td data-title="'适用年级'" style="width:8%;">{{ paper.GradeDes| EmptyFilter }}</td>
+                                    <td data-title="'难度'" style="width:8%;">{{ paper.LevelDes | EmptyFilter}}</td>
+                                    <td data-title="'导入时间'" style="width:15%;">{{ paper.ImportTime |Time10Filter }}</td>
+                                    <td data-title="'操作'">
+                                        <a href="javascript:void(0);" style="color: deepskyblue" ng-click="PreviewPaperDetail(paper.PaperID)">预览</a>
+                                    </td>
+                                </tr>
+                                <tr ng-show="$data.length==0">
+                                    <td colspan="9">
+                                        <div class="table-data-empty">
+                                            <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group" style="margin-bottom:26px;">
+                        已选<span style="color: #2386e4;font-weight: bold;margin:0px 2px;">{{selectPaperId.length}}</span>套试卷                  
+                    </div>
+                    <div class="form-group" style="background-color:#f5f7fa;border:1px solid #dfe3ec;border-radius:1px;padding-left:20px;padding-top:14px;width:100%;height:100px;margin-bottom:0px !important;padding-bottom:14px !important;">
+                        <div style="float:left;margin-right:20px;">
+                            <div style="width: 100%;">
+                                <label style="display:inline-block;"> 试卷包名称： </label> <input type="text" class="form-control query-height" style="width: 200px;display:inline-block !important;" ng-model="AddPackage.PaperPackageName">
+                            </div>
+                            <div style="width: 100%;margin-top:10px;display:none;">
+                                <label style="display:inline-block;"> 试卷重命名： </label>  <input type="text" class="form-control query-height" style="width: 200px; display: inline-block;margin-right:8px;" ng-model="AddPackage.RenamePaperName">+ 流水号
+                            </div>
+                        </div>
+                        <div style="float:left;width:450px;display:none;">
+                            <div style="margin-bottom:8px;color:#ff7200;font-size:14px;margin-top:47px;float:left;">试卷重命名规则：</div>
+                            <div style="color:#555555;font-size:13px;margin-top:30px;float:left;">试点学校 例：<label style="font-weight:bold;"> 上海市虹口区7年级试用试卷</label> +流水号</div>
+                            <div style="color:#555555;font-size:13px;float:left;">常规试卷 例：<label style="font-weight:bold;"> 北京7年级听说模拟试卷</label> +流水号</div>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div id="erroMessageReset" class="erro-message">
+                        <div ng-show="addPaperPackageValidateMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" /> {{addPaperPackageValidateMessage }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-normal btn-primary" ng-click="SavePaperPackage()">保存</button>
+                <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="PaperPackageDetailDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 670px; margin: auto;">
+            <div class="modal-header" style="background-color: #EEF3F7;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" >查看试卷包</h5>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <div style="padding-left: 0;">
+                        <span style="margin-right: 20px; font-size: 16px; color: #444444;font-weight:bold;">{{PaperPackageDetail.PaperPackageName}}</span>
+                        <span style="margin-left: 120px;">所属内容商：</span>
+                        <span style="margin-right: 20px; font-size: 16px; color: #444444;font-weight:bold;">{{PaperPackageDetail.ContentProviderName}}</span>
+                    </div>
+                </div>
+                <div class="row SubTabSet">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li ng-class="{true:'active'}[CurrentTabIndex==1]" ng-click="TabChange(1)" style="width:100px;margin-right:4px;"><a href="#paperlist" data-toggle="tab">内容序列号</a></li>
+                        <li ng-class="{true:'active'}[CurrentTabIndex==2]" ng-click="TabChange(2)" style="width:100px;"><a href="#contentlist" data-toggle="tab">试卷</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==1]" id="paperlist">
+                            <div class="table-container" style="padding-top: 0;">
+                                <table ng-table="PaperPackageDetail.ContentList" class="table table-bordered table-hover" style="border: 1px solid #ddd;">
+                                    <tbody>
+                                        <tr ng-repeat="content in $data" ng-show="$data.length>0">
+                                            <td data-title="'内容序列号'">{{ content.PackageCode }}</td>
+                                            <td data-title="'状态'" style="padding-left: 20px;">{{ content.PakageStatusDes }}</td>
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="2">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div ng-class="{true:'tab-pane active',false:'tab-pane'}[CurrentTabIndex==2]" id="contentlist">
+                            <div class="table-container" style="padding-top: 0;">
+                                <table ng-table="PaperPackageDetail.PaperList" class="table table-bordered table-hover" style="">
+                                    <tbody>
+                                        <tr ng-repeat="paper in $data" ng-show="$data.length>0">
+                                            <td data-title="'试卷名称'">{{ paper.PaperName }}</td>
+                                            <td data-title="'试卷模板'">{{ paper.PaperTemplateName| EmptyFilter }}</td>
+                                            <td data-title="'适用地区'" style="padding-left: 20px;">{{ paper.ProvinceName| EmptyFilter }}</td>
+                                            <td data-title="'年度'" style="padding-left: 20px;">{{ paper.YearDes| EmptyFilter }}</td>
+                                            <td data-title="'适用年级'" style="padding-left: 20px;">{{ paper.GradeDes| EmptyFilter}}</td>
+                                            <td data-title="'难度'" style="padding-left: 20px;">{{ paper.LevelDes | EmptyFilter}}</td>
+                                            <td data-title="'操作'">
+                                                <a href="javascript:void(0);" style="color: deepskyblue" ng-click="PreviewPaperDetail(paper.PaperID)">预览</a>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="$data.length==0">
+                                            <td colspan="7">
+                                                <div class="table-data-empty">
+                                                    <img src="http://cdn.uukaola.com/web/img/business/zwsj.png" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="PreviewPaperDetailDialog" tabindex="-4" role="dialog">
+    <div class="modal-dialog" style="margin-top:80px !important;">
+        <div class="modal-content" style="width:900px; margin: 50px auto 20px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">试卷预览</h5>
+            </div>
+            <div class="modal-body">
+                <paper-preview paper="CurrentPaper"></paper-preview>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="UpdatePaperPackageDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 450px;margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" style="margin-bottom:20px;">修改试卷包</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal form-group-multiple">
+                    <div style="display:none; margin-bottom:20px;background-color:#f4f4f4;border:1px solid #dfe3ec;border-radius:1px;padding-left:20px;padding-top:10px;padding-bottom:10px;width:390px;height:94px;">
+                        <div style="margin-bottom:8px;color:#ff7200;font-size:14px;">试卷重命名规则：</div>
+                        <div style="color:#444444;font-size:13px;">试点学校 例：<label style="font-weight:bold;"> 上海市虹口区7年级试用试卷</label> +流水号</div>
+                        <div style="color:#444444;font-size:13px;">常规试卷 例：<label style="font-weight:bold;"> 北京7年级听说模拟试卷</label> +流水号</div>
+                    </div>
+                    <div id="labelDIVUpdatePaperPackage" class="div-multiple-lable">
+                        <div class="margin-left-right-none form-label">
+                            <label for="paperPackageName">
+                                试卷包名称：
+                            </label>
+                        </div>
+                        <div class="margin-left-right-none form-label" style="display:none;">
+                            <label for="headphoneDescription">
+                                试卷重命名：
+                            </label>
+                        </div>
+                    </div>
+                    <div id="controlDIVUpdatePaperPackage" class="control-div-multiple">
+                        <div class="margin-left-right-none form-group-control">
+                            <input type="text" class="form-control" id="paperPackageName" ng-model="UpdatePaperPackageModel.PaperPackageName">
+                        </div>
+                        <div class="margin-left-right-none form-group-control" style="display:none;">
+                            <input type="text" class="form-control" id="renamePaperPackageName" ng-model="UpdatePaperPackageModel.RenamePaperPackageName" style="display:inline-block;margin-right:5px;">+流水号
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div id="erroMessageReset" class="erro-message">
+                        <div ng-show="updatePaperPackageValidateMessage!=''">
+                            <img src="http://cdn.uukaola.com/web/img/business/wrong_icon.png" /> {{updatePaperPackageValidateMessage }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-normal btn-primary" ng-click="SaveUpdatePaperPackage()">保存</button>
+                <button type="button" class="btn btn-normal btn-cancel" data-dismiss="modal" ng-click="cancel()" style="margin-left:20px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

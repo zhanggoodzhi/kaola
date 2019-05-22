@@ -1,0 +1,189 @@
+﻿<div class="row  bg-white">
+    <div class="content-container">
+        <div class="content-header">
+            <span class="view-header-text" style="float: left; margin-top: 20px;"><i class="xsmallicon icon-liebiao"></i>成绩查询</span>
+            <div class="input-group  pull-right" style="margin-top: 10px;">
+                <span class="input-group-btn" style="float:right;margin-right:50px;">
+                    <button class="btn btn-info button-onlyIcon" type="button" style="border-top-right-radius:3px;border-bottom-right-radius:3px;border-top-left-radius:0px;border-bottom-left-radius:0px;" ng-click="QuerySearch()">
+                        <span class="xsmallicon icon-sousuo"></span>
+                    </button>
+                </span>
+                <input style="float:right;border-top-left-radius:3px;border-bottom-left-radius:3px;border-top-right-radius:0px;border-bottom-right-radius:0px;" type="text" class="form-control ng-pristine ng-valid input-fixWidth" placeholder="根据任务名称过滤" ng-model="QueryParams.TaskName">
+
+            </div>
+        </div>
+        <div class="content-main">
+            <div class="table-container" style="padding-bottom:200px;">
+                <table ng-table="ReportList" class="table table-condensed table-bordered table-hover table-center-align" style="border: 1px solid #ddd;width:100%;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;" width="15%">任务名称</th>
+                            <th style="text-align:left;" width="15%">完成日期</th>
+                            <th width="6%">试卷数量</th>
+                            <th width="6%">班级数量</th>
+                            <th width="6%">考生数量</th>
+                            <th width="6%">平均分</th>
+                            <th width="6%">最高分</th>
+                            <th width="6%">最低分</th>
+                            <th width="7%">听力最高分</th>
+                            <th width="7%">听力最低分</th>
+                            <th width="7%">口语最高分</th>
+                            <th width="7%">口语最低分</th>
+                            <th width="6%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="report in $data" height="50px">
+                            <td data-title="'任务名称'" sortable="'TaskName'" style="min-width:150px; text-wrap:avoid;text-align:left;"><a href="javascript:void(0)" class="color-blue" style="text-decoration:none;" ng-click="ViewTaskDetailReport(report.TaskID)">{{ report.TaskName }}</a></td>
+                            <td data-title="'完成日期'" sortable="'TaskFinishTime'" style="min-width:50px;text-align:left;">{{ report.TaskFinishTime | fixedTimeFilter }}</td>
+                            <td data-title="'试卷数量'" sortable="'PaperCount'" style="min-width:50px;">
+                                <div style="position: relative;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle color-blue" id="ddPaper" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="text-decoration:none;">{{ report.PaperCount }}</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddPaper" style="white-space: nowrap; padding: 0;overflow-y:auto;">
+                                        <a style="" class="popover-title">试卷列表</a>
+                                        <ul class="list-group" style="padding-right:10px;">
+                                            <li ng-repeat="paper in report.Papers" class="list-group-item popover-li" style="">
+                                                <span style="float: left; display: block;margin-right:20px;">{{paper.PaperName}}</span>
+                                                <a href="javascript:void(0)" target="_blank" ui-sref="paperpreview({paperID:'{{paper.PaperID}}'})" style="" class="popover-a">
+                                                    预览
+                                                </a>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td data-title="'班级数量'" sortable="'ClassCount'" style="min-width:50px;">
+                                <div style="position: relative;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle color-blue" id="ddPaper" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="text-decoration:none;">{{ report.ClassCount }}</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddPaper" style="white-space: nowrap; padding: 0; width: 320px;max-height:300px;overflow-y:auto;">
+                                        <a style="" class="popover-title">班级列表</a>
+                                        <ul class="list-group">
+                                            <li ng-repeat="cls in report.Classes" class="list-group-item popover-li" style="">
+                                                <span style="float: left; width: 150px; display: block;">{{cls.ClassName}}</span>
+                                                <a href="javascript:void(0)" target="_blank" ui-sref="teacherreportdetail({classID:'{{cls.ClassID}}',taskID:'{{report.TaskID}}'})" style="" class="popover-a">
+                                                    查看班级报告
+                                                </a>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td data-title="'考生数量'" sortable="'ExamStudentCount'" style="min-width:50px;">{{ report.ExamStudentCount}}</td>
+                            <td data-title="'平均分'" sortable="'AvgScore'" style="min-width:50px;">{{ report.AvgScore}}</td>
+                            <td data-title="'最高分'" sortable="'MaxScore'" style="min-width:50px;">
+                                <div style="position: relative;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle color-blue" id="ddMaxScoreStu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="text-decoration:none;">{{ report.MaxScore }}</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddMaxScoreStu" style="white-space: nowrap; padding: 0; width: 300px;max-height:300px;overflow-y:auto;">
+                                        <a style="" class="popover-title">学生列表</a>
+                                        <ul class="list-group">
+                                            <li ng-repeat="stu in report.MaxScoreStudent" class="list-group-item popover-li" style="">
+                                                <span style="float: left; width: 150px; display: block;">{{stu.StudentName}}</span>
+                                                <a href="javascript:void(0)" target="_blank" ui-sref="studentreportdetail({studentNumber:'{{stu.StudentNumber}}',taskID:'{{report.TaskID}}',from:'teacherreport'})" style="" class="popover-a">
+                                                    查看学生报告
+                                                </a>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-title="'最低分'" sortable="'MinScore'" style="min-width:50px;">
+                                <div style="position: relative;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle color-blue" id="ddMaxScoreStu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="text-decoration:none;">{{ report.MinScore }}</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddMaxScoreStu" style="white-space: nowrap; padding: 0; width: 300px;max-height:300px;overflow-y:auto;">
+                                        <p class="popover-title">学生列表</p>
+                                        <ul class="list-group">
+                                            <li ng-repeat="stu in report.MinScoreStudent" class="list-group-item popover-li" style="">
+                                                <span style="float: left; width: 150px; display: block;">{{stu.StudentName}}</span>
+                                                <a href="javascript:void(0)" target="_blank" ui-sref="studentreportdetail({studentNumber:'{{stu.StudentNumber}}',taskID:'{{report.TaskID}}',from:'teacherreport'})" style="" class="popover-a">
+                                                    查看学生报告
+                                                </a>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-title="'听力最高分'" sortable="'ListeningMaxScore'" style="min-width:80px;">
+                                <div style="position: relative;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle color-blue" id="ddMaxScoreStu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="text-decoration:none;">{{ report.ListeningMaxScore }}</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddMaxScoreStu" style="white-space: nowrap; padding: 0; width: 300px;max-height:300px;overflow-y:auto;">
+                                        <p class="popover-title">学生列表</p>
+                                        <ul class="list-group">
+                                            <li ng-repeat="stu in report.ListeningMaxScoreStudent" class="list-group-item popover-li" style="">
+                                                <span style="float: left; width: 150px; display: block;">{{stu.StudentName}}</span>
+                                                <a href="javascript:void(0)" target="_blank" ui-sref="studentreportdetail({studentNumber:'{{stu.StudentNumber}}',taskID:'{{report.TaskID}}',from:'teacherreport'})" class="popover-a">
+                                                    查看学生报告
+                                                </a>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-title="'听力最低分'" sortable="'ListeningMinScore'" style="min-width:80px;">
+                                <div style="position: relative;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle color-blue" id="ddMaxScoreStu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="text-decoration:none;">{{ report.ListeningMinScore }}</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddMaxScoreStu" style="white-space: nowrap; padding: 0; width: 300px;margin-left:-100px;max-height:300px;overflow-y:auto;">
+                                        <p class="popover-title">学生列表</p>
+                                        <ul class="list-group">
+                                            <li ng-repeat="stu in report.ListeningMinScoreStudent" class="list-group-item popover-li" style="">
+                                                <span style="float: left; width: 150px; display: block;">{{stu.StudentName}}</span>
+                                                <a href="javascript:void(0)" target="_blank" ui-sref="studentreportdetail({studentNumber:'{{stu.StudentNumber}}',taskID:'{{report.TaskID}}',from:'teacherreport'})" class="popover-a">
+                                                    查看学生报告
+                                                </a>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-title="'口语最高分'" sortable="'SpeakingMaxScore'" style="min-width:80px;">
+                                <div style="position: relative;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle color-blue" id="ddMaxScoreStu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="text-decoration:none;">{{ report.SpeakingMaxScore }}</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddMaxScoreStu" style="white-space: nowrap; padding: 0; width: 300px;margin-left:-150px;max-height:300px;overflow-y:auto;">
+                                        <p class="popover-title">学生列表</p>
+                                        <ul class="list-group">
+                                            <li ng-repeat="stu in report.SpeakingMaxScoreStudent" class="list-group-item popover-li" style="">
+                                                <span style="float: left; width: 150px; display: block;">{{stu.StudentName}}</span>
+                                                <a href="javascript:void(0)" target="_blank" ui-sref="studentreportdetail({studentNumber:'{{stu.StudentNumber}}',taskID:'{{report.TaskID}}',from:'teacherreport'})" class="popover-a">
+                                                    查看学生报告
+                                                </a>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-title="'口语最低分'" sortable="'SpeakingMinScore'" style="min-width:80px;">
+                                <div style="position: relative;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle color-blue" id="ddMaxScoreStu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="text-decoration:none;">{{ report.SpeakingMinScore }}</a>
+                                    <div class="dropdown-menu" aria-labelledby="ddMaxScoreStu" style="white-space: nowrap; padding: 0; width: 300px;margin-left:-200px;max-height:300px;overflow-y:auto;">
+                                        <p class="popover-title">学生列表</p>
+                                        <ul class="list-group">
+                                            <li ng-repeat="stu in report.SpeakingMinScoreStudent" class="list-group-item popover-li" style="">
+                                                <span style="float: left; width: 150px; display: block;">{{stu.StudentName}}</span>
+                                                <a href="javascript:void(0)" target="_blank" ui-sref="studentreportdetail({studentNumber:'{{stu.StudentNumber}}',taskID:'{{report.TaskID}}',from:'teacherreport'})" class="popover-a">
+                                                    查看学生报告
+                                                </a>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-title="'操作'" style="min-width:50px;">
+                                <button class="btn btn-op" ng-click="ViewTaskDetailReport(report.TaskID)" tooltip="查看" tooltip-placement="bottom"><span class="smallicon icon-chakan" aria-hidden="true"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

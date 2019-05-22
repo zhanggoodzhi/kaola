@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<paper guid="b0c66fb65af24dd4ac7da6f4600bf003" type="1" name="组卷_朗读类型_多维度" title="" backgroundaudio="" backgroudaudioseconds="0" times="0" image="" content="" waitseconds="0" listeningscore="0" speakingscore="42.2000007629395" papertemplateid="" papertemplatename="" totalexamtime="759" totalscore="42.2000007629395" IsCustomPaper="True">
+  <areas>
+    <area type="3" title="一、朗读短文" prompt="请以适当音量、语调、停顿、语音朗读以下课文，你将有时间熟悉屏幕上的课文，并作答题准备。在听到“嘀”的提示音后，请将屏幕上的课文朗读一遍。" promptaudio="area_3_audio.mp3" promptaudioseconds="0" index="1" guid="6347509a90324c41b4051c384d475a1c" times="1" presubmitmaxseconds="0" backgroundaudio="area_3_audio.mp3" backgroundaudioseconds="21">
+      <questions>
+        <question guid="c7f8c37f405d46fb8f794146bef045ff" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="60" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="60" waitseconds="0" score="10">
+          <contents>
+            <content guid="31741d9460bc4677a2b71af198d19985" text="My name is Tom, and I'm fifteen. I've been at River School since I was eleven. If I pass my exams next year, I'll stay here until I'm eighteen.&#xD;&#xA;River School is a secondary school, about twenty minutes away from my home by bike. We go to school every weekday from 8:45 a.m to 3:15 p.m. We have a large sports ground for football and tennis, where we can play both during and after school hours. After-school activities, such as sports clubs and language societies, are popular too. During the school year there are usually visits to museums and to camps for activities, such as climbing and walking in the country." image="" audio="31741d9460bc4677a2b71af198d19985_Audio.mp3" audioseconds="54" video="" videoseconds="54" times="0" prepareseconds="60" answerseconds="60" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="1" choosetype="1" layout="1" resourcetype="1" score="10" presubmitmaxseconds="0">
+              <score content="10" />
+              <refrencetexts>
+                <refrencetext index="0" guid="bd13623e97da487899bd2613eb32db11" content="My name is Tom, and I'm fifteen. I've been at River School since I was eleven. If I pass my exams next year, I'll stay here until I'm eighteen. River School is a secondary school, about twenty minutes away from my home by bike. We go to school every weekday from eight forty five am to three fifteen pm. We have a large sports ground for football and tennis, where we can play both during and after school hours. After school activities, such as sports clubs and language societies, are popular too. During the school year there are usually visits to museums and to camps for activities, such as climbing and walking in the country" />
+              </refrencetexts>
+              <options />
+              <answers />
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="6" title="二、句子仿读" prompt="听下面的句子，并尽可能地模仿其语音和语调，在规定时间内模仿朗读一遍。" promptaudio="area_6_audio.mp3" promptaudioseconds="0" index="2" guid="8877435e75664503847d21e86f2e89e3" times="1" presubmitmaxseconds="0" backgroundaudio="area_6_audio.mp3" backgroundaudioseconds="12">
+      <questions>
+        <question guid="29d859f97b1b4b1285c60d53952cb71f" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="5" waitseconds="0" score="5">
+          <contents>
+            <content guid="52579655beeb49f3b9ed9ec60b3970e0" text="It only orders the food that you like.We saw a crew filming a scene.A long time ago, many babies died when they were only a few days or weeks old." image="" audio="52579655beeb49f3b9ed9ec60b3970e0_Audio.mp3" audioseconds="6" video="" videoseconds="6" times="2" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="1" choosetype="1" layout="1" resourcetype="1" score="5" presubmitmaxseconds="0">
+              <score content="5" />
+              <refrencetexts>
+                <refrencetext index="0" guid="ed912773337a408cb04ccdcf29d16c30" content="It only orders the food that you like.We saw a crew filming a scene.A long time ago, many babies died when they were only a few days or weeks old." />
+              </refrencetexts>
+              <options />
+              <answers />
+            </content>
+          </contents>
+        </question>
+        <question guid="b304c3bc005c4f59af3030a47bc600ce" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" tips="" tipsaudio="" tipsaudioseconds="0" index="2" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="5" waitseconds="0" score="5">
+          <contents>
+            <content guid="01733b28f0c7400f8cefac9568fdf5d1" text="Then one day I watched an English movie called Toy Story. I fell in love with this exciting and funny movie. So I began to watch more English movies, too. Although I could not understand everything the characters said" image="" audio="01733b28f0c7400f8cefac9568fdf5d1_Audio.mp3" audioseconds="6" video="" videoseconds="6" times="2" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="2" choosetype="1" layout="1" resourcetype="1" score="5" presubmitmaxseconds="0">
+              <score content="5" />
+              <refrencetexts>
+                <refrencetext index="0" guid="8e6b7922047d42eb9f04aabb87eab94e" content="Then one day I watched an English movie called Toy Story. I fell in love with this exciting and funny movie. So I began to watch more English movies, too. Although I could not understand everything the characters said" />
+              </refrencetexts>
+              <options />
+              <answers />
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="13" title="三、朗读句子(上海)" prompt="你将有时间熟悉屏幕上的句子。在听到“嘀”的提示音后，请朗读下列句子。" promptaudio="area_13_audio.mp3" promptaudioseconds="0" index="3" guid="67ba070338f74145a123496be86476ef" times="1" presubmitmaxseconds="0" backgroundaudio="area_13_audio.mp3" backgroundaudioseconds="12">
+      <questions>
+        <question guid="8cdf207d5eb94b3096bea826bc065361" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="10" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="0" waitseconds="0" score="2">
+          <contents>
+            <content guid="bee60d3e007d4bdea739c5130b61da0e" text="When water boils, it turns into steam." image="" audio="bee60d3e007d4bdea739c5130b61da0e_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="10" answerseconds="20" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="When water boils, it turns into steam." index="1" choosetype="1" layout="1" resourcetype="1" score="2" presubmitmaxseconds="0">
+              <score content="2" />
+              <refrencetexts>
+                <refrencetext index="0" guid="ae2ee03306124e2da0297df047fdbd33" content="When water boils, it turns into steam." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="f1719720db2b443dbea999eb5bf95975" content="When water boils, it turns into steam." audio="572AD824-E2B2-4DF1-8727-AD4CC2D0B557_Audio.mp3" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+        <question guid="f40b677f55694eb0a8d531b879124e7a" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="10" tips="" tipsaudio="" tipsaudioseconds="0" index="2" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="0" waitseconds="0" score="2">
+          <contents>
+            <content guid="135a80fb794c4fed85509560c3647fd2" text="Aliens sometimes take people from the Earth into their spaceships." image="" audio="135a80fb794c4fed85509560c3647fd2_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="10" answerseconds="20" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="Aliens sometimes take people from the Earth into their spaceships." index="2" choosetype="1" layout="1" resourcetype="1" score="2" presubmitmaxseconds="0">
+              <score content="2" />
+              <refrencetexts>
+                <refrencetext index="0" guid="7f0cbc99b1d94c8bbdea17827a881689" content="Aliens sometimes take people from the Earth into their spaceships." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="911b207af0b04cad8c15cf0028a42cab" content="Aliens sometimes take people from the Earth into their spaceships." audio="26e77bbfa4d34d3e97c2fb05792cc8d0_Audio.mp3" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="16" title="四、跟读与模仿" prompt="先听下面一整段独白，然后逐句跟读，并尽可能地模仿其语音和语调。" promptaudio="area_16_audio.mp3" promptaudioseconds="0" index="4" guid="1bf52dfe2e52437a9b05cd0c32b64254" times="1" presubmitmaxseconds="0" backgroundaudio="area_16_audio.mp3" backgroundaudioseconds="13">
+      <questions>
+        <question guid="d4bc4d38a2554c8d9b00ab431b0fbc6c" title="" prompt="" promptaudio="" promptaudioseconds="0" text="In the morning, we usually study Chinese, Maths and English. We have our morning break at ten to ten am. When the bell rings, I run to the playground with my best friends Tom and Jack. We often play games. Break ends at 10:10 a.m. How short it is!" image="" audio="d4bc4d38a2554c8d9b00ab431b0fbc6c_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="0" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="0" waitseconds="0" score="10.2">
+          <contents>
+            <content guid="017d351f9d344ae9885b72babfe09631" text="In the morning, we usually study Chinese, Maths and English." image="" audio="017d351f9d344ae9885b72babfe09631_Audio.mp3" audioseconds="6" video="" videoseconds="6" times="1" prepareseconds="10" answerseconds="12" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="In the morning, we usually study Chinese, Maths and English." index="1" choosetype="1" layout="0" resourcetype="0" score="1.7" presubmitmaxseconds="0">
+              <score content="1.7" />
+              <refrencetexts>
+                <refrencetext index="0" guid="f24f5dd5496241b3991fb713e2310283" content="In the morning, we usually study Chinese, Maths and English." />
+              </refrencetexts>
+              <options />
+              <answers />
+            </content>
+            <content guid="d86b1eb7f6a740c6859496fc2d0202db" text="We have our morning break at ten to ten am." image="" audio="d86b1eb7f6a740c6859496fc2d0202db_Audio.mp3" audioseconds="5" video="" videoseconds="5" times="0" prepareseconds="0" answerseconds="10" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="We have our morning break at ten to ten am." index="2" choosetype="0" layout="0" resourcetype="0" score="1.7" presubmitmaxseconds="0">
+              <score content="1.7" />
+              <refrencetexts>
+                <refrencetext index="0" guid="64ed0adda22d4be9861635630babc88f" content="We have our morning break at ten to ten am." />
+              </refrencetexts>
+              <options />
+              <answers />
+            </content>
+            <content guid="9e86338029d54d67a3105711b25deab2" text="When the bell rings, I run to the playground with my best friends Tom and Jack." image="" audio="9e86338029d54d67a3105711b25deab2_Audio.mp3" audioseconds="7" video="" videoseconds="7" times="0" prepareseconds="0" answerseconds="14" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="When the bell rings, I run to the playground with my best friends Tom and Jack." index="3" choosetype="0" layout="0" resourcetype="0" score="1.7" presubmitmaxseconds="0">
+              <score content="1.7" />
+              <refrencetexts>
+                <refrencetext index="0" guid="0ea164f5456843128b843050f25b5816" content="When the bell rings, I run to the playground with my best friends Tom and Jack." />
+              </refrencetexts>
+              <options />
+              <answers />
+            </content>
+            <content guid="93e4d81b54b44d448323279ce4e758b0" text="We often play games." image="" audio="93e4d81b54b44d448323279ce4e758b0_Audio.mp3" audioseconds="3" video="" videoseconds="3" times="0" prepareseconds="0" answerseconds="6" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="We often play games." index="4" choosetype="0" layout="0" resourcetype="0" score="1.7" presubmitmaxseconds="0">
+              <score content="1.7" />
+              <refrencetexts>
+                <refrencetext index="0" guid="8c29b937e2204f25837bf0cd7b0a6c7f" content="We often play games." />
+              </refrencetexts>
+              <options />
+              <answers />
+            </content>
+            <content guid="59885831db7b4d8b9af5e384fefcfe2e" text="Break ends at 10:10 a.m" image="" audio="59885831db7b4d8b9af5e384fefcfe2e_Audio.mp3" audioseconds="4" video="" videoseconds="4" times="0" prepareseconds="0" answerseconds="8" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="Break ends at 10:10 a.m" index="5" choosetype="0" layout="0" resourcetype="0" score="1.7" presubmitmaxseconds="0">
+              <score content="1.7" />
+              <refrencetexts>
+                <refrencetext index="0" guid="98ec742f7a87492a9bccb1c377ec7dfa" content="Break ends at 10:10 a.m" />
+              </refrencetexts>
+              <options />
+              <answers />
+            </content>
+            <content guid="0a8a5693dfc24b7fbb20bd0cf86e2cd0" text="How short it is!" image="" audio="0a8a5693dfc24b7fbb20bd0cf86e2cd0_Audio.mp3" audioseconds="3" video="" videoseconds="3" times="0" prepareseconds="0" answerseconds="6" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="How short it is!" index="6" choosetype="0" layout="0" resourcetype="0" score="1.7" presubmitmaxseconds="0">
+              <score content="1.7" />
+              <refrencetexts>
+                <refrencetext index="0" guid="2bdf46c7d9ca42179ad9835ca201747c" content="How short it is!" />
+              </refrencetexts>
+              <options />
+              <answers />
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="17" title="五、模仿朗读" prompt="听以下短文并做答题准备，然后在规定时间内模仿朗读。当听到“嘀”的提示音后，请开始朗读短文。" promptaudio="area_17_audio.mp3" promptaudioseconds="0" index="5" guid="b298baf0f62b4d64a1db9c26cf85575d" times="1" presubmitmaxseconds="0" backgroundaudio="area_17_audio.mp3" backgroundaudioseconds="15">
+      <questions>
+        <question guid="1830fe4265b14788abbb92a88b7f6391" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="50" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="50" waitseconds="0" score="8">
+          <contents>
+            <content guid="44fe745d1e344a00aca5cd7ab1e3a3e0" text="The Moon is around 380,000 kilometres from the Earth, so it'll take us about four days to get there. There's no gravity in space, so we'll all be able to float around in the spaceship. We'll have to tie ourselves to our beds so that we won't float away in our sleep!" image="" audio="44fe745d1e344a00aca5cd7ab1e3a3e0_Audio.mp3" audioseconds="29" video="" videoseconds="29" times="0" prepareseconds="50" answerseconds="50" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="1" choosetype="1" layout="1" resourcetype="1" score="8" presubmitmaxseconds="0">
+              <score content="8" />
+              <refrencetexts>
+                <refrencetext index="0" guid="019f658067144bf69cbca938d7715c07" content="The Moon is around three hundred eighty thousand kilometres from the Earth, so it'll take us about four days to get there. There's no gravity in space, so we'll all be able to float around in the spaceship. We'll have to tie ourselves to our beds so that we won't float away in our sleep!" />
+              </refrencetexts>
+              <options />
+              <answers />
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+  </areas>
+  <sections />
+</paper>

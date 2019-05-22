@@ -1,0 +1,137 @@
+﻿ 
+<link rel="stylesheet" type="text/css" href="/web/kaola/paper/paper.css" />
+<link rel="stylesheet" type="text/css" href="/web/kaola/report/studentreport_taskdetail.css" />
+
+<div class="row">
+    <div class="content-container">
+        <div class="content-header">
+            <span class="view-header-text" style="float: left; margin-top: 20px;"><i class="glyphicon view-header-icon">&#xe60b;</i>&nbsp;&nbsp;个人报告</span>
+            <div class="input-group col-sm-1 pull-right" style="margin-top: 10px;">
+
+            </div>
+        </div>
+        <div class="content-main" style="padding: 5px 16px;margin-bottom:50px;">
+            <div class="row">
+
+                <ul class="nav nav-tabs">
+                    <li class="reportContentTabHeader active"><a href="#simple_report_student" data-toggle="tab">简报</a></li>
+                    <li style="display:none;" class="reportContentTabHeader"><a href="#analysis_report_student" data-toggle="tab">卷面分析</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="simple_report_student">
+                        <div class="" style="width:100%;float:left;padding: 25px 30px;background-color:#EEF1F6;height:64px;">
+                            <div style="width:10%;float:left;"><label class="label tasklabel-desc">姓名:</label><label>{{StudentTaskData.StudentName}}</label></div>
+                            <div style="width:30%;float:left;"><label class="label tasklabel-desc">试卷名称:</label><label>{{StudentTaskData.PaperName }}</label></div>
+                            <div style="width:10%;float:left;"><label class="label tasklabel-desc">总分:</label><label>{{StudentTaskData.PaperScore}}</label></div>
+                            <div style="width:20%;float:left;"><label class="label tasklabel-desc">学号:</label><label>{{StudentTaskData.StudentNumber}}</label></div>
+                            <div style="width:20%;float:left;"><label class="label tasklabel-desc">班级:</label><label>{{StudentTaskData.ClassName}}</label></div>
+                            <div style="width:10%;float:left;"><label class="label tasklabel-desc">得分:</label><label>{{StudentTaskData.Score}}</label></div>
+                        </div>
+
+                        <div style="padding-left:20px;padding-top:94px;">
+                            <div ng-repeat="la in ListeningAreaData" style="margin-bottom:30px;">
+                                <table>
+                                    <tr style="height: 50px;">
+                                        <td style="width: 277px;text-align: center;background-color: #24A3E6;">
+                                            <a style="color:#ffffff !important;font-size: 14px;text-decoration:none;">{{la.AreaTitle}} (计{{la.PaperAreaScore}}分)</a>
+                                        </td>
+                                        <td style="width: 130px;text-align: center;font-size: 12px;border: 1px solid #E7EDF1;">
+                                            <a style="text-decoration:none; color:#383838">
+                                                参考答案
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div style="overflow-x:auto;overflow-y:hidden;">
+                                                <div ng-repeat="pa in la.ContentData" style="float:left;width: 60px;height: 50px;border-top: 1px solid #E7EDF1;border-bottom: 1px solid #E7EDF1;border-right: 1px solid #E7EDF1;">
+                                                    <div class="ng-binding" style="width: 16px;  height: 16px; background-color: #C7D0D7;text-align: center;color: #ffffff;">{{pa.ContentIndex}}</div>
+
+                                                    <div class="ng-binding" style="text-align: center;font-size: 18px;color: #2EAE5B;">{{pa.PaperAnswerOptionIndex| optionIndexFilter}}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 277px;text-align: center;background-color: #ffffff;border-bottom: 1px solid #E7EDF1;border-left: 1px solid #E7EDF1;border-right: 1px solid #E7EDF1;">
+                                            <a style="color:#FEA734 !important;font-size: 28px;text-decoration:none;">{{la.StudentAreaScore}}</a>
+                                            <a style="color:#FEA734 !important;font-size: 18px;text-decoration:none;"> 分</a>
+                                        </td>
+                                        <td style="width: 130px;text-align: center;font-size: 12px;border-bottom: 1px solid #E7EDF1;border-right: 1px solid #E7EDF1;">
+                                            <a style="text-decoration:none; color:#383838">
+                                                您的答案
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div style="overflow-x:auto;overflow-y:hidden;">
+                                                <div ng-repeat="pa in la.ContentData" style="float:left;width: 60px;height: 50px;border-bottom: 1px solid #E7EDF1;border-right: 1px solid #E7EDF1;">
+
+                                                    <div ng-if="pa.IsRight==false" class="ng-binding" style="text-align: center;font-size: 18px;color: red;padding:15px;">{{pa.StudentAnswerOptionIndex| optionIndexFilter}}</div>
+                                                    <div ng-if="pa.IsRight==true" class="ng-binding" style="text-align: center;font-size: 18px;color: #2EAE5B;padding:15px;">
+                                                        <img width="23" height="19" src="/web/img/rightFlag.png" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="padding-left:20px;">
+                            <div ng-repeat="sa in SpeakingAreaData" style="">
+                                <div style="height:50px;background-color:#EBEFF6;padding:15px 20px;">
+                                    <a style="text-decoration:none;font-size:14px;color:#383838;">{{sa.AreaTitle}} (总分{{sa.PaperAreaScore}}分, 得分</a>
+                                    <a style="text-decoration:none;font-size:24px;color:#FEA734;">{{sa.StudentAreaScore}} </a>
+                                    <a style="text-decoration:none;font-size:14px;color:#383838;">分) </a>
+                                </div>
+                                <div style="height:20px;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="analysis_report_student">
+
+                        <div class="row" style="height: 50px;padding: 10px 0px 10px 0px;background-color:#e8ebef;">
+                            <div class="col-md-12" style="">
+                                <label style="color:#383838;margin-top:4px;">总体评价</label>
+                                <div class="btn-group dropdown" style="min-width:200px;float:right;">
+                                    <a class="btn btn-block btn-default" href="#" id="dp_taskPaper" data-toggle="dropdown" style="color:#7a7a7a;">
+                                        {{ ChoosedCurrentTaskPaper.PaperName }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dp_taskPaper" role="menu" style="min-width:250px;">
+                                        <li ng-repeat="p in TaskPapers"><a href="javascript:void(0);" ng-click="ChangePaperAnalysisData(p.PaperID)">{{p.PaperName}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row" style="height: 50px;padding: 10px 0px 10px 0px;">
+
+                            <div class="col-md-12" style="">
+                                <a style="font-weight:bold;color:#383838;text-decoration:none;">本次试卷的整体情况为:</a>
+                                <a style="text-decoration:none;">{{ChoosedCurrentTaskPaper.PaperDesc}}</a>
+                            </div>
+
+
+                        </div>
+                        <div class="row" style="height: 320px;padding: 10px 0px 10px 0px;margin-top:20px;">
+
+                            <div class="col-md-6" style="">
+                                <div class="row" id="analysis_barChart" style="height:300px;width:400px;  float:left;background-color:#E9F0F2;"></div>
+                            </div>
+                            <div class="col-md-6" style="">
+                                <div class="row" id="analysis_radarChart" style="height:300px;width:400px; float:left;background-color:#E9F0F2;"></div>
+                            </div>
+                        </div>
+                        <student-paper-analysis padata="CurrentPaperAnalysisData"></student-paper-analysis>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

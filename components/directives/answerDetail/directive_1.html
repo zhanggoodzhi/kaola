@@ -1,0 +1,34 @@
+﻿<div class="markview-area-title" style="">
+    <label class="" style="">{{ answer.AreaTitle }}</label>
+</div>
+<div class="row">
+    <h6  class="text-break">{{ answer.AreaPrompt }}</h6>
+</div>
+<div class="row">
+    <h6>{{ answer.QuestionTitle }}</h6>
+</div>
+<div class="row">
+    <div class="text-break">
+        {{ answer.QuestionPrompt }}
+    </div>
+</div>
+<div class="row" style="font-weight:bold;margin-bottom:30px;">
+    <div class ="col-sm-10 col-md-10 col-xs-10">{{ answer.ContentText }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( 满分：{{ answer.Score }} )</div>
+    <div class="col-sm-2 col-md-2 col-xs-2"><button class="btn btn-primary btn-sm" ng-click="PlayContentAudio(answer)"><span class="glyphicon glyphicon-play-circle">播放</span></button></div>
+</div>
+<div id="options" class="row" ng-switch="answer.ResourceType">
+    <!--文本-->
+    <ul ng-switch-when="1" ng-class="{1:'horizontal',2:'vertical'}[answer.Layout]">
+        <li ng-repeat="option in answer.Options" ng-class="{ 'active':answer.AnswerContent == option.OptionID }">{{option.Content}}</li>
+    </ul>
+    <!--图片-->
+    <ul ng-switch-when="2" ng-class="{1:'horizontal',2:'vertical'}[answer.Layout]">
+        <li ng-repeat="option in answer.Options" ng-class="{ 'active':answer.AnswerContent == option.OptionID }"><img class="img-thumbnail" ng-src="{{ answer.ResourcePath + '/' + option.Content }}"/></li>
+    </ul>
+</div>
+<div class="row" style="margin-bottom:30px;">
+    参考文本：
+    <ul>
+        <li ng-repeat="ref in answer.RefrenceTexts">{{ref.Content}}</li>
+    </ul>
+</div>

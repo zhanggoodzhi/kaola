@@ -1,0 +1,196 @@
+﻿<style type="text/css">
+    .form-group-height {
+        height: 65px;
+        margin-bottom: 0px;
+    }
+
+    .span-error-msg img {
+        float: left;
+        margin: 4px 5px 0 10px;
+        width: 12px;
+        height: 12px;
+    }
+
+    .personal_form {
+        margin: 0 auto;
+        color: #808080;
+        font-family: "微软雅黑";
+    }
+
+    #area .choose {
+        /*float: left;*/
+        width: 110px;
+        height: 43px;
+    }
+</style>
+
+<div class="row contentTabset  bg-white">
+    <ul class="nav nav-tabs">
+        <li class="contentTabHeader active"><a href="#personal_info" data-toggle="tab">个人信息</a></li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="personal_info">
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}" style="margin-top:-30px !important;"></toaster-container>
+
+            <form class="personal_form form-horizontal" id="personalSettingForm" autocomplete="off" style="margin-left: 20px;margin-top:20px;">
+
+                <div class="form-group">
+                    <label for="userType" class="col-sm-3 col-xs-3 control-label ">用户类型：</label>
+                    <div class="col-sm-5 col-xs-5 ">
+                        <label class="form-label" id="userType" ng-bind="CurrentUserInfo.UserInfo.UserType |userType" />
+                    </div>
+                </div>
+                <div class="form-group" ng-if="IsShow([6])">
+                    <label for="userType" class="col-sm-3 col-xs-3 control-label ">考试机构名称：</label>
+                    <div class="col-sm-5 col-xs-5 ">
+                        <label class="form-label" id="userType" ng-bind="CurrentUserInfo.UserInfo.ExamOrg.ExamOrgName" />
+                    </div>
+                </div>
+
+                <div class="form-group form-group-height">
+                    <label for="phoneNum" class="col-sm-3 col-xs-3 control-label ">手机号码：</label>
+                    <div class="col-sm-5 col-xs-5 " style="max-width:300px;" ng-class="{true:'has-error'}[phoneNumberMsg!='']">
+                        <input ng-if="IEVersion>=11" type="text" class="form-control input-fixWidth" style="" id="phoneNum" placeholder="绑定后，可使用手机号码登录" ng-model="CurrentUserInfo.UserInfo.PhoneNumber" ng-disabled="CurrentUserInfo.UserInfo.PhoneNumberConfirmed==true" ng-blur="CheckPhoneNumber()">
+                        <input ng-if="IEVersion<11" type="text" class="form-control input-fixWidth" style="" id="phoneNum"
+                               ng-model="CurrentUserInfo.UserInfo.PhoneNumber"  ng-disabled="CurrentUserInfo.UserInfo.PhoneNumberConfirmed==true" ng-blur="CheckPhoneNumber()">
+                        <label ng-if="CurrentUserInfo.UserInfo.PhoneNumber==''&&IEVersion<11" id="lblholder" style="position: absolute;top: 10px;left: 36px; cursor:text" onclick="$('#lblholder').hide(); $('#phoneNum').focus()">绑定后，可使用手机号码登录</label>
+                        <span class="span-error-msg" ng-hide="phoneNumberMsg==''"><img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png">{{phoneNumberMsg}}</span>
+                    </div>
+                    <div class="col-sm-3 col-xs-3" style="padding-left:0px;" ng-if="CurrentUserInfo.UserInfo.PhoneNumberConfirmed==false">
+                        <button type="button" class="btn btn-default btn-validateCode" style="width:100px;" id="btn_PhoneNumberValidateCode" ng-click="GetPhoneNumberValidateCode()">获取验证码</button>
+                    </div>
+                    <div class="col-sm-3 col-xs-3" style="padding-left:0px;" ng-if="CurrentUserInfo.UserInfo.PhoneNumberConfirmed==true">
+                        <button type="button" class="btn btn-default " style="color: #399acf;width:110px;height:38px;" id="btn_PhoneNumberValidateCode" ng-click="RebindPhoneNumber()">重新绑定</button>
+                    </div>
+                </div>
+                <div class="form-group form-group-height">
+                    <label for="email" class="col-sm-3 col-xs-3 control-label ">邮箱：</label>
+                    <div class="col-sm-5 col-xs-5 " style="max-width:300px;" ng-class="{true:'has-error'}[EmailMsg!='']">
+                        <input type="text" class="form-control input-fixWidth" style="" id="email" placeholder="绑定邮箱" ng-model="CurrentUserInfo.UserInfo.Email" ng-blur="CheckEmailIfNeedValidate()">
+                        <span class="span-error-msg" ng-hide="EmailMsg==''"><img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png">{{EmailMsg}}</span>
+
+                    </div>
+                    <div class="col-sm-3 col-xs-3" style="padding-left:0px;" ng-if="CurrentUserInfo.UserInfo.EmailConfirmed==false|| CurrentUserInfo.UserInfo.Email==''">
+                        <button type="button" class="btn btn-warning" style="width:110px;height:38px;" id="btn_PhoneNumberValidateCode" ng-click="SendValidateEmail()">验证邮箱</button>
+                    </div>
+                    <div class="col-sm-3 col-xs-3" style="padding-left:0px;margin-top: 10px;" ng-if="CurrentUserInfo.UserInfo.EmailConfirmed==true && CurrentUserInfo.UserInfo.Email!=''">
+                        <img src="http://cdn.uukaola.com/web/img/pass.png" style="height: 16px;width: 16px;margin-top: -2px;" /> <span style="color:green">通过验证</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group form-group-height">
+                    <label for="userName" class="col-sm-3 col-xs-3 control-label ">姓名：</label>
+                    <div class="col-sm-5 col-xs-5 " style="max-width:300px;" ng-class="{true:'has-error'}[nickNameMsg!='']">
+                        <input type="text" class="form-control input-fixWidth" style="" id="userName" maxlength="20" placeholder="建议您填写真实姓名" ng-model="CurrentUserInfo.UserInfo.NickName">
+                        <span class="span-error-msg" ng-hide="nickNameMsg==''"><img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png">{{nickNameMsg}}</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="nameOrEmail" class="col-sm-3 col-xs-3 control-label " style="padding-top: 0px;line-height: 38px;display: inline-block;">性别：</label>
+                    <div class="col-sm-5 col-xs-5 ">
+                        <div class="radio" style="padding: 10px 0;margin-left:10px">
+                            <label>
+                                <input type="radio" value="1" name="sex" ng-model="CurrentUserInfo.UserInfo.Sex" ng-checked="CurrentUserInfo.UserInfo.Sex==1"> 男
+                            </label>
+                            <label style="margin-left:20px;">
+                                <input type="radio" value="2" name="sex" ng-model="CurrentUserInfo.UserInfo.Sex" ng-checked="CurrentUserInfo.UserInfo.Sex==2"> 女
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group" ng-if="IsShow([3])">
+                    <label for="contentNum" class="col-sm-3 col-xs-3 control-label ">内容序列号：</label>
+                    <div class="col-sm-5 col-xs-5 " style="margin:10px;">
+                        <label type="text" id="contentNum">{{packageInfo.packageCode}}</label>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="IsShow([1])">
+                    <label for="invateCode" class="col-sm-3 col-xs-3 control-label ">邀请码：</label>
+                    <div class="col-sm-5 col-xs-5 " style="max-width:300px;">
+                        <label class="input-fixWidth" id="invateCode" style="margin:10px;">{{CurrentUserInfo.UserInfo.SchoolInvateCode.InvateCode}}</label>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group" ng-if="IsShow([3,1])">
+                    <label for="area" class="col-sm-3 col-xs-3 control-label ">绑定地区：</label>
+                    <div class="" id="province" style="float:left;margin:10px 10px 0px 25px; min-width:40px;">
+                        <label>{{CurrentUserInfo.UserInfo.School.ProvinceName}}</label>
+                    </div>
+                    <div class="" id="city" style="float:left;margin:10px 10px 0 10px; min-width:40px;">
+                        <label>{{CurrentUserInfo.UserInfo.School.CityName}}</label>
+                    </div>
+                    <div class="" id="area" style="float:left;margin:10px 10px 0 10px; min-width:40px;">
+                        <label title="{{CurrentUserInfo.UserInfo.School.AreaName}}"tooltip="{{CurrentUserInfo.UserInfo.School.AreaName}}" tooltip-placement="bottom">{{CurrentUserInfo.UserInfo.School.AreaName}}</label>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="IsShow([3,1])">
+                    <label for="school" class="col-sm-3 col-xs-3 control-label ">绑定学校：</label>
+                    <div class="col-sm-6 col-xs-6 " style="margin:10px;">
+                        <label class="input-fixWidth" id="name">{{CurrentUserInfo.UserInfo.School.SchoolName}}</label>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="IsShow([6])">
+                    <label for="area" class="col-sm-3 col-xs-3 control-label ">绑定地区：</label>
+                    <div class="" id="province" style="float:left;margin:10px 10px 0px 25px; min-width:40px;">
+                        <label>{{CurrentUserInfo.UserInfo.ExamOrg.ProvinceName}}</label>
+                    </div>
+                    <div class="" id="city" style="float:left;margin:10px 10px 0 10px; min-width:40px;">
+                        <label>{{CurrentUserInfo.UserInfo.ExamOrg.CityName}}</label>
+                    </div>
+                    <div class="" id="area" style="float:left;margin:10px 10px 0 10px; min-width:40px;">
+                        <label style="max-width: 250px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"tooltip="{{CurrentUserInfo.UserInfo.ExamOrg.AreaNames}}" tooltip-placement="bottom">{{CurrentUserInfo.UserInfo.ExamOrg.AreaNames}}</label>
+                    </div>
+                </div>
+
+
+                <div class="form-group" style="height:40px;">
+                    <label for="btnSave" class="col-sm-3 col-xs-3 control-label "></label>
+                    <div class="col-sm-6 col-xs-6 ">
+                        <button type="button" class="btn btn-primary  button-simpleText" id="btnSave" style="width: 120px;  margin-left:10px;" ng-click="SaveInfo()">保存</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="modal" id="PhoneNumberValidateCodeDialog" tabindex="-2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content newpackage-modal" style="width:400px; margin: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="myModalLabel" style="font-weight:bold;">短信验证</h5>
+            </div>
+            <div class="modal-body">
+                <form name="PhoneNumberValidateCodeForm" class="" novalidate>
+                    <div class="form-group" style="margin-top: 40px;">
+                        <input type="text" class="form-control" name="phoneNumberValidateCodeInput" placeholder="手机验证码" style="height: 50px;margin: 0px auto;" ng-model="PhoneNumberValidateCode">
+                        <span class="span-error-msg" ng-hide="PhoneNumberValidateCodeMsg==''">
+                            <img src="http://cdn.uukaola.com/web/img/validateErrorIcon.png">{{PhoneNumberValidateCodeMsg}}
+                        </span>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="ActivePhoneNumberValidateCode()" style="height: 52px;width: 100px;">完成</button>
+            </div>
+        </div>
+    </div>
+</div>

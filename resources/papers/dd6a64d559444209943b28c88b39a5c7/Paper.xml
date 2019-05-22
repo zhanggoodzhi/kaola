@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<paper guid="dd6a64d559444209943b28c88b39a5c7" type="1" name="组卷_口语_问答" title="" backgroundaudio="" backgroudaudioseconds="0" times="0" image="" content="" waitseconds="0" listeningscore="0" speakingscore="40.5" papertemplateid="" papertemplatename="" totalexamtime="2184" totalscore="40.5" IsCustomPaper="True">
+  <areas>
+    <area type="7" title="一、情景问答" prompt="你有时间阅读屏幕上的情景提示，并作答题准备。在听到“嘀”的提示音后，请根据情景提示对所提的问题用英语进行回答" promptaudio="area_7_audio.mp3" promptaudioseconds="0" index="1" guid="2f905b1088624066a85dde819c9b50ec" times="1" presubmitmaxseconds="0" backgroundaudio="area_7_audio.mp3" backgroundaudioseconds="17">
+      <questions>
+        <question guid="dbf2766810ef464594c75d2f685592d1" title="" prompt="" promptaudio="" promptaudioseconds="0" text="请看下面的情景提示：&#xD;&#xA;刘涛取得了赛跑第一的好成绩，你向他表示了祝贺。" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="10" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="0" waitseconds="0" score="3">
+          <contents>
+            <content guid="674522df800341b9a1ac01d9a8711426" text="" image="" audio="674522df800341b9a1ac01d9a8711426_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="10" answerseconds="10" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="Question 1. Did Liu Tao get No.1or No.2 in the running race？" index="1" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts>
+                <refrencetext index="0" guid="3f8e33812c3b483f8b0825159ef33a7d" content="Liu tao got number one in the running race." />
+                <refrencetext index="1" guid="b232fb1c96a941b889a21ff3e376b0af" content="He got Number one in the running race." />
+                <refrencetext index="2" guid="4675b421933e43fe87e070453d8f8b24" content="He got number one." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="3994d4f2e831484fab8f0afd78b7cec0" content="Liu tao got number one in the running race." audio="" audioseconds="0" />
+                <answer index="1" guid="545de9f100404f8982389bcb2c1aabf3" content="He got Number one in the running race." audio="" audioseconds="0" />
+                <answer index="2" guid="a0636497a45b4e46ad0d2f8a7c8f0749" content="He got number one." audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="4c7f1bd77773422190a8ccb0389505f1" text="" image="" audio="4c7f1bd77773422190a8ccb0389505f1_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="10" answerseconds="10" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="Question 2. What did you say to him?" index="2" choosetype="1" layout="1" resourcetype="1" score="1.5" presubmitmaxseconds="0">
+              <score content="1.5" />
+              <refrencetexts>
+                <refrencetext index="0" guid="5bb6fd3286ca48bebc4aa710530c9a0a" content="Congratulations!" />
+                <refrencetext index="1" guid="732e71af767841e78cc6ef52143079a6" content="I congratulated him." />
+                <refrencetext index="2" guid="099a05362d734c44928a51d36551971c" content="I said congratulations to him." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="354dc0159383495aa278108b18fe3021" content="Congratulations!" audio="" audioseconds="0" />
+                <answer index="1" guid="1c8aa00b3ac64a7fbfe3c81e864d36e2" content="I congratulated him." audio="" audioseconds="0" />
+                <answer index="2" guid="c08a704ff0b541f0882cac7e73cd777b" content="I said congratulations to him." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="11" title="二、情景反应" prompt="每一小题你将在屏幕上看到一个问题并听到有关该问题短对话。对话播放结束后，请做答题准备，在听到”嘀”的提示音后，请根据短对话内容回答该问题。" promptaudio="area_11_audio.mp3" promptaudioseconds="0" index="2" guid="9911e406a2244ff6ad55562a4a49db2c" times="1" presubmitmaxseconds="0" backgroundaudio="area_11_audio.mp3" backgroundaudioseconds="23">
+      <questions>
+        <question guid="66fc73a3b2b04719bb46ad0c6f9cf281" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="20" waitseconds="0" score="5">
+          <contents>
+            <content guid="fb4933c9c16c472ba67cd66a4453b523" text="Who does the woman think the little boy looks like?" image="" audio="fb4933c9c16c472ba67cd66a4453b523_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="5" answerseconds="20" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="W: This spring weather is so comfortable. Let's plan a barbecue.&#xD;&#xA;M: Good idea, Wendy. Who should we invite?&#xD;&#xA;W: Let's ask Peter, John, Anna and Elsa.&#xD;&#xA;M: Would you like to stay here in the city or take a bus somewhere?&#xD;&#xA;W: Let's try the new forest park. It is not far away from the city.&#xD;&#xA;M: If we have a barbecue, what shall we buy?&#xD;&#xA;W: We'll need to buy some meat, snacks, drinks and long forks.&#xD;&#xA;M: We also need to buy things to make a fire!" index="1" choosetype="1" layout="1" resourcetype="1" score="5" presubmitmaxseconds="0">
+              <score content="5" />
+              <refrencetexts>
+                <refrencetext index="0" guid="554f0b0dc06241a5ba52c92eb3c89902" content="Once a week" />
+                <refrencetext index="1" guid="55c7290b701e4941b78024e3792e8725" content="One time a week." />
+                <refrencetext index="2" guid="9d472a3247f2445492ab18e9440fdfdb" content="In one week, we will play once." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="9dc733625272472c80a99ae1ab62f952" content="Once a week" audio="" audioseconds="0" />
+                <answer index="1" guid="29b80b28c71f455fa304046d3ee754de" content="One time a week." audio="" audioseconds="0" />
+                <answer index="2" guid="2079ff456e6b4b1485b5f1b3237d3b37" content="In one week, we will play once." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="9" title="三、看图说话" prompt="你将看到一幅图片，请你对图片进行口头描述。你将有时间做准备，在听到”嘀”的提示音后，请在规定时间内完成口头描述" promptaudio="area_9_audio.mp3" promptaudioseconds="0" index="3" guid="00719ec1f25648628975f3f0da639758" times="1" presubmitmaxseconds="0" backgroundaudio="area_9_audio.mp3" backgroundaudioseconds="19">
+      <questions>
+        <question guid="f3fb3d52426b4c6a95eb783d6a9c0527" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="180" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="0" waitseconds="0" score="3">
+          <contents>
+            <content guid="3134c338c0384328a18b8303b430467e" text="请看下面的要点提示：&#xD;&#xA;你的英国朋友Mike决定来中国游玩10天，请根据以下问题给他一些建议：&#xD;&#xA;When is the best time to visit China?&#xD;&#xA;What are good places to see? (at least two)&#xD;&#xA;What might the weather be like?&#xD;&#xA;What advice would you like to give him? (clothes, useful things, transportation, food, interesting activities… … )&#xD;&#xA;" image="3134c338c0384328a18b8303b430467e_Image.jpg" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="180" answerseconds="120" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="Hello, Mike. I heard that you would come to China for ten days. The best time to visit China is April and May. I suggest you go to Beijing to visit the Imperial Palace. Those days, the weather will be pretty well. It will be warmer and warmer. You can wear summer clothes and take some thin jackets with you. Look forward to your arrival." index="1" choosetype="1" layout="1" resourcetype="1" score="3" presubmitmaxseconds="0">
+              <score content="3" />
+              <refrencetexts>
+                <refrencetext index="0" guid="aba4ce731152467fa33bbe3773dd9fdb" content="Hello, Mike. I heard that you would come to China for ten days. The best time to visit China is April and May. I suggest you go to Beijing to visit the Imperial Palace. Those days, the weather will be pretty well. It will be warmer and warmer. You can wear summer clothes and take some thin jackets with you. Look forward to your arrival." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="a207368eb8a94acaa98a07da24bd5961" content="Hello, Mike. I heard that you would come to China for 10 days. The best time to visit China is April and May. I suggest you go to Beijing to visit the Imperial Palace. Those days, the weather will be pretty well. It will be warmer and warmer. You can wear summer clothes and take some thin jackets with you. Look forward to your arrival." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="10" title="四、话题简述" prompt="你将有时间阅读屏幕上的中文提示，并作答题准备。在听到”嘀”的提示音后，请在规定时间内，用英语进行话题简述。" promptaudio="area_10_audio.mp3" promptaudioseconds="0" index="4" guid="3390c3151dfe4e74b498b182c3ca5187" times="1" presubmitmaxseconds="0" backgroundaudio="area_10_audio.mp3" backgroundaudioseconds="17">
+      <questions>
+        <question guid="c383ee03da054ff588576f022cfbdac9" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="90" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="0" waitseconds="0" score="4">
+          <contents>
+            <content guid="55766f614a2c4d269940ba028abfe5e4" text="要点：&#xD;&#xA;1. 我最好的朋友名叫James；他今年十四岁，来自英国；&#xD;&#xA;2. 他喜欢踢足球，听音乐；&#xD;&#xA;3. 他性格外向，朋友很多。" image="" audio="" audioseconds="0" video="" videoseconds="0" times="0" prepareseconds="90" answerseconds="90" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="1" choosetype="1" layout="1" resourcetype="1" score="4" presubmitmaxseconds="0">
+              <score content="4" />
+              <refrencetexts>
+                <refrencetext index="0" guid="904dc342a8544ddd9981229f01ef6f91" content="My best friend is James. He's fourteen years old. He comes from England. He likes playing soccer and listening to music. He is outgoing, he has many friends." />
+                <refrencetext index="1" guid="526676a98cf744f0ba01b630a3fbffe0" content="My best friend is called James. His age is fourteen. He is from England. He loves playing football and listening to music. He is outgoing and he has a lot of friends." />
+                <refrencetext index="2" guid="a31684469be1460bbdb6fcba36b45fbd" content="My best friend is named James. He's a fourteen year old boy. He's from England. He enjoys playing soccer and listening to music. He is outgoing so he has lots of friends." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="9e3033a6d3a94bb9912ba7364935302a" content="My best friend is James. He's fourteen years old. He comes from England. He likes playing soccer and listening to music. He is outgoing, he has many friends." audio="" audioseconds="0" />
+                <answer index="1" guid="965c157719014038ab47900f60cbcea3" content="My best friend is called James. His age is fourteen. He is from England. He loves playing football and listening to music. He is outgoing and he has a lot of friends." audio="" audioseconds="0" />
+                <answer index="2" guid="ad0c11d01625484495e7cde8b24c4204" content="My best friend is named James. He's a fourteen year old boy. He's from England. He enjoys playing soccer and listening to music. He is outgoing so he has lots of friends." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="14" title="五、快速应答" prompt="请听以下句子，听完每个句子后，请在规定时间内进行快速应答。" promptaudio="area_14_audio.mp3" promptaudioseconds="0" index="5" guid="015538a73f5c49d3891eac0a962ee3cb" times="1" presubmitmaxseconds="0" backgroundaudio="area_14_audio.mp3" backgroundaudioseconds="11">
+      <questions>
+        <question guid="90d478435700455fb2a34bfff96bd621" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="10" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="10" waitseconds="0" score="1">
+          <contents>
+            <content guid="5001a589b7564ccda09f5925c0135c24" text="" image="" audio="" audioseconds="136" video="5001a589b7564ccda09f5925c0135c24_Video.mp4" videoseconds="136" times="2" prepareseconds="10" answerseconds="7" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="A picture of his favourite person." index="1" choosetype="1" layout="1" resourcetype="1" score="1" presubmitmaxseconds="0">
+              <score content="1" />
+              <refrencetexts>
+                <refrencetext index="0" guid="4e1c75a70b2641839370d3f36682c3ef" content="one" />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="13ed659e1da04c7d88dedad193fbe70a" content="one" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="20" title="六、情景对话" prompt="你将在规定时间内熟悉屏幕上的情景。在听到“嘀”的提示音后，你将开始扮演角色进行对话。请根据屏幕显示的上一句对话做出口头应答。在回答之前你将有规定的准备时间，请在规定时间内完成每个应答。" promptaudio="area_20_audio.mp3" promptaudioseconds="0" index="6" guid="03e0c7810b3b4b0da47f1cb60c8d040c" times="1" presubmitmaxseconds="0" backgroundaudio="area_20_audio.mp3" backgroundaudioseconds="29">
+      <questions>
+        <question guid="a5bc68418b8649b793f55437cfd99aec" title="" prompt="" promptaudio="" promptaudioseconds="0" text="角色：Lily， Bob的朋友。&#xD;&#xA;情景：两人在聊假期的计划，Lily打算去上海看看风景。&#xD;&#xA;提示：这是Lily第一次去上海，她和她的好朋友Jenny一起去。Jenny和Lily看起来很像，她们都喜欢旅行。&#xD;&#xA;你将扮演Lily的角色。" image="" audio="" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="60" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="0" waitseconds="0" score="8">
+          <contents>
+            <content guid="bca9ff57c1a24f7e846059706cfc07c0" text="Bob: Hey, Lily. Where are you going for vacation?         &#xD;&#xA;Lily:&#xD;&#xA;" image="" audio="bca9ff57c1a24f7e846059706cfc07c0_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" answerseconds="20" tips="Answer" tipsaudio="" tipsaudioSeconds="0" audiotext="Shanghai." index="1" choosetype="1" layout="1" resourcetype="1" score="2" presubmitmaxseconds="0">
+              <score content="2" />
+              <refrencetexts>
+                <refrencetext index="0" guid="9f42ab7fad9743de8ffab57342343987" content="Shanghai." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="4e8a5a4425da4e698f6f59d1e2ba0353" content="Shanghai." audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="090fca6bfccb44799a291dd90dcefc65" text="Bob: That sounds interesting. What are you doing there?         &#xD;&#xA;Lily: &#xD;&#xA;" image="" audio="090fca6bfccb44799a291dd90dcefc65_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" answerseconds="20" tips="Answer" tipsaudio="" tipsaudioSeconds="0" audiotext="I'm going to see the scenery around Shanghai." index="2" choosetype="1" layout="1" resourcetype="1" score="2" presubmitmaxseconds="0">
+              <score content="2" />
+              <refrencetexts>
+                <refrencetext index="0" guid="dc0536165f54487eab09108499095593" content="I'm going to see the scenery around Shanghai." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="8370228f6f244f759451aab0891a4ec2" content="I'm going to see the scenery around Shanghai." audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="b79e89e521d74203beaca0ad6c3a3934" text="Bob: You'll love it! Shanghai is great. Who are you going with?&#xD;&#xA;Lily: &#xD;&#xA;" image="" audio="b79e89e521d74203beaca0ad6c3a3934_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" answerseconds="20" tips="Answer" tipsaudio="" tipsaudioSeconds="0" audiotext="I'm going there with Jenny." index="3" choosetype="1" layout="1" resourcetype="1" score="2" presubmitmaxseconds="0">
+              <score content="2" />
+              <refrencetexts>
+                <refrencetext index="0" guid="874e4a8b16ee4345830d40cf8c366e1d" content="I'm going there with Jenny." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="b5b0318250ba4bbba611db8e20a8f3a8" content="I'm going there with Jenny." audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="ac26abdd8e254d32b5e4a223d83f5780" text="Bob: That's great. I hope you and Jenny have a good time.&#xD;&#xA;Lily:&#xD;&#xA;" image="" audio="ac26abdd8e254d32b5e4a223d83f5780_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" answerseconds="20" tips="Answer" tipsaudio="" tipsaudioSeconds="0" audiotext="Thank you so much." index="4" choosetype="1" layout="1" resourcetype="1" score="2" presubmitmaxseconds="0">
+              <score content="2" />
+              <refrencetexts>
+                <refrencetext index="0" guid="2bf215088ee34d638e7761b825484ad2" content="Thank you so much." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="efcb21c36b4c483391aeafe094d5a55e" content="Thank you so much." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="21" title="七、短文复述" prompt="听短文，复述内容&#xD;&#xA;你将听到一段短文，录音播放结束后，你将有时间做复述准备，在听到”嘀”的提示音后，请在规定时间内完成复述内容。&#xD;&#xA;" promptaudio="area_21_audio.mp3" promptaudioseconds="0" index="7" guid="394877fbc43c4e8c96c16a3b5bf18891" times="1" presubmitmaxseconds="0" backgroundaudio="area_21_audio.mp3" backgroundaudioseconds="20">
+      <questions>
+        <question guid="28793a05a7e446188b43baa247b72694" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="120" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="0" waitseconds="0" score="10">
+          <contents>
+            <content guid="6ea3bc74c57a43a9b4164081f0a4e802" text="" image="" audio="6ea3bc74c57a43a9b4164081f0a4e802_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="120" answerseconds="90" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="E-mail is quick. It can take days or weeks for a paper letter to arrive somewhere, but an e-mail will arrive in a few hours. With e-mail, you can also send copies of your letter to as many people as you want. Now, you can even send pictures, sounds and short films in your e-mail. But there are still some things that you can't do with e-mail." index="1" choosetype="1" layout="1" resourcetype="1" score="10" presubmitmaxseconds="0">
+              <score content="10" />
+              <refrencetexts>
+                <refrencetext index="0" guid="0d1df6c65fb947a6b0becb4eece868e2" content="E-mail is quick. It can take days or weeks for a paper letter to arrive somewhere, but an e-mail will arrive in a few hours. With e-mail, you can also send copies of your letter to others. Now, you can even send pictures, music in your e-mail. But there are still some things that you can't do with e-mail." />
+                <refrencetext index="1" guid="b0a9439d14a047cabceccf41de3d9f41" content="E-mail is quick. It can take days or weeks for a paper letter to arrive somewhere, but an e-mail will arrive in a few hours. With e-mail, you can also send copies of your letter to others. Now, you can send pictures, music in your e-mail. But there are still some things that you can't do with e-mail. " />
+                <refrencetext index="1" guid="0db31fe6868c4c469fce6e9241acdd47" content="e mail is quick. It can take days or weeks for a paper letter to reach someplace, but an e mail will arrive in a few hours. With e mail, you can also send copies of your letter to many others. Nowadays, you can also send pictures, music and films in your e mail. But there are some things you can't do with e mail." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="b946689b365443dda92b9e256ef5e473" content="E-mail is quick. It can take days or weeks for a paper letter to arrive somewhere, but an e-mail will arrive in a few hours. With e-mail, you can also send copies of your letter to others. Now, you can even send pictures, music in your e-mail. But there are still some things that you can't do with e-mail. " audio="" audioseconds="0" />
+                <answer index="1" guid="42bda40089fd426ea09ed909fecf824c" content="E-mail is quick. It can take days or weeks for a paper letter to arrive somewhere, but an e-mail will arrive in a few hours. With e-mail, you can also send copies of your letter to others. Now, you can send pictures, music in your e-mail. But there are still some things that you can't do with e-mail. " audio="" audioseconds="0" />
+                <answer index="2" guid="32a735b2968c4cf5862b8604b8da753b" content="E-mail is quick. It can take days or weeks for a paper letter to arrive somewhere, but an e-mail will arrive in a few hours. With e-mail, you can also send copies of your letter to many people. Now, you can even send pictures, sounds and short films in your e-mail. But there are still some things that you can't do with e-mail." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="22" title="八、听对话或独白回答问题" prompt="在回答每小题前，你将在屏幕上看到一个提问，并听到一个对话。你有规定的准备时间，在听到“嘀”的提示音后，回答该问题。请在规定的时间内完成。" promptaudio="area_22_audio.mp3" promptaudioseconds="0" index="8" guid="c60bec1285e148249c4cfb9a88d21d29" times="1" presubmitmaxseconds="0" backgroundaudio="area_22_audio.mp3" backgroundaudioseconds="22">
+      <questions>
+        <question guid="e297f1337c6240299d5527edb6a73766" title="" prompt="听第一段对话，回答两个问题。现在你有十秒钟的阅题时间。" promptaudio="e297f1337c6240299d5527edb6a73766_PromptAudio.mp3" promptaudioseconds="9" text="" image="" audio="e297f1337c6240299d5527edb6a73766_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="2" prepareseconds="10" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="W: Hi, John. Where did you go on summer holiday?&#xD;&#xA;M: I went to Shanghai for traveling.&#xD;&#xA;W: Did you go alone?&#xD;&#xA;M: No, I went with my cousin, Mike.&#xD;&#xA;W: Oh, yes, I know him. Where did you stay? In the hotel?&#xD;&#xA;M: No, at my uncle's house.&#xD;&#xA;W: Did you have a good time?&#xD;&#xA;M: Yes, it's really a good place to go." answerseconds="8" waitseconds="0" score="4">
+          <contents>
+            <content guid="9142901534724c68b7b2e6a9c556bb5f" text="When did John go to Shanghai? &#xD;&#xA;(Last week/On winter holiday/On summer holiday)" image="" audio="9142901534724c68b7b2e6a9c556bb5f_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="10" answerseconds="8" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="1" choosetype="1" layout="1" resourcetype="1" score="2" presubmitmaxseconds="0">
+              <score content="2" />
+              <refrencetexts>
+                <refrencetext index="0" guid="af6c9bbe3dfe4ce59e26598959c8faba" content="On summer holiday." />
+                <refrencetext index="1" guid="e2af060fc9c94d68b8657246b86efecb" content="John went to Shanghai on summer holiday." />
+                <refrencetext index="2" guid="ed250d9fea124be3ba517ce1ef7aa7a0" content="He went to Shanghai on summer holiday." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="23596f4d7187420585176e3b9087246f" content="On summer holiday." audio="" audioseconds="0" />
+                <answer index="1" guid="9bd3f3efe09a4b1b89b87ad61fea2adc" content="John went to Shanghai on summer holiday." audio="" audioseconds="0" />
+                <answer index="2" guid="fd3ce23ee8104d0792c0d3bb8b64104b" content="He went to Shanghai on summer holiday." audio="" audioseconds="0" />
+              </answers>
+            </content>
+            <content guid="b281b9d9f4114f1183ae6357f104a469" text="Who did John go with?  &#xD;&#xA;(Mike/Cara/Helen) " image="" audio="b281b9d9f4114f1183ae6357f104a469_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="10" answerseconds="8" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="2" choosetype="1" layout="1" resourcetype="1" score="2" presubmitmaxseconds="0">
+              <score content="2" />
+              <refrencetexts>
+                <refrencetext index="0" guid="05853c4c3e884f1eaa63a83379d9e8d7" content="Mike." />
+                <refrencetext index="1" guid="158657802b41459d9c2a789783727463" content="John went there with Mike." />
+                <refrencetext index="2" guid="c744927ed6934b65882852102a162b2b" content="John went with Mike." />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="0" guid="556803f73fd742ed886ecbdf06588b5d" content="Mike." audio="" audioseconds="0" />
+                <answer index="1" guid="7c09e0ccc9c54df280d39a9255ab6945" content="John went there with Mike." audio="" audioseconds="0" />
+                <answer index="2" guid="8281f8b2662d4ac48cbacbb5c165d297" content="John went with Mike." audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+    <area type="24" title="九、单词音标认读" prompt="根据单词音标认读下列单词。" promptaudio="area_24_audio.mp3" promptaudioseconds="0" index="9" guid="6059cd461881476a93223d98eb73fe02" times="1" presubmitmaxseconds="0" backgroundaudio="area_24_audio.mp3" backgroundaudioseconds="7">
+      <questions>
+        <question guid="d8cdf944290743ffadd0c54fbc34a52b" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" tips="" tipsaudio="" tipsaudioseconds="0" index="1" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="0" waitseconds="0" score="0.5">
+          <contents>
+            <content guid="ed2623d09eb24e99985e65f862d4665b" text="[fri:]" image="" audio="ed2623d09eb24e99985e65f862d4665b_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="free" index="1" choosetype="1" layout="1" resourcetype="1" score="0.5" presubmitmaxseconds="0">
+              <score content="0.5" />
+              <refrencetexts>
+                <refrencetext index="1" guid="b5d8f51c2dd24de8a8f277885c5c3c7f" content="free" />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="1" guid="8640e2ffde0e4ae881cace053fda8b39" content="free" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+        <question guid="745a6e1756734b838ea7a1d53b270a27" title="" prompt="" promptaudio="" promptaudioseconds="0" text="" image="" audio="" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" tips="" tipsaudio="" tipsaudioseconds="0" index="2" presubmitmaxseconds="0" newscreen="False" audiotext="" answerseconds="5" waitseconds="0" score="2">
+          <contents>
+            <content guid="305f3952a1074bb4a3e2731ff011f322" text="[keə(r)]" image="" audio="305f3952a1074bb4a3e2731ff011f322_Audio.mp3" audioseconds="0" video="" videoseconds="0" times="1" prepareseconds="5" answerseconds="5" tips="" tipsaudio="" tipsaudioSeconds="0" audiotext="" index="2" choosetype="1" layout="1" resourcetype="1" score="2" presubmitmaxseconds="0">
+              <score content="2" />
+              <refrencetexts>
+                <refrencetext index="1" guid="bb2649e9d9bf4810948d0df01cc9d0ea" content="care" />
+              </refrencetexts>
+              <options />
+              <answers>
+                <answer index="1" guid="92223f96251245d59aaa33655df4e59f" content="care" audio="" audioseconds="0" />
+              </answers>
+            </content>
+          </contents>
+        </question>
+      </questions>
+    </area>
+  </areas>
+  <sections />
+</paper>

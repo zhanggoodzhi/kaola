@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <!--[if IE 8]><meta http-equiv="X-UA-Compatible" content="IE=8" /><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+
+    <title>悠悠考拉网</title>
+    <link rel="icon" href="http://cdn.uukaola.com/web/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://cdn.uukaola.com/web/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/css/ng-table.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/css/loading-spinner.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/css/ngToaster.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/lib/cropper/cropper.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/css/cropper.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/lib/datepicker/daterangepicker.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/lib/video-js-5.11.4/video-js.min.css" />
+    <link rel="stylesheet" type="text/css" href="/web/kaola/css/app.css" />
+    <link rel="stylesheet" type="text/css" href="/web/kaola/css/sidemenu.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/lib/uploadify/uploadify.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/lib/jquery-custom-content-scroller/jquery.mCustomScrollbar.css" />
+    <script src="/web/lib/utility.js"></script>
+    <!--[if IE 8]>
+            <link rel="stylesheet" type="text/css" href="http://cdn.uukaola.com/web/kaola/css/app_ie8.css" />
+    <![endif]-->
+    <!--[if IE 8]>
+            <script src="http://cdn.uukaola.com/web/lib/compatible/compatibleBundle.js"></script>
+    <![endif]-->
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?187f62995e0a7c11e813f2a02ac5d129";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+
+        function fixedDocumentTitle() {
+            var originalTitle = '悠悠考拉网';
+            if (getIEVersion() < 11) {
+                document.title = originalTitle;
+                document.attachEvent('onpropertychange', function (evt) {
+                    evt = evt || window.event;
+                    if (evt.propertyName === 'title' && document.title !== originalTitle) {
+                        setTimeout(function () {
+                            document.title = originalTitle;
+                        }, 1);
+                    }
+                });
+            }
+        }
+        fixedDocumentTitle();
+    </script>
+
+
+
+
+</head>
+
+
+<!--[if lt IE 8]>
+  <body>
+    <div class="center-block" style="width:440px;">
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            您的浏览器版本太低, 无法正常使用本系统
+        </div>
+        <p>你可以下载：</p>
+        <ul style="list-style:none;float:left;padding:10px;">
+            <li style="float:left;display:block;margin-right:80px;text-align:center;"><a href="https://www.mozilla.org/zh-CN/firefox/new/"><img src="img/firefox.jpg" alt="火狐浏览器" class="img-circle"></img><br/>火狐浏览器</a></li>
+            <li id="achrome" style="float:left;display:block;margin-right:80px;text-align:center;"><a href="http://sw.bos.baidu.com/sw-search-sp/software/29cd900ea7d/ChromeStandalone_50.0.2661.102_Setup.exe"><img src="img/chrome.jpg" alt="Chrome浏览器" class="img-circle"></img><br/>Chrome浏览器</a></li>
+            <li style="float:left;display:block;text-align:center;"><a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie"><img src="img/ie11.jpg" alt="IE11浏览器" class="img-circle"></img><br/>IE 11</a></li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+    if ((navigator.platform == "Win32") || (navigator.platform == "Windows"))
+    {
+        var sUserAgent = navigator.userAgent;
+
+        if (sUserAgent.indexOf("Windows NT 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1 || sUserAgent.indexOf("Windows NT 5.1") > -1 || sUserAgent.indexOf("Windows XP") > -1)
+        {
+            var ele_achrome = document.getElementById('achrome');
+            ele_achrome.parentNode.removeChild(ele_achrome);
+        }
+    }
+    </script>
+  </body>
+<![endif]-->
+<!--[if (!IE)|(gte IE 8)]><!-->
+
+<body ng-controller="MainCtrl" style="padding: 0;min-width: 1000px;min-height: 600px;" ng-class="{true:'login_body'}[(AuthService.StandaloneViewShown()==true)]">
+    <script src="http://cdn.uukaola.com/web/lib/require.min.js" data-main="/web/kaola/starter.js"></script>
+
+    <div class="container-fluid" style="display:none;height:100%;" ng-show="(AuthService.MainPageViewShown()==true)" ng-class="{true:'main-display',false:'main-hide'}[(AuthService.MainPageViewShown()==true)]">
+        <div id="div_header_kaola" ng-show="isAuth()" class="row" style="width:100%; height:54px; padding: 0 34px 0 0;color:#ffffff; background-color:#178ec9 ;box-shadow:3px 3px 5px #eaebef;">
+            <div id="navbar" class="navbar-collapse " style="padding-right:0px;">
+                <img style="margin: 6px 10px;" ng-src="http://cdn.uukaola.com/web/img/uukaola.png" />
+
+                <div class="navbar-text navbar-right">
+                    <span style="height: 16px;width:1px;border-left:1px solid #71b5d8;margin:0 10px"></span>
+                    <span ui-sref="logout" class="smallicon icon-tuichu" style="top:2px;height: 16px; font-size: 1.0em; color: #ffffff;"></span>
+                    <span ui-sref="logout" style="cursor: pointer;">退出</span>
+                </div>
+
+                <div id="navbar-helpdocument" class="navbar-text navbar-right" ng-show="AuthService.AuthData().userType==1">
+                    <span style="height: 16px;width:1px;border-left:1px solid #71b5d8;margin:0 10px"></span>
+                    <span onclick="window.open('/web/faq/index.html');" class="smallicon icon-wenhao" style="top:2px;height: 16px;font-size:1.0em;color: #ffffff;"></span>
+                    <span style="cursor: pointer" onclick="window.open('/web/faq/index.html');">帮助文档</span>
+                </div>
+
+                <div id="navbar-personallink" class="navbar-text navbar-right">
+                    <span style="height: 16px;width:1px;border-left:1px solid #71b5d8;margin:0 10px"></span>
+                    <span ui-sref="personal.setting" class="smallicon icon-yonghu" style="top:2px;height: 16px;font-size:1.0em;color: #ffffff;"></span>
+                    <span ui-sref="personal.setting" style="cursor: pointer">个人中心</span>
+                </div>
+
+
+                <div class="navbar-text navbar-right">
+                    <span ng-bind="AuthService.AuthData().nickName" style="cursor:default;display:inline-block;margin-top:1px;"></span>
+
+                </div>
+                <div class="navbar-right" style="margin: 8px 8px;">
+                    <div style="width: 40px; height: 40px; padding:0;overflow:hidden;border:none;border-radius: 500rem; ">
+                        <img class="userImage" alt="个人中心" id="userimage" ng-src="{{ AuthService.AuthData().headPic }}" src="http://cdn.uukaola.com/web/img/defaultHeadPic.png" title="" style="margin:0;width:100%;height:auto; border:none;cursor: default;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar_menu_row" class="row" style="">
+            <div id="sidebar_menu" class="col-xs-1 col-sm-1 col-md-1" style="background-color:#e3eaeb;height:70%;padding:16px 0 0 0;">
+                <div id="div_kaola_sidebar" class="sidebar" style="height:100%;">
+                    <ul class="nav nav-stacked" ng-repeat="item in SlideMenuService.sidebarItems">
+                        <li ng-if="item.type=='menu'" ui-sref-active="active" id="{{ 'slidemenu-li-state-' + item.state}}">
+                            <a class="sidemenu-a"ui-sref-active="active"  ui-sref="{{ item.state }}">
+                                <img class="sidemenu-icon" ng-src="{{GetMenuIcon(item)}}">
+                                <div class="sidemenu-title" ng-bind="item.title"></div>
+                            </a>
+                        </li>
+
+                        <li ng-if="item.type=='module'" ui-sref-active="active">
+                            <a class="sidemenu-module">
+                                <img class="sidemenu-icon" ng-src="{{GetMenuIcon(item)}}">
+                                <div class="sidemenu-title" ng-bind="item.module"></div>
+                            </a>
+                            <a ng-repeat="m in item.menus"ui-sref-active="active"  class="sidemenu-a" ui-sref="{{ m.state }}">
+                                <div class="sidemenu-sub-title" ng-bind="m.title"></div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="div_mainChildView" class="col-xs-11 col-sm-11 col-md-11" style="height:100%;padding:16px;">
+                <div class="row" style="height:100%;">
+                    <div class="" ui-view="mainChildView" style="height:100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="height:100%;" ng-show="AuthService.StandaloneViewShown()==true">
+        <div class="" ui-view="standaloneView" style="height:100%;"></div>
+        <div class="row" style="display:none;position:fixed;bottom:0px;width:100%;height:52px;line-height:52px;z-index:9999;background: url('http://cdn.uukaola.com/web/img/background/login_bg.png');" ng-show="AuthService.StandaloneViewShown()==true" ng-style="{'display':AuthService.StandaloneViewShown()==true?'block':'none'}">
+            <div class="copyright" style="color: #9dd5f3;font-size:12px;">
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">苏ICP备14027754号-3</a> <a href="http://www.chivox.com" target="_blank">苏州驰声信息科技有限公司 Copyright ©2016-2017 All Rights Reserved</a>
+
+                <span id="kx_verify"></span>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <script type="text/ng-template" id="commonModalContent.html">
+            <div id="ConfirmDialog" z-index="999">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"></button>
+                        <h5 class="modal-title">{{DialogTitle}}</h5>
+                    </div>
+                    <div class="modal-body common-dialog-body" style="display: table;">
+                        <span class="">
+                            <img src="http://cdn.uukaola.com/web/img/dialog/confirm.png" />
+                        </span>
+                        <span class="modal-body-message">{{DialogMessage}}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-commonDialog button-commonDialog-yes" ng-click="ok()">是</button>
+                        <button type="button" class="btn btn-default button-commonDialog button-commonDialog-no" data-dismiss="modal" ng-click="cancel()" style="margin-left:40px;">否</button>
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+    <div>
+        <script type="text/ng-template" id="commonInfoDialog.html">
+            <div id="InfoDialog" z-index="998">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"></button>
+                        <h5 class="modal-title">{{DialogTitle}}</h5>
+                    </div>
+                    <div class="modal-body common-dialog-body" style="display: table;">
+                        <span class="">
+                            <img src="http://cdn.uukaola.com/web/img/dialog/info.png" />
+                        </span>
+                        <span class="modal-body-message">{{DialogMessage}}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-commonDialog button-commonDialog-yes" ng-click="ok()">知道了</button>
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+    <div>
+        <script type="text/ng-template" id="commonWarningDialog.html">
+            <div id="WarningDialog" z-index="998">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"></button>
+                        <h5 class="modal-title">{{DialogTitle}}</h5>
+                    </div>
+                    <div class="modal-body common-dialog-body" style="display: table;">
+                        <span class="">
+                            <img src="http://cdn.uukaola.com/web/img/dialog/warning.png" />
+                        </span>
+                        <span class="modal-body-message">{{DialogMessage}}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-commonDialog button-commonDialog-yes" ng-click="ok()">知道了</button>
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+    <div>
+        <script type="text/ng-template" id="commonErrorDialog.html">
+            <div id="ErrorDialog" z-index="997">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"></button>
+                        <h5 class="modal-title">{{DialogTitle}}</h5>
+                    </div>
+                    <div class="modal-body common-dialog-body" style="display: table;">
+                        <span class="">
+                            <img src="http://cdn.uukaola.com/web/img/dialog/error.png" />
+                        </span>
+                        <span class="modal-body-message">{{DialogMessage}}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-commonDialog button-commonDialog-yes" ng-click="ok()">知道了</button>
+
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+
+
+</body>
+<!--<![endif]-->
+</html>
